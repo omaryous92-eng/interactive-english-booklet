@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grammar 1 MCQ · Unit 1 · Exercises</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+</head>
+<body>
+
+  <!-- Header / Mobile Nav omitted -->
+
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Unit 1</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Grammar 1: MCQ</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">📖 Grammar 1 — Present Simple vs Continuous (MCQ)</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">25 Questions</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 25</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 1 · Grammar 1 MCQ</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // QUESTIONS — EXACTLY AS IN THE BOOKLET (Page 21)
+    const questions = [
+      { type: 'mcq', text: '1. Although she usually ________ her car to work, she ________ the bus this week because her car broke down.', options: ['takes - is taking', 'is taking - takes', 'take - is taking', 'is taking - is taking'], correct: 'a' },
+      { type: 'mcq', text: '2. I ________ the idea of going out tonight. I\'d rather stay in.', options: ['am not liking', 'don\'t like', 'doesn\'t like', 'not like'], correct: 'b' },
+      { type: 'mcq', text: '3. Be quiet! I ________ what the teacher is explaining.', options: ['concentrate', 'am concentrating', 'concentrating', 'concentrates'], correct: 'b' },
+      { type: 'mcq', text: '4. He usually ________ very calm, but today he ________ strangely nervous.', options: ['is - behaves', 'behaves - is behaving', 'is - is behaving', 'behaves - behaves'], correct: 'c' },
+      { type: 'mcq', text: '5. My mom ________ in a bank, but she ________ from home this month.', options: ['is working - works', 'works - is working', 'working - is working', 'works - works'], correct: 'b' },
+      { type: 'mcq', text: '6. Why ________ you ________ your bag? We\'re not leaving yet.', options: ['are - packing', 'do - pack', 'did - pack', 'are - pack'], correct: 'a' },
+      { type: 'mcq', text: '7. I ________ the meeting starts at 9, but I ________ if that\'s changed.', options: ['think - don\'t know', 'am thinking - am not knowing', 'thinks - don\'t know', 'think - not know'], correct: 'a' },
+      { type: 'mcq', text: '8. The situation ________ more complicated as we speak.', options: ['gets', 'is getting', 'getting', 'got'], correct: 'b' },
+      { type: 'mcq', text: '9. She always ________ when someone mentions his name.', options: ['is - smile', 'does - smiling', 'is - smiling', 'smiles'], correct: 'd' },
+      { type: 'mcq', text: '10. My cousin ________ in London, but this semester he ________ a course in Paris.', options: ['lives - is taking', 'live - take', 'is living - is taking', 'lives - takes'], correct: 'a' },
+      { type: 'mcq', text: '11. I ________ it\'s a good idea to confront him now. Let\'s wait until he calms down.', options: ['am thinking', 'think', 'thinking', 'thinks'], correct: 'b' },
+      { type: 'mcq', text: '12. He always ________ others during discussions, and it\'s quite disrespectful.', options: ['is - interrupt', 'does - interrupt', 'is - interrupting', 'interrupts'], correct: 'd' },
+      { type: 'mcq', text: '13. While most people ________ the company\'s decision, a few employees ________ openly.', options: ['supports - complain', 'support - are complaining', 'support - complain', 'are supporting - complain'], correct: 'b' },
+      { type: 'mcq', text: '14. My professor ________ lectures on Mondays, but this semester she ________ on Fridays instead.', options: ['gives - gives', 'gives - is giving', 'is giving - gives', 'give - is giving'], correct: 'b' },
+      { type: 'mcq', text: '15. I ________ more aware of my screen time lately, so I ________ my phone less.', options: ['am becoming - use', 'become - am using', 'am becoming - am using', 'become - use'], correct: 'a' },
+      { type: 'mcq', text: '16. My parents ________ that I\'m wasting my time, but they ________ how much this matters to me.', options: ['are saying - don\'t understand', 'say - don\'t understand', 'say - aren\'t understanding', 'are saying - aren\'t understanding'], correct: 'b' },
+      { type: 'mcq', text: '17. Look at that! He ________ one of the exam questions in the group chat!', options: ['sends', 'is sending', 'send', 'was sending'], correct: 'b' },
+      { type: 'mcq', text: '18. Even though she usually ________ very confident, she ________ quite shy today.', options: ['is - is being', 'acts - is acting', 'is - is acting', 'acts - acts'], correct: 'c' },
+      { type: 'mcq', text: '19. He ________ not usually ________ attention in class, but today he seems really focused.', options: ['does - pay', 'does - paying', 'is - paying', 'do - pay'], correct: 'a' },
+      { type: 'mcq', text: '20. I ________ this job offer more seriously than any other I\'ve received.', options: ['take', 'am taking', 'taking', 'takes'], correct: 'a' },
+      { type: 'mcq', text: '21. I ________ she\'s lying, but I\'m saying nothing.', options: ['am knowing', 'know', 'knows', 'knowing'], correct: 'b' },
+      { type: 'mcq', text: '22. The students ________ usually ________ in the library at 8 a.m.', options: ['are - studying', 'do - study', 'study', 'studying'], correct: 'c' },
+      { type: 'mcq', text: '23. My sister ________ hating loud music, especially early in the morning.', options: ['is', 'does', 'hates', 'is hating'], correct: 'c' },
+      { type: 'mcq', text: '24. We ________ our grandparents every weekend.', options: ['are visiting', 'visit', 'visits', 'visiting'], correct: 'b' },
+      { type: 'mcq', text: '25. Why ________ you always ________ about the homework?', options: ['are - complaining', 'do - complain', 'are - complain', 'do - complaining'], correct: 'a' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
