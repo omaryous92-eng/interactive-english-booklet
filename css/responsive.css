@@ -1,0 +1,169 @@
+/* ============================================================
+   responsive.css
+   Breakpoints: Mobile, Tablet, Desktop
+   ============================================================ */
+
+/* ---------- Large Screens (1440px+) ---------- */
+@media (min-width: 1440px) {
+  .container {
+    max-width: var(--container-wide);
+  }
+  
+  .grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ---------- Desktop (1024px - 1439px) ---------- */
+@media (max-width: 1024px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---------- Tablet (768px - 1023px) ---------- */
+@media (max-width: 768px) {
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+  
+  .section {
+    padding: var(--spacing-8) 0;
+  }
+  
+  .container {
+    padding: 0 var(--spacing-4);
+  }
+  
+  .card {
+    padding: var(--spacing-4);
+  }
+  
+  .flip-card-front,
+  .flip-card-back {
+    min-height: 160px;
+    padding: var(--spacing-4);
+  }
+  
+  .tabs {
+    gap: var(--spacing-1);
+  }
+  
+  .tab {
+    padding: var(--spacing-2) var(--spacing-3);
+    font-size: var(--font-size-xs);
+  }
+  
+  .btn {
+    padding: var(--spacing-2) var(--spacing-4);
+    font-size: var(--font-size-xs);
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .btn-lg {
+    padding: var(--spacing-3) var(--spacing-6);
+  }
+  
+  .btn-sm {
+    padding: var(--spacing-1) var(--spacing-3);
+  }
+  
+  .unit-card .unit-title {
+    font-size: var(--font-size-lg);
+  }
+  
+  .logo {
+    font-size: var(--font-size-base);
+  }
+  .logo .sub {
+    display: none;
+  }
+}
+
+/* ---------- Mobile Small (up to 480px) ---------- */
+@media (max-width: 480px) {
+  .site-header {
+    height: 60px;
+  }
+  
+  .mobile-nav {
+    top: 60px;
+  }
+  
+  .main-content {
+    padding-top: 60px;
+  }
+  
+  .flip-card-front,
+  .flip-card-back {
+    min-height: 140px;
+    padding: var(--spacing-3);
+    font-size: var(--font-size-sm);
+  }
+  
+  .card-title {
+    font-size: var(--font-size-base);
+  }
+  
+  .text-3xl {
+    font-size: var(--font-size-2xl);
+  }
+  .text-2xl {
+    font-size: var(--font-size-xl);
+  }
+  .text-xl {
+    font-size: var(--font-size-lg);
+  }
+  
+  .breadcrumbs {
+    font-size: var(--font-size-xs);
+  }
+}
+
+/* ---------- Print ---------- */
+@media print {
+  .site-header,
+  .mobile-nav,
+  .nav-links,
+  .hamburger {
+    display: none !important;
+  }
+  
+  .main-content {
+    padding-top: 0 !important;
+  }
+  
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #ddd;
+  }
+  
+  .flip-card {
+    break-inside: avoid;
+  }
+  
+  .flip-card-inner {
+    transform: none !important;
+  }
+  
+  .flip-card-back {
+    transform: none !important;
+    position: relative !important;
+  }
+  
+  .flip-card-front {
+    position: relative !important;
+    display: none !important;
+  }
+  
+  .flip-card.flipped .flip-card-inner {
+    transform: none !important;
+  }
+}
