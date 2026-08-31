@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phrasal Verbs Mixed · Unit 1 · Exercises</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+</head>
+<body>
+
+  <!-- Header / Mobile Nav omitted -->
+
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Unit 1</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Phrasal Verbs: Mixed</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">🧩 Phrasal Verbs &amp; Idioms — Mixed Exercises</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">15 Questions</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 15</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 1 · Phrasal Verbs Mixed</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // QUESTIONS — EXACTLY AS IN THE BOOKLET (Pages 18-19)
+    const questions = [
+      { type: 'error', text: '1. She burst <span class="error-word">on</span> laughing when she saw the funny video.', correct: 'out' },
+      { type: 'error', text: '2. I tried to work, but I kept getting <span class="error-word">off</span> the problem.', correct: 'stuck on' },
+      { type: 'error', text: '3. He fell out <span class="error-word">on</span> his best friend over something silly.', correct: 'with' },
+      { type: 'error', text: '4. I was so happy I could have <span class="error-word">stood up</span> for joy.', correct: 'jumped' },
+      { type: 'error', text: '5. That smell is starting to <span class="error-word">burst</span> under my skin.', correct: 'get' },
+      { type: 'error', text: '6. He really gets under my <span class="error-word">joy</span> when he makes that sound.', correct: 'skin' },
+      { type: 'error', text: '7. I was in <span class="error-word">laugh</span> when I fell off the bike.', correct: 'agony' },
+      { type: 'error', text: '8. She took my gift and <span class="error-word">get</span> for granted it.', correct: 'took' },
+      { type: 'fill', text: '9. She ________ when she couldn\'t find her keys.', correct: 'burst into tears' },
+      { type: 'fill', text: '10. He and his brother ________ over money.', correct: 'fell out' },
+      { type: 'fill', text: '11. That noise is starting to ________ me.', correct: 'drive crazy' },
+      { type: 'fill', text: '12. I ________ the party and went home.', correct: 'got stuck at' },
+      { type: 'fill', text: '13. The crowd ________ when the band started playing.', correct: 'jumped for joy' },
+      { type: 'fill', text: '14. She ________ her nerves before the interview.', correct: 'lost for words' },
+      { type: 'fill', text: '15. He ________ his old habits after starting a new job.', correct: 'got rid of' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
