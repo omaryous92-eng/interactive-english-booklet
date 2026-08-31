@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poetry · Interactive E-Book</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../css/colors.css">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/navigation.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/animations.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header / Mobile Nav omitted -->
+
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <!-- Breadcrumbs -->
+        <nav class="breadcrumbs">
+          <a href="../index.html">Home</a>
+          <span class="separator"> › </span>
+          <span class="current">Poetry</span>
+        </nav>
+
+        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
+          <h1 class="text-3xl" style="color: var(--color-primary);">📝 Poetry</h1>
+          <p class="text-lg" style="color: var(--color-text-secondary); max-width: 700px; margin-top: var(--spacing-2);">
+            Literary terms, Romanticism, and analysis of two major poems.
+          </p>
+        </div>
+
+        <div class="grid grid-2" style="gap: var(--spacing-6);">
+
+          <a href="literary-terms.html" class="unit-card" style="border-left-color: var(--color-primary);">
+            <div class="unit-number">🔍 Literary Terms</div>
+            <div class="unit-title" style="font-size: var(--font-size-lg);">Figures of Speech</div>
+            <div class="unit-description">Personification, Simile, Metaphor, Contrast, Hyperbole, Rhyme Scheme, Alliteration, Repetition</div>
+          </a>
+
+          <a href="romanticism.html" class="unit-card" style="border-left-color: var(--color-secondary);">
+            <div class="unit-number">🎨 Romanticism</div>
+            <div class="unit-title" style="font-size: var(--font-size-lg);">Overview &amp; Wordsworth</div>
+            <div class="unit-description">The Romantic era, Wordsworth's concept of poetry, biography.</div>
+          </a>
+
+          <a href="my-heart-leaps-up.html" class="unit-card" style="border-left-color: var(--color-accent-2);">
+            <div class="unit-number">🌅 Poem 1</div>
+            <div class="unit-title" style="font-size: var(--font-size-lg);">"My Heart Leaps Up"</div>
+            <div class="unit-description">William Wordsworth — Vocabulary, paraphrase, analysis, literary terms.</div>
+          </a>
+
+          <a href="if-poem.html" class="unit-card" style="border-left-color: var(--color-accent-1);">
+            <div class="unit-number">🌟 Poem 2</div>
+            <div class="unit-title" style="font-size: var(--font-size-lg);">"If—"</div>
+            <div class="unit-description">Rudyard Kipling — Vocabulary, paraphrase, analysis, literary terms.</div>
+          </a>
+
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Poetry</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="poetry.js"></script>
+
+</body>
+</html>
