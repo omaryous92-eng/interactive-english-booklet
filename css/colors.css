@@ -1,0 +1,43 @@
+/* ============================================================
+   colors.css
+   Color Palette - Interactive E-Book
+   ============================================================ */
+
+:root {
+  /* ---------- Primary & Secondary ---------- */
+  --color-primary: #F26522;
+  --color-secondary: #FFB830;
+  
+  /* ---------- Accents ---------- */
+  --color-accent-1: #7C5CFC;
+  --color-accent-2: #EA580C;
+  
+  /* ---------- Backgrounds ---------- */
+  --color-bg: #FCF8F2;
+  --color-surface: #FFFFFF;
+  
+  /* ---------- Text ---------- */
+  --color-text-primary: #0D1326;
+  --color-text-secondary: #6E7687;
+  --color-text-inverse: #FFFFFF;
+  --color-text-muted: #9BA3B5;
+  
+  /* ---------- Gradients ---------- */
+  --gradient-header: linear-gradient(135deg, #F26522 0%, #FFB830 100%);
+  --gradient-active: linear-gradient(135deg, #FA6E28 0%, #E05315 100%);
+  --gradient-accent: linear-gradient(135deg, #7C5CFC 0%, #5B3FDB 100%);
+  
+  /* ---------- Status / Utility ---------- */
+  --color-success: #34C759;
+  --color-error: #FF3B30;
+  --color-warning: #FF9500;
+  --color-info: #5AC8FA;
+  
+  /* ---------- Borders & Dividers ---------- */
+  --color-border: #E8E9ED;
+  --color-divider: #EA580C;
+  
+  /* ---------- Shadows ---------- */
+  --shadow-color: rgba(13, 19, 38, 0.08);
+  --shadow-color-dark: rgba(13, 19, 38, 0.16);
+}
