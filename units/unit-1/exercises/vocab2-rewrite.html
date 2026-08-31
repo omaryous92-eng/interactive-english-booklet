@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vocab 2 Rewriting · Unit 1 · Exercises</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+</head>
+<body>
+
+  <!-- Header / Mobile Nav omitted -->
+
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Unit 1</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Vocab 2: Rewriting</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">🔄 Vocabulary 2 — Rewriting</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">10 Questions</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 10</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 1 · Vocab 2 Rewriting</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // QUESTIONS — EXACTLY AS IN THE BOOKLET (Page 12)
+    const questions = [
+      { type: 'fill', text: '1. The plane was late because of the storm. (delayed)', correct: 'The plane was delayed because of the storm.' },
+      { type: 'fill', text: '2. He shows great emotional care toward others. (sensitive)', correct: 'He is sensitive toward others.' },
+      { type: 'fill', text: '3. She stayed peaceful even during the argument. (calm)', correct: 'She remained calm even during the argument.' },
+      { type: 'fill', text: '4. His speech really bothered the audience. (annoying)', correct: 'His speech was really annoying to the audience.' },
+      { type: 'fill', text: '5. The boy shouted without stopping for five minutes. (constantly)', correct: 'The boy shouted constantly for five minutes.' },
+      { type: 'fill', text: '6. She was full of joy after hearing the good news. (overjoyed)', correct: 'She was overjoyed after hearing the good news.' },
+      { type: 'fill', text: '7. He has a very strong and aggressive personality. (bad-tempered)', correct: 'He has a very bad-tempered personality.' },
+      { type: 'fill', text: '8. You can depend on her because she always keeps her word. (reliable)', correct: 'She is reliable because she always keeps her word.' },
+      { type: 'fill', text: '9. The classroom was filled with students and there was no space. (packed)', correct: 'The classroom was packed with students.' },
+      { type: 'fill', text: '10. Even though things were hard, he remained hopeful. (optimistic)', correct: 'He remained optimistic even though things were hard.' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
