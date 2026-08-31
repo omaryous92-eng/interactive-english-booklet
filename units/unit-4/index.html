@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit 4 · City Living · Interactive E-Book</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../css/colors.css">
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/navigation.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/animations.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a href="index.html" class="active">Unit 4</a>
+        <a href="../../novel/index.html">Novel</a>
+        <a href="../../poetry/index.html">Poetry</a>
+        <a href="../../skills/index.html">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../unit-1/index.html">Unit 1: Jump for Joy</a>
+      <a href="../unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../unit-3/index.html">Unit 3: Role Models</a>
+      <a href="index.html" class="active">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="../../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../../skills/index.html">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <!-- Breadcrumbs -->
+        <nav class="breadcrumbs">
+          <a href="../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <span class="current">Unit 4: City Living</span>
+        </nav>
+
+        <!-- Unit Header -->
+        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
+          <h1 class="text-3xl" style="color: var(--color-primary);">🏙️ Unit 4: City Living</h1>
+          <p class="text-lg" style="color: var(--color-text-secondary); max-width: 700px; margin-top: var(--spacing-2);">
+            Vocabulary, Idioms, and Grammar — Future Tenses &amp; Countable/Uncountable.
+          </p>
+        </div>
+
+        <!-- Sub-section Cards -->
+        <div class="grid grid-2" style="gap: var(--spacing-6);">
+
+          <a href="vocabulary.html" class="unit-card" style="border-left-color: var(--color-primary);">
+            <div class="unit-number">📚 Vocabulary</div>
+            <div class="unit-title" style="font-size: var(--font-size-lg);">56 Words &amp; 11 Idioms</div>
+            <div class="unit-description">
+              rural, commercial, identical, rapid, resident, block of flats, pace, shortage, entertainment, commute, outskirts, inhabitant, historical, devote, walkable, pedestrian, housing, linear, approach, growth, residential, reduce, get around, expand, modernist, propose, raise, spread, claim, end up, humanistic, course, continually, uninviting, demand, fence, unfenced, low-rise, suburb, district, industrial, estate, bike lane, pavement, crossroads, roadworks, junction, pedestrian crossing, pedestrian zone, speed camera, speed limit, facilities, venue, urbanisation, boundary, ghost town + 11 idioms
+            </div>
+            <span class="unit-badge">56 words</span>
+            <span class="unit-badge" style="background: var(--color-secondary); color: #0D1326;">11 idioms</span>
+          </a>
+
+          <a href="grammar-1.html" class="unit-card" style="border-left-color: var(--color-accent-2);">
+            <div class="unit-number">📖 Grammar 1</div>
+            <div class="unit-title" style="font-size: var(--font-size-lg);">Future Tenses</div>
+            <div class="unit-description">
+              will, going to, present continuous for future, future continuous, future perfect, time clauses (when, as soon as, until, after, before)
+            </div>
+            <span class="unit-badge" style="background: var(--color-accent-2);">Rules + Examples</span>
+          </a>
+
+          <a href="grammar-2.html" class="unit-card" style="border-left-color: var(--color-accent-1);">
+            <div class="unit-number">📖 Grammar 2</div>
+            <div class="unit-title" style="font-size: var(--font-size-lg);">Countable / Uncountable</div>
+            <div class="unit-description">
+              Countable vs uncountable nouns, quantifiers (much/many, some/any, a few/a little, etc.), nouns that can be both, units of measurement
+            </div>
+            <span class="unit-badge" style="background: var(--color-accent-1);">Rules + Examples</span>
+          </a>
+
+        </div>
+
+        <!-- Footer -->
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 4: City Living</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="../../js/main.js"></script>
+  <script src="../../js/navigation.js"></script>
+  <script src="unit.js"></script>
+
+</body>
+</html>
