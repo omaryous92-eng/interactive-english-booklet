@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vocabulary 1 · Unit 1 · Interactive E-Book</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../css/colors.css">
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/navigation.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/animations.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="index.html" class="active">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+        <a href="../../novel/index.html">Novel</a>
+        <a href="../../poetry/index.html">Poetry</a>
+        <a href="../../skills/index.html">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="index.html">Unit 1: Jump for Joy</a>
+      <a href="../unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="../../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../../skills/index.html">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <!-- Breadcrumbs -->
+        <nav class="breadcrumbs">
+          <a href="../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Unit 1</a>
+          <span class="separator"> › </span>
+          <span class="current">Vocabulary 1</span>
+        </nav>
+
+        <!-- Page Header -->
+        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
+          <h1 class="text-2xl" style="color: var(--color-primary);">📚 Vocabulary 1</h1>
+          <p class="text-base" style="color: var(--color-text-secondary);">Tap any card to flip it and see the definition + example. Learn at your own pace!</p>
+          <div style="margin-top: var(--spacing-3);">
+            <span class="badge badge-primary">28 words</span>
+            <span class="badge badge-accent">Flip to learn</span>
+          </div>
+        </div>
+
+        <!-- Vocabulary Grid -->
+        <div class="grid grid-3" id="vocabGrid">
+
+          <!-- Each card: data-word, data-definition, data-example -->
+          <div class="flip-card" data-word="upset" data-definition="make sb feel worried and/or angry" data-example="The bad news upset her and she couldn't stop thinking about it.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">upset</div>
+              <div class="flip-card-back">
+                <div class="definition">make sb feel worried and/or angry</div>
+                <div class="example">"The bad news upset her and she couldn't stop thinking about it."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="behaviour" data-definition="the way that sb acts" data-example="His behaviour in class is very polite and respectful.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">behaviour</div>
+              <div class="flip-card-back">
+                <div class="definition">the way that sb acts</div>
+                <div class="example">"His behaviour in class is very polite and respectful."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="sight" data-definition="sth that you see" data-example="The sight of the mountains at sunrise was amazing.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">sight</div>
+              <div class="flip-card-back">
+                <div class="definition">sth that you see</div>
+                <div class="example">"The sight of the mountains at sunrise was amazing."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="wonder" data-definition="ask yourself; want to know" data-example="I wonder if it will rain tomorrow.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">wonder</div>
+              <div class="flip-card-back">
+                <div class="definition">ask yourself; want to know</div>
+                <div class="example">"I wonder if it will rain tomorrow."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="bother" data-definition="to make sb angry or upset or worried" data-example="The loud noise bothered me while I was studying.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">bother</div>
+              <div class="flip-card-back">
+                <div class="definition">to make sb angry or upset or worried</div>
+                <div class="example">"The loud noise bothered me while I was studying."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="context" data-definition="the situation in which sth happens and which can explain it" data-example="You need to read the sentence in context to understand it.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">context</div>
+              <div class="flip-card-back">
+                <div class="definition">the situation in which sth happens and which can explain it</div>
+                <div class="example">"You need to read the sentence in context to understand it."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="supply" data-definition="an amount of sth that is available and people can use" data-example="The village has a limited supply of clean water.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">supply</div>
+              <div class="flip-card-back">
+                <div class="definition">an amount of sth that is available and people can use</div>
+                <div class="example">"The village has a limited supply of clean water."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="public transport" data-definition="the system of buses, trains, etc. that can be used by the public in a specific place" data-example="I use public transport to go to school every day.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">public transport</div>
+              <div class="flip-card-back">
+                <div class="definition">the system of buses, trains, etc. that can be used by the public in a specific place</div>
+                <div class="example">"I use public transport to go to school every day."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="interruption" data-definition="the act of stopping sth for a short period of time" data-example="There was an interruption during the exam because of a fire alarm.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">interruption</div>
+              <div class="flip-card-back">
+                <div class="definition">the act of stopping sth for a short period of time</div>
+                <div class="example">"There was an interruption during the exam because of a fire alarm."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="bug" data-definition="annoy, irritate" data-example="His constant talking really bugs me.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">bug</div>
+              <div class="flip-card-back">
+                <div class="definition">annoy, irritate</div>
+                <div class="example">"His constant talking really bugs me."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="decade" data-definition="a period of ten years" data-example="She has lived in Cairo for over a decade.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">decade</div>
+              <div class="flip-card-back">
+                <div class="definition">a period of ten years</div>
+                <div class="example">"She has lived in Cairo for over a decade."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="research" data-definition="the study of sth in order to discover new information" data-example="The students did research on climate change.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">research</div>
+              <div class="flip-card-back">
+                <div class="definition">the study of sth in order to discover new information</div>
+                <div class="example">"The students did research on climate change."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="condition" data-definition="a disease or medical problem" data-example="He has a heart condition that needs regular treatment.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">condition</div>
+              <div class="flip-card-back">
+                <div class="definition">a disease or medical problem</div>
+                <div class="example">"He has a heart condition that needs regular treatment."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="misophonia" data-definition="a medical condition in which certain sounds cause a strong negative reaction" data-example="Her misophonia makes it hard for her to eat in noisy places.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">misophonia</div>
+              <div class="flip-card-back">
+                <div class="definition">a medical condition in which certain sounds cause a strong negative reaction</div>
+                <div class="example">"Her misophonia makes it hard for her to eat in noisy places."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="respond" data-definition="react to sth by saying or doing sth" data-example="She didn't respond to my message immediately.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">respond</div>
+              <div class="flip-card-back">
+                <div class="definition">react to sth by saying or doing sth</div>
+                <div class="example">"She didn't respond to my message immediately."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="yawn" data-definition="open your mouth wide and take in a lot of air, when you are tired or sleepy" data-example="I couldn't stop yawning during the long lecture.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">yawn</div>
+              <div class="flip-card-back">
+                <div class="definition">open your mouth wide and take in a lot of air, when you are tired or sleepy</div>
+                <div class="example">"I couldn't stop yawning during the long lecture."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="chew" data-definition="bite food into small pieces with your teeth so that you can eat it" data-example="You should chew your food slowly before swallowing.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">chew</div>
+              <div class="flip-card-back">
+                <div class="definition">bite food into small pieces with your teeth so that you can eat it</div>
+                <div class="example">"You should chew your food slowly before swallowing."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="suffer" data-definition="experience pain" data-example="Many people suffer from allergies in spring.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">suffer</div>
+              <div class="flip-card-back">
+                <div class="definition">experience pain</div>
+                <div class="example">"Many people suffer from allergies in spring."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="benefit" data-definition="a good effect of sth" data-example="One benefit of exercise is better health.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">benefit</div>
+              <div class="flip-card-back">
+                <div class="definition">a good effect of sth</div>
+                <div class="example">"One benefit of exercise is better health."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="prevent" data-definition="stop sb from doing sth or stop sth from happening" data-example="Wearing a seatbelt can prevent serious injuries.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">prevent</div>
+              <div class="flip-card-back">
+                <div class="definition">stop sb from doing sth or stop sth from happening</div>
+                <div class="example">"Wearing a seatbelt can prevent serious injuries."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="amazement" data-definition="extreme surprise" data-example="To my amazement, I got full marks on the test.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">amazement</div>
+              <div class="flip-card-back">
+                <div class="definition">extreme surprise</div>
+                <div class="example">"To my amazement, I got full marks on the test."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="anxiety" data-definition="worry or nervousness about sth that is happening or will happen" data-example="She felt anxiety before her final exam.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">anxiety</div>
+              <div class="flip-card-back">
+                <div class="definition">worry or nervousness about sth that is happening or will happen</div>
+                <div class="example">"She felt anxiety before her final exam."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="despair" data-definition="the feeling that there is no hope and nothing will get better" data-example="He was in despair after failing the competition.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">despair</div>
+              <div class="flip-card-back">
+                <div class="definition">the feeling that there is no hope and nothing will get better</div>
+                <div class="example">"He was in despair after failing the competition."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="embarrassment" data-definition="a feeling of shame and/or shyness" data-example="His embarrassment was clear when he fell in front of everyone.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">embarrassment</div>
+              <div class="flip-card-back">
+                <div class="definition">a feeling of shame and/or shyness</div>
+                <div class="example">"His embarrassment was clear when he fell in front of everyone."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="frustration" data-definition="the state of feeling bad because you cannot achieve what you want" data-example="I felt frustration when the internet stopped working.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">frustration</div>
+              <div class="flip-card-back">
+                <div class="definition">the state of feeling bad because you cannot achieve what you want</div>
+                <div class="example">"I felt frustration when the internet stopped working."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="guilt" data-definition="a feeling of unhappiness you get because you have done sth wrong" data-example="She felt guilt after lying to her friend.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">guilt</div>
+              <div class="flip-card-back">
+                <div class="definition">a feeling of unhappiness you get because you have done sth wrong</div>
+                <div class="example">"She felt guilt after lying to her friend."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="joy" data-definition="a feeling of happiness" data-example="The children shouted with joy when they heard the news.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">joy</div>
+              <div class="flip-card-back">
+                <div class="definition">a feeling of happiness</div>
+                <div class="example">"The children shouted with joy when they heard the news."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="relief" data-definition="a feeling of happiness because sth bad has not happened or has ended" data-example="I felt relief after finishing the difficult test.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">relief</div>
+              <div class="flip-card-back">
+                <div class="definition">a feeling of happiness because sth bad has not happened or has ended</div>
+                <div class="example">"I felt relief after finishing the difficult test."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" data-word="sympathy" data-definition="the understanding that you show when sb else is suffering" data-example="I felt sympathy for the family who lost their home.">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">sympathy</div>
+              <div class="flip-card-back">
+                <div class="definition">the understanding that you show when sb else is suffering</div>
+                <div class="example">"I felt sympathy for the family who lost their home."</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Navigation between sections -->
+        <div style="margin-top: var(--spacing-10); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--spacing-4);">
+          <a href="index.html" class="btn btn-secondary">← Back to Unit 1</a>
+          <a href="vocabulary-2.html" class="btn btn-primary">Next: Vocabulary 2 →</a>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 1 · Vocabulary 1</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ====== SCRIPTS ====== -->
+  <script src="../../js/main.js"></script>
+  <script src="../../js/navigation.js"></script>
+  <script src="unit.js"></script>
+
+</body>
+</html>
