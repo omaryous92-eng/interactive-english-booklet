@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive E-Book · New Close up B2 · First Term</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/colors.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/navigation.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <div class="logo">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </div>
+
+      <!-- Desktop Nav -->
+      <nav class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="units/unit-1/index.html">Unit 1</a>
+        <a href="units/unit-2/index.html">Unit 2</a>
+        <a href="units/unit-3/index.html">Unit 3</a>
+        <a href="units/unit-4/index.html">Unit 4</a>
+        <a href="novel/index.html">Novel</a>
+        <a href="poetry/index.html">Poetry</a>
+        <a href="skills/index.html">Skills</a>
+      </nav>
+
+      <!-- Hamburger -->
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group">
+      <div class="nav-group-title">Main</div>
+      <a href="index.html" class="active">Home</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="units/unit-1/index.html">Unit 1: Jump for Joy</a>
+      <a href="units/unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="units/unit-3/index.html">Unit 3: Role Models</a>
+      <a href="units/unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="skills/index.html">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <!-- Hero -->
+        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
+          <h1 class="text-3xl" style="color: var(--color-primary);">📚 Prep 3 · First Term</h1>
+          <p class="text-lg" style="color: var(--color-text-secondary); max-width: 700px; margin-top: var(--spacing-2);">
+            Interactive E-Book — <strong>New Close up B2</strong>. Tap, flip, learn. All content exactly as the original booklet.
+          </p>
+        </div>
+
+        <!-- Units Grid -->
+        <div class="grid grid-2" style="gap: var(--spacing-6);">
+
+          <!-- Unit 1 -->
+          <a href="units/unit-1/index.html" class="unit-card fade-in fade-in-delay-1">
+            <div class="unit-number">Unit 1</div>
+            <div class="unit-title">Jump for Joy</div>
+            <div class="unit-description">Vocabulary · Emotions &amp; Personality · Phrasal Verbs · Present Simple vs Continuous · Present Perfect</div>
+            <div style="margin-top: var(--spacing-3); display: flex; gap: var(--spacing-2); flex-wrap: wrap;">
+              <span class="unit-badge">28 words</span>
+              <span class="unit-badge" style="background: var(--color-secondary); color: #0D1326;">Grammar</span>
+            </div>
+          </a>
+
+          <!-- Unit 2 -->
+          <a href="units/unit-2/index.html" class="unit-card fade-in fade-in-delay-2">
+            <div class="unit-number">Unit 2</div>
+            <div class="unit-title">Global Culture</div>
+            <div class="unit-description">Vocabulary · Idioms &amp; Collocations · Past Simple vs Continuous · Used to / Would</div>
+            <div style="margin-top: var(--spacing-3); display: flex; gap: var(--spacing-2); flex-wrap: wrap;">
+              <span class="unit-badge">51 words</span>
+              <span class="unit-badge" style="background: var(--color-secondary); color: #0D1326;">Grammar</span>
+            </div>
+          </a>
+
+          <!-- Unit 3 -->
+          <a href="units/unit-3/index.html" class="unit-card fade-in fade-in-delay-3">
+            <div class="unit-number">Unit 3</div>
+            <div class="unit-title">Role Models</div>
+            <div class="unit-description">Vocabulary · Past Perfect · Past Perfect Continuous</div>
+            <div style="margin-top: var(--spacing-3); display: flex; gap: var(--spacing-2); flex-wrap: wrap;">
+              <span class="unit-badge">30+ words</span>
+              <span class="unit-badge" style="background: var(--color-secondary); color: #0D1326;">Grammar</span>
+            </div>
+          </a>
+
+          <!-- Unit 4 -->
+          <a href="units/unit-4/index.html" class="unit-card fade-in fade-in-delay-4">
+            <div class="unit-number">Unit 4</div>
+            <div class="unit-title">City Living</div>
+            <div class="unit-description">Vocabulary · Idioms · Future Tenses · Countable / Uncountable</div>
+            <div style="margin-top: var(--spacing-3); display: flex; gap: var(--spacing-2); flex-wrap: wrap;">
+              <span class="unit-badge">50+ words</span>
+              <span class="unit-badge" style="background: var(--color-secondary); color: #0D1326;">Grammar</span>
+            </div>
+          </a>
+
+        </div>
+
+        <!-- Literature & Skills Row -->
+        <div class="grid grid-3" style="margin-top: var(--spacing-10);">
+
+          <a href="novel/index.html" class="unit-card" style="border-left-color: var(--color-accent-1);">
+            <div class="unit-number">📖 Novel</div>
+            <div class="unit-title" style="font-size: var(--font-size-lg);">A Tale of Two Cities</div>
+            <div class="unit-description">Charles Dickens · Summary · Characters · Themes · Chapter Analysis</div>
+            <span class="unit-badge" style="background: var(--color-accent-1);">14 Chapters</span>
+          </a>
+
+          <a href="poetry/index.html" class="unit-card" style="border-left-color: var(--color-secondary);">
+            <div class="unit-number">📝 Poetry</div>
+            <div class="unit-title" style="font-size: var(--font-size-lg);">Literary Terms &amp; Poems</div>
+            <div class="unit-description">Romanticism · Wordsworth · Kipling · Analysis &amp; Figures of Speech</div>
+            <span class="unit-badge" style="background: var(--color-secondary); color: #0D1326;">2 Poems</span>
+          </a>
+
+          <a href="skills/index.html" class="unit-card" style="border-left-color: var(--color-accent-2);">
+            <div class="unit-number">🎯 Skills</div>
+            <div class="unit-title" style="font-size: var(--font-size-lg);">Reading · Dialogues · Writing</div>
+            <div class="unit-description">5 Passages · 6 Dialogues · Opinion · Descriptive · Narrative</div>
+            <span class="unit-badge" style="background: var(--color-accent-2);">Practice</span>
+          </a>
+
+        </div>
+
+        <!-- Footer -->
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Prep 3 · New Close up B2 · First Term</p>
+          <p style="font-size: var(--font-size-xs); margin-top: var(--spacing-2);">
+            Built with ❤️ for students · All content from the original booklet
+          </p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ====== JAVASCRIPT ====== -->
+  <script src="js/main.js"></script>
+  <script src="js/navigation.js"></script>
+
+</body>
+</html>
