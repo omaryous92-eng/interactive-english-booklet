@@ -6,7 +6,6 @@
   <title>🕵️ Mystery Word · Vocabulary Detective</title>
 
   <style>
-    /* ====== RESET & GLOBAL ====== */
     * {
       margin: 0;
       padding: 0;
@@ -14,7 +13,7 @@
     }
 
     body {
-      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background: #0D1326;
       min-height: 100vh;
       display: flex;
@@ -32,29 +31,11 @@
       width: 100%;
       margin: 20px;
       border: 1px solid rgba(255, 255, 255, 0.06);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(242, 101, 34, 0.1) inset;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
       position: relative;
       overflow: hidden;
     }
 
-    .game-container::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at 30% 40%, rgba(242, 101, 34, 0.03), transparent 70%);
-      animation: bgPulse 8s ease-in-out infinite;
-      pointer-events: none;
-    }
-
-    @keyframes bgPulse {
-      0%, 100% { transform: scale(1); opacity: 0.5; }
-      50% { transform: scale(1.2); opacity: 1; }
-    }
-
-    /* ====== HEADER ====== */
     .game-header {
       display: flex;
       justify-content: space-between;
@@ -73,24 +54,14 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      animation: titleGlow 3s ease-in-out infinite;
     }
-
-    @keyframes titleGlow {
-      0%, 100% { filter: drop-shadow(0 0 20px rgba(242, 101, 34, 0.2)); }
-      50% { filter: drop-shadow(0 0 40px rgba(242, 101, 34, 0.4)); }
-    }
-
-    .game-title span {
-      -webkit-text-fill-color: initial;
-      color: #fff;
-    }
+    .game-title span { -webkit-text-fill-color: initial; color: #fff; }
 
     .score-display {
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255,255,255,0.06);
       padding: 8px 20px;
       border-radius: 100px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255,255,255,0.08);
       display: flex;
       align-items: center;
       gap: 10px;
@@ -98,16 +69,9 @@
       color: #fff;
       font-weight: 600;
     }
+    .score-display .score-number { color: #FFB830; font-size: 24px; font-weight: 800; min-width: 30px; text-align: center; }
 
-    .score-display .score-number {
-      color: #FFB830;
-      font-size: 24px;
-      font-weight: 800;
-      min-width: 30px;
-      text-align: center;
-    }
-
-    /* ====== DETECTIVE ====== */
+    /* Detective */
     .detective-container {
       display: flex;
       justify-content: center;
@@ -115,153 +79,104 @@
       position: relative;
       z-index: 2;
     }
-
     .detective {
       width: 120px;
       height: 120px;
       position: relative;
       animation: detectiveFloat 3s ease-in-out infinite;
     }
-
-    @keyframes detectiveFloat {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-10px) rotate(2deg); }
-    }
+    @keyframes detectiveFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
     .detective .head {
-      width: 80px;
-      height: 80px;
+      width: 80px; height: 80px;
       background: radial-gradient(circle at 40% 35%, #F5D0B8, #D4A88C);
       border-radius: 50%;
       position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      top: 10px; left: 50%; transform: translateX(-50%);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
-
     .detective .hat {
-      width: 90px;
-      height: 35px;
+      width: 90px; height: 35px;
       background: linear-gradient(180deg, #2C3E6B, #1A2A4A);
       border-radius: 100px 100px 0 0;
       position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      top: 0; left: 50%; transform: translateX(-50%);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
-
     .detective .hat-brim {
-      width: 100px;
-      height: 10px;
+      width: 100px; height: 10px;
       background: #2C3E6B;
       border-radius: 50%;
       position: absolute;
-      top: 30px;
-      left: 50%;
-      transform: translateX(-50%);
+      top: 30px; left: 50%; transform: translateX(-50%);
     }
-
-    .detective .eye-left,
-    .detective .eye-right {
-      width: 12px;
-      height: 14px;
+    .detective .eye-left, .detective .eye-right {
+      width: 12px; height: 14px;
       background: #1A2A4A;
       border-radius: 50%;
       position: absolute;
       top: 30px;
       animation: eyeMove 4s ease-in-out infinite;
     }
-
     .detective .eye-left { left: 22px; }
     .detective .eye-right { right: 22px; }
-
     @keyframes eyeMove {
-      0%, 100% { transform: scale(1); }
+      0%,100% { transform: scale(1); }
       25% { transform: scale(1.2); }
       50% { transform: scale(1); }
       75% { transform: scale(0.8); }
     }
-
-    .detective .eye-left::after,
-    .detective .eye-right::after {
+    .detective .eye-left::after, .detective .eye-right::after {
       content: '';
-      width: 4px;
-      height: 4px;
+      width: 4px; height: 4px;
       background: #fff;
       border-radius: 50%;
       position: absolute;
-      top: 3px;
-      left: 4px;
+      top: 3px; left: 4px;
     }
-
     .detective .mouth {
-      width: 18px;
-      height: 8px;
+      width: 18px; height: 8px;
       border-bottom: 3px solid #8B6B5A;
       border-radius: 0 0 50% 50%;
       position: absolute;
-      bottom: 18px;
-      left: 50%;
-      transform: translateX(-50%);
+      bottom: 18px; left: 50%; transform: translateX(-50%);
       animation: mouthMove 2s ease-in-out infinite;
     }
-
-    @keyframes mouthMove {
-      0%, 100% { border-bottom-width: 3px; }
-      50% { border-bottom-width: 5px; }
-    }
-
+    @keyframes mouthMove { 0%,100% { border-bottom-width: 3px; } 50% { border-bottom-width: 5px; } }
     .detective .magnifier {
       position: absolute;
-      bottom: -10px;
-      right: -10px;
+      bottom: -10px; right: -10px;
       font-size: 40px;
       animation: magnifierSwing 3s ease-in-out infinite;
-      filter: drop-shadow(0 4px 15px rgba(242, 101, 34, 0.3));
+      filter: drop-shadow(0 4px 15px rgba(242,101,34,0.3));
     }
-
-    @keyframes magnifierSwing {
-      0%, 100% { transform: rotate(-5deg) scale(1); }
-      50% { transform: rotate(5deg) scale(1.1); }
-    }
+    @keyframes magnifierSwing { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
 
     .detective .thought-bubble {
       position: absolute;
-      top: -30px;
-      right: -30px;
-      background: rgba(255, 255, 255, 0.12);
+      top: -30px; right: -30px;
+      background: rgba(255,255,255,0.12);
       backdrop-filter: blur(10px);
       padding: 6px 14px;
       border-radius: 20px 20px 20px 4px;
       font-size: 14px;
       color: #FFB830;
       font-weight: 600;
-      border: 1px solid rgba(255, 184, 48, 0.15);
+      border: 1px solid rgba(255,184,48,0.15);
       opacity: 0;
       transition: all 0.4s ease;
+      white-space: nowrap;
     }
+    .detective .thought-bubble.show { opacity: 1; }
 
-    .detective .thought-bubble.show {
-      opacity: 1;
-    }
-
-    /* ====== TIMER ====== */
-    .timer-section {
-      margin: 16px 0 24px 0;
-      position: relative;
-      z-index: 2;
-    }
-
+    /* Timer */
+    .timer-section { margin: 16px 0 24px 0; position: relative; z-index: 2; }
     .timer-bar-track {
-      width: 100%;
-      height: 8px;
-      background: rgba(255, 255, 255, 0.06);
+      width: 100%; height: 8px;
+      background: rgba(255,255,255,0.06);
       border-radius: 100px;
       overflow: hidden;
     }
-
     .timer-bar-fill {
       height: 100%;
       background: linear-gradient(90deg, #EA580C, #F26522, #FFB830);
@@ -270,89 +185,53 @@
       transition: width 0.1s linear;
       position: relative;
     }
-
-    .timer-bar-fill::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      animation: shimmer 1s ease-in-out infinite;
-    }
-
-    @keyframes shimmer {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-
-    .timer-bar-fill.warning {
-      background: linear-gradient(90deg, #FF3B30, #EA580C);
-      animation: timerPulse 0.5s ease-in-out infinite;
-    }
-
-    @keyframes timerPulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
+    .timer-bar-fill.warning { background: linear-gradient(90deg, #FF3B30, #EA580C); animation: timerPulse 0.5s ease-in-out infinite; }
+    @keyframes timerPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
 
     .timer-info {
-      display: flex;
-      justify-content: space-between;
+      display: flex; justify-content: space-between;
       margin-top: 8px;
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(255,255,255,0.5);
       font-weight: 500;
     }
-
     .timer-number {
-      font-size: 20px;
-      font-weight: 800;
+      font-size: 20px; font-weight: 800;
       color: #fff;
       transition: color 0.3s;
     }
+    .timer-number.warning { color: #FF3B30; animation: numberPulse 0.5s ease-in-out infinite; }
+    @keyframes numberPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
-    .timer-number.warning {
-      color: #FF3B30;
-      animation: numberPulse 0.5s ease-in-out infinite;
-    }
-
-    @keyframes numberPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-    }
-
-    /* ====== 🔍 CLUES (THE QUESTION) ====== */
+    /* 🔍 CLUES */
     .clues-container {
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255,255,255,0.06);
       border-radius: 20px;
       padding: 24px;
       margin: 16px 0 24px 0;
-      border: 2px solid rgba(255, 184, 48, 0.2);
+      border: 2px solid rgba(255,184,48,0.2);
       position: relative;
       z-index: 2;
-      min-height: 160px;
+      min-height: 180px;
       transition: all 0.5s ease;
-      box-shadow: 0 0 30px rgba(255, 184, 48, 0.05), inset 0 0 30px rgba(255, 184, 48, 0.02);
+      box-shadow: 0 0 30px rgba(255,184,48,0.05);
     }
 
-    .clues-container .clues-header {
+    .clues-header {
       display: flex;
       align-items: center;
       gap: 12px;
       margin-bottom: 16px;
       font-size: 14px;
       font-weight: 700;
-      color: rgba(255, 255, 255, 0.4);
+      color: rgba(255,255,255,0.4);
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      border-bottom: 1px solid rgba(255, 184, 48, 0.08);
+      border-bottom: 1px solid rgba(255,184,48,0.08);
       padding-bottom: 12px;
     }
-
-    .clues-container .clues-header .badge {
-      background: rgba(242, 101, 34, 0.2);
+    .clues-header .badge {
+      background: rgba(242,101,34,0.2);
       color: #F26522;
       padding: 2px 14px;
       border-radius: 100px;
@@ -360,42 +239,26 @@
       font-weight: 600;
     }
 
-    .clues-container .clues-header .icon {
-      font-size: 18px;
-    }
-
-    .clues-container.revealing {
-      animation: clueReveal 0.6s ease;
-    }
-
-    @keyframes clueReveal {
-      0% { transform: scale(0.95); opacity: 0.3; }
-      50% { transform: scale(1.02); opacity: 1; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
     .clue-item {
       font-size: 19px;
-      color: rgba(255, 255, 255, 0.9);
+      color: rgba(255,255,255,0.9);
       padding: 12px 16px;
       border-radius: 12px;
       margin-bottom: 8px;
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255,255,255,0.04);
       opacity: 0;
       transform: translateX(-20px);
       transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       border-left: 3px solid transparent;
     }
-
     .clue-item.visible {
       opacity: 1;
       transform: translateX(0);
       border-left-color: #F26522;
     }
-
     .clue-item .clue-number {
       display: inline-block;
-      background: rgba(242, 101, 34, 0.15);
+      background: rgba(242,101,34,0.15);
       color: #F26522;
       font-weight: 700;
       font-size: 12px;
@@ -404,14 +267,9 @@
       margin-right: 14px;
       letter-spacing: 0.5px;
     }
+    .clue-item .clue-text { font-weight: 500; letter-spacing: 0.3px; color: #fff; }
 
-    .clue-item .clue-text {
-      font-weight: 500;
-      letter-spacing: 0.3px;
-      color: #fff;
-    }
-
-    /* ====== OPTIONS ====== */
+    /* Options */
     .options-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -420,11 +278,10 @@
       position: relative;
       z-index: 2;
     }
-
     .option-btn {
       padding: 16px 20px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 2px solid rgba(255, 255, 255, 0.06);
+      background: rgba(255,255,255,0.04);
+      border: 2px solid rgba(255,255,255,0.06);
       border-radius: 16px;
       color: #fff;
       font-size: 16px;
@@ -434,56 +291,39 @@
       text-align: center;
       position: relative;
       overflow: hidden;
-      letter-spacing: 0.3px;
     }
-
     .option-btn:hover:not(:disabled) {
       transform: translateY(-3px) scale(1.02);
-      border-color: rgba(242, 101, 34, 0.4);
-      box-shadow: 0 8px 30px rgba(242, 101, 34, 0.15);
+      border-color: rgba(242,101,34,0.4);
+      box-shadow: 0 8px 30px rgba(242,101,34,0.15);
     }
-
-    .option-btn:active:not(:disabled) {
-      transform: scale(0.95);
-    }
-
-    .option-btn:disabled {
-      cursor: not-allowed;
-      opacity: 0.5;
-      transform: none !important;
-    }
+    .option-btn:active:not(:disabled) { transform: scale(0.95); }
+    .option-btn:disabled { cursor: not-allowed; opacity: 0.5; transform: none !important; }
 
     .option-btn .option-letter {
       display: inline-block;
-      width: 28px;
-      height: 28px;
+      width: 28px; height: 28px;
       line-height: 28px;
       text-align: center;
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255,255,255,0.06);
       border-radius: 50%;
       font-size: 12px;
       font-weight: 700;
-      color: rgba(255, 255, 255, 0.4);
+      color: rgba(255,255,255,0.4);
       margin-right: 10px;
       transition: all 0.3s;
     }
-
     .option-btn:hover:not(:disabled) .option-letter {
-      background: rgba(242, 101, 34, 0.2);
+      background: rgba(242,101,34,0.2);
       color: #F26522;
     }
 
     .option-btn.correct {
       border-color: #34C759;
-      background: rgba(52, 199, 89, 0.15);
+      background: rgba(52,199,89,0.15);
       animation: correctPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-
-    .option-btn.correct .option-letter {
-      background: #34C759;
-      color: #fff;
-    }
-
+    .option-btn.correct .option-letter { background: #34C759; color: #fff; }
     @keyframes correctPop {
       0% { transform: scale(1); }
       30% { transform: scale(1.1); }
@@ -493,17 +333,12 @@
 
     .option-btn.wrong {
       border-color: #FF3B30;
-      background: rgba(255, 59, 48, 0.15);
+      background: rgba(255,59,48,0.15);
       animation: wrongShake 0.5s ease;
     }
-
-    .option-btn.wrong .option-letter {
-      background: #FF3B30;
-      color: #fff;
-    }
-
+    .option-btn.wrong .option-letter { background: #FF3B30; color: #fff; }
     @keyframes wrongShake {
-      0%, 100% { transform: translateX(0); }
+      0%,100% { transform: translateX(0); }
       20% { transform: translateX(-10px); }
       40% { transform: translateX(10px); }
       60% { transform: translateX(-5px); }
@@ -512,22 +347,17 @@
 
     .option-btn.show-correct {
       border-color: #34C759;
-      background: rgba(52, 199, 89, 0.08);
+      background: rgba(52,199,89,0.08);
       animation: correctReveal 0.6s ease;
     }
-
-    .option-btn.show-correct .option-letter {
-      background: #34C759;
-      color: #fff;
-    }
-
+    .option-btn.show-correct .option-letter { background: #34C759; color: #fff; }
     @keyframes correctReveal {
       0% { transform: scale(0.9); opacity: 0.5; }
       50% { transform: scale(1.05); }
       100% { transform: scale(1); opacity: 1; }
     }
 
-    /* ====== CONTROLS ====== */
+    /* Controls */
     .controls {
       display: flex;
       gap: 14px;
@@ -537,7 +367,6 @@
       z-index: 2;
       flex-wrap: wrap;
     }
-
     .btn-start {
       padding: 14px 48px;
       background: linear-gradient(135deg, #F26522, #EA580C);
@@ -548,42 +377,24 @@
       font-weight: 700;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      box-shadow: 0 4px 30px rgba(242, 101, 34, 0.3);
+      box-shadow: 0 4px 30px rgba(242,101,34,0.3);
       display: flex;
       align-items: center;
       gap: 10px;
-      letter-spacing: 0.5px;
     }
-
     .btn-start:hover:not(:disabled) {
       transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 8px 50px rgba(242, 101, 34, 0.4);
+      box-shadow: 0 8px 50px rgba(242,101,34,0.4);
     }
-
-    .btn-start:active:not(:disabled) {
-      transform: scale(0.95);
-    }
-
-    .btn-start:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-      transform: none !important;
-    }
-
-    .btn-start .icon {
-      font-size: 22px;
-      animation: iconBounce 2s ease-in-out infinite;
-    }
-
-    @keyframes iconBounce {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-    }
+    .btn-start:active:not(:disabled) { transform: scale(0.95); }
+    .btn-start:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-start .icon { font-size: 22px; animation: iconBounce 2s ease-in-out infinite; }
+    @keyframes iconBounce { 0%,100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
     .btn-next {
       padding: 14px 36px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 2px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255,255,255,0.06);
+      border: 2px solid rgba(255,255,255,0.08);
       border-radius: 100px;
       color: #fff;
       font-size: 16px;
@@ -594,145 +405,77 @@
       align-items: center;
       gap: 8px;
     }
-
     .btn-next:hover {
       transform: translateY(-3px);
-      border-color: rgba(242, 101, 34, 0.4);
-      box-shadow: 0 8px 30px rgba(242, 101, 34, 0.1);
+      border-color: rgba(242,101,34,0.4);
+      box-shadow: 0 8px 30px rgba(242,101,34,0.1);
     }
+    .btn-next.show { display: flex; animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    @keyframes slideUp { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
 
-    .btn-next.show {
-      display: flex;
-      animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    @keyframes slideUp {
-      0% { transform: translateY(20px); opacity: 0; }
-      100% { transform: translateY(0); opacity: 1; }
-    }
-
-    /* ====== FEEDBACK OVERLAY ====== */
+    /* Feedback */
     .feedback-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       pointer-events: none;
       z-index: 1000;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-
     .feedback-overlay .emoji {
       font-size: 120px;
       animation: feedbackPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-      filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.5));
+      filter: drop-shadow(0 20px 60px rgba(0,0,0,0.5));
     }
-
     @keyframes feedbackPop {
       0% { transform: scale(0) rotate(-20deg); opacity: 0; }
       60% { transform: scale(1.3) rotate(5deg); opacity: 1; }
       100% { transform: scale(1) rotate(0deg); opacity: 1; }
     }
 
-    /* ====== CONFETTI ====== */
+    /* Confetti */
     .confetti-container {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       pointer-events: none;
       z-index: 999;
       overflow: hidden;
     }
-
     .confetti-piece {
       position: absolute;
-      width: 10px;
-      height: 10px;
+      width: 10px; height: 10px;
       animation: confettiFall linear forwards;
     }
-
     @keyframes confettiFall {
-      0% {
-        transform: translateY(-20px) rotate(0deg) scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(calc(100vh + 50px)) rotate(720deg) scale(0.3);
-        opacity: 0;
-      }
+      0% { transform: translateY(-20px) rotate(0deg) scale(1); opacity: 1; }
+      100% { transform: translateY(calc(100vh + 50px)) rotate(720deg) scale(0.3); opacity: 0; }
     }
 
-    /* ====== GAME OVER ====== */
-    .game-over {
-      text-align: center;
-      padding: 30px 20px;
-      position: relative;
-      z-index: 2;
-      animation: gameOverIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    @keyframes gameOverIn {
-      0% { transform: scale(0.8); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
+    /* Game Over */
+    .game-over { text-align: center; padding: 30px 20px; animation: gameOverIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    @keyframes gameOverIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
     .game-over .final-score {
-      font-size: 72px;
-      font-weight: 900;
+      font-size: 72px; font-weight: 900;
       background: linear-gradient(135deg, #FFB830, #F26522);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: scoreFloat 2s ease-in-out infinite;
     }
-
-    @keyframes scoreFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .game-over .final-label {
-      font-size: 20px;
-      color: rgba(255, 255, 255, 0.5);
-      margin-top: 4px;
-    }
-
-    .game-over .final-message {
-      font-size: 28px;
-      font-weight: 700;
-      color: #fff;
-      margin-top: 12px;
-    }
-
+    @keyframes scoreFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    .game-over .final-label { font-size: 20px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+    .game-over .final-message { font-size: 28px; font-weight: 700; color: #fff; margin-top: 12px; }
     .game-over .final-stats {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
+      display: flex; justify-content: center; gap: 40px;
       margin: 20px 0;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(255,255,255,0.5);
       font-size: 14px;
     }
+    .game-over .final-stats span { display: block; font-size: 28px; font-weight: 800; color: #fff; }
+    .game-over .final-stats .correct-stat span { color: #34C759; }
+    .game-over .final-stats .wrong-stat span { color: #FF3B30; }
 
-    .game-over .final-stats span {
-      display: block;
-      font-size: 28px;
-      font-weight: 800;
-      color: #fff;
-    }
-
-    .game-over .final-stats .correct-stat span {
-      color: #34C759;
-    }
-
-    .game-over .final-stats .wrong-stat span {
-      color: #FF3B30;
-    }
-
-    /* ====== RESPONSIVE ====== */
+    /* Responsive */
     @media (max-width: 600px) {
       .game-container { padding: 20px; border-radius: 20px; margin: 10px; }
       .game-title { font-size: 20px; }
@@ -753,10 +496,9 @@
       .feedback-overlay .emoji { font-size: 80px; }
       .score-display { font-size: 13px; padding: 6px 14px; }
       .score-display .score-number { font-size: 18px; }
-      .clues-container { padding: 16px; min-height: 120px; }
-      .clues-container .clues-header { font-size: 12px; }
+      .clues-container { padding: 16px; min-height: 140px; }
+      .clues-header { font-size: 12px; }
     }
-
     @media (max-width: 400px) {
       .game-container { padding: 14px; }
       .game-title { font-size: 17px; }
@@ -769,18 +511,15 @@
 </head>
 <body>
 
-  <!-- ====== GAME CONTAINER ====== -->
   <div class="game-container" id="gameContainer">
 
-    <!-- Header -->
     <div class="game-header">
       <div class="game-title">🕵️ <span>Mystery Word</span></div>
       <div class="score-display">⭐ Score: <span class="score-number" id="scoreDisplay">0</span></div>
     </div>
 
-    <!-- Detective -->
     <div class="detective-container">
-      <div class="detective" id="detective">
+      <div class="detective">
         <div class="hat"></div>
         <div class="hat-brim"></div>
         <div class="head">
@@ -793,7 +532,6 @@
       </div>
     </div>
 
-    <!-- Timer -->
     <div class="timer-section">
       <div class="timer-bar-track">
         <div class="timer-bar-fill" id="timerFill"></div>
@@ -804,17 +542,17 @@
       </div>
     </div>
 
-    <!-- ====== 🔍 CLUES ====== -->
+    <!-- 🔍 CLUES -->
     <div class="clues-container" id="cluesContainer">
       <div class="clues-header">
-        <span class="icon">🔍</span>
+        <span>🔍</span>
         <span>CLUES</span>
-        <span class="badge">Read carefully</span>
+        <span class="badge">READ CAREFULLY</span>
       </div>
       <div id="cluesList">
         <div class="clue-item" id="clue1">
           <span class="clue-number">CLUE 1</span>
-          <span class="clue-text" id="clueText1">Press "Start" to begin the investigation!</span>
+          <span class="clue-text" id="clueText1">Press "Start" to begin!</span>
         </div>
         <div class="clue-item" id="clue2">
           <span class="clue-number">CLUE 2</span>
@@ -843,7 +581,6 @@
       </button>
     </div>
 
-    <!-- Controls -->
     <div class="controls">
       <button class="btn-start" id="btnStart">
         <span class="icon">🔍</span> Start Investigation
@@ -853,15 +590,12 @@
 
   </div>
 
-  <!-- ====== FEEDBACK OVERLAY ====== -->
   <div class="feedback-overlay" id="feedbackOverlay" style="display: none;">
     <div class="emoji" id="feedbackEmoji">🎉</div>
   </div>
 
-  <!-- ====== CONFETTI ====== -->
   <div class="confetti-container" id="confettiContainer"></div>
 
-  <!-- ====== SCRIPT ====== -->
   <script>
     // ====== WORD BANK ======
     const wordBank = [
@@ -960,33 +694,30 @@
     ];
 
     // ====== GAME STATE ======
-    let gameState = {
+    let g = {
       words: [],
       currentIndex: 0,
       score: 0,
-      total: 0,
       correct: 0,
       wrong: 0,
       answered: false,
       timer: null,
       timeLeft: 20,
       maxTime: 20,
-      isGameOver: false,
-      clueIndex: 0
+      isGameOver: false
     };
 
-    // ====== DOM REFS ======
+    // ====== DOM ======
     const $ = id => document.getElementById(id);
     const scoreDisplay = $('scoreDisplay');
     const timerFill = $('timerFill');
     const timerNumber = $('timerNumber');
-    const cluesContainer = $('cluesContainer');
-    const clueText1 = $('clueText1');
-    const clueText2 = $('clueText2');
-    const clueText3 = $('clueText3');
     const clue1 = $('clue1');
     const clue2 = $('clue2');
     const clue3 = $('clue3');
+    const clueText1 = $('clueText1');
+    const clueText2 = $('clueText2');
+    const clueText3 = $('clueText3');
     const optTexts = [$('opt0'), $('opt1'), $('opt2'), $('opt3')];
     const optionBtns = document.querySelectorAll('.option-btn');
     const btnStart = $('btnStart');
@@ -996,112 +727,81 @@
     const feedbackEmoji = $('feedbackEmoji');
     const confettiContainer = $('confettiContainer');
 
-    // ====== SOUND ENGINE ======
-    const SoundEngine = {
+    // ====== SOUND ======
+    const Sound = {
       ctx: null,
-      init() {
-        if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+      init() { if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); },
+      tick() {
+        this.init(); const ctx = this.ctx;
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = 'sine'; o.frequency.value = 600;
+        g.gain.setValueAtTime(0.08, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+        o.connect(g); g.connect(ctx.destination);
+        o.start(ctx.currentTime); o.stop(ctx.currentTime + 0.05);
       },
-      playTick() {
-        this.init();
-        const ctx = this.ctx;
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.value = 600;
-        gain.gain.setValueAtTime(0.08, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(ctx.currentTime);
-        osc.stop(ctx.currentTime + 0.05);
+      tickFast() {
+        this.init(); const ctx = this.ctx;
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = 'sine'; o.frequency.value = 800;
+        g.gain.setValueAtTime(0.1, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.03);
+        o.connect(g); g.connect(ctx.destination);
+        o.start(ctx.currentTime); o.stop(ctx.currentTime + 0.03);
       },
-      playTickFast() {
-        this.init();
-        const ctx = this.ctx;
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.value = 800;
-        gain.gain.setValueAtTime(0.1, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.03);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(ctx.currentTime);
-        osc.stop(ctx.currentTime + 0.03);
-      },
-      playCorrect() {
-        this.init();
-        const ctx = this.ctx;
-        const notes = [523.25, 659.25, 783.99];
-        notes.forEach((freq, i) => {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.value = freq;
-          gain.gain.setValueAtTime(0.12, ctx.currentTime + i * 0.12);
-          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.12 + 0.25);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(ctx.currentTime + i * 0.12);
-          osc.stop(ctx.currentTime + i * 0.12 + 0.25);
+      correct() {
+        this.init(); const ctx = this.ctx;
+        [523.25, 659.25, 783.99].forEach((f, i) => {
+          const o = ctx.createOscillator(), g = ctx.createGain();
+          o.type = 'sine'; o.frequency.value = f;
+          g.gain.setValueAtTime(0.12, ctx.currentTime + i * 0.12);
+          g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.12 + 0.25);
+          o.connect(g); g.connect(ctx.destination);
+          o.start(ctx.currentTime + i * 0.12);
+          o.stop(ctx.currentTime + i * 0.12 + 0.25);
         });
       },
-      playWrong() {
-        this.init();
-        const ctx = this.ctx;
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(200, ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.3);
-        gain.gain.setValueAtTime(0.08, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(ctx.currentTime);
-        osc.stop(ctx.currentTime + 0.3);
+      wrong() {
+        this.init(); const ctx = this.ctx;
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = 'sawtooth';
+        o.frequency.setValueAtTime(200, ctx.currentTime);
+        o.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.3);
+        g.gain.setValueAtTime(0.08, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+        o.connect(g); g.connect(ctx.destination);
+        o.start(ctx.currentTime); o.stop(ctx.currentTime + 0.3);
       },
-      playGameOver() {
-        this.init();
-        const ctx = this.ctx;
-        const melody = [523.25, 523.25, 523.25, 659.25, 783.99, 659.25, 783.99];
-        const durations = [0.15, 0.15, 0.15, 0.15, 0.3, 0.15, 0.3];
-        let time = ctx.currentTime;
-        melody.forEach((freq, i) => {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.value = freq;
-          gain.gain.setValueAtTime(0.1, time);
-          gain.gain.exponentialRampToValueAtTime(0.001, time + durations[i]);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(time);
-          osc.stop(time + durations[i]);
-          time += durations[i] + 0.02;
+      gameOver() {
+        this.init(); const ctx = this.ctx;
+        const m = [523.25, 523.25, 523.25, 659.25, 783.99, 659.25, 783.99];
+        const d = [0.15, 0.15, 0.15, 0.15, 0.3, 0.15, 0.3];
+        let t = ctx.currentTime;
+        m.forEach((f, i) => {
+          const o = ctx.createOscillator(), g = ctx.createGain();
+          o.type = 'sine'; o.frequency.value = f;
+          g.gain.setValueAtTime(0.1, t);
+          g.gain.exponentialRampToValueAtTime(0.001, t + d[i]);
+          o.connect(g); g.connect(ctx.destination);
+          o.start(t); o.stop(t + d[i]);
+          t += d[i] + 0.02;
         });
       },
-      playStart() {
-        this.init();
-        const ctx = this.ctx;
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(440, ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.2);
-        gain.gain.setValueAtTime(0.1, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(ctx.currentTime);
-        osc.stop(ctx.currentTime + 0.2);
+      start() {
+        this.init(); const ctx = this.ctx;
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = 'sine';
+        o.frequency.setValueAtTime(440, ctx.currentTime);
+        o.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.2);
+        g.gain.setValueAtTime(0.1, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+        o.connect(g); g.connect(ctx.destination);
+        o.start(ctx.currentTime); o.stop(ctx.currentTime + 0.2);
       }
     };
 
     // ====== CONFETTI ======
-    function triggerConfetti() {
-      const container = confettiContainer;
+    function confetti() {
       const colors = ['#F26522', '#FFB830', '#7C5CFC', '#EA580C', '#34C759', '#FF3B30', '#5AC8FA', '#FF9500'];
       for (let i = 0; i < 80; i++) {
         const el = document.createElement('div');
@@ -1113,13 +813,13 @@
         el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
         el.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
         el.style.animationDelay = (Math.random() * 0.5) + 's';
-        container.appendChild(el);
+        confettiContainer.appendChild(el);
         setTimeout(() => el.remove(), 4000);
       }
     }
 
-    // ====== GAME FUNCTIONS ======
-    function shuffleArray(arr) {
+    // ====== HELPERS ======
+    function shuffle(arr) {
       for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -1127,26 +827,203 @@
       return arr;
     }
 
-    function getRandomWords(count = 8) {
-      const shuffled = shuffleArray([...wordBank]);
-      const selected = shuffled.slice(0, Math.min(count, shuffled.length));
-      while (selected.length < 4) {
-        const extra = shuffleArray([...wordBank]).slice(0, 4 - selected.length);
-        selected.push(...extra);
+    function getWords(count = 8) {
+      const s = shuffle([...wordBank]);
+      return s.slice(0, Math.min(count, s.length));
+    }
+
+    // ====== GAME FUNCTIONS ======
+    function showFeedback(emoji, msg) {
+      feedbackEmoji.textContent = emoji;
+      feedbackOverlay.style.display = 'flex';
+      feedbackEmoji.style.animation = 'none';
+      void feedbackEmoji.offsetWidth;
+      feedbackEmoji.style.animation = 'feedbackPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+
+      const el = document.createElement('div');
+      el.textContent = msg;
+      el.style.cssText = `
+        position: absolute; bottom: 20%; left: 50%; transform: translateX(-50%);
+        color: #fff; font-size: 24px; font-weight: 700;
+        background: rgba(0,0,0,0.5); padding: 8px 24px; border-radius: 100px;
+        backdrop-filter: blur(10px);
+      `;
+      el.id = 'fbMsg';
+      const old = document.getElementById('fbMsg');
+      if (old) old.remove();
+      feedbackOverlay.appendChild(el);
+      setTimeout(() => {
+        feedbackOverlay.style.display = 'none';
+        const m = document.getElementById('fbMsg');
+        if (m) m.remove();
+      }, 1200);
+    }
+
+    function updateScore() { scoreDisplay.textContent = g.score; }
+
+    function showWord() {
+      if (g.currentIndex >= g.words.length) { endGame(); return; }
+
+      const w = g.words[g.currentIndex];
+      g.answered = false;
+
+      // Set clue texts
+      clueText1.textContent = w.clues[0] || '—';
+      clueText2.textContent = w.clues[1] || '—';
+      clueText3.textContent = w.clues[2] || '—';
+
+      // Reset visibility
+      clue1.classList.remove('visible');
+      clue2.classList.remove('visible');
+      clue3.classList.remove('visible');
+
+      // Show CLUE 1 immediately
+      setTimeout(() => clue1.classList.add('visible'), 200);
+
+      // Build options
+      const opts = [w.word];
+      const shuffledBank = shuffle([...wordBank]);
+      let added = 0;
+      for (const item of shuffledBank) {
+        if (added >= 3) break;
+        if (item.word !== w.word && !opts.includes(item.word)) {
+          opts.push(item.word);
+          added++;
+        }
       }
-      return selected;
+      const shuffledOpts = shuffle(opts);
+
+      optionBtns.forEach((btn, i) => {
+        btn.disabled = false;
+        btn.classList.remove('correct', 'wrong', 'show-correct');
+        optTexts[i].textContent = shuffledOpts[i] || '—';
+        btn.dataset.correct = shuffledOpts[i] === w.word ? 'true' : 'false';
+      });
+
+      // Reset timer
+      g.timeLeft = g.maxTime;
+      timerFill.style.width = '100%';
+      timerFill.classList.remove('warning');
+      timerNumber.textContent = g.timeLeft + 's';
+      timerNumber.classList.remove('warning');
+
+      // Start timer
+      if (g.timer) clearInterval(g.timer);
+      g.timer = setInterval(() => {
+        g.timeLeft -= 0.1;
+        const pct = Math.max(0, (g.timeLeft / g.maxTime) * 100);
+        timerFill.style.width = pct + '%';
+        timerNumber.textContent = Math.ceil(g.timeLeft) + 's';
+
+        if (g.timeLeft <= 5) {
+          timerFill.classList.add('warning');
+          timerNumber.classList.add('warning');
+          Sound.tickFast();
+        } else if (g.timeLeft <= 8) {
+          Sound.tick();
+        }
+
+        if (g.timeLeft <= 0) {
+          clearInterval(g.timer);
+          timerNumber.textContent = '0s';
+          if (!g.answered) {
+            g.answered = true;
+            g.wrong++;
+            Sound.wrong();
+            optionBtns.forEach(b => {
+              b.disabled = true;
+              if (b.dataset.correct === 'true') b.classList.add('show-correct');
+            });
+            showFeedback('⏰', 'Time\'s Up!');
+            updateScore();
+            setTimeout(() => btnNext.classList.add('show'), 800);
+          }
+        }
+      }, 100);
+
+      // Show CLUE 2 after 3s
+      setTimeout(() => {
+        if (!g.answered) clue2.classList.add('visible');
+      }, 3000);
+
+      // Show CLUE 3 after 6s
+      setTimeout(() => {
+        if (!g.answered) clue3.classList.add('visible');
+      }, 6000);
+
+      thoughtBubble.textContent = '🔍 Investigating...';
+      thoughtBubble.classList.add('show');
+      btnNext.classList.remove('show');
+    }
+
+    function handleClick(e) {
+      const btn = e.currentTarget;
+      if (btn.disabled || g.answered) return;
+
+      const correct = btn.dataset.correct === 'true';
+      g.answered = true;
+
+      if (g.timer) { clearInterval(g.timer); g.timer = null; }
+
+      optionBtns.forEach(b => b.disabled = true);
+
+      if (correct) {
+        btn.classList.add('correct');
+        const bonus = Math.max(0, Math.floor(g.timeLeft));
+        g.score += 10 + bonus;
+        g.correct++;
+        Sound.correct();
+        showFeedback('🎉', `Correct! +${10 + bonus} pts`);
+        confetti();
+        thoughtBubble.textContent = `🎉 Brilliant! +${10 + bonus}`;
+        thoughtBubble.classList.add('show');
+      } else {
+        btn.classList.add('wrong');
+        g.wrong++;
+        Sound.wrong();
+        showFeedback('❌', 'Oops! Not quite...');
+        optionBtns.forEach(b => {
+          if (b.dataset.correct === 'true') b.classList.add('show-correct');
+        });
+        thoughtBubble.textContent = '🤔 Keep trying!';
+        thoughtBubble.classList.add('show');
+      }
+
+      updateScore();
+      setTimeout(() => btnNext.classList.add('show'), 600);
+    }
+
+    function nextWord() {
+      g.currentIndex++;
+      btnNext.classList.remove('show');
+      thoughtBubble.classList.remove('show');
+      setTimeout(showWord, 300);
     }
 
     function startGame() {
-      gameState.words = getRandomWords(8);
-      gameState.currentIndex = 0;
-      gameState.score = 0;
-      gameState.total = 0;
-      gameState.correct = 0;
-      gameState.wrong = 0;
-      gameState.isGameOver = false;
+      g.words = getWords(8);
+      g.currentIndex = 0;
+      g.score = 0;
+      g.correct = 0;
+      g.wrong = 0;
+      g.isGameOver = false;
+
+      // Reset UI
+      document.getElementById('optionsGrid').style.display = 'grid';
+      document.querySelector('.timer-section').style.display = 'block';
+      document.getElementById('btnStart').style.display = 'flex';
+      document.getElementById('btnNext').style.display = 'none';
+
+      // Reset clues
+      clue1.classList.remove('visible');
+      clue2.classList.remove('visible');
+      clue3.classList.remove('visible');
+      clueText1.textContent = 'Press "Start" to begin!';
+      clueText2.textContent = '—';
+      clueText3.textContent = '—';
 
       scoreDisplay.textContent = '0';
+
       btnStart.disabled = true;
       btnStart.innerHTML = '<span class="icon">⏳</span> Loading...';
 
@@ -1157,251 +1034,36 @@
       }, 500);
     }
 
-    function showWord() {
-      if (gameState.currentIndex >= gameState.words.length) {
-        endGame();
-        return;
-      }
-
-      const wordData = gameState.words[gameState.currentIndex];
-      gameState.answered = false;
-      gameState.total++;
-
-      // Reset clues - make sure text is set
-      clueText1.textContent = wordData.clues[0] || '—';
-      clueText2.textContent = wordData.clues[1] || '—';
-      clueText3.textContent = wordData.clues[2] || '—';
-
-      // Hide all clues initially
-      clue1.classList.remove('visible');
-      clue2.classList.remove('visible');
-      clue3.classList.remove('visible');
-
-      // Show first clue immediately with a small delay for animation
-      setTimeout(() => {
-        clue1.classList.add('visible');
-      }, 100);
-
-      // Reset options
-      const allOptions = [wordData.word];
-      const shuffledBank = shuffleArray([...wordBank]);
-      let added = 0;
-      for (const item of shuffledBank) {
-        if (added >= 3) break;
-        if (item.word !== wordData.word && !allOptions.includes(item.word)) {
-          allOptions.push(item.word);
-          added++;
-        }
-      }
-      const shuffledOptions = shuffleArray(allOptions);
-
-      optionBtns.forEach((btn, i) => {
-        btn.disabled = false;
-        btn.classList.remove('correct', 'wrong', 'show-correct');
-        optTexts[i].textContent = shuffledOptions[i] || '—';
-        btn.dataset.correct = shuffledOptions[i] === wordData.word ? 'true' : 'false';
-        btn.style.opacity = '1';
-      });
-
-      // Reset timer to 20 seconds
-      gameState.timeLeft = gameState.maxTime;
-      timerFill.style.width = '100%';
-      timerFill.classList.remove('warning');
-      timerNumber.textContent = gameState.timeLeft + 's';
-      timerNumber.classList.remove('warning');
-
-      // Start timer
-      if (gameState.timer) clearInterval(gameState.timer);
-      gameState.timer = setInterval(() => {
-        gameState.timeLeft -= 0.1;
-        const pct = Math.max(0, (gameState.timeLeft / gameState.maxTime) * 100);
-        timerFill.style.width = pct + '%';
-        timerNumber.textContent = Math.ceil(gameState.timeLeft) + 's';
-
-        if (gameState.timeLeft <= 5) {
-          timerFill.classList.add('warning');
-          timerNumber.classList.add('warning');
-          SoundEngine.playTickFast();
-        } else if (gameState.timeLeft <= 8) {
-          SoundEngine.playTick();
-        }
-
-        if (gameState.timeLeft <= 0) {
-          clearInterval(gameState.timer);
-          timerNumber.textContent = '0s';
-          if (!gameState.answered) {
-            gameState.answered = true;
-            gameState.wrong++;
-            SoundEngine.playWrong();
-            optionBtns.forEach(btn => {
-              btn.disabled = true;
-              if (btn.dataset.correct === 'true') {
-                btn.classList.add('show-correct');
-              }
-            });
-            showFeedback('⏰', 'Time\'s Up!');
-            updateScore();
-            setTimeout(() => {
-              btnNext.classList.add('show');
-            }, 800);
-          }
-        }
-      }, 100);
-
-      // Show second clue after 3 seconds
-      setTimeout(() => {
-        if (!gameState.answered) {
-          clue2.classList.add('visible');
-        }
-      }, 3000);
-
-      // Show third clue after 6 seconds
-      setTimeout(() => {
-        if (!gameState.answered) {
-          clue3.classList.add('visible');
-        }
-      }, 6000);
-
-      thoughtBubble.textContent = '🔍 Investigating...';
-      thoughtBubble.classList.add('show');
-
-      cluesContainer.classList.remove('revealing');
-      void cluesContainer.offsetWidth;
-      cluesContainer.classList.add('revealing');
-
-      btnNext.classList.remove('show');
-    }
-
-    function handleOptionClick(e) {
-      const btn = e.currentTarget;
-      if (btn.disabled || gameState.answered) return;
-
-      const isCorrect = btn.dataset.correct === 'true';
-      gameState.answered = true;
-
-      if (gameState.timer) {
-        clearInterval(gameState.timer);
-        gameState.timer = null;
-      }
-
-      optionBtns.forEach(b => b.disabled = true);
-
-      if (isCorrect) {
-        btn.classList.add('correct');
-        const timeBonus = Math.max(0, Math.floor(gameState.timeLeft));
-        const bonusPoints = timeBonus;
-        gameState.score += 10 + bonusPoints;
-        gameState.correct++;
-        SoundEngine.playCorrect();
-        showFeedback('🎉', `Correct! +${10 + bonusPoints} points`);
-        triggerConfetti();
-        thoughtBubble.textContent = `🎉 Brilliant! +${10 + bonusPoints}`;
-        thoughtBubble.classList.add('show');
-      } else {
-        btn.classList.add('wrong');
-        gameState.wrong++;
-        SoundEngine.playWrong();
-        showFeedback('❌', 'Oops! Not quite...');
-        optionBtns.forEach(b => {
-          if (b.dataset.correct === 'true') {
-            b.classList.add('show-correct');
-          }
-        });
-        thoughtBubble.textContent = '🤔 Keep trying!';
-        thoughtBubble.classList.add('show');
-      }
-
-      updateScore();
-
-      setTimeout(() => {
-        btnNext.classList.add('show');
-      }, 600);
-    }
-
-    function nextWord() {
-      gameState.currentIndex++;
-      btnNext.classList.remove('show');
-      thoughtBubble.classList.remove('show');
-      setTimeout(() => {
-        showWord();
-      }, 300);
-    }
-
-    function updateScore() {
-      scoreDisplay.textContent = gameState.score;
-    }
-
-    function showFeedback(emoji, message) {
-      feedbackEmoji.textContent = emoji;
-      feedbackOverlay.style.display = 'flex';
-      feedbackEmoji.style.animation = 'none';
-      void feedbackEmoji.offsetWidth;
-      feedbackEmoji.style.animation = 'feedbackPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
-
-      const msgEl = document.createElement('div');
-      msgEl.textContent = message;
-      msgEl.style.cssText = `
-        position: absolute;
-        bottom: 20%;
-        left: 50%;
-        transform: translateX(-50%);
-        color: #fff;
-        font-size: 24px;
-        font-weight: 700;
-        background: rgba(0,0,0,0.5);
-        padding: 8px 24px;
-        border-radius: 100px;
-        backdrop-filter: blur(10px);
-        animation: fadeIn 0.5s ease;
-      `;
-      msgEl.id = 'feedbackMessage';
-      const oldMsg = document.getElementById('feedbackMessage');
-      if (oldMsg) oldMsg.remove();
-      feedbackOverlay.appendChild(msgEl);
-
-      setTimeout(() => {
-        feedbackOverlay.style.display = 'none';
-        const m = document.getElementById('feedbackMessage');
-        if (m) m.remove();
-      }, 1200);
-    }
-
     function endGame() {
-      gameState.isGameOver = true;
-      if (gameState.timer) {
-        clearInterval(gameState.timer);
-        gameState.timer = null;
-      }
+      g.isGameOver = true;
+      if (g.timer) { clearInterval(g.timer); g.timer = null; }
 
-      SoundEngine.playGameOver();
+      Sound.gameOver();
 
-      const total = gameState.correct + gameState.wrong;
-      const pct = total > 0 ? Math.round((gameState.correct / total) * 100) : 0;
+      const total = g.correct + g.wrong;
+      const pct = total > 0 ? Math.round((g.correct / total) * 100) : 0;
 
-      let message = '💪 Keep practicing!';
+      let msg = '💪 Keep practicing!';
       let emoji = '📖';
-      if (pct >= 90) { message = '🏆 Detective Master! Amazing!'; emoji = '🏆'; }
-      else if (pct >= 70) { message = '⭐ Great Detective! Keep it up!'; emoji = '⭐'; }
-      else if (pct >= 50) { message = '🔍 Good effort! You\'re getting there!'; emoji = '🔍'; }
+      if (pct >= 90) { msg = '🏆 Detective Master! Amazing!'; emoji = '🏆'; }
+      else if (pct >= 70) { msg = '⭐ Great Detective! Keep it up!'; emoji = '⭐'; }
+      else if (pct >= 50) { msg = '🔍 Good effort! You\'re getting there!'; emoji = '🔍'; }
 
-      if (pct >= 70) {
-        triggerConfetti();
-        setTimeout(triggerConfetti, 1000);
-      }
+      if (pct >= 70) { confetti(); setTimeout(confetti, 1000); }
 
-      const cluesList = document.getElementById('cluesList');
-      cluesList.innerHTML = `
+      const list = document.getElementById('cluesList');
+      list.innerHTML = `
         <div class="game-over">
-          <div style="font-size: 60px; margin-bottom: 10px;">${emoji}</div>
-          <div class="final-message">${message}</div>
-          <div class="final-score">${gameState.score}</div>
+          <div style="font-size:60px;">${emoji}</div>
+          <div class="final-message">${msg}</div>
+          <div class="final-score">${g.score}</div>
           <div class="final-label">Total Score</div>
           <div class="final-stats">
-            <div class="correct-stat">✅ Correct<br><span>${gameState.correct}</span></div>
-            <div>❌ Wrong<br><span>${gameState.wrong}</span></div>
+            <div class="correct-stat">✅ Correct<br><span>${g.correct}</span></div>
+            <div>❌ Wrong<br><span>${g.wrong}</span></div>
             <div>🎯 Accuracy<br><span>${pct}%</span></div>
           </div>
-          <button class="btn-start" onclick="location.reload()" style="margin: 20px auto;">🔄 Play Again</button>
+          <button class="btn-start" onclick="location.reload()" style="margin:20px auto;">🔄 Play Again</button>
         </div>
       `;
 
@@ -1411,25 +1073,17 @@
       document.querySelector('.timer-section').style.display = 'none';
     }
 
-    // ====== EVENT LISTENERS ======
-    optionBtns.forEach(btn => {
-      btn.addEventListener('click', handleOptionClick);
-    });
+    // ====== EVENTS ======
+    optionBtns.forEach(b => b.addEventListener('click', handleClick));
 
     btnStart.addEventListener('click', () => {
-      SoundEngine.playStart();
-
-      // Reset UI completely
-      document.getElementById('optionsGrid').style.display = 'grid';
-      document.querySelector('.timer-section').style.display = 'block';
-      document.getElementById('btnStart').style.display = 'flex';
-      document.getElementById('btnNext').style.display = 'none';
-
-      // Reset clues HTML to make sure DOM references are fresh
-      document.getElementById('cluesList').innerHTML = `
+      Sound.start();
+      // Reset clues list and references
+      const list = document.getElementById('cluesList');
+      list.innerHTML = `
         <div class="clue-item" id="clue1">
           <span class="clue-number">CLUE 1</span>
-          <span class="clue-text" id="clueText1">Press "Start" to begin the investigation!</span>
+          <span class="clue-text" id="clueText1">Press "Start" to begin!</span>
         </div>
         <div class="clue-item" id="clue2">
           <span class="clue-number">CLUE 2</span>
@@ -1440,28 +1094,25 @@
           <span class="clue-text" id="clueText3">—</span>
         </div>
       `;
-
-      // Reassign DOM refs after reset
-      const newClueText1 = document.getElementById('clueText1');
-      const newClueText2 = document.getElementById('clueText2');
-      const newClueText3 = document.getElementById('clueText3');
-      const newClue1 = document.getElementById('clue1');
-      const newClue2 = document.getElementById('clue2');
-      const newClue3 = document.getElementById('clue3');
-
-      // Update references in the closure
+      // Reassign references
+      const newC1 = document.getElementById('clue1');
+      const newC2 = document.getElementById('clue2');
+      const newC3 = document.getElementById('clue3');
+      const newT1 = document.getElementById('clueText1');
+      const newT2 = document.getElementById('clueText2');
+      const newT3 = document.getElementById('clueText3');
+      // Update outer variables
       Object.assign(window, {
-        clueText1: newClueText1,
-        clueText2: newClueText2,
-        clueText3: newClueText3,
-        clue1: newClue1,
-        clue2: newClue2,
-        clue3: newClue3
+        clue1: newC1,
+        clue2: newC2,
+        clue3: newC3,
+        clueText1: newT1,
+        clueText2: newT2,
+        clueText3: newT3
       });
-
-      // Also update the local variables by reassigning
-      // We'll use a more direct approach - the functions will use the window references
-
+      // Also update the original references
+      // We'll use a different approach: direct access via IDs inside functions
+      // The functions will use document.getElementById for fresh references
       startGame();
     });
 
@@ -1471,17 +1122,11 @@
     document.addEventListener('keydown', (e) => {
       if (e.key >= '1' && e.key <= '4') {
         const idx = parseInt(e.key) - 1;
-        if (optionBtns[idx] && !optionBtns[idx].disabled) {
-          optionBtns[idx].click();
-        }
+        if (optionBtns[idx] && !optionBtns[idx].disabled) optionBtns[idx].click();
       }
       if (e.key === 'Enter' || e.key === ' ') {
-        if (btnNext.classList.contains('show')) {
-          btnNext.click();
-        }
-        if (!btnStart.disabled && !gameState.isGameOver) {
-          btnStart.click();
-        }
+        if (btnNext.classList.contains('show')) btnNext.click();
+        if (!btnStart.disabled && !g.isGameOver) btnStart.click();
       }
     });
 
