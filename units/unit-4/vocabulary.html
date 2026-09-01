@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vocabulary · Unit 4 · Interactive E-Book</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../css/colors.css">
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/navigation.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/animations.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a href="index.html" class="active">Unit 4</a>
+        <a href="../../novel/index.html">Novel</a>
+        <a href="../../poetry/index.html">Poetry</a>
+        <a href="../../skills/index.html">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../unit-1/index.html">Unit 1: Jump for Joy</a>
+      <a href="../unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../unit-3/index.html">Unit 3: Role Models</a>
+      <a href="index.html" class="active">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="../../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../../skills/index.html">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <!-- Breadcrumbs -->
+        <nav class="breadcrumbs">
+          <a href="../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Unit 4</a>
+          <span class="separator"> › </span>
+          <span class="current">Vocabulary</span>
+        </nav>
+
+        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
+          <h1 class="text-2xl" style="color: var(--color-primary);">🏙️ Vocabulary: City Living</h1>
+          <p class="text-base" style="color: var(--color-text-secondary);">Tap any card to flip it and see the definition + example. Learn at your own pace!</p>
+          <div style="margin-top: var(--spacing-3); display: flex; gap: var(--spacing-2); flex-wrap: wrap;">
+            <span class="badge badge-primary">56 words</span>
+            <span class="badge badge-accent">11 idioms</span>
+          </div>
+        </div>
+
+        <!-- ====== VOCABULARY WORDS ====== -->
+        <h2 class="text-xl" style="margin-bottom: var(--spacing-4); color: var(--color-primary);">📚 Vocabulary Words</h2>
+
+        <div class="grid grid-3" id="vocabGrid">
+
+          <!-- 1 -->
+          <div class="flip-card" data-word="rural" data-definition="in the countryside (Opp: urban)" data-example="My grandparents live in a rural village surrounded by farms.">
+            <div class="flip-card-inner"><div class="flip-card-front">rural</div><div class="flip-card-back"><div class="definition">in the countryside (Opp: urban)</div><div class="example">"My grandparents live in a rural village surrounded by farms."</div></div></div>
+          </div>
+
+          <!-- 2 -->
+          <div class="flip-card" data-word="commercial" data-definition="related to buying and selling" data-example="The city center is a commercial area full of shops and offices.">
+            <div class="flip-card-inner"><div class="flip-card-front">commercial</div><div class="flip-card-back"><div class="definition">related to buying and selling</div><div class="example">"The city center is a commercial area full of shops and offices."</div></div></div>
+          </div>
+
+          <!-- 3 -->
+          <div class="flip-card" data-word="identical" data-definition="exactly the same" data-example="The twins were wearing identical jackets.">
+            <div class="flip-card-inner"><div class="flip-card-front">identical</div><div class="flip-card-back"><div class="definition">exactly the same</div><div class="example">"The twins were wearing identical jackets."</div></div></div>
+          </div>
+
+          <!-- 4 -->
+          <div class="flip-card" data-word="rapid" data-definition="fast" data-example="There has been a rapid increase in the number of cars in the city.">
+            <div class="flip-card-inner"><div class="flip-card-front">rapid</div><div class="flip-card-back"><div class="definition">fast</div><div class="example">"There has been a rapid increase in the number of cars in the city."</div></div></div>
+          </div>
+
+          <!-- 5 -->
+          <div class="flip-card" data-word="resident" data-definition="a person who has their home in a place" data-example="Every resident of the building received a safety notice.">
+            <div class="flip-card-inner"><div class="flip-card-front">resident</div><div class="flip-card-back"><div class="definition">a person who has their home in a place</div><div class="example">"Every resident of the building received a safety notice."</div></div></div>
+          </div>
+
+          <!-- 6 -->
+          <div class="flip-card" data-word="block of flats" data-definition="a large building divided into apartments" data-example="My friend lives in a block of flats near the school.">
+            <div class="flip-card-inner"><div class="flip-card-front">block of flats</div><div class="flip-card-back"><div class="definition">a large building divided into apartments</div><div class="example">"My friend lives in a block of flats near the school."</div></div></div>
+          </div>
+
+          <!-- 7 -->
+          <div class="flip-card" data-word="pace" data-definition="the speed at which sth happens" data-example="Technology is changing at a fast pace.">
+            <div class="flip-card-inner"><div class="flip-card-front">pace</div><div class="flip-card-back"><div class="definition">the speed at which sth happens</div><div class="example">"Technology is changing at a fast pace."</div></div></div>
+          </div>
+
+          <!-- 8 -->
+          <div class="flip-card" data-word="shortage" data-definition="a situation where there isn't enough of sth needed (Syn: lack)" data-example="There was a water shortage during the hot summer.">
+            <div class="flip-card-inner"><div class="flip-card-front">shortage</div><div class="flip-card-back"><div class="definition">a situation where there isn't enough of sth needed (Syn: lack)</div><div class="example">"There was a water shortage during the hot summer."</div></div></div>
+          </div>
+
+          <!-- 9 -->
+          <div class="flip-card" data-word="entertainment" data-definition="films, music, shows, etc. that help people have fun" data-example="Watching movies is a popular form of entertainment.">
+            <div class="flip-card-inner"><div class="flip-card-front">entertainment</div><div class="flip-card-back"><div class="definition">films, music, shows, etc. that help people have fun</div><div class="example">"Watching movies is a popular form of entertainment."</div></div></div>
+          </div>
+
+          <!-- 10 -->
+          <div class="flip-card" data-word="commute" data-definition="travel between work and home regularly" data-example="My father commutes to work by train every day.">
+            <div class="flip-card-inner"><div class="flip-card-front">commute</div><div class="flip-card-back"><div class="definition">travel between work and home regularly</div><div class="example">"My father commutes to work by train every day."</div></div></div>
+          </div>
+
+          <!-- 11 -->
+          <div class="flip-card" data-word="outskirts" data-definition="the area around a town or city" data-example="They built a new hospital on the outskirts of the city.">
+            <div class="flip-card-inner"><div class="flip-card-front">outskirts</div><div class="flip-card-back"><div class="definition">the area around a town or city</div><div class="example">"They built a new hospital on the outskirts of the city."</div></div></div>
+          </div>
+
+          <!-- 12 -->
+          <div class="flip-card" data-word="inhabitant" data-definition="a person or animal that lives in a place" data-example="The camel is a common inhabitant of desert regions.">
+            <div class="flip-card-inner"><div class="flip-card-front">inhabitant</div><div class="flip-card-back"><div class="definition">a person or animal that lives in a place</div><div class="example">"The camel is a common inhabitant of desert regions."</div></div></div>
+          </div>
+
+          <!-- 13 -->
+          <div class="flip-card" data-word="historical" data-definition="connected with the past or with the study of the past" data-example="We visited a historical museum to learn about the past.">
+            <div class="flip-card-inner"><div class="flip-card-front">historical</div><div class="flip-card-back"><div class="definition">connected with the past or with the study of the past</div><div class="example">"We visited a historical museum to learn about the past."</div></div></div>
+          </div>
+
+          <!-- 14 -->
+          <div class="flip-card" data-word="devote" data-definition="give time, attention or energy to sth" data-example="She devotes two hours a day to studying.">
+            <div class="flip-card-inner"><div class="flip-card-front">devote</div><div class="flip-card-back"><div class="definition">give time, attention or energy to sth</div><div class="example">"She devotes two hours a day to studying."</div></div></div>
+          </div>
+
+          <!-- 15 -->
+          <div class="flip-card" data-word="walkable" data-definition="suitable for walking" data-example="The neighborhood is very walkable, with many shops nearby.">
+            <div class="flip-card-inner"><div class="flip-card-front">walkable</div><div class="flip-card-back"><div class="definition">suitable for walking</div><div class="example">"The neighborhood is very walkable, with many shops nearby."</div></div></div>
+          </div>
+
+          <!-- 16 -->
+          <div class="flip-card" data-word="pedestrian" data-definition="a person who is walking" data-example="The pedestrian waited for the traffic light to turn green.">
+            <div class="flip-card-inner"><div class="flip-card-front">pedestrian</div><div class="flip-card-back"><div class="definition">a person who is walking</div><div class="example">"The pedestrian waited for the traffic light to turn green."</div></div></div>
+          </div>
+
+          <!-- 17 -->
+          <div class="flip-card" data-word="housing" data-definition="buildings for people to live in" data-example="The government is building new housing for families.">
+            <div class="flip-card-inner"><div class="flip-card-front">housing</div><div class="flip-card-back"><div class="definition">buildings for people to live in</div><div class="example">"The government is building new housing for families."</div></div></div>
+          </div>
+
+          <!-- 18 -->
+          <div class="flip-card" data-word="linear" data-definition="continuing logically from one part to the next" data-example="The story follows a linear timeline from beginning to end.">
+            <div class="flip-card-inner"><div class="flip-card-front">linear</div><div class="flip-card-back"><div class="definition">continuing logically from one part to the next</div><div class="example">"The story follows a linear timeline from beginning to end."</div></div></div>
+          </div>
+
+          <!-- 19 -->
+          <div class="flip-card" data-word="approach" data-definition="a way of doing sth or thinking about sth" data-example="We need a different approach to solve this problem.">
+            <div class="flip-card-inner"><div class="flip-card-front">approach</div><div class="flip-card-back"><div class="definition">a way of doing sth or thinking about sth</div><div class="example">"We need a different approach to solve this problem."</div></div></div>
+          </div>
+
+          <!-- 20 -->
+          <div class="flip-card" data-word="growth" data-definition="an increase in the size or the importance of sth" data-example="The city has experienced significant growth in recent years.">
+            <div class="flip-card-inner"><div class="flip-card-front">growth</div><div class="flip-card-back"><div class="definition">an increase in the size or the importance of sth</div><div class="example">"The city has experienced significant growth in recent years."</div></div></div>
+          </div>
+
+          <!-- 21 -->
+          <div class="flip-card" data-word="residential" data-definition="having mainly private houses, not offices or factories" data-example="This is a quiet residential area with many houses.">
+            <div class="flip-card-inner"><div class="flip-card-front">residential</div><div class="flip-card-back"><div class="definition">having mainly private houses, not offices or factories</div><div class="example">"This is a quiet residential area with many houses."</div></div></div>
+          </div>
+
+          <!-- 22 -->
+          <div class="flip-card" data-word="reduce" data-definition="make or become smaller (Syn: decrease)" data-example="We should reduce plastic waste to protect the environment.">
+            <div class="flip-card-inner"><div class="flip-card-front">reduce</div><div class="flip-card-back"><div class="definition">make or become smaller (Syn: decrease)</div><div class="example">"We should reduce plastic waste to protect the environment."</div></div></div>
+          </div>
+
+          <!-- 23 -->
+          <div class="flip-card" data-word="get around" data-definition="travel to different places" data-example="Many students use bicycles to get around the city.">
+            <div class="flip-card-inner"><div class="flip-card-front">get around</div><div class="flip-card-back"><div class="definition">travel to different places</div><div class="example">"Many students use bicycles to get around the city."</div></div></div>
+          </div>
+
+          <!-- 24 -->
+          <div class="flip-card" data-word="expand" data-definition="make sth bigger" data-example="The company plans to expand its offices next year.">
+            <div class="flip-card-inner"><div class="flip-card-front">expand</div><div class="flip-card-back"><div class="definition">make sth bigger</div><div class="example">"The company plans to expand its offices next year."</div></div></div>
+          </div>
+
+          <!-- 25 -->
+          <div class="flip-card" data-word="modernist" data-definition="related to the modern art movement" data-example="The building has a modernist design with simple shapes.">
+            <div class="flip-card-inner"><div class="flip-card-front">modernist</div><div class="flip-card-back"><div class="definition">related to the modern art movement</div><div class="example">"The building has a modernist design with simple shapes."</div></div></div>
+          </div>
+
+          <!-- 26 -->
+          <div class="flip-card" data-word="propose" data-definition="suggest a plan for other people to think about" data-example="The mayor proposed a new public park.">
+            <div class="flip-card-inner"><div class="flip-card-front">propose</div><div class="flip-card-back"><div class="definition">suggest a plan for other people to think about</div><div class="example">"The mayor proposed a new public park."</div></div></div>
+          </div>
+
+          <!-- 27 -->
+          <div class="flip-card" data-word="raise" data-definition="lift to a higher position" data-example="Please raise your hand if you know the answer.">
+            <div class="flip-card-inner"><div class="flip-card-front">raise</div><div class="flip-card-back"><div class="definition">lift to a higher position</div><div class="example">"Please raise your hand if you know the answer."</div></div></div>
+          </div>
+
+          <!-- 28 -->
+          <div class="flip-card" data-word="spread" data-definition="reach or cover a wider area" data-example="News of the event quickly spread across the town.">
+            <div class="flip-card-inner"><div class="flip-card-front">spread</div><div class="flip-card-back"><div class="definition">reach or cover a wider area</div><div class="example">"News of the event quickly spread across the town."</div></div></div>
+          </div>
+
+          <!-- 29 -->
+          <div class="flip-card" data-word="claim" data-definition="say that sth is true without being able to prove it" data-example="Some people claim that the old house is haunted.">
+            <div class="flip-card-inner"><div class="flip-card-front">claim</div><div class="flip-card-back"><div class="definition">say that sth is true without being able to prove it</div><div class="example">"Some people claim that the old house is haunted."</div></div></div>
+          </div>
+
+          <!-- 30 -->
+          <div class="flip-card" data-word="end up" data-definition="reach a particular place or situation after completing other activities" data-example="If you miss the bus, you may end up arriving late.">
+            <div class="flip-card-inner"><div class="flip-card-front">end up</div><div class="flip-card-back"><div class="definition">reach a particular place or situation after completing other activities</div><div class="example">"If you miss the bus, you may end up arriving late."</div></div></div>
+          </div>
+
+          <!-- 31 -->
+          <div class="flip-card" data-word="humanistic" data-definition="treating people with respect, making sure they are happy, safe and healthy" data-example="The school follows a humanistic approach that focuses on students' well-being.">
+            <div class="flip-card-inner"><div class="flip-card-front">humanistic</div><div class="flip-card-back"><div class="definition">treating people with respect, making sure they are happy, safe and healthy</div><div class="example">"The school follows a humanistic approach."</div></div></div>
+          </div>
+
+          <!-- 32 -->
+          <div class="flip-card" data-word="course" data-definition="the direction in which sth moves" data-example="The river changed its course after the heavy rain.">
+            <div class="flip-card-inner"><div class="flip-card-front">course</div><div class="flip-card-back"><div class="definition">the direction in which sth moves</div><div class="example">"The river changed its course after the heavy rain."</div></div></div>
+          </div>
+
+          <!-- 33 -->
+          <div class="flip-card" data-word="continually" data-definition="without a break (Syn: continuously)" data-example="The machine ran continually throughout the day.">
+            <div class="flip-card-inner"><div class="flip-card-front">continually</div><div class="flip-card-back"><div class="definition">without a break (Syn: continuously)</div><div class="example">"The machine ran continually throughout the day."</div></div></div>
+          </div>
+
+          <!-- 34 -->
+          <div class="flip-card" data-word="uninviting" data-definition="not attractive or pleasant (Opp: inviting)" data-example="The old building looked dark and uninviting.">
+            <div class="flip-card-inner"><div class="flip-card-front">uninviting</div><div class="flip-card-back"><div class="definition">not attractive or pleasant (Opp: inviting)</div><div class="example">"The old building looked dark and uninviting."</div></div></div>
+          </div>
+
+          <!-- 35 -->
+          <div class="flip-card" data-word="demand" data-definition="ask for sth forcefully" data-example="The workers demanded better working conditions.">
+            <div class="flip-card-inner"><div class="flip-card-front">demand</div><div class="flip-card-back"><div class="definition">ask for sth forcefully</div><div class="example">"The workers demanded better working conditions."</div></div></div>
+          </div>
+
+          <!-- 36 -->
+          <div class="flip-card" data-word="fence" data-definition="a barrier between two areas of land, usually made of wood or wire" data-example="A wooden fence surrounds the garden.">
+            <div class="flip-card-inner"><div class="flip-card-front">fence</div><div class="flip-card-back"><div class="definition">a barrier between two areas of land, usually made of wood or wire</div><div class="example">"A wooden fence surrounds the garden."</div></div></div>
+          </div>
+
+          <!-- 37 -->
+          <div class="flip-card" data-word="unfenced" data-definition="not surrounded by a fence (Opp: fenced)" data-example="The field is unfenced, so animals can enter easily.">
+            <div class="flip-card-inner"><div class="flip-card-front">unfenced</div><div class="flip-card-back"><div class="definition">not surrounded by a fence (Opp: fenced)</div><div class="example">"The field is unfenced, so animals can enter easily."</div></div></div>
+          </div>
+
+          <!-- 38 -->
+          <div class="flip-card" data-word="low-rise" data-definition="not tall, with only a few floors (Opp: high-rise)" data-example="We live in a low-rise apartment building with three floors.">
+            <div class="flip-card-inner"><div class="flip-card-front">low-rise</div><div class="flip-card-back"><div class="definition">not tall, with only a few floors (Opp: high-rise)</div><div class="example">"We live in a low-rise apartment building with three floors."</div></div></div>
+          </div>
+
+          <!-- 39 -->
+          <div class="flip-card" data-word="suburb" data-definition="an area where people live that is outside the city centre" data-example="Many families move to the suburbs for a quieter lifestyle.">
+            <div class="flip-card-inner"><div class="flip-card-front">suburb</div><div class="flip-card-back"><div class="definition">an area where people live that is outside the city centre</div><div class="example">"Many families move to the suburbs for a quieter lifestyle."</div></div></div>
+          </div>
+
+          <!-- 40 -->
+          <div class="flip-card" data-word="district" data-definition="an area of a town or country that has a particular purpose" data-example="The business district is crowded during the day.">
+            <div class="flip-card-inner"><div class="flip-card-front">district</div><div class="flip-card-back"><div class="definition">an area of a town or country that has a particular purpose</div><div class="example">"The business district is crowded during the day."</div></div></div>
+          </div>
+
+          <!-- 41 -->
+          <div class="flip-card" data-word="industrial" data-definition="related to factories" data-example="The city has a large industrial area with many factories.">
+            <div class="flip-card-inner"><div class="flip-card-front">industrial</div><div class="flip-card-back"><div class="definition">related to factories</div><div class="example">"The city has a large industrial area with many factories."</div></div></div>
+          </div>
+
+          <!-- 42 -->
+          <div class="flip-card" data-word="estate" data-definition="a group of houses or factories built according to a plan" data-example="They moved into a new housing estate last year.">
+            <div class="flip-card-inner"><div class="flip-card-front">estate</div><div class="flip-card-back"><div class="definition">a group of houses or factories built according to a plan</div><div class="example">"They moved into a new housing estate last year."</div></div></div>
+          </div>
+
+          <!-- 43 -->
+          <div class="flip-card" data-word="bike lane" data-definition="a part of the road that can only be used by people riding bicycles" data-example="Cyclists should stay in the bike lane for safety.">
+            <div class="flip-card-inner"><div class="flip-card-front">bike lane</div><div class="flip-card-back"><div class="definition">a part of the road that can only be used by people riding bicycles</div><div class="example">"Cyclists should stay in the bike lane for safety."</div></div></div>
+          </div>
+
+          <!-- 44 -->
+          <div class="flip-card" data-word="pavement" data-definition="a path on the side of the road that people can walk on" data-example="We walked along the pavement instead of the road.">
+            <div class="flip-card-inner"><div class="flip-card-front">pavement</div><div class="flip-card-back"><div class="definition">a path on the side of the road that people can walk on</div><div class="example">"We walked along the pavement instead of the road."</div></div></div>
+          </div>
+
+          <!-- 45 -->
+          <div class="flip-card" data-word="crossroads" data-definition="a place where two roads meet and cross each other" data-example="The accident happened at a busy crossroads.">
+            <div class="flip-card-inner"><div class="flip-card-front">crossroads</div><div class="flip-card-back"><div class="definition">a place where two roads meet and cross each other</div><div class="example">"The accident happened at a busy crossroads."</div></div></div>
+          </div>
+
+          <!-- 46 -->
+          <div class="flip-card" data-word="roadworks" data-definition="repair or building work on a road" data-example="The traffic was slow because of roadworks.">
+            <div class="flip-card-inner"><div class="flip-card-front">roadworks</div><div class="flip-card-back"><div class="definition">repair or building work on a road</div><div class="example">"The traffic was slow because of roadworks."</div></div></div>
+          </div>
+
+          <!-- 47 -->
+          <div class="flip-card" data-word="junction" data-definition="the place where two or more roads or railways meet" data-example="Turn left at the next junction.">
+            <div class="flip-card-inner"><div class="flip-card-front">junction</div><div class="flip-card-back"><div class="definition">the place where two or more roads or railways meet</div><div class="example">"Turn left at the next junction."</div></div></div>
+          </div>
+
+          <!-- 48 -->
+          <div class="flip-card" data-word="pedestrian crossing" data-definition="a place in a road where traffic must stop so that pedestrians can cross" data-example="Always use the pedestrian crossing when crossing a busy road.">
+            <div class="flip-card-inner"><div class="flip-card-front">pedestrian crossing</div><div class="flip-card-back"><div class="definition">a place in a road where traffic must stop so that pedestrians can cross</div><div class="example">"Always use the pedestrian crossing when crossing a busy road."</div></div></div>
+          </div>
+
+          <!-- 49 -->
+          <div class="flip-card" data-word="pedestrian zone" data-definition="an area where no vehicles are allowed" data-example="Cars are not allowed in the pedestrian zone.">
+            <div class="flip-card-inner"><div class="flip-card-front">pedestrian zone</div><div class="flip-card-back"><div class="definition">an area where no vehicles are allowed</div><div class="example">"Cars are not allowed in the pedestrian zone."</div></div></div>
+          </div>
+
+          <!-- 50 -->
+          <div class="flip-card" data-word="speed camera" data-definition="a camera at the side of the road that takes pictures of cars that are going too fast" data-example="A speed camera caught the driver speeding.">
+            <div class="flip-card-inner"><div class="flip-card-front">speed camera</div><div class="flip-card-back"><div class="definition">a camera at the side of the road that takes pictures of cars that are going too fast</div><div class="example">"A speed camera caught the driver speeding."</div></div></div>
+          </div>
+
+          <!-- 51 -->
+          <div class="flip-card" data-word="speed limit" data-definition="the fastest you are allowed to drive in a specific area" data-example="The speed limit on this road is 60 km/h.">
+            <div class="flip-card-inner"><div class="flip-card-front">speed limit</div><div class="flip-card-back"><div class="definition">the fastest you are allowed to drive in a specific area</div><div class="example">"The speed limit on this road is 60 km/h."</div></div></div>
+          </div>
+
+          <!-- 52 -->
+          <div class="flip-card" data-word="facilities" data-definition="buildings, equipment and services available for a particular purpose" data-example="The sports center has excellent facilities for students.">
+            <div class="flip-card-inner"><div class="flip-card-front">facilities</div><div class="flip-card-back"><div class="definition">buildings, equipment and services available for a particular purpose</div><div class="example">"The sports center has excellent facilities for students."</div></div></div>
+          </div>
+
+          <!-- 53 -->
+          <div class="flip-card" data-word="venue" data-definition="the place where an event or meeting takes place" data-example="The school hall was the venue for the graduation ceremony.">
+            <div class="flip-card-inner"><div class="flip-card-front">venue</div><div class="flip-card-back"><div class="definition">the place where an event or meeting takes place</div><div class="example">"The school hall was the venue for the graduation ceremony."</div></div></div>
+          </div>
+
+          <!-- 54 -->
+          <div class="flip-card" data-word="urbanisation" data-definition="the process in which towns and cities are built where there was countryside before" data-example="Urbanisation has led to the growth of many cities.">
+            <div class="flip-card-inner"><div class="flip-card-front">urbanisation</div><div class="flip-card-back"><div class="definition">the process in which towns and cities are built where there was countryside before</div><div class="example">"Urbanisation has led to the growth of many cities."</div></div></div>
+          </div>
+
+          <!-- 55 -->
+          <div class="flip-card" data-word="boundary" data-definition="a line that marks the limit of sth" data-example="A wall marks the boundary between the two properties.">
+            <div class="flip-card-inner"><div class="flip-card-front">boundary</div><div class="flip-card-back"><div class="definition">a line that marks the limit of sth</div><div class="example">"A wall marks the boundary between the two properties."</div></div></div>
+          </div>
+
+          <!-- 56 -->
+          <div class="flip-card" data-word="ghost town" data-definition="a town that used to be busy but now has few or no people" data-example="The mining town became a ghost town after the mine closed.">
+            <div class="flip-card-inner"><div class="flip-card-front">ghost town</div><div class="flip-card-back"><div class="definition">a town that used to be busy but now has few or no people</div><div class="example">"The mining town became a ghost town after the mine closed."</div></div></div>
+          </div>
+
+        </div>
+
+        <!-- ====== IDIOMS SECTION ====== -->
+        <h2 class="text-xl" style="margin-top: var(--spacing-10); margin-bottom: var(--spacing-4); color: var(--color-primary);">💡 Idioms</h2>
+
+        <div class="grid grid-3" id="idiomsGrid">
+
+          <div class="flip-card" data-word="live on top of each other" data-definition="live very close to each other" data-example="In many modern cities, people have to live on top of each other.">
+            <div class="flip-card-inner"><div class="flip-card-front">live on top of each other</div><div class="flip-card-back"><div class="definition">live very close to each other</div><div class="example">"In many modern cities, people have to live on top of each other."</div></div></div>
+          </div>
+
+          <div class="flip-card" data-word="resist the temptation" data-definition="stop yourself from doing sth you like but shouldn't do" data-example="I couldn't resist the temptation to eat some more chocolate cake.">
+            <div class="flip-card-inner"><div class="flip-card-front">resist the temptation</div><div class="flip-card-back"><div class="definition">stop yourself from doing sth you like but shouldn't do</div><div class="example">"I couldn't resist the temptation to eat some more chocolate cake."</div></div></div>
+          </div>
+
+          <div class="flip-card" data-word="have the best of both worlds" data-definition="enjoy the advantages of two very different things at the same time" data-example="He lives in the country but also keeps an apartment in the city, so he has the best of both worlds.">
+            <div class="flip-card-inner"><div class="flip-card-front">have the best of both worlds</div><div class="flip-card-back"><div class="definition">enjoy the advantages of two very different things at the same time</div><div class="example">"He has the best of both worlds."</div></div></div>
+          </div>
+
+          <div class="flip-card" data-word="from all walks of life" data-definition="with different jobs or positions in society" data-example="There are people from all walks of life in my dance class.">
+            <div class="flip-card-inner"><div class="flip-card-front">from all walks of life</div><div class="flip-card-back"><div class="definition">with different jobs or positions in society</div><div class="example">"There are people from all walks of life in my dance class."</div></div></div>
+          </div>
+
+          <div class="flip-card" data-word="on the increase" data-definition="getting larger" data-example="His book collection is always on the increase; he must have more than 10,000 books already.">
+            <div class="flip-card-inner"><div class="flip-card-front">on the increase</div><div class="flip-card-back"><div class="definition">getting larger</div><div class="example">"His book collection is always on the increase."</div></div></div>
+          </div>
+
+          <div class="flip-card" data-word="take into consideration" data-definition="think about sth before making a decision" data-example="When architects create a new building, they need to take the local area into consideration.">
+            <div class="flip-card-inner"><div class="flip-card-front">take into consideration</div><div class="flip-card-back"><div class="definition">think about sth before making a decision</div><div class="example">"They need to take the local area into consideration."</div></div></div>
+          </div>
+
+          <div class="flip-card" data-word="the talk of the town" data-definition="what everyone is talking about" data-example="The divorce of Angelina Jolie and Brad Pitt was the talk of the town last year.">
+            <div class="flip-card-inner"><div class="flip-card-front">the talk of the town</div><div class="flip-card-back"><div class="definition">what everyone is talking about</div><div class="example">"It was the talk of the town last year."</div></div></div>
+          </div>
+
+          <div class="flip-card" data-word="the urban jungle" data-definition="city life (especially if you think it's unpleasant)" data-example="Apartment buildings have sprung up everywhere and the urban jungle has become unbearable.">
+            <div class="flip-card-inner"><div class="flip-card-front">the urban jungle</div><div class="flip-card-back"><div class="definition">city life (especially if you think it's unpleasant)</div><div class="example">"The urban jungle has become unbearable."</div></div></div>
+          </div>
+
+          <div class="flip-card" data-word="go to town" data-definition="do sth with energy and spending a lot on it" data-example="She really went to town on her birthday party — it went on all night.">
+            <div class="flip-card-inner"><div class="flip-card-front">go to town</div><div class="flip-card-back"><div class="definition">do sth with energy and spending a lot on it</div><div class="example">"She really went to town on her birthday party."</div></div></div>
+          </div>
+
+          <div class="flip-card" data-word="all over the place" data-definition="not tidy or not well organised" data-example="Your work is all over the place. I'm afraid you'll have to do it again.">
+            <div class="flip-card-inner"><div class="flip-card-front">all over the place</div><div class="flip-card-back"><div class="definition">not tidy or not well organised</div><div class="example">"Your work is all over the place."</div></div></div>
+          </div>
+
+          <div class="flip-card" data-word="life in the fast lane" data-definition="a busy and exciting way of life" data-example="She used to enjoy life in the fast lane, but now she lives in a quiet village.">
+            <div class="flip-card-inner"><div class="flip-card-front">life in the fast lane</div><div class="flip-card-back"><div class="definition">a busy and exciting way of life</div><div class="example">"She used to enjoy life in the fast lane."</div></div></div>
+          </div>
+
+        </div>
+
+        <!-- ====== Practice Questions Button ====== -->
+        <div style="margin-top: var(--spacing-10); text-align: center; padding: var(--spacing-6); background: var(--color-bg); border-radius: var(--radius-lg); border: 2px dashed var(--color-primary);">
+          <h3 style="color: var(--color-primary); font-size: var(--font-size-lg);">📝 Practice Questions</h3>
+          <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">Test your understanding with interactive questions from the booklet.</p>
+          <a href="exercises/index.html" class="btn btn-primary" style="margin-top: var(--spacing-3);">
+            🚀 Start Exercises
+          </a>
+        </div>
+
+        <!-- Navigation -->
+        <div style="margin-top: var(--spacing-8); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--spacing-4);">
+          <a href="index.html" class="btn btn-secondary">← Back to Unit 4</a>
+          <a href="grammar-1.html" class="btn btn-primary">Next: Grammar 1 →</a>
+        </div>
+
+        <!-- Footer -->
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 4 · Vocabulary</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ====== SCRIPTS ====== -->
+  <script src="../../js/main.js"></script>
+  <script src="../../js/navigation.js"></script>
+  <script src="unit.js"></script>
+
+</body>
+</html>
