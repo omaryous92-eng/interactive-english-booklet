@@ -15,15 +15,358 @@
   <link rel="stylesheet" href="../../css/animations.css">
   <link rel="stylesheet" href="../../css/responsive.css">
   <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    /* ====== PASSAGE STYLES ====== */
+    .passage-hero {
+      background: var(--gradient-header);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      text-align: center;
+      color: #fff;
+      margin-bottom: var(--spacing-6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .passage-hero::before {
+      content: '🐦';
+      position: absolute;
+      font-size: 10rem;
+      opacity: 0.08;
+      right: -10px;
+      bottom: -30px;
+      transform: rotate(-10deg);
+    }
+
+    .passage-hero h1 {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-extrabold);
+      margin-bottom: var(--spacing-2);
+      position: relative;
+      z-index: 1;
+    }
+
+    .passage-hero .subtitle {
+      font-size: var(--font-size-base);
+      opacity: 0.85;
+      position: relative;
+      z-index: 1;
+    }
+
+    .passage-hero .author {
+      font-size: var(--font-size-sm);
+      opacity: 0.7;
+      margin-top: var(--spacing-1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .passage-hero .badge-group {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-3);
+      flex-wrap: wrap;
+      margin-top: var(--spacing-3);
+      position: relative;
+      z-index: 1;
+    }
+
+    .passage-hero .badge-group .badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: var(--spacing-1) var(--spacing-4);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      backdrop-filter: blur(4px);
+    }
+
+    /* ====== PASSAGE TEXT ====== */
+    .passage-text {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      box-shadow: var(--shadow-sm);
+      border: 2px solid var(--color-border);
+      margin-bottom: var(--spacing-6);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+    }
+
+    .passage-text.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .passage-text:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .passage-text p {
+      font-size: var(--font-size-base);
+      line-height: 2;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--spacing-4);
+    }
+
+    .passage-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .passage-text strong {
+      color: var(--color-text-primary);
+    }
+
+    .passage-text .highlight-text {
+      background: rgba(242, 101, 34, 0.08);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .passage-text .job-title {
+      display: inline-block;
+      background: var(--color-primary);
+      color: #fff;
+      padding: 2px 12px;
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      margin-right: 4px;
+    }
+
+    /* ====== QUESTIONS ====== */
+    .question-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-5);
+      box-shadow: var(--shadow-sm);
+      border: 2px solid var(--color-border);
+      margin-bottom: var(--spacing-4);
+      transition: all var(--transition-slow);
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .question-card.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .question-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-primary);
+    }
+
+    .question-card .q-number {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .question-card .q-text {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-primary);
+      margin: var(--spacing-2) 0;
+    }
+
+    .question-card .q-text-sm {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-regular);
+      color: var(--color-text-secondary);
+      margin: var(--spacing-1) 0;
+    }
+
+    .question-card .q-answer {
+      background: var(--color-bg);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-3);
+      margin-top: var(--spacing-3);
+      border-left: 4px solid var(--color-secondary);
+      display: none;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+    }
+
+    .question-card .q-answer.show {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .question-card .q-answer strong {
+      color: var(--color-primary);
+    }
+
+    .question-card .q-answer .highlight {
+      background: rgba(242, 101, 34, 0.1);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .question-card .q-answer .list-item {
+      display: block;
+      padding: 2px 0;
+    }
+
+    .btn-answer {
+      background: var(--color-bg);
+      color: var(--color-text-primary);
+      padding: var(--spacing-2) var(--spacing-5);
+      border-radius: var(--radius-full);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-sm);
+      border: 2px solid var(--color-border);
+      cursor: pointer;
+      transition: all var(--transition-base);
+      margin-top: var(--spacing-2);
+    }
+
+    .btn-answer:hover {
+      border-color: var(--color-secondary);
+      color: var(--color-secondary);
+      background: rgba(255, 184, 48, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .btn-answer.active {
+      border-color: var(--color-secondary);
+      background: var(--color-secondary);
+      color: #fff;
+    }
+
+    .btn-answer.active:hover {
+      background: #e6a600;
+    }
+
+    /* ====== OPTIONS STYLES ====== */
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-2);
+      margin: var(--spacing-2) 0;
+    }
+
+    .options .opt {
+      padding: var(--spacing-1) var(--spacing-3);
+      background: var(--color-bg);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .options .opt strong {
+      color: var(--color-text-primary);
+    }
+
+    .options .opt.correct {
+      background: rgba(52, 199, 89, 0.15);
+      border: 1px solid #34C759;
+      color: #1a7a3a;
+    }
+
+    /* ====== MATCHING GRID ====== */
+    .matching-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-2);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin: var(--spacing-2) 0;
+    }
+
+    .matching-grid .term {
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+    }
+
+    .matching-grid .def {
+      color: var(--color-text-secondary);
+    }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 768px) {
+      .passage-text {
+        padding: var(--spacing-4);
+      }
+      .passage-text p {
+        font-size: var(--font-size-sm);
+      }
+      .question-card {
+        padding: var(--spacing-4);
+      }
+      .passage-hero h1 {
+        font-size: var(--font-size-xl);
+      }
+      .matching-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Header / Mobile Nav omitted -->
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../units/unit-1/index.html">Unit 1</a>
+        <a href="../../units/unit-2/index.html">Unit 2</a>
+        <a href="../../units/unit-3/index.html">Unit 3</a>
+        <a href="../../units/unit-4/index.html">Unit 4</a>
+        <a href="../../novel/index.html">Novel</a>
+        <a href="../../poetry/index.html">Poetry</a>
+        <a href="../index.html" class="active">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../../units/unit-1/index.html">Unit 1: Jump for Joy</a>
+      <a href="../../units/unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../../units/unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../../units/unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="../../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../index.html" class="active">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
   <main class="main-content">
     <section class="section">
       <div class="container">
 
+        <!-- Breadcrumbs -->
         <nav class="breadcrumbs">
           <a href="../../index.html">Home</a>
           <span class="separator"> › </span>
@@ -34,54 +377,143 @@
           <span class="current">Passage 5</span>
         </nav>
 
-        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
-          <h1 class="text-2xl" style="color: var(--color-primary);">🐦 Bird Brains at Work</h1>
-          <p class="text-base" style="color: var(--color-text-secondary);">by Anita N. Amin</p>
+        <!-- ====== HERO ====== -->
+        <div class="passage-hero fade-in">
+          <h1>🐦 Bird Brains at Work</h1>
+          <div class="subtitle">Carrier Pigeons — Mailmen, Lifeguards &amp; Spies</div>
+          <div class="author">by Anita N. Amin</div>
+          <div class="badge-group">
+            <span class="badge">📖 5 Questions</span>
+            <span class="badge">📬 Messenger</span>
+            <span class="badge">🕵️ Spy</span>
+          </div>
         </div>
 
-        <!-- Passage -->
-        <div class="card passage-content">
+        <!-- ====== PASSAGE TEXT ====== -->
+        <div class="passage-text" id="passageText">
           <p>
-            Next time you see a pigeon flying across the sky, look at it carefully! Is it holding a can? Or a camera? Or wearing a backpack? If it's a carrier pigeon, it just might be a working bird. You've probably heard of working dogs that help police officers, or horses that help farmers. Did you know that carrier pigeons can be trained to help people too?
+            Next time you see a pigeon flying across the sky, look at it carefully! Is it holding a can? Or a camera? Or wearing a backpack? If it's a <strong>carrier pigeon</strong>, it just might be a working bird. You've probably heard of working dogs that help police officers, or horses that help farmers. Did you know that carrier pigeons can be trained to help people too?
           </p>
           <p>
-            <strong>Mailman</strong><br>
-            Carrier pigeons can be trained to carry messages to people. The note is placed into a small skinny can. The can is tied to the pigeon's leg. Then the pigeon flies off to deliver the note. Carrier pigeons are good messengers because they're fast and can fly long distances. They also have a good sense of direction. They can even reach places that people can't. More than 800 years ago, Genghis Khan, an Asian ruler, set up pigeon post offices across his lands! As recently as 2010, Cuba used pigeons to send election results to its mountain people.
+            <span class="job-title">📬 Mailman</span>
+            Carrier pigeons can be trained to carry messages to people. The note is placed into a small skinny can. The can is tied to the pigeon's leg. Then the pigeon flies off to deliver the note. Carrier pigeons are good messengers because they're <strong>fast</strong> and can fly long distances. They also have a good sense of direction. They can even reach places that people can't. More than <strong>800 years ago</strong>, Genghis Khan, an Asian ruler, set up pigeon post offices across his lands! As recently as <strong>2010</strong>, Cuba used pigeons to send election results to its mountain people.
           </p>
           <p>
-            <strong>Lifeguard</strong><br>
+            <span class="job-title">🏊 Lifeguard</span>
             From high up in the sky, specially trained pigeons can spot orange life jackets in the ocean. Sometimes it is difficult for humans to spot people lost at sea, especially when the weather is bad. However, pigeons can fly quickly over a large area of water in search of people.
           </p>
           <p>
-            <strong>Spy</strong><br>
-            Many years ago, carrier pigeons were used to help our country during wars. "Spy pigeons" had small cameras that were tied to them. As a pigeon flew over enemy territory, it would take pictures. These photos helped the military plan their strategies. Pigeons were even awarded medals for their bravery and service!
+            <span class="job-title">🕵️ Spy</span>
+            Many years ago, carrier pigeons were used to help our country during wars. <strong>"Spy pigeons"</strong> had small cameras that were tied to them. As a pigeon flew over enemy land, the camera snapped photos of the land below. This would allow our military to see where the enemies were and what they were doing. Pigeons were often used in war, by wearing cameras to spy on enemies. The pigeons have probably saved many soldiers' lives. These "spy" birds had a dangerous job. They had to dodge bullets, <strong>poisonous</strong> gas, and bullies like hawks. During World Wars 1 and 2, the USA and its allies even had huge pigeon armies. Thousands of pigeons served! They were like flying soldiers. A few even received <strong>medals</strong> for their brave work.
+          </p>
+          <p>
+            <span class="job-title">🔬 Scientist's Helper</span>
+            In <strong>2006</strong>, a group of scientists used pigeons to study air pollution in California. Special backpacks with miniature cellphones were strapped onto pigeons. As the pigeons flew, machines in the backpacks tested to see what gases were in the air. The cell phones sent information about the air to the scientists.
+          </p>
+          <p>
+            <span class="job-title">💡 Bird Brains at Work</span>
+            So next time you see a pigeon, stop and watch it closely. What might look like an ordinary bird to most people, might actually be a hard-working mail carrier, a scientist, a lifeguard, or even a spy!
           </p>
         </div>
 
-        <!-- Questions -->
-        <div class="card" style="background: var(--color-bg); border-left: 4px solid var(--color-accent-1);">
-          <div class="card-title" style="font-size: var(--font-size-base);">❓ Questions</div>
-          <ol style="list-style: decimal; padding-left: var(--spacing-6); color: var(--color-text-secondary);">
-            <li>What did Genghis Khan use pigeons for 800 years ago?<br>
-              a. He used pigeons to deliver election results.<br>
-              b. He used pigeons to find people lost at sea.<br>
-              c. He used pigeons to carry messages.<br>
-              d. He kept pigeons as pets.
-            </li>
-            <li>What was the author's purpose for writing this article?<br>
-              a. to share fictional stories about pigeons helping people<br>
-              b. to teach readers about the lives of wild pigeons<br>
-              c. to persuade readers into liking pigeons more<br>
-              d. to teach readers about real jobs held by carrier pigeons
-            </li>
-            <li>Explain how pigeons have helped our military during wartime.</li>
-            <li>Do you think our country's military still uses carrier pigeons? Why or why not?</li>
-          </ol>
+        <!-- ====== QUESTIONS ====== -->
+        <h2 style="color: var(--color-primary); font-size: var(--font-size-xl); margin-bottom: var(--spacing-4);">❓ Questions</h2>
+
+        <!-- Question 1 -->
+        <div class="question-card" id="q1">
+          <div class="q-number">Question 1</div>
+          <div class="q-text">What did Genghis Khan use pigeons for 800 years ago?</div>
+          <div class="options">
+            <span class="opt"><strong>a.</strong> He used pigeons to deliver election results.</span>
+            <span class="opt"><strong>b.</strong> He used pigeons to find people lost at sea.</span>
+            <span class="opt"><strong>c.</strong> He used pigeons to carry messages.</span>
+            <span class="opt"><strong>d.</strong> He kept pigeons as pets.</span>
+          </div>
+          <button class="btn-answer" onclick="toggleAnswer('a1')">👁️ Show Answer</button>
+          <div class="q-answer" id="a1">
+            <strong>Answer:</strong> <span class="highlight">c. He used pigeons to carry messages.</span><br><br>
+            The article states: "More than 800 years ago, Genghis Khan, an Asian ruler, set up <strong>pigeon post offices</strong> across his lands!" This means he used them to carry messages.
+          </div>
         </div>
 
+        <!-- Question 2 -->
+        <div class="question-card" id="q2">
+          <div class="q-number">Question 2</div>
+          <div class="q-text">What was the author's purpose for writing this article?</div>
+          <div class="options">
+            <span class="opt"><strong>a.</strong> to share fictional stories about pigeons helping people</span>
+            <span class="opt"><strong>b.</strong> to teach readers about the lives of wild pigeons</span>
+            <span class="opt"><strong>c.</strong> to persuade readers into liking pigeons more</span>
+            <span class="opt"><strong>d.</strong> to teach readers about real jobs held by carrier pigeons</span>
+          </div>
+          <button class="btn-answer" onclick="toggleAnswer('a2')">👁️ Show Answer</button>
+          <div class="q-answer" id="a2">
+            <strong>Answer:</strong> <span class="highlight">d. to teach readers about real jobs held by carrier pigeons</span><br><br>
+            The article provides factual information about how carrier pigeons have been used as mailmen, lifeguards, spies, and scientist helpers. It is informative, not fictional or persuasive.
+          </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-card" id="q3">
+          <div class="q-number">Question 3</div>
+          <div class="q-text">Explain how pigeons have helped our military during wartime.</div>
+          <button class="btn-answer" onclick="toggleAnswer('a3')">👁️ Show Answer</button>
+          <div class="q-answer" id="a3">
+            <strong>Answer:</strong><br>
+            Pigeons helped the military by acting as <span class="highlight">"spy pigeons"</span> with small cameras tied to them. They flew over enemy land and took photos, allowing the military to see enemy positions and activities. They also had dangerous jobs dodging bullets and poisonous gas. During World Wars 1 and 2, thousands of pigeons served, and some even received medals for their bravery.
+          </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-card" id="q4">
+          <div class="q-number">Question 4</div>
+          <div class="q-text">Do you think our country's military still uses carrier pigeons? Why or why not?</div>
+          <button class="btn-answer" onclick="toggleAnswer('a4')">👁️ Show Answer</button>
+          <div class="q-answer" id="a4">
+            <strong>Answer:</strong><br>
+            <span class="highlight">Opinion-based question.</span> Sample answer: <br><br>
+            <strong>Yes:</strong> They might still use pigeons in situations where electronic communication is not reliable, such as in remote areas or during natural disasters. Pigeons are fast and have a good sense of direction.<br><br>
+            <strong>No:</strong> Modern technology like drones and satellites may have replaced pigeons for spying and communication. However, the article does not provide a definite answer, so it is open to personal opinion.
+          </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-card" id="q5">
+          <div class="q-number">Question 5</div>
+          <div class="q-text">Match each vocabulary word on the left with its definition on the right.</div>
+          <div class="matching-grid">
+            <span class="term">1. _____ life jacket</span>
+            <span class="def">a. person who rescues people who are in danger of drowning</span>
+            <span class="term">2. _____ military</span>
+            <span class="def">b. wearable device that helps a person float in water</span>
+            <span class="term">3. _____ election</span>
+            <span class="def">c. small discs given as awards</span>
+            <span class="term">4. _____ poisonous</span>
+            <span class="def">d. process in which citizens vote for a government official</span>
+            <span class="term">5. _____ lifeguard</span>
+            <span class="def">e. armed forces</span>
+            <span class="term">6. _____ medals</span>
+            <span class="def">f. machine for taking photos</span>
+            <span class="term">7. _____ camera</span>
+            <span class="def">g. something that causes illness or death</span>
+          </div>
+          <button class="btn-answer" onclick="toggleAnswer('a5')">👁️ Show Answer</button>
+          <div class="q-answer" id="a5">
+            <strong>Answer:</strong><br>
+            1. <span class="highlight">b</span> — life jacket = wearable device that helps a person float in water<br>
+            2. <span class="highlight">e</span> — military = armed forces<br>
+            3. <span class="highlight">d</span> — election = process in which citizens vote for a government official<br>
+            4. <span class="highlight">g</span> — poisonous = something that causes illness or death<br>
+            5. <span class="highlight">a</span> — lifeguard = person who rescues people in danger of drowning<br>
+            6. <span class="highlight">c</span> — medals = small discs given as awards<br>
+            7. <span class="highlight">f</span> — camera = machine for taking photos
+          </div>
+        </div>
+
+        <!-- ====== NAVIGATION ====== -->
         <div style="margin-top: var(--spacing-8); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--spacing-4);">
           <a href="passage-4.html" class="btn btn-secondary">← Martin Luther King Jr.</a>
-          <a href="index.html" class="btn btn-primary">↑ Back to Reading</a>
+          <a href="index.html" class="btn btn-primary">↑ Back to All Passages</a>
         </div>
 
         <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
@@ -92,9 +524,61 @@
     </section>
   </main>
 
+  <!-- ====== SCRIPTS ====== -->
   <script src="../../js/main.js"></script>
   <script src="../../js/navigation.js"></script>
-  <script src="../skills.js"></script>
+
+  <script>
+    // ====== TOGGLE ANSWER ======
+    function toggleAnswer(id) {
+      const answer = document.getElementById(id);
+      const btn = answer.parentElement.querySelector('.btn-answer');
+      if (answer.classList.contains('show')) {
+        answer.classList.remove('show');
+        btn.textContent = '👁️ Show Answer';
+        btn.classList.remove('active');
+      } else {
+        answer.classList.add('show');
+        btn.textContent = '🙈 Hide Answer';
+        btn.classList.add('active');
+      }
+    }
+
+    // ====== INTERSECTION OBSERVER ======
+    document.addEventListener('DOMContentLoaded', function() {
+      // Passage text
+      const passage = document.getElementById('passageText');
+      if (passage && 'IntersectionObserver' in window) {
+        const observer1 = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.2 });
+        observer1.observe(passage);
+      } else if (passage) {
+        passage.classList.add('visible');
+      }
+
+      // Questions
+      const questions = document.querySelectorAll('.question-card');
+      if ('IntersectionObserver' in window) {
+        const observer2 = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, index * 120);
+            }
+          });
+        }, { threshold: 0.15 });
+        questions.forEach(q => observer2.observe(q));
+      } else {
+        questions.forEach(q => q.classList.add('visible'));
+      }
+    });
+  </script>
 
 </body>
 </html>
