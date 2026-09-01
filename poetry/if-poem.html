@@ -15,11 +15,505 @@
   <link rel="stylesheet" href="../css/animations.css">
   <link rel="stylesheet" href="../css/responsive.css">
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ============================================================
+       Poem Page Specific Styles
+       ============================================================ */
+
+    /* ---------- Hero Section ---------- */
+    .poem-hero {
+      background: var(--gradient-header);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-8);
+      text-align: center;
+      color: #fff;
+      margin-bottom: var(--spacing-8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .poem-hero::before {
+      content: '🌟';
+      position: absolute;
+      font-size: 12rem;
+      opacity: 0.08;
+      right: -20px;
+      bottom: -40px;
+      transform: rotate(-10deg);
+    }
+
+    .poem-hero h1 {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-extrabold);
+      margin-bottom: var(--spacing-3);
+      position: relative;
+      z-index: 1;
+    }
+
+    .poem-hero p {
+      font-size: var(--font-size-lg);
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .poem-hero .badge-group {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-3);
+      flex-wrap: wrap;
+      margin-top: var(--spacing-4);
+      position: relative;
+      z-index: 1;
+    }
+
+    .poem-hero .badge-group .badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: var(--spacing-2) var(--spacing-4);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      backdrop-filter: blur(4px);
+    }
+
+    /* ---------- Poet Biography ---------- */
+    .poet-bio {
+      background: var(--color-bg);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      margin-bottom: var(--spacing-8);
+      border-left: 6px solid var(--color-primary);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-6);
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .poet-bio.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .poet-bio .bio-icon {
+      font-size: 4rem;
+      flex-shrink: 0;
+      animation: float-icon 3s ease-in-out infinite;
+    }
+
+    .poet-bio .bio-content h3 {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      margin-bottom: var(--spacing-1);
+    }
+
+    .poet-bio .bio-content .bio-years {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .poet-bio .bio-content p {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .poet-bio .bio-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-2);
+      margin-top: var(--spacing-3);
+    }
+
+    .poet-bio .tag {
+      padding: 2px var(--spacing-3);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+    }
+
+    .poet-bio .tag.primary {
+      background: rgba(242, 101, 34, 0.1);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .poet-bio .tag.accent {
+      background: rgba(124, 92, 252, 0.1);
+      border-color: var(--color-accent-1);
+      color: var(--color-accent-1);
+    }
+
+    .poet-bio .tag.gold {
+      background: rgba(255, 184, 48, 0.1);
+      border-color: var(--color-secondary);
+      color: #b8860b;
+    }
+
+    /* ---------- Poem Text ---------- */
+    .poem-text {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      box-shadow: var(--shadow-sm);
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: var(--font-size-base);
+      line-height: 2.2;
+      color: var(--color-text-primary);
+      border: 2px solid var(--color-border);
+      transition: all var(--transition-base);
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.3s ease;
+      white-space: pre-wrap;
+    }
+
+    .poem-text.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .poem-text:hover {
+      box-shadow: var(--shadow-lg);
+    }
+
+    .poem-text .poem-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      text-align: center;
+      margin-bottom: var(--spacing-3);
+      font-family: var(--font-family-heading);
+    }
+
+    .poem-text .poem-author {
+      text-align: center;
+      font-size: var(--font-size-base);
+      color: var(--color-text-secondary);
+      font-family: var(--font-family);
+      margin-top: var(--spacing-3);
+    }
+
+    /* ---------- Section Titles ---------- */
+    .section-title {
+      text-align: center;
+      margin: var(--spacing-8) 0 var(--spacing-4) 0;
+    }
+
+    .section-title h2 {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      display: inline-block;
+      position: relative;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: var(--gradient-header);
+      border-radius: var(--radius-full);
+    }
+
+    .section-title p {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      margin-top: var(--spacing-3);
+    }
+
+    /* ---------- Main Idea ---------- */
+    .main-idea {
+      background: var(--color-bg);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      border-left: 6px solid var(--color-primary);
+      margin: var(--spacing-6) 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .main-idea.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .main-idea h3 {
+      color: var(--color-primary);
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .main-idea p {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+    }
+
+    /* ---------- Stanza Analysis ---------- */
+    .stanza-box {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      box-shadow: var(--shadow-sm);
+      margin: var(--spacing-6) 0;
+      border: 2px solid var(--color-border);
+      transition: all var(--transition-base);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.3s ease;
+    }
+
+    .stanza-box.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stanza-box:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .stanza-box .stanza-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      margin-bottom: var(--spacing-3);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-2);
+    }
+
+    .stanza-box .stanza-title .badge {
+      font-size: var(--font-size-xs);
+      background: var(--color-accent-1);
+      color: #fff;
+      padding: 2px var(--spacing-3);
+      border-radius: var(--radius-full);
+    }
+
+    .stanza-box .stanza-text {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: var(--font-size-sm);
+      line-height: 2;
+      color: var(--color-text-secondary);
+      background: var(--color-bg);
+      padding: var(--spacing-4);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--spacing-4);
+      white-space: pre-wrap;
+      border-left: 4px solid var(--color-primary);
+    }
+
+    .stanza-box .stanza-section {
+      margin-top: var(--spacing-4);
+    }
+
+    .stanza-box .stanza-section h4 {
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .stanza-box .stanza-section .vocab-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: var(--spacing-2);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--spacing-3);
+    }
+
+    .stanza-box .stanza-section .vocab-grid .word {
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+    }
+
+    .stanza-box .stanza-section p {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+    }
+
+    .stanza-box .stanza-section ul {
+      list-style: disc;
+      padding-left: var(--spacing-5);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 2;
+    }
+
+    .stanza-box .stanza-section ul li strong {
+      color: var(--color-text-primary);
+    }
+
+    /* ---------- Questions Box ---------- */
+    .questions-box {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      box-shadow: var(--shadow-sm);
+      border: 2px solid var(--color-border);
+      margin: var(--spacing-6) 0;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.3s ease;
+    }
+
+    .questions-box.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .questions-box:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .questions-box h3 {
+      color: var(--color-primary);
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--spacing-3);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-2);
+    }
+
+    .questions-box ol {
+      list-style: decimal;
+      padding-left: var(--spacing-5);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      line-height: 2;
+    }
+
+    /* ---------- Animations ---------- */
+    @keyframes pulse-icon {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes float-icon {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* ---------- Scroll indicator ---------- */
+    .scroll-indicator {
+      text-align: center;
+      padding: var(--spacing-4);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 768px) {
+      .poet-bio {
+        flex-direction: column;
+        text-align: center;
+        padding: var(--spacing-4);
+      }
+
+      .poem-text {
+        font-size: var(--font-size-sm);
+        padding: var(--spacing-4);
+      }
+
+      .stanza-box {
+        padding: var(--spacing-4);
+      }
+
+      .stanza-box .stanza-section .vocab-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .poem-hero h1 {
+        font-size: var(--font-size-2xl);
+      }
+
+      .poem-hero {
+        padding: var(--spacing-4);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .poet-bio .bio-icon {
+        font-size: 3rem;
+      }
+
+      .stanza-box .stanza-text {
+        font-size: var(--font-size-xs);
+        padding: var(--spacing-3);
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Header / Mobile Nav omitted -->
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../units/unit-1/index.html">Unit 1</a>
+        <a href="../units/unit-2/index.html">Unit 2</a>
+        <a href="../units/unit-3/index.html">Unit 3</a>
+        <a href="../units/unit-4/index.html">Unit 4</a>
+        <a href="../novel/index.html">Novel</a>
+        <a href="index.html" class="active">Poetry</a>
+        <a href="../skills/index.html">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../units/unit-1/index.html">Unit 1: Jump for Joy</a>
+      <a href="../units/unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../units/unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../units/unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="index.html" class="active">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../skills/index.html">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
   <main class="main-content">
     <section class="section">
       <div class="container">
@@ -33,86 +527,101 @@
           <span class="current">"If—"</span>
         </nav>
 
-        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
-          <h1 class="text-2xl" style="color: var(--color-primary);">🌟 "If—"</h1>
-          <p class="text-base" style="color: var(--color-text-secondary);">by <strong>Rudyard Kipling</strong> (1865–1936)</p>
-          <div style="margin-top: var(--spacing-3); display: flex; gap: var(--spacing-2); flex-wrap: wrap;">
-            <span class="badge badge-primary">Nobel Prize 1907</span>
-            <span class="badge badge-accent">Inspirational</span>
+        <!-- ====== HERO SECTION ====== -->
+        <div class="poem-hero fade-in">
+          <h1>🌟 "If—"</h1>
+          <p>
+            by <strong>Rudyard Kipling</strong>
+          </p>
+          <div class="badge-group">
+            <span class="badge">📜 Inspirational</span>
+            <span class="badge">🏆 Nobel Prize 1907</span>
+            <span class="badge">💡 32 Lines</span>
+            <span class="badge">⭐ 1910</span>
           </div>
         </div>
 
-        <!-- Poet Biography -->
-        <div class="card" style="margin-bottom: var(--spacing-6);">
-          <div class="card-header">
-            <div class="card-title">📝 About the Poet</div>
-            <span class="badge badge-primary">Rudyard Kipling</span>
+        <!-- ====== SCROLL INDICATOR ====== -->
+        <div class="scroll-indicator fade-in">
+          ⬇️ Scroll down to explore the poem ⬇️
+        </div>
+
+        <!-- ====== POET BIOGRAPHY ====== -->
+        <div class="poet-bio" id="poetBio">
+          <div class="bio-icon">📜</div>
+          <div class="bio-content">
+            <h3>Rudyard Kipling</h3>
+            <div class="bio-years">📅 1865 – 1936</div>
+            <p>
+              Joseph Rudyard Kipling was an English journalist, short-story writer, poet, and novelist. He is best known for <em>The Jungle Book</em> (1894), <em>Kim</em> (1901), and his poems including "If—" (1910). He was awarded the <strong>Nobel Prize in Literature in 1907</strong>, making him the first English-language writer to receive the prize.
+            </p>
+            <div class="bio-tags">
+              <span class="tag primary">Nobel Prize</span>
+              <span class="tag accent">Poet</span>
+              <span class="tag gold">Novelist</span>
+              <span class="tag">Journalist</span>
+            </div>
           </div>
-          <p style="color: var(--color-text-secondary);">
-            Joseph Rudyard Kipling (30 December 1865 – 18 January 1936) was an English journalist, short-story writer, poet, and novelist. His works of fiction include <em>The Jungle Book</em> (1894), <em>Kim</em> (1901), and many short stories. He was awarded the <strong>Nobel Prize in Literature in 1907</strong>, making him the first English-language writer to receive the prize.
+        </div>
+
+        <!-- ====== POEM TEXT ====== -->
+        <div class="poem-text" id="poemText">
+          <div class="poem-title">If—</div>
+          <span class="poem-line">If you can keep your head when all about you</span>
+          <span class="poem-line">    Are losing theirs and blaming it on you,</span>
+          <span class="poem-line">If you can trust yourself when all men doubt you,</span>
+          <span class="poem-line">    But make allowance for their doubting too;</span>
+          <span class="poem-line">If you can wait and not be tired by waiting,</span>
+          <span class="poem-line">    Or being lied about, don't deal in lies,</span>
+          <span class="poem-line">Or being hated, don't give way to hating,</span>
+          <span class="poem-line">    And yet don't look too good, nor talk too wise:</span>
+          <span class="poem-line" style="margin-top: var(--spacing-3);">If you can dream—and not make dreams your master;</span>
+          <span class="poem-line">    If you can think—and not make thoughts your aim;</span>
+          <span class="poem-line">If you can meet with Triumph and Disaster</span>
+          <span class="poem-line">    And treat those two impostors just the same;</span>
+          <span class="poem-line">If you can bear to hear the truth you've spoken</span>
+          <span class="poem-line">    Twisted by knaves to make a trap for fools,</span>
+          <span class="poem-line">Or watch the things you gave your life to, broken,</span>
+          <span class="poem-line">    And stoop and build 'em up with worn-out tools:</span>
+          <span class="poem-line" style="margin-top: var(--spacing-3);">If you can make one heap of all your winnings</span>
+          <span class="poem-line">    And risk it on one turn of pitch-and-toss,</span>
+          <span class="poem-line">And lose, and start again at your beginnings</span>
+          <span class="poem-line">    And never breathe a word about your loss;</span>
+          <span class="poem-line">If you can force your heart and nerve and sinew</span>
+          <span class="poem-line">    To serve your turn long after they are gone,</span>
+          <span class="poem-line">And so hold on when there is nothing in you</span>
+          <span class="poem-line">    Except the Will which says to them: 'Hold on!'</span>
+          <span class="poem-line" style="margin-top: var(--spacing-3);">If you can talk with crowds and keep your virtue,</span>
+          <span class="poem-line">    Or walk with Kings—nor lose the common touch,</span>
+          <span class="poem-line">If neither foes nor loving friends can hurt you,</span>
+          <span class="poem-line">    If all men count with you, but none too much;</span>
+          <span class="poem-line">If you can fill the unforgiving minute</span>
+          <span class="poem-line">    With sixty seconds' worth of distance run,</span>
+          <span class="poem-line">Yours is the Earth and everything that's in it,</span>
+          <span class="poem-line">    And—which is more—you'll be a Man, my son!</span>
+          <div class="poem-author">— Rudyard Kipling</div>
+        </div>
+
+        <!-- ====== MAIN IDEA ====== -->
+        <div class="main-idea" id="mainIdea">
+          <h3>💡 Main Idea</h3>
+          <p>
+            A father advises his son to prepare himself to face life with its good and bad sides. If the son follows his father's advice, he will own the world and everything in it. Moreover, he will be <strong>a man in the full sense of the word</strong>.
           </p>
         </div>
 
-        <!-- The Poem -->
-        <div class="card" style="margin-bottom: var(--spacing-6);">
-          <div class="card-header">
-            <div class="card-title">📜 The Poem</div>
-            <span class="badge badge-accent">Full Text</span>
-          </div>
-          <div class="poem-text">
-If you can keep your head when all about you
-    Are losing theirs and blaming it on you,
-If you can trust yourself when all men doubt you,
-    But make allowance for their doubting too;
-If you can wait and not be tired by waiting,
-    Or being lied about, don't deal in lies,
-Or being hated, don't give way to hating,
-    And yet don't look too good, nor talk too wise:
-
-If you can dream—and not make dreams your master;
-    If you can think—and not make thoughts your aim;
-If you can meet with Triumph and Disaster
-    And treat those two impostors just the same;
-If you can bear to hear the truth you've spoken
-    Twisted by knaves to make a trap for fools,
-Or watch the things you gave your life to, broken,
-    And stoop and build 'em up with worn-out tools:
-
-If you can make one heap of all your winnings
-    And risk it on one turn of pitch-and-toss,
-And lose, and start again at your beginnings
-    And never breathe a word about your loss;
-If you can force your heart and nerve and sinew
-    To serve your turn long after they are gone,
-And so hold on when there is nothing in you
-    Except the Will which says to them: 'Hold on!'
-
-If you can talk with crowds and keep your virtue,
-    Or walk with Kings—nor lose the common touch,
-If neither foes nor loving friends can hurt you,
-    If all men count with you, but none too much;
-If you can fill the unforgiving minute
-    With sixty seconds' worth of distance run,
-Yours is the Earth and everything that's in it,
-    And—which is more—you'll be a Man, my son!
-          </div>
+        <!-- ====== STANZA 1 ====== -->
+        <div class="section-title">
+          <h2>📖 Stanza 1</h2>
+          <p>Self-Control &amp; Patience</p>
         </div>
 
-        <!-- Main Idea -->
-        <div class="card" style="margin-bottom: var(--spacing-6); background: var(--color-bg); border-left: 4px solid var(--color-primary);">
-          <div class="card-title" style="font-size: var(--font-size-base);">💡 Main Idea</div>
-          <p style="color: var(--color-text-secondary);">
-            A father advises his son to prepare himself to face life with its good and bad sides. If the son follows his father's advice, he will own the world and everything in it. Moreover, he will be a man in the full sense of the word.
-          </p>
-        </div>
-
-        <!-- Stanza 1 -->
-        <div class="card" style="margin-bottom: var(--spacing-6);">
-          <div class="card-header">
-            <div class="card-title">📖 Stanza 1</div>
-            <span class="badge badge-primary">Self-Control</span>
+        <div class="stanza-box" id="stanza1">
+          <div class="stanza-title">
+            Stanza 1
+            <span class="badge">Self-Control</span>
           </div>
-          <div class="poem-text" style="font-size: var(--font-size-sm); padding: var(--spacing-4);">
+          <div class="stanza-text">
 If you can keep your head when all about you
     Are losing theirs and blaming it on you,
 If you can trust yourself when all men doubt you,
@@ -122,41 +631,52 @@ If you can wait and not be tired of waiting,
 Or being hated, don't give way to hating,
     And yet don't look too good, nor talk too wise:
           </div>
-          
-          <h4 style="font-weight: var(--font-weight-semibold); margin-top: var(--spacing-3); color: var(--color-primary);">Vocabulary</h4>
-          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: var(--spacing-2); font-size: var(--font-size-sm);">
-            <div><strong>keep your head</strong></div>
-            <div style="color: var(--color-text-secondary);">be calm and brave</div>
-            <div><strong>blaming</strong></div>
-            <div style="color: var(--color-text-secondary);">you are responsible; your mistake</div>
-            <div><strong>doubt</strong></div>
-            <div style="color: var(--color-text-secondary);">don't believe; don't trust</div>
-            <div><strong>allowance</strong></div>
-            <div style="color: var(--color-text-secondary);">understanding</div>
+
+          <div class="stanza-section">
+            <h4>📖 Vocabulary</h4>
+            <div class="vocab-grid">
+              <span class="word">keep your head</span>
+              <span>be calm and brave</span>
+              <span class="word">blaming</span>
+              <span>you are responsible; your mistake</span>
+              <span class="word">doubt</span>
+              <span>don't believe; don't trust</span>
+              <span class="word">allowance</span>
+              <span>understanding</span>
+            </div>
           </div>
 
-          <h4 style="font-weight: var(--font-weight-semibold); margin-top: var(--spacing-3); color: var(--color-secondary);">Paraphrase</h4>
-          <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-            This poem is a list of advice that a father gives his son. In a bad situation, it is important to stay calm even if the people around you panic and say you are responsible for this mistake. It is important to trust yourself even if other people mistrust you and to accept other people's criticism patiently. Don't lie to people who lie to you and forgive those who hate you. The father advises his son to be modest and not to behave in a way that shows he is better or smarter than others.
-          </p>
+          <div class="stanza-section">
+            <h4>📝 Paraphrase</h4>
+            <p>
+              This poem is a list of advice that a father gives his son. In a bad situation, it is important to stay calm even if the people around you panic and say you are responsible for this mistake. It is important to trust yourself even if other people mistrust you and to accept other people's criticism patiently. Don't lie to people who lie to you and forgive those who hate you. The father advises his son to be modest and not to behave in a way that shows he is better or smarter than others.
+            </p>
+          </div>
 
-          <h4 style="font-weight: var(--font-weight-semibold); margin-top: var(--spacing-3); color: var(--color-accent-1);">Literary Terms</h4>
-          <ul style="list-style: disc; padding-left: var(--spacing-6); color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-            <li><strong>Antithesis (Contrast):</strong> The entire stanza is based on antithesis — keep your head × losing theirs; trust yourself × doubt you; lied about × don't deal in lies; being hated × don't give way to hating</li>
-            <li><strong>Alliteration:</strong> "Or being lied about, don't deal in lies" — the consonant sound 'd' is repeated in 'don't' and 'deal'.</li>
-            <li><strong>Repetition:</strong> "Or being" is repeated twice in lines 6 and 7.</li>
-            <li><strong>Assonance:</strong> "And yet don't look too good, nor talk too wise" — the vowel sound "o" is repeated in "look" and "good".</li>
-            <li><strong>Metaphor:</strong> "If you can keep your head when all about you" — "keep your head" is a metaphor for staying calm and cool.</li>
-          </ul>
+          <div class="stanza-section">
+            <h4>🔍 Literary Terms</h4>
+            <ul>
+              <li><strong>Antithesis (Contrast):</strong> The entire stanza is based on antithesis — keep your head × losing theirs; trust yourself × doubt you; lied about × don't deal in lies; being hated × don't give way to hating</li>
+              <li><strong>Alliteration:</strong> "Or being lied about, don't deal in lies" — the consonant sound <strong>'d'</strong> is repeated in 'don't' and 'deal'.</li>
+              <li><strong>Repetition:</strong> "Or being" is repeated twice in lines 6 and 7.</li>
+              <li><strong>Assonance:</strong> "And yet don't look too good, nor talk too wise" — the vowel sound <strong>"o"</strong> is repeated in "look" and "good".</li>
+              <li><strong>Metaphor:</strong> "If you can keep your head when all about you" — "keep your head" is a metaphor for staying calm and cool.</li>
+            </ul>
+          </div>
         </div>
 
-        <!-- Stanza 2 -->
-        <div class="card" style="margin-bottom: var(--spacing-6);">
-          <div class="card-header">
-            <div class="card-title">📖 Stanza 2</div>
-            <span class="badge badge-primary">Dreams &amp; Reality</span>
+        <!-- ====== STANZA 2 ====== -->
+        <div class="section-title">
+          <h2>📖 Stanza 2</h2>
+          <p>Dreams, Reality &amp; Resilience</p>
+        </div>
+
+        <div class="stanza-box" id="stanza2">
+          <div class="stanza-title">
+            Stanza 2
+            <span class="badge">Dreams &amp; Reality</span>
           </div>
-          <div class="poem-text" style="font-size: var(--font-size-sm); padding: var(--spacing-4);">
+          <div class="stanza-text">
 If you can dream—and not make dreams your master;
     If you can think—and not make thoughts your aim;
 If you can meet with Triumph and Disaster,
@@ -167,48 +687,59 @@ Or watch the things you gave your life to, broken,
     And stoop and build 'em up with worn-out tools:
           </div>
 
-          <h4 style="font-weight: var(--font-weight-semibold); margin-top: var(--spacing-3); color: var(--color-primary);">Vocabulary</h4>
-          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: var(--spacing-2); font-size: var(--font-size-sm);">
-            <div><strong>master</strong></div>
-            <div style="color: var(--color-text-secondary);">leader; controller</div>
-            <div><strong>aim</strong></div>
-            <div style="color: var(--color-text-secondary);">goal; reason</div>
-            <div><strong>triumph</strong></div>
-            <div style="color: var(--color-text-secondary);">success; victory</div>
-            <div><strong>disaster</strong></div>
-            <div style="color: var(--color-text-secondary);">failure</div>
-            <div><strong>impostors</strong></div>
-            <div style="color: var(--color-text-secondary);">deceivers; cheaters</div>
-            <div><strong>twisted</strong></div>
-            <div style="color: var(--color-text-secondary);">changed</div>
-            <div><strong>knaves</strong></div>
-            <div style="color: var(--color-text-secondary);">evil and bad people</div>
-            <div><strong>stoop</strong></div>
-            <div style="color: var(--color-text-secondary);">to bend over from being so tired</div>
+          <div class="stanza-section">
+            <h4>📖 Vocabulary</h4>
+            <div class="vocab-grid">
+              <span class="word">master</span>
+              <span>leader; controller</span>
+              <span class="word">aim</span>
+              <span>goal; reason</span>
+              <span class="word">triumph</span>
+              <span>success; victory</span>
+              <span class="word">disaster</span>
+              <span>failure</span>
+              <span class="word">impostors</span>
+              <span>deceivers; cheaters</span>
+              <span class="word">twisted</span>
+              <span>changed</span>
+              <span class="word">knaves</span>
+              <span>evil and bad people</span>
+              <span class="word">stoop</span>
+              <span>to bend over from being so tired</span>
+            </div>
           </div>
 
-          <h4 style="font-weight: var(--font-weight-semibold); margin-top: var(--spacing-3); color: var(--color-secondary);">Paraphrase</h4>
-          <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-            The father advises his son to be realistic and rational. It is good for the son to imagine the future, but should not let the dreams have control over him. Son should think with an open mind, but not make thinking his goal. Both success and failure are deceivers, so they should be treated the same. Son should be tolerant towards evil people who try to change his words just to fool naïve people. Son should not be desperate when he sees all the things he has achieved lost or destroyed, but should try hard to get them back, using previously exhausted tools (skills).
-          </p>
+          <div class="stanza-section">
+            <h4>📝 Paraphrase</h4>
+            <p>
+              The father advises his son to be realistic and rational. It is good for the son to imagine the future, but should not let the dreams have control over him. Son should think with an open mind, but not make thinking his goal. Both success and failure are deceivers, so they should be treated the same. Son should be tolerant towards evil people who try to change his words just to fool naïve people. Son should not be desperate when he sees all the things he has achieved lost or destroyed, but should try hard to get them back, using previously exhausted tools (skills).
+            </p>
+          </div>
 
-          <h4 style="font-weight: var(--font-weight-semibold); margin-top: var(--spacing-3); color: var(--color-accent-1);">Literary Terms</h4>
-          <ul style="list-style: disc; padding-left: var(--spacing-6); color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-            <li><strong>Metaphor:</strong> "If you can dream—and not make dreams your master" — dreams are compared to a person in control. "And stoop and build 'em up with worn-out tools" — the skills of life are compared to 'worn-out tools'.</li>
-            <li><strong>Alliteration:</strong> "And treat those two impostors just the same" — the consonant sound 't' is repeated in 'treat' and 'two'. "Twisted by knaves to make a trap for fools" — the consonant sound 'f' is repeated in 'for' and 'fools'.</li>
-            <li><strong>Antithesis:</strong> "If you can meet with Triumph and Disaster" — 'Triumph' and 'Disaster' are opposites.</li>
-            <li><strong>Repetition:</strong> "If you can" is repeated four times in lines 1, 2, 3, 5.</li>
-            <li><strong>Assonance:</strong> "And treat those two impostors just the same" — the vowel sound "o" is repeated in "those" and "impostors".</li>
-          </ul>
+          <div class="stanza-section">
+            <h4>🔍 Literary Terms</h4>
+            <ul>
+              <li><strong>Metaphor:</strong> "If you can dream—and not make dreams your master" — dreams are compared to a person in control. "And stoop and build 'em up with worn-out tools" — the skills of life are compared to 'worn-out tools'.</li>
+              <li><strong>Alliteration:</strong> "And treat those two impostors just the same" — the consonant sound <strong>'t'</strong> is repeated in 'treat' and 'two'. "Twisted by knaves to make a trap for fools" — the consonant sound <strong>'f'</strong> is repeated in 'for' and 'fools'.</li>
+              <li><strong>Antithesis:</strong> "If you can meet with Triumph and Disaster" — 'Triumph' and 'Disaster' are opposites.</li>
+              <li><strong>Repetition:</strong> "If you can" is repeated four times in lines 1, 2, 3, 5.</li>
+              <li><strong>Assonance:</strong> "And treat those two impostors just the same" — the vowel sound <strong>"o"</strong> is repeated in "those" and "impostors".</li>
+            </ul>
+          </div>
         </div>
 
-        <!-- Stanza 3 -->
-        <div class="card" style="margin-bottom: var(--spacing-6);">
-          <div class="card-header">
-            <div class="card-title">📖 Stanza 3</div>
-            <span class="badge badge-primary">Perseverance</span>
+        <!-- ====== STANZA 3 ====== -->
+        <div class="section-title">
+          <h2>📖 Stanza 3</h2>
+          <p>Perseverance &amp; Willpower</p>
+        </div>
+
+        <div class="stanza-box" id="stanza3">
+          <div class="stanza-title">
+            Stanza 3
+            <span class="badge">Perseverance</span>
           </div>
-          <div class="poem-text" style="font-size: var(--font-size-sm); padding: var(--spacing-4);">
+          <div class="stanza-text">
 If you can make one heap of all your winnings
     And risk it on one turn of pitch and toss,
 And lose, and start again at your beginnings
@@ -219,41 +750,52 @@ And so hold on when there is nothing in you
     Except the Will which says to them: "Hold on!"
           </div>
 
-          <h4 style="font-weight: var(--font-weight-semibold); margin-top: var(--spacing-3); color: var(--color-primary);">Vocabulary</h4>
-          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: var(--spacing-2); font-size: var(--font-size-sm);">
-            <div><strong>heap</strong></div>
-            <div style="color: var(--color-text-secondary);">a pile</div>
-            <div><strong>risk</strong></div>
-            <div style="color: var(--color-text-secondary);">danger; a threat</div>
-            <div><strong>turn of pitch and toss</strong></div>
-            <div style="color: var(--color-text-secondary);">a game of chance; luck</div>
-            <div><strong>sinew</strong></div>
-            <div style="color: var(--color-text-secondary);">muscles; tendons</div>
-            <div><strong>hold on</strong></div>
-            <div style="color: var(--color-text-secondary);">don't give up or surrender</div>
+          <div class="stanza-section">
+            <h4>📖 Vocabulary</h4>
+            <div class="vocab-grid">
+              <span class="word">heap</span>
+              <span>a pile</span>
+              <span class="word">risk</span>
+              <span>danger; a threat</span>
+              <span class="word">turn of pitch and toss</span>
+              <span>a game of chance; luck</span>
+              <span class="word">sinew</span>
+              <span>muscles; tendons</span>
+              <span class="word">hold on</span>
+              <span>don't give up or surrender</span>
+            </div>
           </div>
 
-          <h4 style="font-weight: var(--font-weight-semibold); margin-top: var(--spacing-3); color: var(--color-secondary);">Paraphrase</h4>
-          <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-            The advice continues. It is good if son can save his money, but should not be afraid to take a chance at a game of luck and then lose. To lose is only a new beginning. Start again, but never tell anybody that you lost. Don't complain or lose your temper even if you are tired, but keep trying and use your strength to start again. The father advises his son to be brave and to have faith in his heart and will.
-          </p>
+          <div class="stanza-section">
+            <h4>📝 Paraphrase</h4>
+            <p>
+              The advice continues. It is good if son can save his money, but should not be afraid to take a chance at a game of luck and then lose. To lose is only a new beginning. Start again, but never tell anybody that you lost. Don't complain or lose your temper even if you are tired, but keep trying and use your strength to start again. The father advises his son to be brave and to have faith in his heart and will.
+            </p>
+          </div>
 
-          <h4 style="font-weight: var(--font-weight-semibold); margin-top: var(--spacing-3); color: var(--color-accent-1);">Literary Terms</h4>
-          <ul style="list-style: disc; padding-left: var(--spacing-6); color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-            <li><strong>Alliteration:</strong> "Except the Will which says to them: 'Hold on!'" — the consonant sound 'w' is repeated in 'Will' and 'which'.</li>
-            <li><strong>Personification:</strong> "Except the Will which says to them: 'Hold on!'" — 'Will' is personified and given the human ability to talk.</li>
-            <li><strong>Assonance:</strong> "And so hold on when there is nothing in you" — the vowel sound "o" is repeated in 'so' and 'hold'.</li>
-            <li><strong>Repetition:</strong> The word "And" is repeated several times at the beginning of lines.</li>
-          </ul>
+          <div class="stanza-section">
+            <h4>🔍 Literary Terms</h4>
+            <ul>
+              <li><strong>Alliteration:</strong> "Except the Will which says to them: 'Hold on!'" — the consonant sound <strong>'w'</strong> is repeated in 'Will' and 'which'.</li>
+              <li><strong>Personification:</strong> "Except the Will which says to them: 'Hold on!'" — 'Will' is personified and given the human ability to talk.</li>
+              <li><strong>Assonance:</strong> "And so hold on when there is nothing in you" — the vowel sound <strong>"o"</strong> is repeated in 'so' and 'hold'.</li>
+              <li><strong>Repetition:</strong> The word "And" is repeated several times at the beginning of lines.</li>
+            </ul>
+          </div>
         </div>
 
-        <!-- Stanza 4 -->
-        <div class="card" style="margin-bottom: var(--spacing-6);">
-          <div class="card-header">
-            <div class="card-title">📖 Stanza 4</div>
-            <span class="badge badge-primary">Virtue &amp; Success</span>
+        <!-- ====== STANZA 4 ====== -->
+        <div class="section-title">
+          <h2>📖 Stanza 4</h2>
+          <p>Virtue &amp; Success</p>
+        </div>
+
+        <div class="stanza-box" id="stanza4">
+          <div class="stanza-title">
+            Stanza 4
+            <span class="badge">Virtue &amp; Success</span>
           </div>
-          <div class="poem-text" style="font-size: var(--font-size-sm); padding: var(--spacing-4);">
+          <div class="stanza-text">
 If you can talk with crowds and keep your virtue,
     Or walk with Kings—nor lose the common touch,
 If neither foes nor loving friends can hurt you,
@@ -264,48 +806,56 @@ Yours is the Earth and everything that's in it,
     And—which is more—you'll be a Man, my son!
           </div>
 
-          <h4 style="font-weight: var(--font-weight-semibold); margin-top: var(--spacing-3); color: var(--color-primary);">Vocabulary</h4>
-          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: var(--spacing-2); font-size: var(--font-size-sm);">
-            <div><strong>crowds</strong></div>
-            <div style="color: var(--color-text-secondary);">common and simple people</div>
-            <div><strong>virtue</strong></div>
-            <div style="color: var(--color-text-secondary);">goodness; honesty</div>
-            <div><strong>common touch</strong></div>
-            <div style="color: var(--color-text-secondary);">to understand people — rich, poor, everyone</div>
-            <div><strong>foes</strong></div>
-            <div style="color: var(--color-text-secondary);">enemies</div>
+          <div class="stanza-section">
+            <h4>📖 Vocabulary</h4>
+            <div class="vocab-grid">
+              <span class="word">crowds</span>
+              <span>common and simple people</span>
+              <span class="word">virtue</span>
+              <span>goodness; honesty</span>
+              <span class="word">common touch</span>
+              <span>to understand people — rich, poor, everyone</span>
+              <span class="word">foes</span>
+              <span>enemies</span>
+            </div>
           </div>
 
-          <h4 style="font-weight: var(--font-weight-semibold); margin-top: var(--spacing-3); color: var(--color-secondary);">Paraphrase</h4>
-          <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-            The advice continues. Son should treat all people equally, whether poor or rich. Son's behaviour and attitudes should show high moral standards when he deals with both simple, poor people and high ranking men in authority. As a result, neither friends nor enemies would be able to injure him. He should try to compensate for every minute of hatred with fruitful services and labour. In the last two lines, the father tells his son that if he can comply with all this advice, he will inherit the Earth and truly be a man.
-          </p>
+          <div class="stanza-section">
+            <h4>📝 Paraphrase</h4>
+            <p>
+              The advice continues. Son should treat all people equally, whether poor or rich. Son's behaviour and attitudes should show high moral standards when he deals with both simple, poor people and high ranking men in authority. As a result, neither friends nor enemies would be able to injure him. He should try to compensate for every minute of hatred with fruitful services and labour. In the last two lines, the father tells his son that if he can comply with all this advice, he will inherit the Earth and truly be a man.
+            </p>
+          </div>
 
-          <h4 style="font-weight: var(--font-weight-semibold); margin-top: var(--spacing-3); color: var(--color-accent-1);">Literary Terms</h4>
-          <ul style="list-style: disc; padding-left: var(--spacing-6); color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-            <li><strong>Antithesis (Contrast):</strong> "If you can talk with crowds and keep your virtue, / Or walk with Kings—nor lose the common touch" — contrast between 'crowds' and 'Kings'.</li>
-            <li><strong>Metaphor:</strong> "Yours is the Earth and everything that's in it" — the Earth symbolizes success and achievement.</li>
-          </ul>
+          <div class="stanza-section">
+            <h4>🔍 Literary Terms</h4>
+            <ul>
+              <li><strong>Antithesis (Contrast):</strong> "If you can talk with crowds and keep your virtue, / Or walk with Kings—nor lose the common touch" — contrast between 'crowds' and 'Kings'.</li>
+              <li><strong>Metaphor:</strong> "Yours is the Earth and everything that's in it" — the Earth symbolizes success and achievement.</li>
+            </ul>
+          </div>
         </div>
 
-        <!-- Questions -->
-        <div class="card" style="background: var(--color-bg); border-left: 4px solid var(--color-accent-1);">
-          <div class="card-title" style="font-size: var(--font-size-base);">❓ Questions</div>
-          <ul style="list-style: disc; padding-left: var(--spacing-6); color: var(--color-text-secondary);">
+        <!-- ====== QUESTIONS ====== -->
+        <div class="questions-box" id="questionsBox">
+          <h3>❓ Questions</h3>
+          <ol>
             <li>Who wrote the poem?</li>
             <li>What is the main theme of this poem?</li>
             <li>Paraphrase the lines from Stanza 1 and pick out the literary terms.</li>
             <li>Paraphrase the lines from Stanza 2 and pick out the figures of speech.</li>
+            <li>Paraphrase the lines from Stanza 3 and pick out the literary terms.</li>
             <li>Paraphrase the lines from Stanza 4 and pick out the literary terms.</li>
-          </ul>
+          </ol>
         </div>
 
-        <!-- Navigation -->
+        <!-- ====== NAVIGATION ====== -->
         <div style="margin-top: var(--spacing-10); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--spacing-4);">
           <a href="my-heart-leaps-up.html" class="btn btn-secondary">← "My Heart Leaps Up"</a>
           <a href="index.html" class="btn btn-primary">↑ Back to Poetry</a>
         </div>
 
+        <!-- Footer -->
         <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
           <p>© 2026 · Interactive E-Book · Poetry: "If—"</p>
         </footer>
@@ -314,9 +864,95 @@ Yours is the Earth and everything that's in it,
     </section>
   </main>
 
+  <!-- ====== SCRIPTS ====== -->
   <script src="../js/main.js"></script>
   <script src="../js/navigation.js"></script>
-  <script src="poetry.js"></script>
+
+  <script>
+    // ============================================================
+    // Intersection Observer for animations
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', function() {
+
+      // --- Poet Bio ---
+      const poetBio = document.getElementById('poetBio');
+      if (poetBio && 'IntersectionObserver' in window) {
+        const observer1 = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.2 });
+        observer1.observe(poetBio);
+      } else if (poetBio) {
+        poetBio.classList.add('visible');
+      }
+
+      // --- Poem Text ---
+      const poemText = document.getElementById('poemText');
+      if (poemText && 'IntersectionObserver' in window) {
+        const observer2 = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.2 });
+        observer2.observe(poemText);
+      } else if (poemText) {
+        poemText.classList.add('visible');
+      }
+
+      // --- Main Idea ---
+      const mainIdea = document.getElementById('mainIdea');
+      if (mainIdea && 'IntersectionObserver' in window) {
+        const observer3 = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.2 });
+        observer3.observe(mainIdea);
+      } else if (mainIdea) {
+        mainIdea.classList.add('visible');
+      }
+
+      // --- Stanzas ---
+      const stanzas = document.querySelectorAll('.stanza-box');
+      if ('IntersectionObserver' in window) {
+        const observer4 = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, index * 150);
+            }
+          });
+        }, { threshold: 0.15 });
+        stanzas.forEach(stanza => observer4.observe(stanza));
+      } else {
+        stanzas.forEach(stanza => stanza.classList.add('visible'));
+      }
+
+      // --- Questions ---
+      const questionsBox = document.getElementById('questionsBox');
+      if (questionsBox && 'IntersectionObserver' in window) {
+        const observer5 = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.2 });
+        observer5.observe(questionsBox);
+      } else if (questionsBox) {
+        questionsBox.classList.add('visible');
+      }
+
+    });
+  </script>
 
 </body>
 </html>
