@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grammar 1 Rewriting · Unit 3 · Exercises</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+</head>
+<body>
+
+  <!-- Header / Mobile Nav omitted -->
+
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Unit 3</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Grammar 1: Rewriting</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">🔄 Grammar 1 — Past Perfect (Rewriting)</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">12 Questions</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 12</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 3 · Grammar 1 Rewriting</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // QUESTIONS — EXACTLY AS IN THE BOOKLET (Pages 75-76)
+    const questions = [
+      { type: 'fill', text: '1. She ate her breakfast and she went to work. (after)', correct: 'After she had eaten her breakfast, she went to work.' },
+      { type: 'fill', text: '2. He had been following me for 2 hours before I noticed him. (How long?)', correct: 'How long had he been following you before you noticed him?' },
+      { type: 'fill', text: '3. I bought a new car and started taking driving lessons. (had)', correct: 'I had bought a new car before I started taking driving lessons.' },
+      { type: 'fill', text: '4. She fell asleep before the end of the film. (By the time)', correct: 'By the time the film ended, she had fallen asleep.' },
+      { type: 'fill', text: '5. The twins had been fighting all day before their dad arrived. (Rewrite in question form)', correct: 'Had the twins been fighting all day before their dad arrived?' },
+      { type: 'fill', text: '6. He won the Oscar and retired. (before)', correct: 'He had won the Oscar before he retired.' },
+      { type: 'fill', text: '7. I had lunch then I drank tea. (before)', correct: 'I had drunk tea before I had lunch.' },
+      { type: 'fill', text: '8. By the time I arrived at the cinema, the film had started. (After)', correct: 'After I arrived at the cinema, the film had started.' },
+      { type: 'fill', text: '9. I left the house and then it started to rain. (As soon as)', correct: 'As soon as I had left the house, it started to rain.' },
+      { type: 'fill', text: '10. I didn\'t go to bed until I had had my supper. (After)', correct: 'After I had had my supper, I went to bed.' },
+      { type: 'fill', text: '11. First, he finished his work. Then, he left the office. (until)', correct: 'He didn\'t leave the office until he had finished his work.' },
+      { type: 'fill', text: '12. Nabil did his homework, then he watched TV. (before)', correct: 'Nabil had done his homework before he watched TV.' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
