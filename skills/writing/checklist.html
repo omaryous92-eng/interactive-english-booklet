@@ -15,11 +15,237 @@
   <link rel="stylesheet" href="../../css/animations.css">
   <link rel="stylesheet" href="../../css/responsive.css">
   <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    .page-hero {
+      background: var(--gradient-header);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      text-align: center;
+      color: #fff;
+      margin-bottom: var(--spacing-6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '✅';
+      position: absolute;
+      font-size: 10rem;
+      opacity: 0.08;
+      right: -10px;
+      bottom: -30px;
+      transform: rotate(-10deg);
+    }
+
+    .page-hero h1 {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-extrabold);
+      margin-bottom: var(--spacing-2);
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-hero p {
+      font-size: var(--font-size-base);
+      opacity: 0.85;
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-hero .badge-group {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-3);
+      flex-wrap: wrap;
+      margin-top: var(--spacing-3);
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-hero .badge-group .badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: var(--spacing-1) var(--spacing-4);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      backdrop-filter: blur(4px);
+    }
+
+    /* ====== CHECKLIST CARDS ====== */
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-6);
+      margin: var(--spacing-6) 0;
+    }
+
+    .checklist-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-5);
+      box-shadow: var(--shadow-sm);
+      border: 2px solid var(--color-border);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+    }
+
+    .checklist-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .checklist-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .checklist-card .card-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--spacing-3);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-2);
+    }
+
+    .checklist-card .card-title .icon {
+      font-size: 1.5rem;
+    }
+
+    .checklist-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .checklist-card ul li {
+      padding: var(--spacing-2) 0;
+      border-bottom: 1px solid var(--color-border);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-2);
+    }
+
+    .checklist-card ul li:last-child {
+      border-bottom: none;
+    }
+
+    .checklist-card ul li .check {
+      color: var(--color-primary);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .checklist-card ul li strong {
+      color: var(--color-text-primary);
+    }
+
+    .checklist-card.content { border-top: 5px solid var(--color-primary); }
+    .checklist-card.structure { border-top: 5px solid var(--color-secondary); }
+    .checklist-card.language { border-top: 5px solid var(--color-accent-1); }
+    .checklist-card.final { border-top: 5px solid var(--color-accent-2); }
+
+    .checklist-card.content .card-title { color: var(--color-primary); }
+    .checklist-card.structure .card-title { color: var(--color-secondary); }
+    .checklist-card.language .card-title { color: var(--color-accent-1); }
+    .checklist-card.final .card-title { color: var(--color-accent-2); }
+
+    /* ====== PEER REVIEW ====== */
+    .peer-review {
+      background: var(--color-bg);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      border-left: 6px solid var(--color-secondary);
+      margin: var(--spacing-6) 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .peer-review.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .peer-review h3 {
+      color: var(--color-secondary);
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--spacing-3);
+    }
+
+    .peer-review ul {
+      list-style: disc;
+      padding-left: var(--spacing-5);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      line-height: 2;
+    }
+
+    .peer-review ul li strong {
+      color: var(--color-text-primary);
+    }
+
+    @media (max-width: 768px) {
+      .checklist-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Header / Mobile Nav omitted -->
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../units/unit-1/index.html">Unit 1</a>
+        <a href="../../units/unit-2/index.html">Unit 2</a>
+        <a href="../../units/unit-3/index.html">Unit 3</a>
+        <a href="../../units/unit-4/index.html">Unit 4</a>
+        <a href="../../novel/index.html">Novel</a>
+        <a href="../../poetry/index.html">Poetry</a>
+        <a href="../index.html" class="active">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../../units/unit-1/index.html">Unit 1: Jump for Joy</a>
+      <a href="../../units/unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../../units/unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../../units/unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="../../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../index.html" class="active">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
   <main class="main-content">
     <section class="section">
       <div class="container">
@@ -34,73 +260,85 @@
           <span class="current">Checklist</span>
         </nav>
 
-        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
-          <h1 class="text-2xl" style="color: var(--color-primary);">✅ Writing Checklist</h1>
-          <p class="text-base" style="color: var(--color-text-secondary);">Use this checklist to review and improve your writing.</p>
-        </div>
-
-        <div class="card" style="background: var(--color-bg);">
-          <div class="card-header">
-            <div class="card-title">📋 Self-Review Checklist</div>
-            <span class="badge badge-primary">Before Submitting</span>
-          </div>
-
-          <div style="display: grid; gap: var(--spacing-4);">
-            <div style="background: var(--color-surface); padding: var(--spacing-3); border-radius: var(--radius-md); border-left: 4px solid var(--color-primary);">
-              <h4 style="font-weight: var(--font-weight-semibold); color: var(--color-primary);">📌 Content</h4>
-              <ul style="list-style: disc; padding-left: var(--spacing-4); color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-                <li>✓ Does my writing have a clear purpose?</li>
-                <li>✓ Did I stay on topic throughout?</li>
-                <li>✓ Did I include enough details and examples?</li>
-                <li>✓ Is my opinion or main idea clearly stated?</li>
-              </ul>
-            </div>
-
-            <div style="background: var(--color-surface); padding: var(--spacing-3); border-radius: var(--radius-md); border-left: 4px solid var(--color-secondary);">
-              <h4 style="font-weight: var(--font-weight-semibold); color: var(--color-secondary);">📐 Structure</h4>
-              <ul style="list-style: disc; padding-left: var(--spacing-4); color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-                <li>✓ Does my writing have a clear beginning, middle, and end?</li>
-                <li>✓ Are my paragraphs organized logically?</li>
-                <li>✓ Did I use transition words (first, next, however, therefore)?</li>
-                <li>✓ Is my conclusion satisfying?</li>
-              </ul>
-            </div>
-
-            <div style="background: var(--color-surface); padding: var(--spacing-3); border-radius: var(--radius-md); border-left: 4px solid var(--color-accent-2);">
-              <h4 style="font-weight: var(--font-weight-semibold); color: var(--color-accent-2);">📝 Language</h4>
-              <ul style="list-style: disc; padding-left: var(--spacing-4); color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-                <li>✓ Did I use a variety of sentence structures?</li>
-                <li>✓ Did I use powerful verbs and adjectives?</li>
-                <li>✓ Did I avoid repetition of words?</li>
-                <li>✓ Did I use correct grammar and punctuation?</li>
-              </ul>
-            </div>
-
-            <div style="background: var(--color-surface); padding: var(--spacing-3); border-radius: var(--radius-md); border-left: 4px solid var(--color-accent-1);">
-              <h4 style="font-weight: var(--font-weight-semibold); color: var(--color-accent-1);">🔍 Final Edit</h4>
-              <ul style="list-style: disc; padding-left: var(--spacing-4); color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-                <li>✓ Did I check my spelling?</li>
-                <li>✓ Did I check my punctuation (.,!?;"")?</li>
-                <li>✓ Did I read my work aloud to check for flow?</li>
-                <li>✓ Did I ask someone else to read it?</li>
-              </ul>
-            </div>
+        <div class="page-hero fade-in">
+          <h1>✅ Writing Checklist</h1>
+          <p>Use this checklist to review and improve your writing.</p>
+          <div class="badge-group">
+            <span class="badge">📌 Content</span>
+            <span class="badge">📐 Structure</span>
+            <span class="badge">📝 Language</span>
+            <span class="badge">🔍 Final Edit</span>
           </div>
         </div>
 
-        <!-- Peer Review -->
-        <div class="card" style="margin-top: var(--spacing-6); background: var(--color-bg); border-left: 4px solid var(--color-secondary);">
-          <div class="card-title" style="font-size: var(--font-size-base);">🤝 Peer Review Questions</div>
-          <ul style="list-style: disc; padding-left: var(--spacing-6); color: var(--color-text-secondary);">
-            <li>What is the main idea of this piece?</li>
-            <li>What is the strongest part of this writing?</li>
-            <li>What could be improved?</li>
-            <li>Is the writing clear and easy to understand?</li>
+        <!-- ====== CHECKLIST ====== -->
+        <div class="checklist-grid" id="checklistGrid">
+
+          <div class="checklist-card content">
+            <div class="card-title">
+              <span class="icon">📌</span> Content
+            </div>
+            <ul>
+              <li><span class="check">✓</span> Does my writing have a <strong>clear purpose</strong>?</li>
+              <li><span class="check">✓</span> Did I <strong>stay on topic</strong> throughout?</li>
+              <li><span class="check">✓</span> Did I include enough <strong>details and examples</strong>?</li>
+              <li><span class="check">✓</span> Is my opinion or main idea <strong>clearly stated</strong>?</li>
+            </ul>
+          </div>
+
+          <div class="checklist-card structure">
+            <div class="card-title">
+              <span class="icon">📐</span> Structure
+            </div>
+            <ul>
+              <li><span class="check">✓</span> Does my writing have a clear <strong>beginning, middle, and end</strong>?</li>
+              <li><span class="check">✓</span> Are my paragraphs organized <strong>logically</strong>?</li>
+              <li><span class="check">✓</span> Did I use <strong>transition words</strong> (first, next, however, therefore)?</li>
+              <li><span class="check">✓</span> Is my <strong>conclusion</strong> satisfying?</li>
+            </ul>
+          </div>
+
+          <div class="checklist-card language">
+            <div class="card-title">
+              <span class="icon">📝</span> Language
+            </div>
+            <ul>
+              <li><span class="check">✓</span> Did I use a <strong>variety of sentence structures</strong>?</li>
+              <li><span class="check">✓</span> Did I use <strong>powerful verbs and adjectives</strong>?</li>
+              <li><span class="check">✓</span> Did I <strong>avoid repetition</strong> of words?</li>
+              <li><span class="check">✓</span> Did I use <strong>correct grammar and punctuation</strong>?</li>
+            </ul>
+          </div>
+
+          <div class="checklist-card final">
+            <div class="card-title">
+              <span class="icon">🔍</span> Final Edit
+            </div>
+            <ul>
+              <li><span class="check">✓</span> Did I check my <strong>spelling</strong>?</li>
+              <li><span class="check">✓</span> Did I check my <strong>punctuation</strong> (.,!?;\"\")?</li>
+              <li><span class="check">✓</span> Did I read my work <strong>aloud</strong> to check for flow?</li>
+              <li><span class="check">✓</span> Did I ask <strong>someone else</strong> to read it?</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- ====== PEER REVIEW ====== -->
+        <div class="peer-review" id="peerReview">
+          <h3>🤝 Peer Review Questions</h3>
+          <ul>
+            <li><strong>What is the main idea</strong> of this piece?</li>
+            <li><strong>What is the strongest part</strong> of this writing?</li>
+            <li><strong>What could be improved</strong>?</li>
+            <li><strong>Is the writing clear</strong> and easy to understand?</li>
           </ul>
         </div>
 
-        <div style="margin-top: var(--spacing-8);">
-          <a href="index.html" class="btn btn-secondary">← Back to Writing</a>
+        <!-- ====== NAVIGATION ====== -->
+        <div style="margin-top: var(--spacing-8); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--spacing-4);">
+          <a href="narrative-writing.html" class="btn btn-secondary">← Narrative Writing</a>
+          <a href="index.html" class="btn btn-primary">↑ Back to Writing</a>
         </div>
 
         <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
@@ -113,7 +351,41 @@
 
   <script src="../../js/main.js"></script>
   <script src="../../js/navigation.js"></script>
-  <script src="../skills.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Checklist cards
+      const cards = document.querySelectorAll('.checklist-card');
+      if ('IntersectionObserver' in window) {
+        const observer1 = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, index * 150);
+            }
+          });
+        }, { threshold: 0.15 });
+        cards.forEach(c => observer1.observe(c));
+      } else {
+        cards.forEach(c => c.classList.add('visible'));
+      }
+
+      // Peer review
+      const peer = document.getElementById('peerReview');
+      if (peer && 'IntersectionObserver' in window) {
+        const observer2 = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.2 });
+        observer2.observe(peer);
+      } else if (peer) {
+        peer.classList.add('visible');
+      }
+    });
+  </script>
 
 </body>
 </html>
