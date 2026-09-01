@@ -15,15 +15,365 @@
   <link rel="stylesheet" href="../../css/animations.css">
   <link rel="stylesheet" href="../../css/responsive.css">
   <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    /* ====== PASSAGE STYLES ====== */
+    .passage-hero {
+      background: var(--gradient-header);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      text-align: center;
+      color: #fff;
+      margin-bottom: var(--spacing-6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .passage-hero::before {
+      content: '🧠';
+      position: absolute;
+      font-size: 10rem;
+      opacity: 0.08;
+      right: -10px;
+      bottom: -30px;
+      transform: rotate(-10deg);
+    }
+
+    .passage-hero h1 {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-extrabold);
+      margin-bottom: var(--spacing-2);
+      position: relative;
+      z-index: 1;
+    }
+
+    .passage-hero .subtitle {
+      font-size: var(--font-size-base);
+      opacity: 0.85;
+      position: relative;
+      z-index: 1;
+    }
+
+    .passage-hero .author {
+      font-size: var(--font-size-sm);
+      opacity: 0.7;
+      margin-top: var(--spacing-1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .passage-hero .badge-group {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-3);
+      flex-wrap: wrap;
+      margin-top: var(--spacing-3);
+      position: relative;
+      z-index: 1;
+    }
+
+    .passage-hero .badge-group .badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: var(--spacing-1) var(--spacing-4);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      backdrop-filter: blur(4px);
+    }
+
+    .passage-hero .equation {
+      font-family: 'Courier New', monospace;
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: #fff;
+      background: rgba(255, 255, 255, 0.15);
+      padding: var(--spacing-2) var(--spacing-5);
+      border-radius: var(--radius-full);
+      display: inline-block;
+      margin-top: var(--spacing-2);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ====== PASSAGE TEXT ====== */
+    .passage-text {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      box-shadow: var(--shadow-sm);
+      border: 2px solid var(--color-border);
+      margin-bottom: var(--spacing-6);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+    }
+
+    .passage-text.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .passage-text:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .passage-text p {
+      font-size: var(--font-size-base);
+      line-height: 2;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--spacing-4);
+    }
+
+    .passage-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .passage-text strong {
+      color: var(--color-text-primary);
+    }
+
+    .passage-text .highlight-text {
+      background: rgba(242, 101, 34, 0.08);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* ====== QUESTIONS ====== */
+    .question-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-5);
+      box-shadow: var(--shadow-sm);
+      border: 2px solid var(--color-border);
+      margin-bottom: var(--spacing-4);
+      transition: all var(--transition-slow);
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .question-card.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .question-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-primary);
+    }
+
+    .question-card .q-number {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .question-card .q-text {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-primary);
+      margin: var(--spacing-2) 0;
+    }
+
+    .question-card .q-text-sm {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-regular);
+      color: var(--color-text-secondary);
+      margin: var(--spacing-1) 0;
+    }
+
+    .question-card .q-answer {
+      background: var(--color-bg);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-3);
+      margin-top: var(--spacing-3);
+      border-left: 4px solid var(--color-secondary);
+      display: none;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+    }
+
+    .question-card .q-answer.show {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .question-card .q-answer strong {
+      color: var(--color-primary);
+    }
+
+    .question-card .q-answer .highlight {
+      background: rgba(242, 101, 34, 0.1);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .question-card .q-answer .list-item {
+      display: block;
+      padding: 2px 0;
+    }
+
+    .btn-answer {
+      background: var(--color-bg);
+      color: var(--color-text-primary);
+      padding: var(--spacing-2) var(--spacing-5);
+      border-radius: var(--radius-full);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-sm);
+      border: 2px solid var(--color-border);
+      cursor: pointer;
+      transition: all var(--transition-base);
+      margin-top: var(--spacing-2);
+    }
+
+    .btn-answer:hover {
+      border-color: var(--color-secondary);
+      color: var(--color-secondary);
+      background: rgba(255, 184, 48, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .btn-answer.active {
+      border-color: var(--color-secondary);
+      background: var(--color-secondary);
+      color: #fff;
+    }
+
+    .btn-answer.active:hover {
+      background: #e6a600;
+    }
+
+    /* ====== OPTIONS STYLES ====== */
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-2);
+      margin: var(--spacing-2) 0;
+    }
+
+    .options .opt {
+      padding: var(--spacing-1) var(--spacing-3);
+      background: var(--color-bg);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .options .opt strong {
+      color: var(--color-text-primary);
+    }
+
+    .options .opt.correct {
+      background: rgba(52, 199, 89, 0.15);
+      border: 1px solid #34C759;
+      color: #1a7a3a;
+    }
+
+    /* ====== MATCHING GRID ====== */
+    .matching-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-2);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin: var(--spacing-2) 0;
+    }
+
+    .matching-grid .term {
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+    }
+
+    .matching-grid .def {
+      color: var(--color-text-secondary);
+    }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 768px) {
+      .passage-text {
+        padding: var(--spacing-4);
+      }
+      .passage-text p {
+        font-size: var(--font-size-sm);
+      }
+      .question-card {
+        padding: var(--spacing-4);
+      }
+      .passage-hero h1 {
+        font-size: var(--font-size-xl);
+      }
+      .passage-hero .equation {
+        font-size: var(--font-size-lg);
+        padding: var(--spacing-1) var(--spacing-3);
+      }
+      .matching-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Header / Mobile Nav omitted -->
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../units/unit-1/index.html">Unit 1</a>
+        <a href="../../units/unit-2/index.html">Unit 2</a>
+        <a href="../../units/unit-3/index.html">Unit 3</a>
+        <a href="../../units/unit-4/index.html">Unit 4</a>
+        <a href="../../novel/index.html">Novel</a>
+        <a href="../../poetry/index.html">Poetry</a>
+        <a href="../index.html" class="active">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../../units/unit-1/index.html">Unit 1: Jump for Joy</a>
+      <a href="../../units/unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../../units/unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../../units/unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="../../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../index.html" class="active">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
   <main class="main-content">
     <section class="section">
       <div class="container">
 
+        <!-- Breadcrumbs -->
         <nav class="breadcrumbs">
           <a href="../../index.html">Home</a>
           <span class="separator"> › </span>
@@ -34,57 +384,158 @@
           <span class="current">Passage 3</span>
         </nav>
 
-        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
-          <h1 class="text-2xl" style="color: var(--color-primary);">🧠 Great Minds: Albert Einstein</h1>
-          <p class="text-base" style="color: var(--color-text-secondary);">by Lydia Lukidis</p>
+        <!-- ====== HERO ====== -->
+        <div class="passage-hero fade-in">
+          <h1>🧠 Great Minds: Albert Einstein</h1>
+          <div class="subtitle">The Genius Who Changed the World</div>
+          <div class="author">by Lydia Lukidis</div>
+          <div class="equation">E = mc²</div>
+          <div class="badge-group">
+            <span class="badge">📖 6 Questions</span>
+            <span class="badge">🔬 Physics</span>
+            <span class="badge">🏆 Nobel Prize</span>
+          </div>
         </div>
 
-        <!-- Passage -->
-        <div class="card passage-content">
+        <!-- ====== PASSAGE TEXT ====== -->
+        <div class="passage-text" id="passageText">
           <p>
-            You would probably recognize Albert Einstein from his photos. Yep, he was the guy with the crazy hair! But he also had some great ideas. He was more than just a scientist. He was a genius who changed our lives. He made some of science's biggest discoveries. He also developed some important theories. Some of these theories may seem complicated. But they concern everybody. Science is everywhere and affects us every day. Einstein's discoveries made things like television, DVD players, and garage door openers possible.
+            You would probably recognize Albert Einstein from his photos. Yep, he was the guy with the crazy hair! But he also had some great ideas. He was more than just a scientist. He was a <strong>genius</strong> who changed our lives. He made some of science's biggest discoveries. He also developed some important <strong>theories</strong>. Some of these theories may seem complicated. But they concern everybody. Science is everywhere and affects us every day. Einstein's discoveries made things like <strong>television, DVD players, and garage door openers</strong> possible.
           </p>
           <p>
-            Einstein was born in Germany in 1879. When he was five years old, his dad gave him a compass. It became his favorite toy. He would stare at the needle of the compass as it moved. It seemed like magic at first. Einstein wanted to understand how the needle moved. So he learned about magnetism. Magnetism is about the invisible force of magnets. It can make objects stick together or move away. Einstein also learned a lot about science and electronics because of his dad. His dad owned an electronics company. It was no surprise that Einstein ended up loving math and science.
+            Einstein was born in Germany in <strong>1879</strong>. When he was five years old, his dad gave him a <strong>compass</strong>. It became his favorite toy. He would stare at the needle of the compass as it moved. It seemed like magic at first. Einstein wanted to understand how the needle moved. So he learned about <strong>magnetism</strong>. Magnetism is about the invisible force of magnets. It can make objects stick together or move away. Einstein also learned a lot about science and electronics because of his dad. His dad owned an electronics company. It was no surprise that Einstein ended up loving math and science.
           </p>
           <p>
-            He started performing experiments at a very young age. Einstein performed extremely well in school. He quickly advanced to higher level math and science topics, and his teachers were impressed by his grasp of college-level physics concepts by the time he was eleven. When he was young, he met a Polish medical student named Max Talmud. Talmud became his tutor. He showed Einstein a children's textbook about science. Einstein became curious about light and other things.
+            He started performing experiments at a very young age. Einstein performed extremely well in school. He quickly advanced to higher level math and science topics, and his teachers were impressed by his grasp of college-level physics concepts by the time he was <strong>eleven</strong>. When he was young, he met a Polish medical student named <strong>Max Talmud</strong>. Talmud became his tutor. He showed Einstein a children's textbook about science. Einstein became <strong>curious</strong> about light and other things.
           </p>
           <p>
-            Einstein later attended school in Switzerland. He made many friendships. He also met his future wife, Mileva Maric. She was a Serbian physics student. Einstein received his doctorate in 1905. That same year, he published many important scientific papers.
+            Einstein later attended school in Switzerland. He made many friendships. He also met his future wife, <strong>Mileva Maric</strong>. She was a Serbian physics student. Einstein received his <strong>doctorate</strong> in <strong>1905</strong>. That same year, he published many important scientific papers. After that, Einstein became a professor in Germany. But times were tough back then. Hitler and his Nazi party started a war against Jewish people. Einstein was Jewish. So he decided to leave and go to the United States. That was in <strong>1933</strong>. And it's a good thing he did. The world needed him to be free and pursue his passions.
           </p>
           <p>
-            After that, Einstein became a professor in Germany. But times were tough back then. Hitler and his Nazi party started a war against Jewish people. Einstein was Jewish. So he decided to leave and go to the United States. That was in 1933. And it's a good thing he did. The world needed him to be free and pursue his passions.
+            Einstein was not an inventor like Thomas Edison or Alexander Graham Bell. But his theories and discoveries changed the way we look at things. Some examples are <strong>time, space, matter, energy, and gravity</strong>. Einstein is best known for his <strong>Theory of Relativity</strong>. You probably heard of the equation <strong>E = mc²</strong>. E stands for <strong>energy</strong>, m stands for <strong>mass</strong>, and c stands for <strong>speed of light</strong>. The theory is a scientific explanation about how <strong>space relates to time</strong>. This was very important. It changed the way scientists looked at the universe. This theory also brought on inventions like the <strong>nuclear bomb</strong> and <strong>nuclear energy</strong>.
           </p>
           <p>
-            Einstein was not an inventor like Thomas Edison or Alexander Graham Bell. But his theories and discoveries changed the way we look at things. Some examples are time, space, matter, energy, and gravity. Einstein is best known for his Theory of Relativity. You probably heard of the equation E = mc². E stands for energy, m stands for mass, and c stands for speed of light. The theory is a scientific explanation about how space relates to time. This was very important. It changed the way scientists looked at the universe. This theory also brought on inventions like the nuclear bomb and nuclear energy.
-          </p>
-          <p>
-            Einstein made many other discoveries. For example, he figured out that light is made up of many little particles called photons. He called this the quantum theory of light. At the time, some other scientists did not agree with this theory. But later, it was proven. This was an important discovery. It led to many inventions such as television. Along with scientist Satyendra Bose, he discovered a new state of matter called the Bose-Einstein Condensate. Today, it's used in cool things like lasers. Einstein's work was and is valuable to the world. This is one of the reasons he eventually won the Nobel Prize in Physics.
+            Einstein made many other discoveries. For example, he figured out that light is made up of many little particles called <strong>photons</strong>. He called this the <strong>quantum theory of light</strong>. At the time, some other scientists did not agree with this theory. But later, it was proven. This was an important discovery. It led to many inventions such as <strong>television</strong>. Along with scientist Satyendra Bose, he discovered a new state of matter called the <strong>Bose-Einstein Condensate</strong>. Today, it's used in cool things like <strong>lasers</strong>. Einstein's work was and is valuable to the world. This is one of the reasons he eventually won the <strong>Nobel Prize in Physics</strong>.
           </p>
         </div>
 
-        <!-- Questions -->
-        <div class="card" style="background: var(--color-bg); border-left: 4px solid var(--color-accent-1);">
-          <div class="card-title" style="font-size: var(--font-size-base);">❓ Questions</div>
-          <ol style="list-style: decimal; padding-left: var(--spacing-6); color: var(--color-text-secondary);">
-            <li>Based on the information in the article, which statement is true about Albert Einstein's younger years?<br>
-              a. Einstein's teachers were disappointed in his lack of interest in math and science.<br>
-              b. Einstein was tutored by a Polish medical student, Max Talmud.<br>
-              c. Einstein wanted to be a physics professor like his father.<br>
-              d. Einstein's first time traveling abroad was when he fled Germany for the U.S. in 1933.
-            </li>
-            <li>Even though Albert Einstein wasn't an inventor, his discoveries paved the way for many inventions. Name six things that were invented because of Einstein's work in math and science.</li>
-            <li>Einstein is very famous for his Theory of Relativity. His equation, E = mc², is a scientific explanation for how space relates to time. What does each part of the equation stand for?<br>
-              E — __________<br>
-              m — __________<br>
-              c — __________
-            </li>
-            <li>In addition to Einstein's Theory of Relativity, describe two other important discoveries Einstein made during his life.</li>
-            <li>What honor was bestowed on Albert Einstein later on in his career?</li>
-          </ol>
+        <!-- ====== QUESTIONS ====== -->
+        <h2 style="color: var(--color-primary); font-size: var(--font-size-xl); margin-bottom: var(--spacing-4);">❓ Questions</h2>
+
+        <!-- Question 1 -->
+        <div class="question-card" id="q1">
+          <div class="q-number">Question 1</div>
+          <div class="q-text">Based on the information in the article, which statement is true about Albert Einstein's younger years?</div>
+          <div class="options">
+            <span class="opt"><strong>a.</strong> Einstein's teachers were disappointed in his lack of interest in math and science.</span>
+            <span class="opt"><strong>b.</strong> Einstein was tutored by a Polish medical student, Max Talmud.</span>
+            <span class="opt"><strong>c.</strong> Einstein wanted to be a physics professor like his father.</span>
+            <span class="opt"><strong>d.</strong> Einstein's first time traveling abroad was when he fled Germany for the U.S. in 1933.</span>
+          </div>
+          <button class="btn-answer" onclick="toggleAnswer('a1')">👁️ Show Answer</button>
+          <div class="q-answer" id="a1">
+            <strong>Answer:</strong> <span class="highlight">b. Einstein was tutored by a Polish medical student, Max Talmud.</span><br><br>
+            The article states that Einstein met Max Talmud, a Polish medical student, who became his tutor and showed him a children's textbook about science.
+          </div>
         </div>
 
+        <!-- Question 2 -->
+        <div class="question-card" id="q2">
+          <div class="q-number">Question 2</div>
+          <div class="q-text">Even though Albert Einstein wasn't an inventor, his discoveries paved the way for many inventions. Name six things that were invented because of Einstein's work in math and science.</div>
+          <button class="btn-answer" onclick="toggleAnswer('a2')">👁️ Show Answer</button>
+          <div class="q-answer" id="a2">
+            <strong>Answer:</strong> Six things invented because of Einstein's work:<br><br>
+            <span class="list-item">1. <span class="highlight">Television</span></span>
+            <span class="list-item">2. <span class="highlight">DVD players</span></span>
+            <span class="list-item">3. <span class="highlight">Garage door openers</span></span>
+            <span class="list-item">4. <span class="highlight">Nuclear bomb</span></span>
+            <span class="list-item">5. <span class="highlight">Nuclear energy</span></span>
+            <span class="list-item">6. <span class="highlight">Lasers</span></span>
+          </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-card" id="q3">
+          <div class="q-number">Question 3</div>
+          <div class="q-text">Einstein is very famous for his Theory of Relativity. His equation, <strong>E = mc²</strong>, is a scientific explanation for how space relates to time. What does each part of the equation stand for?</div>
+          <div style="font-family: 'Courier New', monospace; font-size: var(--font-size-lg); color: var(--color-primary); margin: var(--spacing-2) 0;">
+            E = ______ &nbsp;&nbsp;|&nbsp;&nbsp; m = ______ &nbsp;&nbsp;|&nbsp;&nbsp; c = ______
+          </div>
+          <button class="btn-answer" onclick="toggleAnswer('a3')">👁️ Show Answer</button>
+          <div class="q-answer" id="a3">
+            <strong>Answer:</strong><br>
+            <span class="highlight">E</span> = <strong>Energy</strong><br>
+            <span class="highlight">m</span> = <strong>Mass</strong><br>
+            <span class="highlight">c</span> = <strong>Speed of light</strong>
+          </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-card" id="q4">
+          <div class="q-number">Question 4</div>
+          <div class="q-text">In addition to Einstein's Theory of Relativity, describe <strong>two</strong> other important discoveries Einstein made during his life.</div>
+          <button class="btn-answer" onclick="toggleAnswer('a4')">👁️ Show Answer</button>
+          <div class="q-answer" id="a4">
+            <strong>Answer:</strong><br><br>
+            <span class="list-item"><strong>1. Quantum theory of light</strong> — Einstein discovered that light is made up of tiny particles called <span class="highlight">photons</span>. This led to inventions like <span class="highlight">television</span>.</span>
+            <span class="list-item"><strong>2. Bose-Einstein Condensate</strong> — Along with Satyendra Bose, he discovered a new state of matter (beyond gas, liquid, and solid). It is used in <span class="highlight">lasers</span>.</span>
+          </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-card" id="q5">
+          <div class="q-number">Question 5</div>
+          <div class="q-text">What honor was bestowed on Albert Einstein later on in his career?</div>
+          <button class="btn-answer" onclick="toggleAnswer('a5')">👁️ Show Answer</button>
+          <div class="q-answer" id="a5">
+            <strong>Answer:</strong> Einstein was awarded the <span class="highlight">Nobel Prize in Physics</span>. He was also named <span class="highlight">"Person of the Century"</span> by TIME Magazine after his death.
+          </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-card" id="q6">
+          <div class="q-number">Question 6</div>
+          <div class="q-text">Match the vocabulary word with its correct definition by writing the corresponding letter on the line.</div>
+          <div class="matching-grid">
+            <span class="term">1. _____ genius</span>
+            <span class="def">a. a force that pulls a body toward the center of the earth</span>
+            <span class="term">2. _____ century</span>
+            <span class="def">b. an instrument that displays the direction of magnetic north</span>
+            <span class="term">3. _____ theory</span>
+            <span class="def">c. complex; difficult to understand</span>
+            <span class="term">4. _____ gravity</span>
+            <span class="def">d. eager to learn about or know something</span>
+            <span class="term">5. _____ doctorate</span>
+            <span class="def">e. everything in existence; the cosmos</span>
+            <span class="term">6. _____ complicated</span>
+            <span class="def">f. mastermind; brilliant person</span>
+            <span class="term">7. _____ universe</span>
+            <span class="def">g. excellent; exceptional</span>
+            <span class="term">8. _____ compass</span>
+            <span class="def">h. a set of ideas that is intended to explain something</span>
+            <span class="term">9. _____ curious</span>
+            <span class="def">i. the highest degree awarded by a university</span>
+            <span class="term">10. _____ outstanding</span>
+            <span class="def">j. a period of one hundred years</span>
+          </div>
+          <button class="btn-answer" onclick="toggleAnswer('a6')">👁️ Show Answer</button>
+          <div class="q-answer" id="a6">
+            <strong>Answer:</strong><br>
+            1. <span class="highlight">f</span> — genius = mastermind; brilliant person<br>
+            2. <span class="highlight">j</span> — century = a period of one hundred years<br>
+            3. <span class="highlight">h</span> — theory = a set of ideas that explains something<br>
+            4. <span class="highlight">a</span> — gravity = a force that pulls toward the center of the earth<br>
+            5. <span class="highlight">i</span> — doctorate = the highest degree awarded by a university<br>
+            6. <span class="highlight">c</span> — complicated = complex; difficult to understand<br>
+            7. <span class="highlight">e</span> — universe = everything in existence<br>
+            8. <span class="highlight">b</span> — compass = an instrument that displays magnetic north<br>
+            9. <span class="highlight">d</span> — curious = eager to learn about something<br>
+            10. <span class="highlight">g</span> — outstanding = excellent; exceptional
+          </div>
+        </div>
+
+        <!-- ====== NAVIGATION ====== -->
         <div style="margin-top: var(--spacing-8); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--spacing-4);">
           <a href="passage-2.html" class="btn btn-secondary">← Red Kangaroos</a>
           <a href="passage-4.html" class="btn btn-primary">Next: Martin Luther King Jr. →</a>
@@ -98,9 +549,61 @@
     </section>
   </main>
 
+  <!-- ====== SCRIPTS ====== -->
   <script src="../../js/main.js"></script>
   <script src="../../js/navigation.js"></script>
-  <script src="../skills.js"></script>
+
+  <script>
+    // ====== TOGGLE ANSWER ======
+    function toggleAnswer(id) {
+      const answer = document.getElementById(id);
+      const btn = answer.parentElement.querySelector('.btn-answer');
+      if (answer.classList.contains('show')) {
+        answer.classList.remove('show');
+        btn.textContent = '👁️ Show Answer';
+        btn.classList.remove('active');
+      } else {
+        answer.classList.add('show');
+        btn.textContent = '🙈 Hide Answer';
+        btn.classList.add('active');
+      }
+    }
+
+    // ====== INTERSECTION OBSERVER ======
+    document.addEventListener('DOMContentLoaded', function() {
+      // Passage text
+      const passage = document.getElementById('passageText');
+      if (passage && 'IntersectionObserver' in window) {
+        const observer1 = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.2 });
+        observer1.observe(passage);
+      } else if (passage) {
+        passage.classList.add('visible');
+      }
+
+      // Questions
+      const questions = document.querySelectorAll('.question-card');
+      if ('IntersectionObserver' in window) {
+        const observer2 = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, index * 120);
+            }
+          });
+        }, { threshold: 0.15 });
+        questions.forEach(q => observer2.observe(q));
+      } else {
+        questions.forEach(q => q.classList.add('visible'));
+      }
+    });
+  </script>
 
 </body>
 </html>
