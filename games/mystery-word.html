@@ -353,7 +353,7 @@
     }
 
     /* ============================================================
-       CLUES
+       CLUES — THE QUESTION / TITLE
     ============================================================ */
     .clues-container {
       background: rgba(255, 255, 255, 0.03);
@@ -363,7 +363,7 @@
       border: 1px solid rgba(255, 255, 255, 0.05);
       position: relative;
       z-index: 2;
-      min-height: 120px;
+      min-height: 140px;
       transition: all 0.5s ease;
     }
 
@@ -379,7 +379,7 @@
 
     .clue-item {
       font-size: 18px;
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(255, 255, 255, 0.85);
       padding: 10px 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.04);
       opacity: 0;
@@ -401,15 +401,38 @@
       background: rgba(242, 101, 34, 0.15);
       color: #F26522;
       font-weight: 700;
-      font-size: 12px;
-      padding: 2px 10px;
+      font-size: 13px;
+      padding: 3px 14px;
       border-radius: 100px;
-      margin-right: 12px;
+      margin-right: 14px;
+      letter-spacing: 0.5px;
     }
 
     .clue-item .clue-text {
-      font-weight: 400;
+      font-weight: 500;
       letter-spacing: 0.3px;
+      font-size: 19px;
+    }
+
+    .clue-item .clue-text .highlight {
+      color: #FFB830;
+      font-weight: 700;
+    }
+
+    /* Start message */
+    .clue-start {
+      text-align: center;
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.3);
+      padding: 20px 0;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .clue-start .icon-big {
+      font-size: 48px;
+      display: block;
+      margin-bottom: 10px;
     }
 
     /* ============================================================
@@ -492,7 +515,6 @@
       color: #F26522;
     }
 
-    /* Option States */
     .option-btn.correct {
       border-color: #34C759;
       background: rgba(52, 199, 89, 0.15);
@@ -832,6 +854,10 @@
         font-size: 15px;
       }
 
+      .clue-item .clue-text {
+        font-size: 16px;
+      }
+
       .btn-start {
         padding: 12px 30px;
         font-size: 16px;
@@ -872,6 +898,10 @@
       .clue-item {
         font-size: 13px;
         padding: 8px 0;
+      }
+
+      .clue-item .clue-text {
+        font-size: 14px;
       }
 
       .controls {
@@ -927,20 +957,12 @@
       </div>
     </div>
 
-    <!-- Clues -->
+    <!-- ====== CLUES ====== -->
     <div class="clues-container" id="cluesContainer">
       <div id="cluesList">
-        <div class="clue-item" id="clue1">
-          <span class="clue-number">🔎 CLUE 1</span>
-          <span class="clue-text" id="clueText1">Press "Start" to begin the investigation!</span>
-        </div>
-        <div class="clue-item" id="clue2">
-          <span class="clue-number">🔎 CLUE 2</span>
-          <span class="clue-text" id="clueText2">—</span>
-        </div>
-        <div class="clue-item" id="clue3">
-          <span class="clue-number">🔎 CLUE 3</span>
-          <span class="clue-text" id="clueText3">—</span>
+        <div class="clue-start" id="clueStartMessage">
+          <span class="icon-big">🔍</span>
+          Press <strong>"Start Investigation"</strong> to begin the mystery!
         </div>
       </div>
     </div>
@@ -1108,12 +1130,7 @@
     const timerFill = $('timerFill');
     const timerNumber = $('timerNumber');
     const cluesContainer = $('cluesContainer');
-    const clueText1 = $('clueText1');
-    const clueText2 = $('clueText2');
-    const clueText3 = $('clueText3');
-    const clue1 = $('clue1');
-    const clue2 = $('clue2');
-    const clue3 = $('clue3');
+    const cluesList = $('cluesList');
     const optTexts = [
       $('opt0'), $('opt1'), $('opt2'), $('opt3')
     ];
@@ -1268,7 +1285,6 @@
     function getRandomWords(count = 8) {
       const shuffled = shuffleArray([...wordBank]);
       const selected = shuffled.slice(0, Math.min(count, shuffled.length));
-      // Make sure we have at least 4 words
       while (selected.length < 4) {
         const extra = shuffleArray([...wordBank]).slice(0, 4 - selected.length);
         selected.push(...extra);
@@ -1277,7 +1293,6 @@
     }
 
     function startGame() {
-      // Reset game state
       gameState.words = getRandomWords(8);
       gameState.currentIndex = 0;
       gameState.score = 0;
@@ -1308,18 +1323,31 @@
       gameState.answered = false;
       gameState.total++;
 
-      // Reset clues
-      clueText1.textContent = wordData.clues[0] || '—';
-      clueText2.textContent = '—';
-      clueText3.textContent = '—';
-      clue1.classList.remove('visible');
-      clue2.classList.remove('visible');
-      clue3.classList.remove('visible');
+      // ✅ إعادة بناء الـ HTML لعرض التلميحات
+      cluesList.innerHTML = `
+        <div class="clue-item" id="clue1">
+          <span class="clue-number">🔎 CLUE 1</span>
+          <span class="clue-text" id="clueText1">${wordData.clues[0] || '—'}</span>
+        </div>
+        <div class="clue-item" id="clue2">
+          <span class="clue-number">🔎 CLUE 2</span>
+          <span class="clue-text" id="clueText2">—</span>
+        </div>
+        <div class="clue-item" id="clue3">
+          <span class="clue-number">🔎 CLUE 3</span>
+          <span class="clue-text" id="clueText3">—</span>
+        </div>
+      `;
 
-      // Show first clue immediately
-      setTimeout(() => clue1.classList.add('visible'), 100);
+      // ✅ إعادة جلب المراجع
+      const clue1 = document.getElementById('clue1');
+      const clue2 = document.getElementById('clue2');
+      const clue3 = document.getElementById('clue3');
 
-      // Reset options
+      // ✅ عرض التلميحة الأولى فورًا
+      setTimeout(() => clue1.classList.add('visible'), 50);
+
+      // ✅ الخيارات
       const allOptions = [wordData.word];
       const shuffledBank = shuffleArray([...wordBank]);
       let added = 0;
@@ -1340,14 +1368,13 @@
         btn.style.opacity = '1';
       });
 
-      // Reset timer
+      // ✅ Timer
       gameState.timeLeft = gameState.maxTime;
       timerFill.style.width = '100%';
       timerFill.classList.remove('warning');
       timerNumber.textContent = gameState.timeLeft + 's';
       timerNumber.classList.remove('warning');
 
-      // Start timer
       if (gameState.timer) clearInterval(gameState.timer);
       gameState.timer = setInterval(() => {
         gameState.timeLeft -= 0.1;
@@ -1355,7 +1382,6 @@
         timerFill.style.width = pct + '%';
         timerNumber.textContent = Math.ceil(gameState.timeLeft) + 's';
 
-        // Play tick sounds
         if (gameState.timeLeft <= 3) {
           timerFill.classList.add('warning');
           timerNumber.classList.add('warning');
@@ -1368,7 +1394,6 @@
           clearInterval(gameState.timer);
           timerNumber.textContent = '0s';
           if (!gameState.answered) {
-            // Time's up — auto reveal
             gameState.answered = true;
             gameState.wrong++;
             SoundEngine.playWrong();
@@ -1387,27 +1412,31 @@
         }
       }, 100);
 
-      // Show second clue after 3 seconds
+      // ✅ التلميحة الثانية بعد 3 ثوانٍ
       setTimeout(() => {
         if (!gameState.answered) {
-          clueText2.textContent = wordData.clues[1] || '—';
-          clue2.classList.add('visible');
+          const t2 = document.getElementById('clueText2');
+          if (t2) {
+            t2.textContent = wordData.clues[1] || '—';
+            clue2.classList.add('visible');
+          }
         }
       }, 3000);
 
-      // Show third clue after 6 seconds
+      // ✅ التلميحة الثالثة بعد 6 ثوانٍ
       setTimeout(() => {
         if (!gameState.answered) {
-          clueText3.textContent = wordData.clues[2] || '—';
-          clue3.classList.add('visible');
+          const t3 = document.getElementById('clueText3');
+          if (t3) {
+            t3.textContent = wordData.clues[2] || '—';
+            clue3.classList.add('visible');
+          }
         }
       }, 6000);
 
-      // Update thought bubble
       thoughtBubble.textContent = '🔍 Investigating...';
       thoughtBubble.classList.add('show');
 
-      // Animate clues container
       cluesContainer.classList.remove('revealing');
       void cluesContainer.offsetWidth;
       cluesContainer.classList.add('revealing');
@@ -1422,13 +1451,11 @@
       const isCorrect = btn.dataset.correct === 'true';
       gameState.answered = true;
 
-      // Stop timer
       if (gameState.timer) {
         clearInterval(gameState.timer);
         gameState.timer = null;
       }
 
-      // Disable all options
       optionBtns.forEach(b => b.disabled = true);
 
       if (isCorrect) {
@@ -1438,7 +1465,6 @@
         SoundEngine.playCorrect();
         showFeedback('🎉', 'Correct! +10 points');
         triggerConfetti();
-        // Change thought bubble
         thoughtBubble.textContent = '🎉 Brilliant!';
         thoughtBubble.classList.add('show');
       } else {
@@ -1446,7 +1472,6 @@
         gameState.wrong++;
         SoundEngine.playWrong();
         showFeedback('❌', 'Oops! Not quite...');
-        // Show correct answer
         optionBtns.forEach(b => {
           if (b.dataset.correct === 'true') {
             b.classList.add('show-correct');
@@ -1458,7 +1483,6 @@
 
       updateScore();
 
-      // Show next button
       setTimeout(() => {
         btnNext.classList.add('show');
       }, 600);
@@ -1467,7 +1491,6 @@
     function nextWord() {
       gameState.currentIndex++;
       btnNext.classList.remove('show');
-      // Hide thought bubble
       thoughtBubble.classList.remove('show');
       setTimeout(() => {
         showWord();
@@ -1481,13 +1504,15 @@
     function showFeedback(emoji, message) {
       feedbackEmoji.textContent = emoji;
       feedbackOverlay.style.display = 'flex';
-      // Remove previous animation
       feedbackEmoji.style.animation = 'none';
       void feedbackEmoji.offsetWidth;
       feedbackEmoji.style.animation = 'feedbackPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
 
-      // Show message below emoji (optional)
+      const oldMsg = document.getElementById('feedbackMessage');
+      if (oldMsg) oldMsg.remove();
+
       const msgEl = document.createElement('div');
+      msgEl.id = 'feedbackMessage';
       msgEl.textContent = message;
       msgEl.style.cssText = `
         position: absolute;
@@ -1503,9 +1528,6 @@
         backdrop-filter: blur(10px);
         animation: fadeIn 0.5s ease;
       `;
-      msgEl.id = 'feedbackMessage';
-      const oldMsg = document.getElementById('feedbackMessage');
-      if (oldMsg) oldMsg.remove();
       feedbackOverlay.appendChild(msgEl);
 
       setTimeout(() => {
@@ -1524,7 +1546,6 @@
 
       SoundEngine.playGameOver();
 
-      // Show game over screen
       const total = gameState.correct + gameState.wrong;
       const pct = total > 0 ? Math.round((gameState.correct / total) * 100) : 0;
 
@@ -1539,7 +1560,6 @@
         setTimeout(triggerConfetti, 1000);
       }
 
-      const cluesList = document.getElementById('cluesList');
       cluesList.innerHTML = `
         <div class="game-over">
           <div style="font-size: 60px; margin-bottom: 10px;">${emoji}</div>
@@ -1563,7 +1583,6 @@
         </div>
       `;
 
-      // Hide options and controls
       document.getElementById('optionsGrid').style.display = 'none';
       document.getElementById('btnStart').style.display = 'none';
       document.getElementById('btnNext').style.display = 'none';
@@ -1579,36 +1598,18 @@
 
     btnStart.addEventListener('click', () => {
       SoundEngine.playStart();
-      // Reset UI for a fresh game
       document.getElementById('optionsGrid').style.display = 'grid';
       document.querySelector('.timer-section').style.display = 'block';
       document.getElementById('btnStart').style.display = 'flex';
       document.getElementById('btnNext').style.display = 'none';
 
       // Reset clues container
-      document.getElementById('cluesList').innerHTML = `
-        <div class="clue-item" id="clue1">
-          <span class="clue-number">🔎 CLUE 1</span>
-          <span class="clue-text" id="clueText1">Press "Start" to begin the investigation!</span>
-        </div>
-        <div class="clue-item" id="clue2">
-          <span class="clue-number">🔎 CLUE 2</span>
-          <span class="clue-text" id="clueText2">—</span>
-        </div>
-        <div class="clue-item" id="clue3">
-          <span class="clue-number">🔎 CLUE 3</span>
-          <span class="clue-text" id="clueText3">—</span>
+      cluesList.innerHTML = `
+        <div class="clue-start" id="clueStartMessage">
+          <span class="icon-big">🔍</span>
+          Press <strong>"Start Investigation"</strong> to begin the mystery!
         </div>
       `;
-      // Reassign refs
-      Object.assign(window, {
-        clueText1: document.getElementById('clueText1'),
-        clueText2: document.getElementById('clueText2'),
-        clueText3: document.getElementById('clueText3'),
-        clue1: document.getElementById('clue1'),
-        clue2: document.getElementById('clue2'),
-        clue3: document.getElementById('clue3'),
-      });
 
       startGame();
     });
@@ -1635,9 +1636,6 @@
       }
     });
 
-    // ============================================================
-    // INIT
-    // ============================================================
     console.log('🕵️ Mystery Word Game loaded!');
   </script>
 
