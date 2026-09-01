@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grammar 2 Mixed · Unit 3 · Exercises</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+</head>
+<body>
+
+  <!-- Header / Mobile Nav omitted -->
+
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Unit 3</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Grammar 2: Mixed</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">🧩 Grammar 2 — Past Perfect Continuous (Mixed)</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">20 Questions</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 20</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 3 · Grammar 2 Mixed</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // QUESTIONS — EXACTLY AS IN THE BOOKLET (Pages 78-79)
+    const questions = [
+      { type: 'fill', text: '1. While I _______ (walk) home, the manager _______ (call) me.', correct: 'was walking, called' },
+      { type: 'fill', text: '2. The teacher _______ (be) angry because the students _______ (not - do) their homework.', correct: 'was, had not done' },
+      { type: 'fill', text: '3. They _______ (tell) us that they _______ (not - see) us before.', correct: 'told, had not seen' },
+      { type: 'fill', text: '4. The teacher _______ (speak) to the new student yet.', correct: 'has not spoken' },
+      { type: 'fill', text: '5. They _______ (chat) on the phone since 12:30 and they _______ (not - finish) yet.', correct: 'have been chatting, have not finished' },
+      { type: 'fill', text: '6. Too many species _______ (die) out in the past decades.', correct: 'have died' },
+      { type: 'fill', text: '7. How many books _______ (read) in your life?', correct: 'have you read' },
+      { type: 'fill', text: '8. They _______ (meet) in 2004 where they _______ (study) in university.', correct: 'met, were studying' },
+      { type: 'fill', text: '9. It all _______ (happen) while they _______ (have) dinner.', correct: 'happened, were having' },
+      { type: 'fill', text: '10. The Romans _______ (conquer) Britain in 43 AD.', correct: 'conquered' },
+      { type: 'fill', text: '11. A friend of mine said she _______ (never - see) The Matrix.', correct: 'had never seen' },
+      { type: 'fill', text: '12. We _______ (know) each other for more than 20 years.', correct: 'have known' },
+      { type: 'fill', text: '13. After she _______ (finish) watching the film, she _______ (switch) off the TV.', correct: 'had finished, switched' },
+      { type: 'fill', text: '14. Before she _______ (come) home, she _______ (visit) her aunt.', correct: 'came, had visited' },
+      { type: 'fill', text: '15. What _______ (you - do) when the accident happened?', correct: 'were you doing' },
+      { type: 'fill', text: '16. I _______ (wait) in the office for more than two hours when the Boss finally arrived.', correct: 'had been waiting' },
+      { type: 'fill', text: '17. They _______ (talk) for over an hour before the other members arrived.', correct: 'had been talking' },
+      { type: 'fill', text: '18. _______ (you - watch) the match when I telephoned you?', correct: 'Were you watching' },
+      { type: 'fill', text: '19. She _______ (work) for that company for three years when it went out of business.', correct: 'had been working' },
+      { type: 'fill', text: '20. How long _______ (you - wait) for John before he finally arrived?', correct: 'had you been waiting' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
