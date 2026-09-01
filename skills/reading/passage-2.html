@@ -15,15 +15,299 @@
   <link rel="stylesheet" href="../../css/animations.css">
   <link rel="stylesheet" href="../../css/responsive.css">
   <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    /* ====== PASSAGE STYLES ====== */
+    .passage-hero {
+      background: var(--gradient-header);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      text-align: center;
+      color: #fff;
+      margin-bottom: var(--spacing-6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .passage-hero::before {
+      content: '🦘';
+      position: absolute;
+      font-size: 10rem;
+      opacity: 0.08;
+      right: -10px;
+      bottom: -30px;
+      transform: rotate(-10deg);
+    }
+
+    .passage-hero h1 {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-extrabold);
+      margin-bottom: var(--spacing-2);
+      position: relative;
+      z-index: 1;
+    }
+
+    .passage-hero .subtitle {
+      font-size: var(--font-size-base);
+      opacity: 0.85;
+      position: relative;
+      z-index: 1;
+    }
+
+    .passage-hero .author {
+      font-size: var(--font-size-sm);
+      opacity: 0.7;
+      margin-top: var(--spacing-1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .passage-hero .badge-group {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-3);
+      flex-wrap: wrap;
+      margin-top: var(--spacing-3);
+      position: relative;
+      z-index: 1;
+    }
+
+    .passage-hero .badge-group .badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: var(--spacing-1) var(--spacing-4);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      backdrop-filter: blur(4px);
+    }
+
+    /* ====== PASSAGE TEXT ====== */
+    .passage-text {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      box-shadow: var(--shadow-sm);
+      border: 2px solid var(--color-border);
+      margin-bottom: var(--spacing-6);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+    }
+
+    .passage-text.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .passage-text:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .passage-text p {
+      font-size: var(--font-size-base);
+      line-height: 2;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--spacing-4);
+    }
+
+    .passage-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .passage-text strong {
+      color: var(--color-text-primary);
+    }
+
+    /* ====== QUESTIONS ====== */
+    .question-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-5);
+      box-shadow: var(--shadow-sm);
+      border: 2px solid var(--color-border);
+      margin-bottom: var(--spacing-4);
+      transition: all var(--transition-slow);
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .question-card.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .question-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-primary);
+    }
+
+    .question-card .q-number {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .question-card .q-text {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-primary);
+      margin: var(--spacing-2) 0;
+    }
+
+    .question-card .q-answer {
+      background: var(--color-bg);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-3);
+      margin-top: var(--spacing-3);
+      border-left: 4px solid var(--color-secondary);
+      display: none;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+    }
+
+    .question-card .q-answer.show {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .question-card .q-answer strong {
+      color: var(--color-primary);
+    }
+
+    .question-card .q-answer .highlight {
+      background: rgba(242, 101, 34, 0.1);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .btn-answer {
+      background: var(--color-bg);
+      color: var(--color-text-primary);
+      padding: var(--spacing-2) var(--spacing-5);
+      border-radius: var(--radius-full);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-sm);
+      border: 2px solid var(--color-border);
+      cursor: pointer;
+      transition: all var(--transition-base);
+      margin-top: var(--spacing-2);
+    }
+
+    .btn-answer:hover {
+      border-color: var(--color-secondary);
+      color: var(--color-secondary);
+      background: rgba(255, 184, 48, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .btn-answer.active {
+      border-color: var(--color-secondary);
+      background: var(--color-secondary);
+      color: #fff;
+    }
+
+    .btn-answer.active:hover {
+      background: #e6a600;
+    }
+
+    /* ====== OPTIONS STYLES ====== */
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-2);
+      margin: var(--spacing-2) 0;
+    }
+
+    .options .opt {
+      padding: var(--spacing-1) var(--spacing-3);
+      background: var(--color-bg);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .options .opt strong {
+      color: var(--color-text-primary);
+    }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 768px) {
+      .passage-text {
+        padding: var(--spacing-4);
+      }
+      .passage-text p {
+        font-size: var(--font-size-sm);
+      }
+      .question-card {
+        padding: var(--spacing-4);
+      }
+      .passage-hero h1 {
+        font-size: var(--font-size-xl);
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Header / Mobile Nav omitted -->
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../units/unit-1/index.html">Unit 1</a>
+        <a href="../../units/unit-2/index.html">Unit 2</a>
+        <a href="../../units/unit-3/index.html">Unit 3</a>
+        <a href="../../units/unit-4/index.html">Unit 4</a>
+        <a href="../../novel/index.html">Novel</a>
+        <a href="../../poetry/index.html">Poetry</a>
+        <a href="../index.html" class="active">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../../units/unit-1/index.html">Unit 1: Jump for Joy</a>
+      <a href="../../units/unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../../units/unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../../units/unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="../../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../index.html" class="active">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
   <main class="main-content">
     <section class="section">
       <div class="container">
 
+        <!-- Breadcrumbs -->
         <nav class="breadcrumbs">
           <a href="../../index.html">Home</a>
           <span class="separator"> › </span>
@@ -34,53 +318,131 @@
           <span class="current">Passage 2</span>
         </nav>
 
-        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
-          <h1 class="text-2xl" style="color: var(--color-primary);">🦘 Red Kangaroos</h1>
-          <p class="text-base" style="color: var(--color-text-secondary);">World's Largest Marsupial — by Guy Belleranti</p>
+        <!-- ====== HERO ====== -->
+        <div class="passage-hero fade-in">
+          <h1>🦘 Red Kangaroos</h1>
+          <div class="subtitle">World's Largest Marsupial</div>
+          <div class="author">by Guy Belleranti</div>
+          <div class="badge-group">
+            <span class="badge">📖 6 Questions</span>
+            <span class="badge">🇦🇺 Australia</span>
+            <span class="badge">🏃 35 mph</span>
+          </div>
         </div>
 
-        <!-- Passage -->
-        <div class="card passage-content">
+        <!-- ====== PASSAGE TEXT ====== -->
+        <div class="passage-text" id="passageText">
           <p>
-            What Australian mammal can leap 25 feet in one hop and move for short periods at 35 miles an hour? The red kangaroo. A full-grown male stands as tall as a 6-foot-tall person and weighs 200 pounds. This is slightly bigger than the grey kangaroo, making it the world's largest marsupial.
+            What Australian mammal can leap <strong>25 feet</strong> in one hop and move for short periods at <strong>35 miles an hour</strong>? The <strong>red kangaroo</strong>. A full-grown male stands as tall as a 6-foot-tall person and weighs 200 pounds. This is slightly bigger than the grey kangaroo, making it the <strong>world's largest marsupial</strong>.
           </p>
           <p>
-            What's a marsupial? It's a mammal where the mother has a pouch for carrying, feeding, and protecting her young. While a red kangaroo may be the largest marsupial, the newborn baby is tiny, under an inch long. After a few months of sleeping, nursing, and growing in mom's stomach pouch, the young kangaroo (joey) begins to come out. But it hurries back to the pouch fast when frightened, hungry, or cold. Eventually, the joey gets so big it hangs out of the pouch. Then, at eight months old, it stays out. But the joey remains close to mom until ready to live on its own.
+            What's a marsupial? It's a mammal where the mother has a <strong>pouch</strong> for carrying, feeding, and protecting her young. While a red kangaroo may be the largest marsupial, the newborn baby is tiny, under an inch long. After a few months of sleeping, nursing, and growing in mom's stomach pouch, the young kangaroo (<strong>joey</strong>) begins to come out. But it hurries back to the pouch fast when frightened, hungry, or cold. Eventually, the joey gets so big it hangs out of the pouch. Then, at <strong>eight months old</strong>, it stays out. But the joey remains close to mom until ready to live on its own.
           </p>
           <p>
-            Red kangaroos are good swimmers. However, they are best known for their hopping abilities. Their long, powerful hind legs have big feet. Hopping moves them quickly over their grassy, shrubby, and desert habitats. Meanwhile, a thick tail helps them balance and steer.
+            Red kangaroos are good swimmers. However, they are best known for their <strong>hopping abilities</strong>. Their long, powerful hind legs have big feet. Hopping moves them quickly over their grassy, shrubby, and desert habitats. Meanwhile, a thick tail helps them <strong>balance and steer</strong>.
           </p>
           <p>
-            What do red kangaroos eat? Grass, leaves, and other vegetation. And guess what — they often regurgitate food and chew their cud just like a cow. The red kangaroo's vegetarian diet provides much of its water. It can also go long periods without drinking. Staying in the shade, panting, and limiting most activity to nighttime helps the red kangaroo conserve water and stay cool.
+            What do red kangaroos eat? <strong>Grass, leaves, and other vegetation</strong>. And guess what — they often regurgitate food and chew their cud just like a cow. The red kangaroo's vegetarian diet provides much of its water. It can also go long periods without drinking. Staying in the shade, panting, and limiting most activity to nighttime helps the red kangaroo <strong>conserve water</strong> and stay cool.
           </p>
           <p>
-            Red kangaroos travel together in groups called mobs. Mobs include both males and females, with one male being dominant. Males show their dominance by "boxing" with other males. They balance on their tails and try pushing each other off balance with their forearms or by kicking their hind legs. This kicking ability, along with their sharp claws, can also be used by kangaroos to defend against Australia's wild dog, the dingo.
+            Red kangaroos travel together in groups called <strong>mobs</strong>. Mobs include both males and females, with one male being dominant. Males show their dominance by <strong>"boxing"</strong> with other males. They balance on their tails and try pushing each other off balance with their forearms or by kicking their hind legs. This kicking ability, along with their sharp claws, can also be used by kangaroos to defend against Australia's wild dog, the <strong>dingo</strong>.
           </p>
         </div>
 
-        <!-- Questions -->
-        <div class="card" style="background: var(--color-bg); border-left: 4px solid var(--color-accent-1);">
-          <div class="card-title" style="font-size: var(--font-size-base);">❓ Questions</div>
-          <ol style="list-style: decimal; padding-left: var(--spacing-6); color: var(--color-text-secondary);">
-            <li>Red kangaroos are...<br>
-              a. omnivores<br>
-              b. carnivores<br>
-              c. herbivores<br>
-              d. insectivores<br>
-              Explain why you chose the answer above.
-            </li>
-            <li>Complete the graphic organizer for the red kangaroo (habitat, diet, special features, behavior).</li>
-            <li>When does a baby kangaroo come out of its mother's pouch for the first time?<br>
-              a. about a month after it is born<br>
-              b. a few months after it is born<br>
-              c. about 8 months after it is born<br>
-              d. when it is a year old
-            </li>
-            <li>A group of kangaroos is called a __________.</li>
-            <li>A baby kangaroo is called a __________.</li>
-          </ol>
+        <!-- ====== QUESTIONS ====== -->
+        <h2 style="color: var(--color-primary); font-size: var(--font-size-xl); margin-bottom: var(--spacing-4);">❓ Questions</h2>
+
+        <!-- Question 1 -->
+        <div class="question-card" id="q1">
+          <div class="q-number">Question 1</div>
+          <div class="q-text">Red kangaroos are...</div>
+          <div class="options">
+            <span class="opt"><strong>a.</strong> omnivores</span>
+            <span class="opt"><strong>b.</strong> carnivores</span>
+            <span class="opt"><strong>c.</strong> herbivores</span>
+            <span class="opt"><strong>d.</strong> insectivores</span>
+          </div>
+          <div class="q-text" style="font-size: var(--font-size-sm); font-weight: var(--font-weight-regular); color: var(--color-text-secondary);">Explain why you chose the answer above.</div>
+          <button class="btn-answer" onclick="toggleAnswer('a1')">👁️ Show Answer</button>
+          <div class="q-answer" id="a1">
+            <strong>Answer:</strong> <span class="highlight">c. herbivores</span><br><br>
+            Red kangaroos eat <strong>grass, leaves, and other vegetation</strong>. They are plant-eaters, which makes them <strong>herbivores</strong>.
+          </div>
         </div>
 
+        <!-- Question 2 -->
+        <div class="question-card" id="q2">
+          <div class="q-number">Question 2</div>
+          <div class="q-text">Complete the graphic organizer: 3 ways kangaroos keep cool.</div>
+          <button class="btn-answer" onclick="toggleAnswer('a2')">👁️ Show Answer</button>
+          <div class="q-answer" id="a2">
+            <strong>Answer:</strong> Three ways kangaroos keep cool are:<br><br>
+            <strong>1.</strong> Staying in the <span class="highlight">shade</span><br>
+            <strong>2.</strong> <span class="highlight">Panting</span><br>
+            <strong>3.</strong> Limiting most activity to <span class="highlight">nighttime</span>
+          </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-card" id="q3">
+          <div class="q-number">Question 3</div>
+          <div class="q-text">When does a baby kangaroo come out of its mother's pouch for the first time?</div>
+          <div class="options">
+            <span class="opt"><strong>a.</strong> about a month after it is born</span>
+            <span class="opt"><strong>b.</strong> a few months after it is born</span>
+            <span class="opt"><strong>c.</strong> about 8 months after it is born</span>
+            <span class="opt"><strong>d.</strong> when it is a year old</span>
+          </div>
+          <button class="btn-answer" onclick="toggleAnswer('a3')">👁️ Show Answer</button>
+          <div class="q-answer" id="a3">
+            <strong>Answer:</strong> <span class="highlight">b. a few months after it is born</span><br><br>
+            The joey begins to come out <strong>after a few months</strong> of sleeping, nursing, and growing in the pouch.
+          </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-card" id="q4">
+          <div class="q-number">Question 4</div>
+          <div class="q-text">A group of kangaroos is called a ____________________.</div>
+          <button class="btn-answer" onclick="toggleAnswer('a4')">👁️ Show Answer</button>
+          <div class="q-answer" id="a4">
+            <strong>Answer:</strong> A group of kangaroos is called a <span class="highlight">mob</span>.
+          </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-card" id="q5">
+          <div class="q-number">Question 5</div>
+          <div class="q-text">A baby kangaroo is called a ____________________.</div>
+          <button class="btn-answer" onclick="toggleAnswer('a5')">👁️ Show Answer</button>
+          <div class="q-answer" id="a5">
+            <strong>Answer:</strong> A baby kangaroo is called a <span class="highlight">joey</span>.
+          </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-card" id="q6">
+          <div class="q-number">Question 6</div>
+          <div class="q-text">The scrambled words below are vocabulary words from the article.</div>
+          <div style="font-family: 'Courier New', monospace; font-size: var(--font-size-lg); color: var(--color-primary); margin: var(--spacing-2) 0;">
+            1. <span style="letter-spacing: 2px;">lshpimrau</span> → ________<br>
+            2. <span style="letter-spacing: 2px;">pouhc</span> → ________<br>
+            3. <span style="letter-spacing: 2px;">eyjo</span> → ________<br>
+            4. <span style="letter-spacing: 2px;">smbo</span> → ________<br>
+            5. <span style="letter-spacing: 2px;">gonid</span> → ________
+          </div>
+          <button class="btn-answer" onclick="toggleAnswer('a6')">👁️ Show Answer</button>
+          <div class="q-answer" id="a6">
+            <strong>Answer:</strong><br>
+            1. <span class="highlight">marsupial</span><br>
+            2. <span class="highlight">pouch</span><br>
+            3. <span class="highlight">joey</span><br>
+            4. <span class="highlight">mobs</span><br>
+            5. <span class="highlight">dingo</span>
+          </div>
+        </div>
+
+        <!-- ====== NAVIGATION ====== -->
         <div style="margin-top: var(--spacing-8); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--spacing-4);">
           <a href="passage-1.html" class="btn btn-secondary">← Elephant Seals</a>
           <a href="passage-3.html" class="btn btn-primary">Next: Albert Einstein →</a>
@@ -94,9 +456,61 @@
     </section>
   </main>
 
+  <!-- ====== SCRIPTS ====== -->
   <script src="../../js/main.js"></script>
   <script src="../../js/navigation.js"></script>
-  <script src="../skills.js"></script>
+
+  <script>
+    // ====== TOGGLE ANSWER ======
+    function toggleAnswer(id) {
+      const answer = document.getElementById(id);
+      const btn = answer.parentElement.querySelector('.btn-answer');
+      if (answer.classList.contains('show')) {
+        answer.classList.remove('show');
+        btn.textContent = '👁️ Show Answer';
+        btn.classList.remove('active');
+      } else {
+        answer.classList.add('show');
+        btn.textContent = '🙈 Hide Answer';
+        btn.classList.add('active');
+      }
+    }
+
+    // ====== INTERSECTION OBSERVER ======
+    document.addEventListener('DOMContentLoaded', function() {
+      // Passage text
+      const passage = document.getElementById('passageText');
+      if (passage && 'IntersectionObserver' in window) {
+        const observer1 = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.2 });
+        observer1.observe(passage);
+      } else if (passage) {
+        passage.classList.add('visible');
+      }
+
+      // Questions
+      const questions = document.querySelectorAll('.question-card');
+      if ('IntersectionObserver' in window) {
+        const observer2 = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, index * 120);
+            }
+          });
+        }, { threshold: 0.15 });
+        questions.forEach(q => observer2.observe(q));
+      } else {
+        questions.forEach(q => q.classList.add('visible'));
+      }
+    });
+  </script>
 
 </body>
 </html>
