@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vocab MCQ 2 · Unit 3 · Exercises</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+</head>
+<body>
+
+  <!-- Header / Mobile Nav omitted -->
+
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Unit 3</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Vocabulary: MCQ 2</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">📚 Vocabulary — Multiple Choice 2</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">20 Questions</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 20</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 3 · Vocab MCQ 2</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // QUESTIONS — EXACTLY AS IN THE BOOKLET (Pages 70-71)
+    const questions = [
+      { type: 'mcq', text: '1. The child often takes on more responsibility in the family.', options: ['eldest', 'elder', 'older', 'aged'], correct: 'a' },
+      { type: 'mcq', text: '2. The speech was meant to _______ the crowd, not to discourage them.', options: ['inspire', 'criticize', 'fetch', 'excel'], correct: 'a' },
+      { type: 'mcq', text: '3. The team showed great _______ and could achieve outstanding results with the right guidance.', options: ['gossip', 'phenomenon', 'potential', 'comeback'], correct: 'c' },
+      { type: 'mcq', text: '4. The climbers left a visible _______ in the snow as they moved upward.', options: ['impact', 'trail', 'mission', 'barrier'], correct: 'b' },
+      { type: 'mcq', text: '5. She managed to _______ in science and math, even though she had limited resources.', options: ['cope', 'excel', 'fetch', 'follow'], correct: 'b' },
+      { type: 'mcq', text: '6. This year\'s wheat _______ was ruined by heavy rainfall.', options: ['rumour', 'crop', 'equipment', 'comeback'], correct: 'b' },
+      { type: 'mcq', text: '7. Her inspiring story made her a _______ for thousands of young girls.', options: ['critic', 'role model', 'sponsor', 'trail'], correct: 'b' },
+      { type: 'mcq', text: '8. Many families cannot _______ private school tuition.', options: ['afford', 'compete', 'criticize', 'attempt'], correct: 'a' },
+      { type: 'mcq', text: '9. Poverty and lack of education remain serious _______ to progress.', options: ['rights', 'barriers', 'equipment', 'crops'], correct: 'b' },
+      { type: 'mcq', text: '10. I truly _______ her for her bravery in the face of public pressure.', options: ['admire', 'fetch', 'afford', 'attempt'], correct: 'a' },
+      { type: 'mcq', text: '11. The documentary had a powerful emotional _______ on its audience.', options: ['expectation', 'impact', 'donation', 'crop'], correct: 'b' },
+      { type: 'mcq', text: '12. A good mentor can act as a lifelong _______ for young professionals.', options: ['guide', 'rumour', 'right', 'sponsorship'], correct: 'a' },
+      { type: 'mcq', text: '13. Parents sometimes place unrealistic _______ on their children.', options: ['donations', 'scandals', 'expectations', 'comebacks'], correct: 'c' },
+      { type: 'mcq', text: '14. Good leaders know how to _______ others, even during difficult times.', options: ['compete', 'overcome', 'gossip', 'motivate'], correct: 'd' },
+      { type: 'mcq', text: '15. The rescue team carried medical _______ up the mountain.', options: ['crops', 'gossip', 'equipment', 'attempts'], correct: 'c' },
+      { type: 'mcq', text: '16. He found the internet full of misleading _______ about the celebrity.', options: ['scandal', 'mission', 'rumours', 'comeback'], correct: 'c' },
+      { type: 'mcq', text: '17. They built a school in a _______ village high in the mountains.', options: ['eldest', 'remote', 'ultra', 'open'], correct: 'b' },
+      { type: 'mcq', text: '18. His main life _______ was to bring education to children in remote areas.', options: ['scandal', 'attempt', 'mission', 'rumour'], correct: 'c' },
+      { type: 'mcq', text: '19. The rise of social media influencers is a global _______.', options: ['comeback', 'scandal', 'phenomenon', 'disgrace'], correct: 'c' },
+      { type: 'mcq', text: '20. Could you please _______ some water from the well?', options: ['donate', 'admire', 'fetch', 'seize'], correct: 'c' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
