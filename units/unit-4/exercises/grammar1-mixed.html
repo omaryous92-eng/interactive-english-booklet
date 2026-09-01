@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grammar 1 Mixed · Unit 4 · Exercises</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+</head>
+<body>
+
+  <!-- Header / Mobile Nav omitted -->
+
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Unit 4</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Grammar 1: Mixed</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">🧩 Grammar 1 — Future Tenses (Mixed)</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">25 Questions</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 25</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 4 · Grammar 1 Mixed</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // QUESTIONS — EXACTLY AS IN THE BOOKLET (Pages 99-100)
+    const questions = [
+      { type: 'mcq', text: '1. I think I _______ this travel guide. It is useful when I travel abroad.', options: ['will buy', 'will have bought', 'am going to buy', 'have bought'], correct: 'a' },
+      { type: 'mcq', text: '2. By next year, she _______ for 7 years.', options: ['will have travelled', 'will travel', 'will have been travelling', 'will be travelling'], correct: 'a' },
+      { type: 'mcq', text: '3. Manal _______ her room by tomorrow morning.', options: ['will clean', 'will be cleaning', 'will have cleaned', 'should clean'], correct: 'c' },
+      { type: 'mcq', text: '4. The exam starts at 8 o\'clock tomorrow and finishes at 10 o\'clock. During this time, we _______ the exam\'s questions.', options: ['will answer', 'will have answered', 'will be answering', 'are going to answer'], correct: 'c' },
+      { type: 'mcq', text: '5. He _______ to the theatre tonight. He has got a free ticket.', options: ['will go', 'is going', 'is going to go', 'goes'], correct: 'b' },
+      { type: 'mcq', text: '6. They _______ their essay by tomorrow.', options: ['will have written', 'will write', 'are going to write', 'will be writing'], correct: 'a' },
+      { type: 'mcq', text: '7. The train _______ at 12:30.', options: ['arrives', 'is going to arrive', 'is arriving', 'will arrive'], correct: 'a' },
+      { type: 'mcq', text: '8. We _______ dinner at a seaside restaurant on Sunday. I have reserved a table for us.', options: ['will have', 'are going to have', 'will have had', 'have'], correct: 'b' },
+      { type: 'mcq', text: '9. I have heard on the news that it _______ in Brighton tomorrow evening.', options: ['will rain', 'will be raining', 'is going to rain', 'rains'], correct: 'c' },
+      { type: 'mcq', text: '10. This time on Friday I _______ my friend.', options: ['will meet', 'will have met', 'will be meeting', 'am meeting'], correct: 'c' },
+      { type: 'mcq', text: '11. You can\'t meet Paul over the weekend, he _______ to London on Monday morning.', options: ['will fly', 'will have flown', 'is flying', 'flies'], correct: 'c' },
+      { type: 'mcq', text: '12. Wait! I _______ you to the station.', options: ['am going to drive', 'will drive', 'drive', 'am going to drive'], correct: 'b' },
+      { type: 'mcq', text: '13. The English lesson _______ at 8:45. You\'d better be on time.', options: ['is starting', 'will start', 'starts', 'is going to start'], correct: 'c' },
+      { type: 'mcq', text: '14. Are you still writing your essay? If you finish by 4pm, we _______ for a walk.', options: ['go', 'will have gone', 'will go', 'will be going'], correct: 'c' },
+      { type: 'mcq', text: '15. Do you think the teacher _______ our homework by Monday morning?', options: ['will mark', 'will be marking', 'will have marked', 'is marking'], correct: 'c' },
+      { type: 'fill', text: '16. They will be studying for the exam all night. (Make a question)', correct: 'Will they be studying for the exam all night?' },
+      { type: 'fill', text: '17. We may travel to Italy next summer. (Where...?)', correct: 'Where may we travel next summer?' },
+      { type: 'fill', text: '18. If the pizza arrives late I will be asleep. (By the time)', correct: 'By the time the pizza arrives, I will be asleep.' },
+      { type: 'fill', text: '19. I always study this time every day. (This time tomorrow...)', correct: 'This time tomorrow, I will be studying.' },
+      { type: 'fill', text: '20. Sue will have been working here for 10 years by June. (How long...?)', correct: 'How long will Sue have been working here by June?' },
+      { type: 'fill', text: '21. I\'ll feed our cat and then I will go to bed. (By the time)', correct: 'By the time I go to bed, I will have fed the cat.' },
+      { type: 'fill', text: '22. Dan will finish his work and he will travel immediately. (As soon as)', correct: 'As soon as Dan finishes his work, he will travel.' },
+      { type: 'fill', text: '23. They are going to employ young people this month. (this time next month)', correct: 'This time next month, they will be employing young people.' },
+      { type: 'fill', text: '24. She intends to study Biology. (will)', correct: 'She will study Biology.' },
+      { type: 'fill', text: '25. We _______ (wait) in the shelter until the bus _______ (come).', correct: 'will wait, comes' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
