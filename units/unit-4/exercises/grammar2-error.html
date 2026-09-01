@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grammar 2 Error · Unit 4 · Exercises</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+</head>
+<body>
+
+  <!-- Header / Mobile Nav omitted -->
+
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Unit 4</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Grammar 2: Error</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">🔍 Grammar 2 — Error Correction</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">10 Questions</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 10</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 4 · Grammar 2 Error</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // QUESTIONS — EXACTLY AS IN THE BOOKLET (Pages 104-105)
+    const questions = [
+      { type: 'error', text: '1. He gave me <span class="error-word">an advice</span> about the exam.', correct: 'advice' },
+      { type: 'error', text: '2. She has <span class="error-word">a little</span> apples in her basket.', correct: 'a few' },
+      { type: 'error', text: '3. I need a glass of <span class="error-word">breads</span>, please.', correct: 'bread' },
+      { type: 'error', text: '4. There were too <span class="error-word">much</span> people at the festival.', correct: 'many' },
+      { type: 'error', text: '5. We bought some <span class="error-word">luggages</span> for our trip.', correct: 'luggage' },
+      { type: 'error', text: '6. There isn\'t <span class="error-word">many</span> milk left in the fridge.', correct: 'much' },
+      { type: 'error', text: '7. She poured <span class="error-word">a few</span> juice into the cup.', correct: 'a little' },
+      { type: 'error', text: '8. He put <span class="error-word">many</span> sugar in his coffee.', correct: 'much' },
+      { type: 'error', text: '9. We saw some <span class="error-word">furniture</span> shop near the station.', correct: 'furniture' },
+      { type: 'error', text: '10. The chef added three slices of <span class="error-word">rice</span> to the dish.', correct: 'rice' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
