@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Characters · A Tale of Two Cities · Novel</title>
+  <title>Characters · A Tale of Two Cities</title>
 
   <!-- Global CSS -->
   <link rel="stylesheet" href="../css/colors.css">
@@ -15,35 +15,13 @@
   <link rel="stylesheet" href="../css/animations.css">
   <link rel="stylesheet" href="../css/responsive.css">
   <link rel="stylesheet" href="styles.css">
-  
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* ====== CHARACTER PAGE SPECIFIC STYLES ====== */
-    .characters-hero {
-      text-align: center;
-      padding: var(--spacing-8) 0;
-      background: linear-gradient(135deg, rgba(242, 101, 34, 0.08), rgba(255, 184, 48, 0.08));
-      border-radius: var(--radius-xl);
-      margin-bottom: var(--spacing-8);
-      border: 2px dashed var(--color-primary);
-    }
+    /* ============================================================
+       Characters Page Specific Styles
+       ============================================================ */
 
-    .characters-hero h1 {
-      font-size: var(--font-size-3xl);
-      color: var(--color-primary);
-      margin-bottom: var(--spacing-2);
-    }
-
-    .characters-hero p {
-      color: var(--color-text-secondary);
-      font-size: var(--font-size-lg);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    /* ====== CHARACTER GRID ====== */
+    /* ---------- Character Grid ---------- */
     .characters-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -51,293 +29,257 @@
       margin-top: var(--spacing-6);
     }
 
-    /* ====== CHARACTER CARD ====== */
+    /* ---------- Character Card ---------- */
     .character-card {
       background: var(--color-surface);
       border-radius: var(--radius-xl);
-      padding: var(--spacing-6);
       box-shadow: var(--shadow-sm);
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      border-left: 5px solid var(--color-primary);
-      position: relative;
       overflow: hidden;
+      transition: all var(--transition-slow);
+      position: relative;
       cursor: default;
+      border-bottom: 4px solid var(--color-primary);
       opacity: 0;
-      transform: translateY(40px);
-      animation: fadeInUp 0.8s ease forwards;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
     }
 
-    .character-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -50%;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, rgba(242, 101, 34, 0.03), transparent 70%);
-      border-radius: 50%;
-      transition: all 0.6s ease;
-      pointer-events: none;
-    }
-
-    .character-card:hover::before {
-      transform: scale(1.5);
+    .character-card.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .character-card:hover {
-      transform: translateY(-8px) scale(1.01);
       box-shadow: var(--shadow-xl);
+      transform: translateY(-8px) scale(1.01);
     }
 
-    /* Card delay animations */
-    .character-card:nth-child(1) { animation-delay: 0.05s; }
-    .character-card:nth-child(2) { animation-delay: 0.10s; }
-    .character-card:nth-child(3) { animation-delay: 0.15s; }
-    .character-card:nth-child(4) { animation-delay: 0.20s; }
-    .character-card:nth-child(5) { animation-delay: 0.25s; }
-    .character-card:nth-child(6) { animation-delay: 0.30s; }
+    /* ---------- Card Header (Avatar + Name) ---------- */
+    .character-card .card-avatar {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-4);
+      padding: var(--spacing-4) var(--spacing-4) 0 var(--spacing-4);
+    }
 
-    /* ====== CHARACTER ICON ====== */
-    .character-icon {
-      font-size: 3.5rem;
-      width: 80px;
-      height: 80px;
+    .character-card .avatar-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--gradient-header);
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 50%;
-      margin-bottom: var(--spacing-3);
-      transition: all 0.5s ease;
-      position: relative;
-      z-index: 1;
+      font-size: 2rem;
+      color: #fff;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(242, 101, 34, 0.3);
+      transition: transform var(--transition-base);
     }
 
-    .character-card:hover .character-icon {
+    .character-card:hover .avatar-icon {
       transform: scale(1.1) rotate(-5deg);
-      animation: float 2s ease-in-out infinite;
     }
 
-    .character-icon .fa-solid,
-    .character-icon .fa-regular {
-      font-size: 2.5rem;
-    }
-
-    /* Icon background colors */
-    .icon-hero {
-      background: rgba(242, 101, 34, 0.15);
-      color: var(--color-primary);
-    }
-
-    .icon-villain {
-      background: rgba(255, 59, 48, 0.12);
-      color: #FF3B30;
-    }
-
-    .icon-neutral {
-      background: rgba(124, 92, 252, 0.12);
-      color: var(--color-accent-1);
-    }
-
-    .icon-supporter {
-      background: rgba(52, 199, 89, 0.12);
-      color: #34C759;
-    }
-
-    .icon-mystery {
-      background: rgba(255, 184, 48, 0.15);
-      color: var(--color-secondary);
-    }
-
-    /* ====== CHARACTER BADGE ====== */
-    .character-badge {
-      display: inline-block;
-      padding: 3px var(--spacing-3);
-      border-radius: var(--radius-full);
-      font-size: var(--font-size-xs);
-      font-weight: var(--font-weight-semibold);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: var(--spacing-2);
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    .badge-hero {
-      background: rgba(242, 101, 34, 0.15);
-      color: var(--color-primary);
-    }
-
-    .badge-villain {
-      background: rgba(255, 59, 48, 0.12);
-      color: #FF3B30;
-    }
-
-    .badge-neutral {
-      background: rgba(124, 92, 252, 0.12);
-      color: var(--color-accent-1);
-    }
-
-    .badge-supporter {
-      background: rgba(52, 199, 89, 0.12);
-      color: #34C759;
-    }
-
-    .badge-mystery {
-      background: rgba(255, 184, 48, 0.15);
-      color: var(--color-secondary);
-    }
-
-    /* ====== CHARACTER NAME ====== */
-    .character-name {
-      font-size: var(--font-size-xl);
+    .character-card .card-name {
+      font-size: var(--font-size-lg);
       font-weight: var(--font-weight-bold);
       color: var(--color-text-primary);
-      margin-bottom: var(--spacing-1);
-      position: relative;
-      z-index: 1;
+      margin: 0;
     }
 
-    .character-role {
+    .character-card .card-subtitle {
       font-size: var(--font-size-sm);
       color: var(--color-text-secondary);
-      font-weight: var(--font-weight-medium);
+      font-style: italic;
+      margin: 0;
+    }
+
+    /* ---------- Card Body ---------- */
+    .character-card .card-body {
+      padding: var(--spacing-4);
+      padding-top: var(--spacing-2);
+    }
+
+    .character-card .card-description {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
       margin-bottom: var(--spacing-3);
-      position: relative;
-      z-index: 1;
     }
 
-    .character-description {
-      font-size: var(--font-size-sm);
+    /* ---------- Card Tags ---------- */
+    .character-card .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-2);
+      margin-top: var(--spacing-2);
+    }
+
+    .character-card .tag {
+      padding: 2px var(--spacing-3);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
       color: var(--color-text-secondary);
-      line-height: 1.7;
-      position: relative;
-      z-index: 1;
+      transition: all var(--transition-fast);
     }
 
-    .character-description strong {
+    .character-card .tag.primary {
+      background: rgba(242, 101, 34, 0.1);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .character-card .tag.accent {
+      background: rgba(124, 92, 252, 0.1);
+      border-color: var(--color-accent-1);
+      color: var(--color-accent-1);
+    }
+
+    .character-card .tag.gold {
+      background: rgba(255, 184, 48, 0.1);
+      border-color: var(--color-secondary);
+      color: #b8860b;
+    }
+
+    /* ---------- Color variants ---------- */
+    .character-card.variant-1 { border-bottom-color: var(--color-primary); }
+    .character-card.variant-2 { border-bottom-color: var(--color-secondary); }
+    .character-card.variant-3 { border-bottom-color: var(--color-accent-1); }
+    .character-card.variant-4 { border-bottom-color: var(--color-accent-2); }
+    .character-card.variant-5 { border-bottom-color: #34C759; }
+    .character-card.variant-6 { border-bottom-color: #FF3B30; }
+    .character-card.variant-7 { border-bottom-color: #5AC8FA; }
+    .character-card.variant-8 { border-bottom-color: #FF9500; }
+
+    .character-card.variant-1 .avatar-icon { background: var(--gradient-active); }
+    .character-card.variant-2 .avatar-icon { background: var(--gradient-accent); }
+    .character-card.variant-3 .avatar-icon { background: linear-gradient(135deg, #34C759, #28A745); }
+    .character-card.variant-4 .avatar-icon { background: linear-gradient(135deg, #FF3B30, #DC3545); }
+    .character-card.variant-5 .avatar-icon { background: linear-gradient(135deg, #5AC8FA, #007AFF); }
+    .character-card.variant-6 .avatar-icon { background: linear-gradient(135deg, #FF9500, #FF6B00); }
+    .character-card.variant-7 .avatar-icon { background: linear-gradient(135deg, #AF52DE, #8944B8); }
+    .character-card.variant-8 .avatar-icon { background: linear-gradient(135deg, #FF2D55, #C0392B); }
+
+    /* ---------- Relationship Map ---------- */
+    .relationship-map {
+      background: var(--color-bg);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      margin-top: var(--spacing-8);
+      border: 2px dashed var(--color-primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .relationship-map .map-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      margin-bottom: var(--spacing-4);
+      text-align: center;
+    }
+
+    .relationship-map .map-subtitle {
+      text-align: center;
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      margin-bottom: var(--spacing-6);
+    }
+
+    .map-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--spacing-4);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .map-node {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-4);
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      border: 2px solid var(--color-border);
+      transition: all var(--transition-base);
+      cursor: default;
+    }
+
+    .map-node:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-primary);
+    }
+
+    .map-node .node-icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: var(--spacing-2);
+    }
+
+    .map-node .node-name {
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-sm);
       color: var(--color-text-primary);
     }
 
-    /* ====== HOVER GLOW EFFECT ====== */
-    .character-card.glow-hero:hover {
-      border-color: var(--color-primary);
-      box-shadow: 0 8px 40px rgba(242, 101, 34, 0.25);
-    }
-
-    .character-card.glow-villain:hover {
-      border-color: #FF3B30;
-      box-shadow: 0 8px 40px rgba(255, 59, 48, 0.25);
-    }
-
-    .character-card.glow-neutral:hover {
-      border-color: var(--color-accent-1);
-      box-shadow: 0 8px 40px rgba(124, 92, 252, 0.25);
-    }
-
-    .character-card.glow-supporter:hover {
-      border-color: #34C759;
-      box-shadow: 0 8px 40px rgba(52, 199, 89, 0.25);
-    }
-
-    .character-card.glow-mystery:hover {
-      border-color: var(--color-secondary);
-      box-shadow: 0 8px 40px rgba(255, 184, 48, 0.25);
-    }
-
-    /* ====== CHARACTER TRAITS ====== */
-    .character-traits {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--spacing-1);
-      margin-top: var(--spacing-3);
-      position: relative;
-      z-index: 1;
-    }
-
-    .trait-tag {
-      padding: 2px var(--spacing-2);
-      border-radius: var(--radius-sm);
+    .map-node .node-role {
       font-size: var(--font-size-xs);
-      background: var(--color-bg);
       color: var(--color-text-secondary);
-      border: 1px solid var(--color-border);
-      transition: all 0.3s ease;
     }
 
-    .character-card:hover .trait-tag {
-      border-color: var(--color-primary);
-      color: var(--color-primary);
-      transform: scale(1.05);
+    /* Relationship lines (visual connectors) */
+    .map-connections {
+      display: none;
     }
 
-    /* ====== FLOATING ICON DECORATION ====== */
-    .float-icon {
-      position: absolute;
-      font-size: 6rem;
-      opacity: 0.04;
-      right: -10px;
-      bottom: -10px;
-      pointer-events: none;
-      transition: all 0.6s ease;
-      transform: rotate(10deg);
-    }
-
-    .character-card:hover .float-icon {
-      transform: rotate(0deg) scale(1.1);
-      opacity: 0.08;
-    }
-
-    /* ====== KEYFRAMES ====== */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(-5deg); }
-      50% { transform: translateY(-10px) rotate(-5deg); }
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    /* ====== RESPONSIVE ====== */
+    /* ---------- Responsive ---------- */
     @media (max-width: 768px) {
       .characters-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
         gap: var(--spacing-4);
       }
 
-      .characters-hero h1 {
-        font-size: var(--font-size-2xl);
+      .character-card .avatar-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.5rem;
       }
 
-      .characters-hero p {
+      .character-card .card-name {
         font-size: var(--font-size-base);
       }
 
-      .character-card {
-        padding: var(--spacing-4);
-      }
-
-      .character-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 2.5rem;
-      }
-
-      .character-icon .fa-solid,
-      .character-icon .fa-regular {
-        font-size: 2rem;
+      .map-grid {
+        grid-template-columns: 1fr 1fr;
       }
     }
+
+    @media (max-width: 480px) {
+      .characters-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .map-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ---------- Entrance Animations ---------- */
+    .character-card:nth-child(1) { transition-delay: 0.05s; }
+    .character-card:nth-child(2) { transition-delay: 0.1s; }
+    .character-card:nth-child(3) { transition-delay: 0.15s; }
+    .character-card:nth-child(4) { transition-delay: 0.2s; }
+    .character-card:nth-child(5) { transition-delay: 0.25s; }
+    .character-card:nth-child(6) { transition-delay: 0.3s; }
+    .character-card:nth-child(7) { transition-delay: 0.35s; }
+    .character-card:nth-child(8) { transition-delay: 0.4s; }
+    .character-card:nth-child(9) { transition-delay: 0.45s; }
+    .character-card:nth-child(10) { transition-delay: 0.5s; }
   </style>
 </head>
 <body>
@@ -403,153 +345,263 @@
           <span class="current">Characters</span>
         </nav>
 
-        <!-- Hero Section -->
-        <div class="characters-hero fade-in">
-          <h1>👤 Meet the Characters</h1>
-          <p>
-            The key figures in Dickens' <strong>A Tale of Two Cities</strong> — 
-            their roles, traits, and significance.
+        <!-- Page Header -->
+        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
+          <h1 class="text-2xl" style="color: var(--color-primary);">👤 Main Characters</h1>
+          <p class="text-base" style="color: var(--color-text-secondary); max-width: 700px;">
+            The key figures in Dickens' <strong>A Tale of Two Cities</strong>. Hover over each card to learn more about their role and relationships.
           </p>
         </div>
 
-        <!-- Characters Grid -->
+        <!-- ====== CHARACTER CARDS ====== -->
+
+        <!-- 1. Mr. Lorry -->
         <div class="characters-grid">
-
-          <!-- 1. Doctor Alexandre Manette -->
-          <div class="character-card glow-hero" style="border-left-color: var(--color-primary);">
-            <div class="character-icon icon-hero">
-              <i class="fa-solid fa-stethoscope"></i>
+          <div class="character-card variant-1">
+            <div class="card-avatar">
+              <div class="avatar-icon">🏛️</div>
+              <div>
+                <div class="card-name">Mr. Jarvis Lorry</div>
+                <div class="card-subtitle">Elderly Banker</div>
+              </div>
             </div>
-            <span class="character-badge badge-hero">⭐ Protagonist</span>
-            <div class="character-name">Doctor Alexandre Manette</div>
-            <div class="character-role">French physician · Former Bastille prisoner</div>
-            <div class="character-description">
-              A French physician who was unjustly imprisoned in the Bastille for <strong>18 years</strong>. 
-              He is <strong>"recalled to life"</strong> after his release and forms a close bond with his 
-              daughter, Lucie. His past trauma resurfaces, but he ultimately finds redemption.
+            <div class="card-body">
+              <p class="card-description">
+                An elderly banker at Tellson's Bank who befriends and helps the Manettes. He reunites Doctor Manette with Lucie and brings him to England. He employs Jerry Cruncher as a porter.
+              </p>
+              <div class="card-tags">
+                <span class="tag primary">Loyal</span>
+                <span class="tag gold">Protector</span>
+                <span class="tag">Tellson's Bank</span>
+              </div>
             </div>
-            <div class="character-traits">
-              <span class="trait-tag">🧠 Resilient</span>
-              <span class="trait-tag">❤️ Loving father</span>
-              <span class="trait-tag">🕊️ Redeemed</span>
-              <span class="trait-tag">⚕️ Healer</span>
-            </div>
-            <div class="float-icon">🏥</div>
           </div>
 
-          <!-- 2. Lucie Manette -->
-          <div class="character-card glow-supporter" style="border-left-color: #34C759;">
-            <div class="character-icon icon-supporter">
-              <i class="fa-solid fa-female"></i>
+          <!-- 2. Jerry Cruncher -->
+          <div class="character-card variant-2">
+            <div class="card-avatar">
+              <div class="avatar-icon">⚰️</div>
+              <div>
+                <div class="card-name">Jerry Cruncher</div>
+                <div class="card-subtitle">Porter &amp; Grave Robber</div>
+              </div>
             </div>
-            <span class="character-badge badge-supporter">🌹 Hope &amp; Healing</span>
-            <div class="character-name">Lucie Manette</div>
-            <div class="character-role">Daughter of Dr. Manette · Wife of Charles Darnay</div>
-            <div class="character-description">
-              The daughter of Dr. Manette. She represents <strong>love, compassion, and healing</strong>. 
-              Her devotion to her father and husband guides the family through their struggles. 
-              She is a source of <strong>strength and hope</strong> for those around her.
+            <div class="card-body">
+              <p class="card-description">
+                A porter for Tellson's Bank who also works as a secret grave robber. He is a rough, superstitious man who provides comic relief but also demonstrates moral complexity.
+              </p>
+              <div class="card-tags">
+                <span class="tag accent">Complex</span>
+                <span class="tag">Comic Relief</span>
+                <span class="tag">Grave Robber</span>
+              </div>
             </div>
-            <div class="character-traits">
-              <span class="trait-tag">💕 Compassionate</span>
-              <span class="trait-tag">🕊️ Peacemaker</span>
-              <span class="trait-tag">🌟 Hopeful</span>
-              <span class="trait-tag">👩‍👧 Devoted</span>
-            </div>
-            <div class="float-icon">🌹</div>
           </div>
 
-          <!-- 3. Charles Darnay -->
-          <div class="character-card glow-neutral" style="border-left-color: var(--color-accent-1);">
-            <div class="character-icon icon-neutral">
-              <i class="fa-solid fa-landmark"></i>
+          <!-- 3. Ernest Defarge -->
+          <div class="character-card variant-3">
+            <div class="card-avatar">
+              <div class="avatar-icon">🍷</div>
+              <div>
+                <div class="card-name">Ernest Defarge</div>
+                <div class="card-subtitle">Revolutionary Leader</div>
+              </div>
             </div>
-            <span class="character-badge badge-neutral">⚖️ Aristocrat turned teacher</span>
-            <div class="character-name">Charles Darnay</div>
-            <div class="character-role">French aristocrat · Teacher in England</div>
-            <div class="character-description">
-              A French aristocrat who <strong>renounces his title and wealth</strong> to live an honest life 
-              in England. He is arrested multiple times during the revolution and is saved by 
-              <strong>Sydney Carton's ultimate sacrifice</strong>.
+            <div class="card-body">
+              <p class="card-description">
+                A wine-shop owner and leader of the revolution. He is a revolutionary with a conscience, formerly a servant of Doctor Manette. He is married to Madame Defarge and struggles with his wife's extreme vengeance.
+              </p>
+              <div class="card-tags">
+                <span class="tag primary">Revolutionary</span>
+                <span class="tag gold">Conscience</span>
+                <span class="tag">Wine-shop</span>
+              </div>
             </div>
-            <div class="character-traits">
-              <span class="trait-tag">📖 Honest</span>
-              <span class="trait-tag">⚖️ Just</span>
-              <span class="trait-tag">🛡️ Brave</span>
-              <span class="trait-tag">👨‍🏫 Teacher</span>
-            </div>
-            <div class="float-icon">⚖️</div>
           </div>
 
-          <!-- 4. Sydney Carton -->
-          <div class="character-card glow-mystery" style="border-left-color: var(--color-secondary);">
-            <div class="character-icon icon-mystery">
-              <i class="fa-solid fa-mask"></i>
+          <!-- 4. Madame Defarge -->
+          <div class="character-card variant-4">
+            <div class="card-avatar">
+              <div class="avatar-icon">🧶</div>
+              <div>
+                <div class="card-name">Madame Thérèse Defarge</div>
+                <div class="card-subtitle">The Knitter of Fate</div>
+              </div>
             </div>
-            <span class="character-badge badge-mystery">🎭 Redemption · Sacrifice</span>
-            <div class="character-name">Sydney Carton</div>
-            <div class="character-role">Lawyer · Double of Charles Darnay</div>
-            <div class="character-description">
-              A brilliant but <strong>dissolute lawyer</strong> who looks exactly like Charles Darnay. 
-              He confesses his love to Lucie but knows he is unworthy. He ultimately 
-              <strong>sacrifices his life</strong> to save Darnay, achieving spiritual redemption.
+            <div class="card-body">
+              <p class="card-description">
+                Hardened by her hatred of the Evrémonde family, she is the embodiment of vengeance. She knits the names of those condemned to death. Her relentless pursuit of revenge drives the revolution's bloodiest acts.
+              </p>
+              <div class="card-tags">
+                <span class="tag accent">Vengeance</span>
+                <span class="tag">Revolutionary</span>
+                <span class="tag">Knitter</span>
+              </div>
             </div>
-            <div class="character-traits">
-              <span class="trait-tag">🧠 Brilliant</span>
-              <span class="trait-tag">🥀 Tragic</span>
-              <span class="trait-tag">🕊️ Redeemed</span>
-              <span class="trait-tag">❤️ Selfless</span>
-            </div>
-            <div class="float-icon">🎭</div>
           </div>
 
-          <!-- 5. Madame Thérèse Defarge -->
-          <div class="character-card glow-villain" style="border-left-color: #FF3B30;">
-            <div class="character-icon icon-villain">
-              <i class="fa-solid fa-knitting"></i>
+          <!-- 5. Doctor Manette -->
+          <div class="character-card variant-5">
+            <div class="card-avatar">
+              <div class="avatar-icon">🩺</div>
+              <div>
+                <div class="card-name">Doctor Alexandre Manette</div>
+                <div class="card-subtitle">Former Bastille Prisoner</div>
+              </div>
             </div>
-            <span class="character-badge badge-villain">🔥 Vengeance</span>
-            <div class="character-name">Madame Thérèse Defarge</div>
-            <div class="character-role">Revolutionary · Wine-shop owner</div>
-            <div class="character-description">
-              A <strong>ruthless revolutionary</strong> who knits the names of those condemned to death. 
-              She represents the <strong>destructive power of hatred and revenge</strong>, driven by 
-              the murder of her family by the Evremonde brothers.
+            <div class="card-body">
+              <p class="card-description">
+                Secretly imprisoned for 18 years in the Bastille, he is "recalled to life" by his daughter Lucie. His mental health is restored by her love. He unknowingly denounces his son-in-law, Charles Darnay.
+              </p>
+              <div class="card-tags">
+                <span class="tag primary">Resurrection</span>
+                <span class="tag gold">Father</span>
+                <span class="tag">Prisoner</span>
+              </div>
             </div>
-            <div class="character-traits">
-              <span class="trait-tag">⚡ Ruthless</span>
-              <span class="trait-tag">🧶 Fatal</span>
-              <span class="trait-tag">🔥 Vengeful</span>
-              <span class="trait-tag">🗡️ Unforgiving</span>
-            </div>
-            <div class="float-icon">🧶</div>
           </div>
 
-          <!-- 6. Monsieur Ernest Defarge -->
-          <div class="character-card glow-neutral" style="border-left-color: var(--color-accent-1);">
-            <div class="character-icon icon-neutral">
-              <i class="fa-solid fa-wine-bottle"></i>
+          <!-- 6. Miss Pross -->
+          <div class="character-card variant-6">
+            <div class="card-avatar">
+              <div class="avatar-icon">👩‍🦰</div>
+              <div>
+                <div class="card-name">Miss Pross</div>
+                <div class="card-subtitle">Loyal Companion</div>
+              </div>
             </div>
-            <span class="character-badge badge-neutral">🍷 Revolutionary leader</span>
-            <div class="character-name">Monsieur Ernest Defarge</div>
-            <div class="character-role">Wine-shop owner · Revolutionary leader</div>
-            <div class="character-description">
-              A wine-shop owner in Saint Antoine and a <strong>leader of the revolution</strong>. 
-              He is more <strong>measured and compassionate</strong> than his wife, showing some 
-              concern for Dr. Manette.
+            <div class="card-body">
+              <p class="card-description">
+                A devoted servant who has dedicated her life to caring for Lucie. She is fiercely protective and ultimately kills Madame Defarge in a struggle, saving Lucie's family.
+              </p>
+              <div class="card-tags">
+                <span class="tag accent">Loyal</span>
+                <span class="tag gold">Protector</span>
+                <span class="tag">Devoted</span>
+              </div>
             </div>
-            <div class="character-traits">
-              <span class="trait-tag">🍷 Wine-shop owner</span>
-              <span class="trait-tag">⚡ Revolutionary</span>
-              <span class="trait-tag">❤️ Compassionate</span>
-              <span class="trait-tag">⚖️ Fair</span>
+          </div>
+
+          <!-- 7. Charles Darnay -->
+          <div class="character-card variant-7">
+            <div class="card-avatar">
+              <div class="avatar-icon">👨‍⚖️</div>
+              <div>
+                <div class="card-name">Charles Darnay</div>
+                <div class="card-subtitle">Born Charles St. Evrémonde</div>
+              </div>
             </div>
-            <div class="float-icon">🍷</div>
+            <div class="card-body">
+              <p class="card-description">
+                A French aristocrat who renounces his title to live an honest life in England. He marries Lucie Manette. He is arrested during the Revolution and saved by Sydney Carton's sacrifice.
+              </p>
+              <div class="card-tags">
+                <span class="tag primary">Renounced</span>
+                <span class="tag gold">Husband</span>
+                <span class="tag">Aristocrat</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. Lucie Manette -->
+          <div class="character-card variant-8">
+            <div class="card-avatar">
+              <div class="avatar-icon">🌟</div>
+              <div>
+                <div class="card-name">Lucie Manette</div>
+                <div class="card-subtitle">The Golden Thread</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="card-description">
+                The moral and emotional center of the book. She is devoted to her father, Doctor Manette, and her husband, Charles Darnay. Her love and compassion heal those around her.
+              </p>
+              <div class="card-tags">
+                <span class="tag accent">Compassion</span>
+                <span class="tag gold">Healer</span>
+                <span class="tag">Golden Thread</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 9. Sydney Carton -->
+          <div class="character-card variant-1">
+            <div class="card-avatar">
+              <div class="avatar-icon">🍸</div>
+              <div>
+                <div class="card-name">Sydney Carton</div>
+                <div class="card-subtitle">The Redeemed Alcoholic</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="card-description">
+                An alcoholic lawyer who finds redemption through his death. He loves Lucie Manette but knows he is unworthy. He sacrifices his life to save Charles Darnay, achieving spiritual resurrection.
+              </p>
+              <div class="card-tags">
+                <span class="tag primary">Redemption</span>
+                <span class="tag accent">Sacrifice</span>
+                <span class="tag">Resurrection</span>
+              </div>
+            </div>
           </div>
 
         </div>
 
-        <!-- Navigation -->
+        <!-- ====== RELATIONSHIP MAP ====== -->
+        <div class="relationship-map fade-in">
+          <div class="map-title">🌐 Relationship Map</div>
+          <p class="map-subtitle">See how the characters are connected to one another.</p>
+
+          <div class="map-grid">
+            <div class="map-node">
+              <span class="node-icon">🏛️</span>
+              <div class="node-name">Mr. Lorry</div>
+              <div class="node-role">→ reunites Doctor Manette &amp; Lucie</div>
+            </div>
+            <div class="map-node">
+              <span class="node-icon">⚰️</span>
+              <div class="node-name">Jerry Cruncher</div>
+              <div class="node-role">employed by → Mr. Lorry</div>
+            </div>
+            <div class="map-node">
+              <span class="node-icon">🍷</span>
+              <div class="node-name">Ernest Defarge</div>
+              <div class="node-role">married to → Madame Defarge<br>former servant of → Doctor Manette</div>
+            </div>
+            <div class="map-node">
+              <span class="node-icon">🧶</span>
+              <div class="node-name">Madame Defarge</div>
+              <div class="node-role">killed by → Miss Pross</div>
+            </div>
+            <div class="map-node">
+              <span class="node-icon">🩺</span>
+              <div class="node-name">Doctor Manette</div>
+              <div class="node-role">restored by → Lucie<br>denounces → Charles Darnay</div>
+            </div>
+            <div class="map-node">
+              <span class="node-icon">👩‍🦰</span>
+              <div class="node-name">Miss Pross</div>
+              <div class="node-role">protects → Lucie<br>kills → Madame Defarge</div>
+            </div>
+            <div class="map-node">
+              <span class="node-icon">👨‍⚖️</span>
+              <div class="node-name">Charles Darnay</div>
+              <div class="node-role">married to → Lucie</div>
+            </div>
+            <div class="map-node">
+              <span class="node-icon">🌟</span>
+              <div class="node-name">Lucie Manette</div>
+              <div class="node-role">devoted to → Doctor Manette<br>married to → Charles Darnay</div>
+            </div>
+            <div class="map-node">
+              <span class="node-icon">🍸</span>
+              <div class="node-name">Sydney Carton</div>
+              <div class="node-role">loves → Lucie<br>dies for → Charles Darnay</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== NAVIGATION ====== -->
         <div style="margin-top: var(--spacing-10); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--spacing-4);">
           <a href="introduction.html" class="btn btn-secondary">← Introduction</a>
           <a href="themes.html" class="btn btn-primary">Next: Themes →</a>
@@ -564,9 +616,34 @@
     </section>
   </main>
 
+  <!-- ====== SCRIPTS ====== -->
   <script src="../js/main.js"></script>
   <script src="../js/navigation.js"></script>
-  <script src="novel.js"></script>
+
+  <script>
+    // ====== Intersection Observer for scroll animations ======
+    document.addEventListener('DOMContentLoaded', function() {
+      const cards = document.querySelectorAll('.character-card');
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, {
+          threshold: 0.15,
+          rootMargin: '0px 0px -30px 0px'
+        });
+
+        cards.forEach(card => observer.observe(card));
+      } else {
+        // Fallback: show all cards immediately
+        cards.forEach(card => card.classList.add('visible'));
+      }
+    });
+  </script>
 
 </body>
 </html>
