@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Characters · A Tale of Two Cities</title>
+  <title>Characters · A Tale of Two Cities · Novel</title>
 
   <!-- Global CSS -->
   <link rel="stylesheet" href="../css/colors.css">
@@ -15,11 +15,381 @@
   <link rel="stylesheet" href="../css/animations.css">
   <link rel="stylesheet" href="../css/responsive.css">
   <link rel="stylesheet" href="styles.css">
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ====== CHARACTER PAGE SPECIFIC STYLES ====== */
+    .characters-hero {
+      text-align: center;
+      padding: var(--spacing-8) 0;
+      background: linear-gradient(135deg, rgba(242, 101, 34, 0.08), rgba(255, 184, 48, 0.08));
+      border-radius: var(--radius-xl);
+      margin-bottom: var(--spacing-8);
+      border: 2px dashed var(--color-primary);
+    }
+
+    .characters-hero h1 {
+      font-size: var(--font-size-3xl);
+      color: var(--color-primary);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .characters-hero p {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-lg);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ====== CHARACTER GRID ====== */
+    .characters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--spacing-6);
+      margin-top: var(--spacing-6);
+    }
+
+    /* ====== CHARACTER CARD ====== */
+    .character-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border-left: 5px solid var(--color-primary);
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .character-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(242, 101, 34, 0.03), transparent 70%);
+      border-radius: 50%;
+      transition: all 0.6s ease;
+      pointer-events: none;
+    }
+
+    .character-card:hover::before {
+      transform: scale(1.5);
+    }
+
+    .character-card:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: var(--shadow-xl);
+    }
+
+    /* Card delay animations */
+    .character-card:nth-child(1) { animation-delay: 0.05s; }
+    .character-card:nth-child(2) { animation-delay: 0.10s; }
+    .character-card:nth-child(3) { animation-delay: 0.15s; }
+    .character-card:nth-child(4) { animation-delay: 0.20s; }
+    .character-card:nth-child(5) { animation-delay: 0.25s; }
+    .character-card:nth-child(6) { animation-delay: 0.30s; }
+
+    /* ====== CHARACTER ICON ====== */
+    .character-icon {
+      font-size: 3.5rem;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin-bottom: var(--spacing-3);
+      transition: all 0.5s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .character-card:hover .character-icon {
+      transform: scale(1.1) rotate(-5deg);
+      animation: float 2s ease-in-out infinite;
+    }
+
+    .character-icon .fa-solid,
+    .character-icon .fa-regular {
+      font-size: 2.5rem;
+    }
+
+    /* Icon background colors */
+    .icon-hero {
+      background: rgba(242, 101, 34, 0.15);
+      color: var(--color-primary);
+    }
+
+    .icon-villain {
+      background: rgba(255, 59, 48, 0.12);
+      color: #FF3B30;
+    }
+
+    .icon-neutral {
+      background: rgba(124, 92, 252, 0.12);
+      color: var(--color-accent-1);
+    }
+
+    .icon-supporter {
+      background: rgba(52, 199, 89, 0.12);
+      color: #34C759;
+    }
+
+    .icon-mystery {
+      background: rgba(255, 184, 48, 0.15);
+      color: var(--color-secondary);
+    }
+
+    /* ====== CHARACTER BADGE ====== */
+    .character-badge {
+      display: inline-block;
+      padding: 3px var(--spacing-3);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: var(--spacing-2);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .badge-hero {
+      background: rgba(242, 101, 34, 0.15);
+      color: var(--color-primary);
+    }
+
+    .badge-villain {
+      background: rgba(255, 59, 48, 0.12);
+      color: #FF3B30;
+    }
+
+    .badge-neutral {
+      background: rgba(124, 92, 252, 0.12);
+      color: var(--color-accent-1);
+    }
+
+    .badge-supporter {
+      background: rgba(52, 199, 89, 0.12);
+      color: #34C759;
+    }
+
+    .badge-mystery {
+      background: rgba(255, 184, 48, 0.15);
+      color: var(--color-secondary);
+    }
+
+    /* ====== CHARACTER NAME ====== */
+    .character-name {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .character-role {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--spacing-3);
+      position: relative;
+      z-index: 1;
+    }
+
+    .character-description {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      position: relative;
+      z-index: 1;
+    }
+
+    .character-description strong {
+      color: var(--color-text-primary);
+    }
+
+    /* ====== HOVER GLOW EFFECT ====== */
+    .character-card.glow-hero:hover {
+      border-color: var(--color-primary);
+      box-shadow: 0 8px 40px rgba(242, 101, 34, 0.25);
+    }
+
+    .character-card.glow-villain:hover {
+      border-color: #FF3B30;
+      box-shadow: 0 8px 40px rgba(255, 59, 48, 0.25);
+    }
+
+    .character-card.glow-neutral:hover {
+      border-color: var(--color-accent-1);
+      box-shadow: 0 8px 40px rgba(124, 92, 252, 0.25);
+    }
+
+    .character-card.glow-supporter:hover {
+      border-color: #34C759;
+      box-shadow: 0 8px 40px rgba(52, 199, 89, 0.25);
+    }
+
+    .character-card.glow-mystery:hover {
+      border-color: var(--color-secondary);
+      box-shadow: 0 8px 40px rgba(255, 184, 48, 0.25);
+    }
+
+    /* ====== CHARACTER TRAITS ====== */
+    .character-traits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-1);
+      margin-top: var(--spacing-3);
+      position: relative;
+      z-index: 1;
+    }
+
+    .trait-tag {
+      padding: 2px var(--spacing-2);
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-xs);
+      background: var(--color-bg);
+      color: var(--color-text-secondary);
+      border: 1px solid var(--color-border);
+      transition: all 0.3s ease;
+    }
+
+    .character-card:hover .trait-tag {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      transform: scale(1.05);
+    }
+
+    /* ====== FLOATING ICON DECORATION ====== */
+    .float-icon {
+      position: absolute;
+      font-size: 6rem;
+      opacity: 0.04;
+      right: -10px;
+      bottom: -10px;
+      pointer-events: none;
+      transition: all 0.6s ease;
+      transform: rotate(10deg);
+    }
+
+    .character-card:hover .float-icon {
+      transform: rotate(0deg) scale(1.1);
+      opacity: 0.08;
+    }
+
+    /* ====== KEYFRAMES ====== */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(-5deg); }
+      50% { transform: translateY(-10px) rotate(-5deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 768px) {
+      .characters-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-4);
+      }
+
+      .characters-hero h1 {
+        font-size: var(--font-size-2xl);
+      }
+
+      .characters-hero p {
+        font-size: var(--font-size-base);
+      }
+
+      .character-card {
+        padding: var(--spacing-4);
+      }
+
+      .character-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2.5rem;
+      }
+
+      .character-icon .fa-solid,
+      .character-icon .fa-regular {
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Header / Mobile Nav omitted -->
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../units/unit-1/index.html">Unit 1</a>
+        <a href="../units/unit-2/index.html">Unit 2</a>
+        <a href="../units/unit-3/index.html">Unit 3</a>
+        <a href="../units/unit-4/index.html">Unit 4</a>
+        <a href="index.html" class="active">Novel</a>
+        <a href="../poetry/index.html">Poetry</a>
+        <a href="../skills/index.html">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../units/unit-1/index.html">Unit 1: Jump for Joy</a>
+      <a href="../units/unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../units/unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../units/unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="index.html" class="active">📖 A Tale of Two Cities</a>
+      <a href="../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../skills/index.html">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
   <main class="main-content">
     <section class="section">
       <div class="container">
@@ -33,60 +403,148 @@
           <span class="current">Characters</span>
         </nav>
 
-        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
-          <h1 class="text-2xl" style="color: var(--color-primary);">👤 Main Characters</h1>
-          <p class="text-base" style="color: var(--color-text-secondary);">The key figures in Dickens' A Tale of Two Cities.</p>
+        <!-- Hero Section -->
+        <div class="characters-hero fade-in">
+          <h1>👤 Meet the Characters</h1>
+          <p>
+            The key figures in Dickens' <strong>A Tale of Two Cities</strong> — 
+            their roles, traits, and significance.
+          </p>
         </div>
 
-        <!-- Character Cards -->
-        <div class="grid grid-2" style="gap: var(--spacing-6);">
+        <!-- Characters Grid -->
+        <div class="characters-grid">
 
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">Doctor Alexandre Manette</div>
-              <span class="badge badge-primary">Protagonist</span>
+          <!-- 1. Doctor Alexandre Manette -->
+          <div class="character-card glow-hero" style="border-left-color: var(--color-primary);">
+            <div class="character-icon icon-hero">
+              <i class="fa-solid fa-stethoscope"></i>
             </div>
-            <p style="color: var(--color-text-secondary);">A French physician who was unjustly imprisoned in the Bastille for 18 years. He is "recalled to life" after his release and forms a close bond with his daughter, Lucie. His past trauma resurfaces, but he ultimately finds redemption.</p>
+            <span class="character-badge badge-hero">⭐ Protagonist</span>
+            <div class="character-name">Doctor Alexandre Manette</div>
+            <div class="character-role">French physician · Former Bastille prisoner</div>
+            <div class="character-description">
+              A French physician who was unjustly imprisoned in the Bastille for <strong>18 years</strong>. 
+              He is <strong>"recalled to life"</strong> after his release and forms a close bond with his 
+              daughter, Lucie. His past trauma resurfaces, but he ultimately finds redemption.
+            </div>
+            <div class="character-traits">
+              <span class="trait-tag">🧠 Resilient</span>
+              <span class="trait-tag">❤️ Loving father</span>
+              <span class="trait-tag">🕊️ Redeemed</span>
+              <span class="trait-tag">⚕️ Healer</span>
+            </div>
+            <div class="float-icon">🏥</div>
           </div>
 
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">Lucie Manette</div>
-              <span class="badge badge-accent">Healing / Hope</span>
+          <!-- 2. Lucie Manette -->
+          <div class="character-card glow-supporter" style="border-left-color: #34C759;">
+            <div class="character-icon icon-supporter">
+              <i class="fa-solid fa-female"></i>
             </div>
-            <p style="color: var(--color-text-secondary);">The daughter of Dr. Manette. She represents love, compassion, and healing. Her devotion to her father and husband guides the family through their struggles. She is a source of strength and hope for those around her.</p>
+            <span class="character-badge badge-supporter">🌹 Hope &amp; Healing</span>
+            <div class="character-name">Lucie Manette</div>
+            <div class="character-role">Daughter of Dr. Manette · Wife of Charles Darnay</div>
+            <div class="character-description">
+              The daughter of Dr. Manette. She represents <strong>love, compassion, and healing</strong>. 
+              Her devotion to her father and husband guides the family through their struggles. 
+              She is a source of <strong>strength and hope</strong> for those around her.
+            </div>
+            <div class="character-traits">
+              <span class="trait-tag">💕 Compassionate</span>
+              <span class="trait-tag">🕊️ Peacemaker</span>
+              <span class="trait-tag">🌟 Hopeful</span>
+              <span class="trait-tag">👩‍👧 Devoted</span>
+            </div>
+            <div class="float-icon">🌹</div>
           </div>
 
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">Charles Darnay</div>
-              <span class="badge" style="background: var(--color-secondary); color: #0D1326;">Aristocrat turned teacher</span>
+          <!-- 3. Charles Darnay -->
+          <div class="character-card glow-neutral" style="border-left-color: var(--color-accent-1);">
+            <div class="character-icon icon-neutral">
+              <i class="fa-solid fa-landmark"></i>
             </div>
-            <p style="color: var(--color-text-secondary);">A French aristocrat who renounces his title and wealth to live an honest life in England. He is arrested multiple times during the revolution and is saved by Sydney Carton's ultimate sacrifice.</p>
+            <span class="character-badge badge-neutral">⚖️ Aristocrat turned teacher</span>
+            <div class="character-name">Charles Darnay</div>
+            <div class="character-role">French aristocrat · Teacher in England</div>
+            <div class="character-description">
+              A French aristocrat who <strong>renounces his title and wealth</strong> to live an honest life 
+              in England. He is arrested multiple times during the revolution and is saved by 
+              <strong>Sydney Carton's ultimate sacrifice</strong>.
+            </div>
+            <div class="character-traits">
+              <span class="trait-tag">📖 Honest</span>
+              <span class="trait-tag">⚖️ Just</span>
+              <span class="trait-tag">🛡️ Brave</span>
+              <span class="trait-tag">👨‍🏫 Teacher</span>
+            </div>
+            <div class="float-icon">⚖️</div>
           </div>
 
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">Sydney Carton</div>
-              <span class="badge badge-accent">Redemption / Sacrifice</span>
+          <!-- 4. Sydney Carton -->
+          <div class="character-card glow-mystery" style="border-left-color: var(--color-secondary);">
+            <div class="character-icon icon-mystery">
+              <i class="fa-solid fa-mask"></i>
             </div>
-            <p style="color: var(--color-text-secondary);">A brilliant but dissolute lawyer who looks exactly like Charles Darnay. He confesses his love to Lucie but knows he is unworthy. He ultimately sacrifices his life to save Darnay, achieving spiritual redemption.</p>
+            <span class="character-badge badge-mystery">🎭 Redemption · Sacrifice</span>
+            <div class="character-name">Sydney Carton</div>
+            <div class="character-role">Lawyer · Double of Charles Darnay</div>
+            <div class="character-description">
+              A brilliant but <strong>dissolute lawyer</strong> who looks exactly like Charles Darnay. 
+              He confesses his love to Lucie but knows he is unworthy. He ultimately 
+              <strong>sacrifices his life</strong> to save Darnay, achieving spiritual redemption.
+            </div>
+            <div class="character-traits">
+              <span class="trait-tag">🧠 Brilliant</span>
+              <span class="trait-tag">🥀 Tragic</span>
+              <span class="trait-tag">🕊️ Redeemed</span>
+              <span class="trait-tag">❤️ Selfless</span>
+            </div>
+            <div class="float-icon">🎭</div>
           </div>
 
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">Madame Thérèse Defarge</div>
-              <span class="badge badge-primary">Vengeance</span>
+          <!-- 5. Madame Thérèse Defarge -->
+          <div class="character-card glow-villain" style="border-left-color: #FF3B30;">
+            <div class="character-icon icon-villain">
+              <i class="fa-solid fa-knitting"></i>
             </div>
-            <p style="color: var(--color-text-secondary);">A ruthless revolutionary who knits the names of those condemned to death. She represents the destructive power of hatred and revenge, driven by the murder of her family by the Evremonde brothers.</p>
+            <span class="character-badge badge-villain">🔥 Vengeance</span>
+            <div class="character-name">Madame Thérèse Defarge</div>
+            <div class="character-role">Revolutionary · Wine-shop owner</div>
+            <div class="character-description">
+              A <strong>ruthless revolutionary</strong> who knits the names of those condemned to death. 
+              She represents the <strong>destructive power of hatred and revenge</strong>, driven by 
+              the murder of her family by the Evremonde brothers.
+            </div>
+            <div class="character-traits">
+              <span class="trait-tag">⚡ Ruthless</span>
+              <span class="trait-tag">🧶 Fatal</span>
+              <span class="trait-tag">🔥 Vengeful</span>
+              <span class="trait-tag">🗡️ Unforgiving</span>
+            </div>
+            <div class="float-icon">🧶</div>
           </div>
 
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">Monsieur Ernest Defarge</div>
-              <span class="badge" style="background: var(--color-secondary); color: #0D1326;">Revolutionary leader</span>
+          <!-- 6. Monsieur Ernest Defarge -->
+          <div class="character-card glow-neutral" style="border-left-color: var(--color-accent-1);">
+            <div class="character-icon icon-neutral">
+              <i class="fa-solid fa-wine-bottle"></i>
             </div>
-            <p style="color: var(--color-text-secondary);">A wine-shop owner in Saint Antoine and a leader of the revolution. He is more measured than his wife, showing some compassion for Dr. Manette.</p>
+            <span class="character-badge badge-neutral">🍷 Revolutionary leader</span>
+            <div class="character-name">Monsieur Ernest Defarge</div>
+            <div class="character-role">Wine-shop owner · Revolutionary leader</div>
+            <div class="character-description">
+              A wine-shop owner in Saint Antoine and a <strong>leader of the revolution</strong>. 
+              He is more <strong>measured and compassionate</strong> than his wife, showing some 
+              concern for Dr. Manette.
+            </div>
+            <div class="character-traits">
+              <span class="trait-tag">🍷 Wine-shop owner</span>
+              <span class="trait-tag">⚡ Revolutionary</span>
+              <span class="trait-tag">❤️ Compassionate</span>
+              <span class="trait-tag">⚖️ Fair</span>
+            </div>
+            <div class="float-icon">🍷</div>
           </div>
 
         </div>
@@ -97,6 +555,7 @@
           <a href="themes.html" class="btn btn-primary">Next: Themes →</a>
         </div>
 
+        <!-- Footer -->
         <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
           <p>© 2026 · Interactive E-Book · Novel: Characters</p>
         </footer>
