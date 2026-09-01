@@ -15,15 +15,356 @@
   <link rel="stylesheet" href="../../css/animations.css">
   <link rel="stylesheet" href="../../css/responsive.css">
   <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    /* ====== PASSAGE STYLES ====== */
+    .passage-hero {
+      background: var(--gradient-header);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      text-align: center;
+      color: #fff;
+      margin-bottom: var(--spacing-6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .passage-hero::before {
+      content: '✊';
+      position: absolute;
+      font-size: 10rem;
+      opacity: 0.08;
+      right: -10px;
+      bottom: -30px;
+      transform: rotate(-10deg);
+    }
+
+    .passage-hero h1 {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-extrabold);
+      margin-bottom: var(--spacing-2);
+      position: relative;
+      z-index: 1;
+    }
+
+    .passage-hero .subtitle {
+      font-size: var(--font-size-base);
+      opacity: 0.85;
+      position: relative;
+      z-index: 1;
+    }
+
+    .passage-hero .author {
+      font-size: var(--font-size-sm);
+      opacity: 0.7;
+      margin-top: var(--spacing-1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .passage-hero .badge-group {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-3);
+      flex-wrap: wrap;
+      margin-top: var(--spacing-3);
+      position: relative;
+      z-index: 1;
+    }
+
+    .passage-hero .badge-group .badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: var(--spacing-1) var(--spacing-4);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      backdrop-filter: blur(4px);
+    }
+
+    .passage-hero .quote {
+      font-style: italic;
+      font-size: var(--font-size-base);
+      opacity: 0.9;
+      margin-top: var(--spacing-2);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ====== PASSAGE TEXT ====== */
+    .passage-text {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      box-shadow: var(--shadow-sm);
+      border: 2px solid var(--color-border);
+      margin-bottom: var(--spacing-6);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+    }
+
+    .passage-text.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .passage-text:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .passage-text p {
+      font-size: var(--font-size-base);
+      line-height: 2;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--spacing-4);
+    }
+
+    .passage-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .passage-text strong {
+      color: var(--color-text-primary);
+    }
+
+    .passage-text .highlight-text {
+      background: rgba(242, 101, 34, 0.08);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* ====== QUESTIONS ====== */
+    .question-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-5);
+      box-shadow: var(--shadow-sm);
+      border: 2px solid var(--color-border);
+      margin-bottom: var(--spacing-4);
+      transition: all var(--transition-slow);
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .question-card.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .question-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-primary);
+    }
+
+    .question-card .q-number {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .question-card .q-text {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-primary);
+      margin: var(--spacing-2) 0;
+    }
+
+    .question-card .q-text-sm {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-regular);
+      color: var(--color-text-secondary);
+      margin: var(--spacing-1) 0;
+    }
+
+    .question-card .q-answer {
+      background: var(--color-bg);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-3);
+      margin-top: var(--spacing-3);
+      border-left: 4px solid var(--color-secondary);
+      display: none;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+    }
+
+    .question-card .q-answer.show {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .question-card .q-answer strong {
+      color: var(--color-primary);
+    }
+
+    .question-card .q-answer .highlight {
+      background: rgba(242, 101, 34, 0.1);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .question-card .q-answer .list-item {
+      display: block;
+      padding: 2px 0;
+    }
+
+    .btn-answer {
+      background: var(--color-bg);
+      color: var(--color-text-primary);
+      padding: var(--spacing-2) var(--spacing-5);
+      border-radius: var(--radius-full);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-sm);
+      border: 2px solid var(--color-border);
+      cursor: pointer;
+      transition: all var(--transition-base);
+      margin-top: var(--spacing-2);
+    }
+
+    .btn-answer:hover {
+      border-color: var(--color-secondary);
+      color: var(--color-secondary);
+      background: rgba(255, 184, 48, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .btn-answer.active {
+      border-color: var(--color-secondary);
+      background: var(--color-secondary);
+      color: #fff;
+    }
+
+    .btn-answer.active:hover {
+      background: #e6a600;
+    }
+
+    /* ====== OPTIONS STYLES ====== */
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-2);
+      margin: var(--spacing-2) 0;
+    }
+
+    .options .opt {
+      padding: var(--spacing-1) var(--spacing-3);
+      background: var(--color-bg);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .options .opt strong {
+      color: var(--color-text-primary);
+    }
+
+    .options .opt.correct {
+      background: rgba(52, 199, 89, 0.15);
+      border: 1px solid #34C759;
+      color: #1a7a3a;
+    }
+
+    /* ====== MATCHING GRID ====== */
+    .matching-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-2);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin: var(--spacing-2) 0;
+    }
+
+    .matching-grid .term {
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+    }
+
+    .matching-grid .def {
+      color: var(--color-text-secondary);
+    }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 768px) {
+      .passage-text {
+        padding: var(--spacing-4);
+      }
+      .passage-text p {
+        font-size: var(--font-size-sm);
+      }
+      .question-card {
+        padding: var(--spacing-4);
+      }
+      .passage-hero h1 {
+        font-size: var(--font-size-xl);
+      }
+      .matching-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Header / Mobile Nav omitted -->
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../units/unit-1/index.html">Unit 1</a>
+        <a href="../../units/unit-2/index.html">Unit 2</a>
+        <a href="../../units/unit-3/index.html">Unit 3</a>
+        <a href="../../units/unit-4/index.html">Unit 4</a>
+        <a href="../../novel/index.html">Novel</a>
+        <a href="../../poetry/index.html">Poetry</a>
+        <a href="../index.html" class="active">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../../units/unit-1/index.html">Unit 1: Jump for Joy</a>
+      <a href="../../units/unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../../units/unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../../units/unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="../../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../index.html" class="active">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
   <main class="main-content">
     <section class="section">
       <div class="container">
 
+        <!-- Breadcrumbs -->
         <nav class="breadcrumbs">
           <a href="../../index.html">Home</a>
           <span class="separator"> › </span>
@@ -34,63 +375,171 @@
           <span class="current">Passage 4</span>
         </nav>
 
-        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
-          <h1 class="text-2xl" style="color: var(--color-primary);">✊ Great Minds: Martin Luther King Jr.</h1>
-          <p class="text-base" style="color: var(--color-text-secondary);">by Lydia Lukidis</p>
+        <!-- ====== HERO ====== -->
+        <div class="passage-hero fade-in">
+          <h1>✊ Great Minds: Martin Luther King Jr.</h1>
+          <div class="subtitle">Civil Rights Leader &amp; "I Have a Dream"</div>
+          <div class="author">by Lydia Lukidis</div>
+          <div class="quote">"I have a dream that my four little children will one day live in a nation where they will not be judged by the color of their skin but by the content of their character."</div>
+          <div class="badge-group">
+            <span class="badge">📖 6 Questions</span>
+            <span class="badge">✊ Civil Rights</span>
+            <span class="badge">🏆 Nobel Peace Prize</span>
+          </div>
         </div>
 
-        <!-- Passage -->
-        <div class="card passage-content">
+        <!-- ====== PASSAGE TEXT ====== -->
+        <div class="passage-text" id="passageText">
           <p>
-            You probably know about Martin Luther King Jr. He was a civil rights activist. And he made that famous "I Have a Dream" speech. But he did so much more than that. Let's take a closer look at his life and what he accomplished.
+            You probably know about Martin Luther King Jr. He was a <strong>civil rights activist</strong>. And he made that famous <strong>"I Have a Dream"</strong> speech. But he did so much more than that. Let's take a closer look at his life and what he accomplished.
           </p>
           <p>
-            King was born in 1929 in Atlanta. His father was a preacher and his mother was a teacher. He had an older sister and a younger brother. When he was in high school, he was so smart that he skipped two grades. He went to Morehouse College when he was only 15 years old, and got a degree in sociology. He was inspired by his father and later got a divinity degree. After that, he went to Boston University and got his doctor's degree in theology. This is why people call him Dr. King.
+            King was born in <strong>1929</strong> in Atlanta. His father was a preacher and his mother was a teacher. He had an older sister and a younger brother. When he was in high school, he was so smart that he <strong>skipped two grades</strong>. He went to Morehouse College when he was only <strong>15</strong> years old, and got a degree in <strong>sociology</strong>. He was inspired by his father and later got a divinity degree. After that, he went to Boston University and got his doctor's degree in <strong>theology</strong>. This is why people call him <strong>Dr. King</strong>.
           </p>
           <p>
-            When he was younger, he experienced racism. He also saw racism against the African American community in general. Segregation was part of life at that time. That's when different races were kept separate and not given the same rights. For example, African Americans weren't given the same chances when it came to education, jobs, or transportation. Segregation was part of the law in the American South and other places in the United States at that time.
+            When he was younger, he experienced <strong>racism</strong>. He also saw racism against the African American community in general. <strong>Segregation</strong> was part of life at that time. That's when different races were kept separate and not given the same rights. For example, African Americans weren't given the same chances when it came to education, jobs, or transportation. Segregation was part of the law in the American South and other places in the United States at that time.
           </p>
           <p>
-            King wanted to do something about this. He wanted to make the world a better place. So he fought for equal rights for African Americans. This is what the civil rights movement was all about. He was an activist during the 1950s and 1960s. He wanted people to understand what was going on and that it was not fair. He also wanted to change the laws. He led many peaceful protests to create this change. He was not only the leader of the civil rights movement, but he also helped start it.
+            King wanted to do something about this. He wanted to make the world a better place. So he fought for <strong>equal rights</strong> for African Americans. This is what the <strong>civil rights movement</strong> was all about. He was an activist during the <strong>1950s</strong> and <strong>1960s</strong>. He wanted people to understand what was going on and that it was not fair. He also wanted to change the laws. He led many <strong>peaceful protests</strong> to create this change. He was not only the leader of the civil rights movement, but he also helped start it.
           </p>
           <p>
-            One of his first protests was the Montgomery Bus Boycott. (You might remember that during this time Rosa Parks had refused to give up her seat to a white man when she was on a bus. She was arrested on the spot.) King fought against the public transportation system in Montgomery. The protest lasted 382 days. It was not an easy battle. King was arrested and his house was bombed. But in the end, King was happy to see that segregation on Montgomery buses ended. African Americans could sit wherever they wanted.
+            One of his first protests was the <strong>Montgomery Bus Boycott</strong>. (You might remember that during this time Rosa Parks had refused to give up her seat to a white man when she was on a bus. She was arrested on the spot.) King fought against the public transportation system in Montgomery. The protest lasted <strong>382 days</strong>. It was not an easy battle. King was arrested and his house was bombed. But in the end, King was happy to see that segregation on Montgomery buses ended. African Americans could sit wherever they wanted.
           </p>
           <p>
-            King continued to fight for equality. In 1963, he helped organize the "March on Washington." He wanted to help end segregation in public schools, end discrimination in jobs, and protect the African Americans from police abuse. Over 250,000 people joined the march. That's when King gave his famous "I Have a Dream" speech. The speech was very powerful. And the march was successful. A year later, the Civil Rights Act was passed and African Americans were given their rights.
+            King continued to fight for equality. In <strong>1963</strong>, he helped organize the <strong>"March on Washington."</strong> He wanted to help end segregation in public schools, end discrimination in jobs, and protect the African Americans from police abuse. Over <strong>250,000</strong> people joined the march. That's when King gave his famous <strong>"I Have a Dream"</strong> speech. The speech was very powerful. And the march was successful. A year later, the <strong>Civil Rights Act</strong> was passed and African Americans were given their rights.
           </p>
           <p>
-            King never backed down in his fight for justice, even when his life was in danger. And he didn't just fight for African Americans. He fought for equality for everyone. He fought for people of different religions. He also fought for people who had less money. It didn't seem fair to him that people were mistreated just for being who they were. In 1953, King met and married Coretta Scott King. She was also passionate about fighting for equality. Together, they had 4 children. King was killed in 1968. But his legacy will live on forever. His speeches still inspire us today, and he is still seen as one of the best public speakers.
+            King never backed down in his fight for justice, even when his life was in danger. And he didn't just fight for African Americans. He fought for equality for everyone. He fought for people of different religions. He also fought for people who had less money. It didn't seem fair to him that people were mistreated just for being who they were. In 1953, King met and married Coretta Scott King. She was also passionate about fighting for equality. Together, they had 4 children. King was killed in <strong>1968</strong>. But his legacy will live on forever. His speeches still inspire us today, and he is still seen as one of the best public speakers. He traveled more than six million miles and gave speeches more than 2,500 times. He was the youngest person to ever win the <strong>Nobel Peace Prize</strong>.
+          </p>
+          <p>
+            Martin Luther King Jr. Day was even created in his honor. He became the only non-president to have a national holiday in remembrance of him.
           </p>
         </div>
 
-        <!-- Questions -->
-        <div class="card" style="background: var(--color-bg); border-left: 4px solid var(--color-accent-1);">
-          <div class="card-title" style="font-size: var(--font-size-base);">❓ Questions</div>
-          <ol style="list-style: decimal; padding-left: var(--spacing-6); color: var(--color-text-secondary);">
-            <li>According to the article, Martin Luther King Jr. had a doctorate degree in which field of study?<br>
-              a. civil rights activism<br>
-              b. medicine<br>
-              c. sociology<br>
-              d. theology
-            </li>
-            <li>Based on the information in the article, Martin Luther King Jr. was the youngest person to do what?<br>
-              a. attend Boston University<br>
-              b. get arrested for peaceful protesting<br>
-              c. win the Nobel Peace Prize<br>
-              d. give a speech at the White House
-            </li>
-            <li>What was the Montgomery Bus Boycott and what did it help accomplish?</li>
-            <li>What did the 1963 March on Washington help to accomplish?</li>
-            <li>According to the article, which of the following approaches did Martin Luther King Jr. use to advocate for civil rights?<br>
-              a. intimidation<br>
-              b. violence<br>
-              c. bullying<br>
-              d. peaceful protests
-            </li>
-          </ol>
+        <!-- ====== QUESTIONS ====== -->
+        <h2 style="color: var(--color-primary); font-size: var(--font-size-xl); margin-bottom: var(--spacing-4);">❓ Questions</h2>
+
+        <!-- Question 1 -->
+        <div class="question-card" id="q1">
+          <div class="q-number">Question 1</div>
+          <div class="q-text">According to the article, Martin Luther King Jr. had a doctorate degree in which field of study?</div>
+          <div class="options">
+            <span class="opt"><strong>a.</strong> civil rights activism</span>
+            <span class="opt"><strong>b.</strong> medicine</span>
+            <span class="opt"><strong>c.</strong> sociology</span>
+            <span class="opt"><strong>d.</strong> theology</span>
+          </div>
+          <button class="btn-answer" onclick="toggleAnswer('a1')">👁️ Show Answer</button>
+          <div class="q-answer" id="a1">
+            <strong>Answer:</strong> <span class="highlight">d. theology</span><br><br>
+            The article states that King went to Boston University and got his doctor's degree in <strong>theology</strong>.
+          </div>
         </div>
 
+        <!-- Question 2 -->
+        <div class="question-card" id="q2">
+          <div class="q-number">Question 2</div>
+          <div class="q-text">Based on the information in the article, Martin Luther King Jr. was the youngest person to do what?</div>
+          <div class="options">
+            <span class="opt"><strong>a.</strong> attend Boston University</span>
+            <span class="opt"><strong>b.</strong> get arrested for peaceful protesting</span>
+            <span class="opt"><strong>c.</strong> win the Nobel Peace Prize</span>
+            <span class="opt"><strong>d.</strong> give a speech at the White House</span>
+          </div>
+          <button class="btn-answer" onclick="toggleAnswer('a2')">👁️ Show Answer</button>
+          <div class="q-answer" id="a2">
+            <strong>Answer:</strong> <span class="highlight">c. win the Nobel Peace Prize</span><br><br>
+            The article states: "He was the <strong>youngest person</strong> to ever win the Nobel Peace Prize."
+          </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-card" id="q3">
+          <div class="q-number">Question 3</div>
+          <div class="q-text">What was the Montgomery Bus Boycott and what did it help accomplish?</div>
+          <button class="btn-answer" onclick="toggleAnswer('a3')">👁️ Show Answer</button>
+          <div class="q-answer" id="a3">
+            <strong>Answer:</strong><br>
+            The <span class="highlight">Montgomery Bus Boycott</span> was a protest led by Martin Luther King Jr. against the public transportation system in Montgomery. It lasted <strong>382 days</strong>.<br><br>
+            It helped accomplish: <strong>Segregation on Montgomery buses ended</strong>, and African Americans could sit wherever they wanted.
+          </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-card" id="q4">
+          <div class="q-number">Question 4</div>
+          <div class="q-text">What did the 1963 March on Washington help to accomplish?</div>
+          <button class="btn-answer" onclick="toggleAnswer('a4')">👁️ Show Answer</button>
+          <div class="q-answer" id="a4">
+            <strong>Answer:</strong><br>
+            The <span class="highlight">1963 March on Washington</span> helped accomplish:<br><br>
+            <span class="list-item">• End segregation in <strong>public schools</strong></span>
+            <span class="list-item">• End <strong>discrimination in jobs</strong></span>
+            <span class="list-item">• Protect African Americans from <strong>police abuse</strong></span><br>
+            A year later, the <strong>Civil Rights Act</strong> was passed and African Americans were given their rights.
+          </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-card" id="q5">
+          <div class="q-number">Question 5</div>
+          <div class="q-text">According to the article, which of the following approaches did Martin Luther King Jr. use to advocate for civil rights?</div>
+          <div class="options">
+            <span class="opt"><strong>a.</strong> intimidation</span>
+            <span class="opt"><strong>b.</strong> violence</span>
+            <span class="opt"><strong>c.</strong> bullying</span>
+            <span class="opt"><strong>d.</strong> peaceful protests</span>
+          </div>
+          <button class="btn-answer" onclick="toggleAnswer('a5')">👁️ Show Answer</button>
+          <div class="q-answer" id="a5">
+            <strong>Answer:</strong> <span class="highlight">d. peaceful protests</span><br><br>
+            The article states that King "led many <strong>peaceful protests</strong> to create this change."
+          </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-card" id="q6">
+          <div class="q-number">Question 6</div>
+          <div class="q-text">Match the vocabulary word with its correct definition by writing the corresponding letter on the line.</div>
+          <div class="matching-grid">
+            <span class="term">1. _____ activist</span>
+            <span class="def">a. the opportunity for everyone to have the same rights</span>
+            <span class="term">2. _____ sociology</span>
+            <span class="def">b. taken into custody by police</span>
+            <span class="term">3. _____ racism</span>
+            <span class="def">c. the rights of citizens to social and political freedom</span>
+            <span class="term">4. _____ boycott</span>
+            <span class="def">d. having strong feelings or beliefs</span>
+            <span class="term">5. _____ equality</span>
+            <span class="def">e. the study of human society</span>
+            <span class="term">6. _____ segregation</span>
+            <span class="def">f. poor treatment based on belief that one race is inferior</span>
+            <span class="term">7. _____ civil rights</span>
+            <span class="def">g. the act of remembering someone</span>
+            <span class="term">8. _____ remembrance</span>
+            <span class="def">h. a refusal to participate in an event to protest</span>
+            <span class="term">9. _____ passionate</span>
+            <span class="def">i. a person who campaigns for social or political change</span>
+            <span class="term">10. _____ arrested</span>
+            <span class="def">j. the enforced separation of people from different races</span>
+          </div>
+          <button class="btn-answer" onclick="toggleAnswer('a6')">👁️ Show Answer</button>
+          <div class="q-answer" id="a6">
+            <strong>Answer:</strong><br>
+            1. <span class="highlight">i</span> — activist = a person who campaigns for social or political change<br>
+            2. <span class="highlight">e</span> — sociology = the study of human society<br>
+            3. <span class="highlight">f</span> — racism = poor treatment based on belief that one race is inferior<br>
+            4. <span class="highlight">h</span> — boycott = a refusal to participate in an event to protest<br>
+            5. <span class="highlight">a</span> — equality = the opportunity for everyone to have the same rights<br>
+            6. <span class="highlight">j</span> — segregation = the enforced separation of people from different races<br>
+            7. <span class="highlight">c</span> — civil rights = the rights of citizens to social and political freedom<br>
+            8. <span class="highlight">g</span> — remembrance = the act of remembering someone<br>
+            9. <span class="highlight">d</span> — passionate = having strong feelings or beliefs<br>
+            10. <span class="highlight">b</span> — arrested = taken into custody by police
+          </div>
+        </div>
+
+        <!-- ====== NAVIGATION ====== -->
         <div style="margin-top: var(--spacing-8); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--spacing-4);">
           <a href="passage-3.html" class="btn btn-secondary">← Albert Einstein</a>
           <a href="passage-5.html" class="btn btn-primary">Next: Bird Brains at Work →</a>
@@ -104,9 +553,61 @@
     </section>
   </main>
 
+  <!-- ====== SCRIPTS ====== -->
   <script src="../../js/main.js"></script>
   <script src="../../js/navigation.js"></script>
-  <script src="../skills.js"></script>
+
+  <script>
+    // ====== TOGGLE ANSWER ======
+    function toggleAnswer(id) {
+      const answer = document.getElementById(id);
+      const btn = answer.parentElement.querySelector('.btn-answer');
+      if (answer.classList.contains('show')) {
+        answer.classList.remove('show');
+        btn.textContent = '👁️ Show Answer';
+        btn.classList.remove('active');
+      } else {
+        answer.classList.add('show');
+        btn.textContent = '🙈 Hide Answer';
+        btn.classList.add('active');
+      }
+    }
+
+    // ====== INTERSECTION OBSERVER ======
+    document.addEventListener('DOMContentLoaded', function() {
+      // Passage text
+      const passage = document.getElementById('passageText');
+      if (passage && 'IntersectionObserver' in window) {
+        const observer1 = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.2 });
+        observer1.observe(passage);
+      } else if (passage) {
+        passage.classList.add('visible');
+      }
+
+      // Questions
+      const questions = document.querySelectorAll('.question-card');
+      if ('IntersectionObserver' in window) {
+        const observer2 = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, index * 120);
+            }
+          });
+        }, { threshold: 0.15 });
+        questions.forEach(q => observer2.observe(q));
+      } else {
+        questions.forEach(q => q.classList.add('visible'));
+      }
+    });
+  </script>
 
 </body>
 </html>
