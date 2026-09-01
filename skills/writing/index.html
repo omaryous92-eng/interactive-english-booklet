@@ -15,11 +15,193 @@
   <link rel="stylesheet" href="../../css/animations.css">
   <link rel="stylesheet" href="../../css/responsive.css">
   <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    .writing-hero {
+      background: var(--gradient-header);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-8);
+      text-align: center;
+      color: #fff;
+      margin-bottom: var(--spacing-8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .writing-hero::before {
+      content: '✍️';
+      position: absolute;
+      font-size: 12rem;
+      opacity: 0.08;
+      right: -20px;
+      bottom: -40px;
+      transform: rotate(-10deg);
+    }
+
+    .writing-hero h1 {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-extrabold);
+      margin-bottom: var(--spacing-3);
+      position: relative;
+      z-index: 1;
+    }
+
+    .writing-hero p {
+      font-size: var(--font-size-lg);
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .writing-hero .badge-group {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-3);
+      flex-wrap: wrap;
+      margin-top: var(--spacing-4);
+      position: relative;
+      z-index: 1;
+    }
+
+    .writing-hero .badge-group .badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: var(--spacing-2) var(--spacing-4);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      backdrop-filter: blur(4px);
+    }
+
+    .writing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--spacing-6);
+      margin-top: var(--spacing-6);
+    }
+
+    .writing-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-5);
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-slow);
+      border-bottom: 5px solid var(--color-primary);
+      text-decoration: none;
+      color: var(--color-text-primary);
+      display: block;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+    }
+
+    .writing-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .writing-card:hover {
+      box-shadow: var(--shadow-xl);
+      transform: translateY(-8px) scale(1.02);
+    }
+
+    .writing-card .card-icon {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: var(--spacing-3);
+    }
+
+    .writing-card .card-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .writing-card .card-desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .writing-card .card-badge {
+      display: inline-block;
+      padding: 2px var(--spacing-3);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      background: var(--color-accent-1);
+      color: #fff;
+      margin-top: var(--spacing-3);
+    }
+
+    .writing-card:nth-child(1) { border-bottom-color: var(--color-primary); }
+    .writing-card:nth-child(2) { border-bottom-color: var(--color-secondary); }
+    .writing-card:nth-child(3) { border-bottom-color: var(--color-accent-1); }
+    .writing-card:nth-child(4) { border-bottom-color: var(--color-accent-2); }
+
+    @media (max-width: 768px) {
+      .writing-grid {
+        grid-template-columns: 1fr;
+      }
+      .writing-hero h1 {
+        font-size: var(--font-size-2xl);
+      }
+      .writing-hero {
+        padding: var(--spacing-4);
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Header / Mobile Nav omitted -->
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../units/unit-1/index.html">Unit 1</a>
+        <a href="../../units/unit-2/index.html">Unit 2</a>
+        <a href="../../units/unit-3/index.html">Unit 3</a>
+        <a href="../../units/unit-4/index.html">Unit 4</a>
+        <a href="../../novel/index.html">Novel</a>
+        <a href="../../poetry/index.html">Poetry</a>
+        <a href="../index.html" class="active">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../../units/unit-1/index.html">Unit 1: Jump for Joy</a>
+      <a href="../../units/unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../../units/unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../../units/unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="../../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../index.html" class="active">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
   <main class="main-content">
     <section class="section">
       <div class="container">
@@ -32,16 +214,52 @@
           <span class="current">Writing</span>
         </nav>
 
-        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
-          <h1 class="text-2xl" style="color: var(--color-primary);">✍️ Writing</h1>
-          <p class="text-base" style="color: var(--color-text-secondary);">Guides, structures, and checklists for different writing types.</p>
+        <div class="writing-hero fade-in">
+          <h1>✍️ Writing</h1>
+          <p>
+            Guides, structures, and checklists for different writing types.<br>
+            <span style="font-size: var(--font-size-base); opacity: 0.8;">
+              Master opinion essays, descriptive writing, and narrative writing.
+            </span>
+          </p>
+          <div class="badge-group">
+            <span class="badge">📝 Opinion Essay</span>
+            <span class="badge">🎨 Descriptive</span>
+            <span class="badge">📖 Narrative</span>
+            <span class="badge">✅ Checklist</span>
+          </div>
         </div>
 
-        <div class="grid grid-2" style="gap: var(--spacing-6);">
-          <a href="opinion-essay.html" class="unit-card" style="border-left-color: var(--color-primary);">Opinion Essay</a>
-          <a href="descriptive-writing.html" class="unit-card" style="border-left-color: var(--color-secondary);">Descriptive Writing</a>
-          <a href="narrative-writing.html" class="unit-card" style="border-left-color: var(--color-accent-2);">Narrative Writing</a>
-          <a href="checklist.html" class="unit-card" style="border-left-color: var(--color-accent-1);">Checklist</a>
+        <div class="writing-grid" id="writingGrid">
+
+          <a href="opinion-essay.html" class="writing-card">
+            <span class="card-icon">📝</span>
+            <div class="card-title">Opinion Essay</div>
+            <div class="card-desc">Structure &amp; Rules — base your point of view on strong evidence and arguments.</div>
+            <span class="card-badge">📌 Structure</span>
+          </a>
+
+          <a href="descriptive-writing.html" class="writing-card">
+            <span class="card-icon">🎨</span>
+            <div class="card-title">Descriptive Writing</div>
+            <div class="card-desc">Sensory Details — use adjectives, similes, and metaphors to create vivid descriptions.</div>
+            <span class="card-badge">👁️ 5 Senses</span>
+          </a>
+
+          <a href="narrative-writing.html" class="writing-card">
+            <span class="card-icon">📖</span>
+            <div class="card-title">Narrative Writing</div>
+            <div class="card-desc">Story Structure — beginning, middle, and end with action, dialogue, and resolution.</div>
+            <span class="card-badge">📖 Story Map</span>
+          </a>
+
+          <a href="checklist.html" class="writing-card">
+            <span class="card-icon">✅</span>
+            <div class="card-title">Checklist</div>
+            <div class="card-desc">Writing Checklist — review your writing with this comprehensive checklist.</div>
+            <span class="card-badge">✅ Self-Review</span>
+          </a>
+
         </div>
 
         <div style="margin-top: var(--spacing-8);">
@@ -59,6 +277,26 @@
   <script src="../../js/main.js"></script>
   <script src="../../js/navigation.js"></script>
   <script src="../skills.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const cards = document.querySelectorAll('.writing-card');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, index * 100);
+            }
+          });
+        }, { threshold: 0.15 });
+        cards.forEach(card => observer.observe(card));
+      } else {
+        cards.forEach(card => card.classList.add('visible'));
+      }
+    });
+  </script>
 
 </body>
 </html>
