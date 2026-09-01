@@ -15,11 +15,462 @@
   <link rel="stylesheet" href="../css/animations.css">
   <link rel="stylesheet" href="../css/responsive.css">
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ============================================================
+       Introduction Page Specific Styles
+       ============================================================ */
+
+    /* ---------- Hero Section ---------- */
+    .intro-hero {
+      background: var(--gradient-header);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-8);
+      text-align: center;
+      color: #fff;
+      margin-bottom: var(--spacing-8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .intro-hero::before {
+      content: '📖';
+      position: absolute;
+      font-size: 12rem;
+      opacity: 0.08;
+      right: -20px;
+      bottom: -40px;
+      transform: rotate(-10deg);
+    }
+
+    .intro-hero h1 {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-extrabold);
+      margin-bottom: var(--spacing-3);
+      position: relative;
+      z-index: 1;
+    }
+
+    .intro-hero p {
+      font-size: var(--font-size-lg);
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .intro-hero .badge-group {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-3);
+      flex-wrap: wrap;
+      margin-top: var(--spacing-4);
+      position: relative;
+      z-index: 1;
+    }
+
+    .intro-hero .badge-group .badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: var(--spacing-2) var(--spacing-4);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      backdrop-filter: blur(4px);
+    }
+
+    /* ---------- Infographic Timeline ---------- */
+    .infographic {
+      position: relative;
+      padding: var(--spacing-4) 0;
+      margin: var(--spacing-6) 0;
+    }
+
+    /* Center line */
+    .infographic::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 4px;
+      height: 100%;
+      background: var(--gradient-header);
+      transform: translateX(-50%);
+      border-radius: var(--radius-full);
+    }
+
+    .infographic-item {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: var(--spacing-4) 0;
+      position: relative;
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .infographic-item.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .infographic-item:nth-child(even) {
+      justify-content: flex-start;
+      transform: translateX(40px);
+    }
+
+    .infographic-item:nth-child(even).visible {
+      transform: translateX(0);
+    }
+
+    /* Connector dot */
+    .infographic-item .connector {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      border: 4px solid var(--color-surface);
+      box-shadow: 0 0 0 4px var(--color-primary), var(--shadow-md);
+      z-index: 2;
+      transition: all var(--transition-base);
+    }
+
+    .infographic-item:hover .connector {
+      transform: translateX(-50%) scale(1.3);
+      box-shadow: 0 0 0 6px var(--color-primary), var(--shadow-lg);
+    }
+
+    .infographic-item .connector.gold {
+      background: var(--color-secondary);
+      box-shadow: 0 0 0 4px var(--color-secondary), var(--shadow-md);
+    }
+
+    .infographic-item .connector.purple {
+      background: var(--color-accent-1);
+      box-shadow: 0 0 0 4px var(--color-accent-1), var(--shadow-md);
+    }
+
+    .infographic-item .connector.green {
+      background: #34C759;
+      box-shadow: 0 0 0 4px #34C759, var(--shadow-md);
+    }
+
+    .infographic-item .connector.red {
+      background: #FF3B30;
+      box-shadow: 0 0 0 4px #FF3B30, var(--shadow-md);
+    }
+
+    /* Content box */
+    .infographic-item .content {
+      width: 42%;
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-4) var(--spacing-5);
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-base);
+      border-left: 4px solid var(--color-primary);
+    }
+
+    .infographic-item:nth-child(even) .content {
+      border-left: none;
+      border-right: 4px solid var(--color-primary);
+    }
+
+    .infographic-item .content:hover {
+      box-shadow: var(--shadow-lg);
+      transform: scale(1.02);
+    }
+
+    .infographic-item .content .icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: var(--spacing-2);
+    }
+
+    .infographic-item .content .title {
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-lg);
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-1);
+    }
+
+    .infographic-item .content .desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .infographic-item .content .year {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      display: inline-block;
+      background: rgba(242, 101, 34, 0.1);
+      padding: 2px var(--spacing-3);
+      border-radius: var(--radius-full);
+      margin-top: var(--spacing-2);
+    }
+
+    /* Color variants */
+    .infographic-item:nth-child(1) .content { border-left-color: var(--color-primary); }
+    .infographic-item:nth-child(2) .content { border-left-color: var(--color-secondary); }
+    .infographic-item:nth-child(3) .content { border-left-color: var(--color-accent-1); }
+    .infographic-item:nth-child(4) .content { border-left-color: var(--color-accent-2); }
+    .infographic-item:nth-child(5) .content { border-left-color: #34C759; }
+    .infographic-item:nth-child(6) .content { border-left-color: #FF3B30; }
+    .infographic-item:nth-child(7) .content { border-left-color: #5AC8FA; }
+    .infographic-item:nth-child(8) .content { border-left-color: #FF9500; }
+
+    .infographic-item:nth-child(even) .content {
+      border-left: none;
+    }
+    .infographic-item:nth-child(1) .content { border-right-color: var(--color-primary); }
+    .infographic-item:nth-child(2) .content { border-right-color: var(--color-secondary); }
+    .infographic-item:nth-child(3) .content { border-right-color: var(--color-accent-1); }
+    .infographic-item:nth-child(4) .content { border-right-color: var(--color-accent-2); }
+    .infographic-item:nth-child(5) .content { border-right-color: #34C759; }
+    .infographic-item:nth-child(6) .content { border-right-color: #FF3B30; }
+    .infographic-item:nth-child(7) .content { border-right-color: #5AC8FA; }
+    .infographic-item:nth-child(8) .content { border-right-color: #FF9500; }
+
+    /* ---------- Fun Facts ---------- */
+    .fun-facts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--spacing-4);
+      margin: var(--spacing-8) 0;
+    }
+
+    .fun-fact {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-4);
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-base);
+      border-top: 4px solid var(--color-primary);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+
+    .fun-fact.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fun-fact:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .fun-fact .fact-icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: var(--spacing-2);
+    }
+
+    .fun-fact .fact-number {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-extrabold);
+      color: var(--color-primary);
+    }
+
+    .fun-fact .fact-label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .fun-fact:nth-child(1) { border-top-color: var(--color-primary); }
+    .fun-fact:nth-child(2) { border-top-color: var(--color-secondary); }
+    .fun-fact:nth-child(3) { border-top-color: var(--color-accent-1); }
+    .fun-fact:nth-child(4) { border-top-color: var(--color-accent-2); }
+
+    .fun-fact:nth-child(1) .fact-number { color: var(--color-primary); }
+    .fun-fact:nth-child(2) .fact-number { color: var(--color-secondary); }
+    .fun-fact:nth-child(3) .fact-number { color: var(--color-accent-1); }
+    .fun-fact:nth-child(4) .fact-number { color: var(--color-accent-2); }
+
+    /* ---------- Social Background ---------- */
+    .social-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-6);
+      margin: var(--spacing-6) 0;
+    }
+
+    .social-card {
+      padding: var(--spacing-5);
+      border-radius: var(--radius-lg);
+      transition: all var(--transition-base);
+      opacity: 0;
+      transform: scale(0.95);
+      transition: all 0.6s ease;
+    }
+
+    .social-card.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .social-card:hover {
+      transform: scale(1.02);
+      box-shadow: var(--shadow-md);
+    }
+
+    .social-card.upper {
+      background: linear-gradient(135deg, rgba(242, 101, 34, 0.08), rgba(255, 184, 48, 0.08));
+      border: 2px solid var(--color-primary);
+    }
+
+    .social-card.lower {
+      background: linear-gradient(135deg, rgba(124, 92, 252, 0.08), rgba(234, 88, 12, 0.08));
+      border: 2px solid var(--color-accent-1);
+    }
+
+    .social-card .card-icon {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: var(--spacing-2);
+    }
+
+    .social-card h3 {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .social-card.upper h3 { color: var(--color-primary); }
+    .social-card.lower h3 { color: var(--color-accent-1); }
+
+    .social-card p {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 768px) {
+      .infographic::before {
+        left: 20px;
+      }
+
+      .infographic-item {
+        justify-content: flex-start !important;
+        transform: translateX(0) !important;
+        padding-left: 50px;
+      }
+
+      .infographic-item .connector {
+        left: 20px;
+        transform: translateX(-50%);
+        width: 16px;
+        height: 16px;
+      }
+
+      .infographic-item .content {
+        width: 100%;
+      }
+
+      .infographic-item:nth-child(even) .content {
+        border-right: none !important;
+        border-left: 4px solid var(--color-primary) !important;
+      }
+
+      .intro-hero h1 {
+        font-size: var(--font-size-2xl);
+      }
+
+      .social-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .fun-facts {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .fun-facts {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ---------- Pulse animation for icons ---------- */
+    @keyframes pulse-icon {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .pulse-icon {
+      animation: pulse-icon 2s ease-in-out infinite;
+    }
+
+    /* ---------- Scroll indicator ---------- */
+    .scroll-indicator {
+      text-align: center;
+      padding: var(--spacing-4);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      animation: bounce 2s ease-in-out infinite;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Header / Mobile Nav omitted (same as index.html) -->
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../units/unit-1/index.html">Unit 1</a>
+        <a href="../units/unit-2/index.html">Unit 2</a>
+        <a href="../units/unit-3/index.html">Unit 3</a>
+        <a href="../units/unit-4/index.html">Unit 4</a>
+        <a href="index.html" class="active">Novel</a>
+        <a href="../poetry/index.html">Poetry</a>
+        <a href="../skills/index.html">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../units/unit-1/index.html">Unit 1: Jump for Joy</a>
+      <a href="../units/unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../units/unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../units/unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="index.html" class="active">📖 A Tale of Two Cities</a>
+      <a href="../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../skills/index.html">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
   <main class="main-content">
     <section class="section">
       <div class="container">
@@ -33,58 +484,230 @@
           <span class="current">Introduction</span>
         </nav>
 
-        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
-          <h1 class="text-2xl" style="color: var(--color-primary);">📚 Introduction to A Tale of Two Cities</h1>
+        <!-- ====== HERO SECTION ====== -->
+        <div class="intro-hero fade-in">
+          <h1>📖 A Tale of Two Cities</h1>
+          <p>
+            "It was the best of times, it was the worst of times..."<br>
+            <span style="font-size: var(--font-size-base); opacity: 0.8;">
+              A journey through love, sacrifice, and revolution in London and Paris.
+            </span>
+          </p>
+          <div class="badge-group">
+            <span class="badge">📅 1775–1793</span>
+            <span class="badge">🇬🇧 London</span>
+            <span class="badge">🇫🇷 Paris</span>
+            <span class="badge">✍️ Charles Dickens</span>
+          </div>
         </div>
 
-        <!-- Content -->
-        <div class="card" style="margin-bottom: var(--spacing-6);">
-          <div class="card-header">
-            <div class="card-title">📖 Novel Overview</div>
-            <span class="badge badge-primary">Charles Dickens</span>
-          </div>
-          <ul style="list-style: disc; padding-left: var(--spacing-6); color: var(--color-text-secondary);">
-            <li><strong>Written by:</strong> Charles Dickens</li>
-            <li><strong>Type of Work:</strong> Novel</li>
-            <li><strong>Genres:</strong> Historical fiction; political commentary</li>
-            <li><strong>First Published:</strong> In weekly installments in <em>All the Year Round</em>, from April 30 to November 29, 1859</li>
-            <li><strong>Setting:</strong> London and Paris, 1775–1792</li>
-          </ul>
+        <!-- ====== SCROLL INDICATOR ====== -->
+        <div class="scroll-indicator fade-in">
+          ⬇️ Scroll down to explore the story timeline ⬇️
         </div>
 
-        <!-- Social Background -->
-        <div class="card" style="margin-bottom: var(--spacing-6);">
-          <div class="card-header">
-            <div class="card-title">🏛️ Social Background</div>
-            <span class="badge badge-accent">Class Injustice</span>
-          </div>
-          <p style="color: var(--color-text-secondary);">The novel takes place in two cities: <strong>London</strong> and <strong>Paris</strong>. In both cities, there was unrest and uneasiness. The society was divided into two classes:</p>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-4); margin-top: var(--spacing-3);">
-            <div style="background: var(--color-bg); padding: var(--spacing-4); border-radius: var(--radius-md); border-left: 4px solid var(--color-primary);">
-              <strong style="color: var(--color-primary);">Upper Class (Aristocrats)</strong>
-              <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Represented by kings, queens, and aristocrats. They lived in luxury and comfort, having complete rights and disregarding the lower class.</p>
+        <!-- ====== INFOGRAPHIC TIMELINE ====== -->
+        <h2 class="text-xl" style="color: var(--color-primary); text-align: center; margin-bottom: var(--spacing-2);">
+          ⏳ The Story Timeline
+        </h2>
+        <p style="text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-6);">
+          Follow the key events of the novel in chronological order
+        </p>
+
+        <div class="infographic" id="timeline">
+
+          <!-- Event 1 -->
+          <div class="infographic-item" data-delay="0">
+            <div class="connector gold"></div>
+            <div class="content">
+              <span class="icon">🏛️</span>
+              <div class="title">The Opening</div>
+              <p class="desc">
+                "It was the best of times, it was the worst of times."<br>
+                Jarvis Lorry travels to Paris with Lucie Manette to find her father, Doctor Alexandre Manette, who has been released after 18 years in the Bastille.
+              </p>
+              <span class="year">1775</span>
             </div>
-            <div style="background: var(--color-bg); padding: var(--spacing-4); border-radius: var(--radius-md); border-left: 4px solid var(--color-accent-2);">
-              <strong style="color: var(--color-accent-2);">Lower Class (The Mob)</strong>
-              <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Represented by poor peasants and common people. They lived in poverty, misery, and hunger, suffering from high taxes and unjust laws.</p>
+          </div>
+
+          <!-- Event 2 -->
+          <div class="infographic-item" data-delay="100">
+            <div class="connector purple"></div>
+            <div class="content">
+              <span class="icon">🩺</span>
+              <div class="title">The Reunion</div>
+              <p class="desc">
+                Lucie meets her father for the first time. Doctor Manette has forgotten his name and only remembers his prison number: "One Hundred and Five North Tower." Lucie's love begins to heal him.
+              </p>
+              <span class="year">1775</span>
             </div>
           </div>
-          <p style="margin-top: var(--spacing-4); color: var(--color-text-secondary);">These conditions burst into <strong>revolution in 1789</strong> — the French Revolution, calling for <strong>"Liberty, Equality, and Fraternity"</strong>.</p>
+
+          <!-- Event 3 -->
+          <div class="infographic-item" data-delay="200">
+            <div class="connector"></div>
+            <div class="content">
+              <span class="icon">⚖️</span>
+              <div class="title">The Trial</div>
+              <p class="desc">
+                Charles Darnay is accused of treason. Sydney Carton, who looks exactly like Darnay, helps save him. This is the first encounter between Darnay and Carton.
+              </p>
+              <span class="year">1780</span>
+            </div>
+          </div>
+
+          <!-- Event 4 -->
+          <div class="infographic-item" data-delay="300">
+            <div class="connector green"></div>
+            <div class="content">
+              <span class="icon">❤️</span>
+              <div class="title">Love &amp; Marriage</div>
+              <p class="desc">
+                Charles Darnay marries Lucie Manette. Carton confesses his love to Lucie but knows he is unworthy. He makes a promise: he would give his life to save someone she loves.
+              </p>
+              <span class="year">1781</span>
+            </div>
+          </div>
+
+          <!-- Event 5 -->
+          <div class="infographic-item" data-delay="400">
+            <div class="connector red"></div>
+            <div class="content">
+              <span class="icon">🗡️</span>
+              <div class="title">The Marquis's Death</div>
+              <p class="desc">
+                The cruel Marquis St. Evrémonde runs over a child with his carriage. Gaspard, the child's father, murders the Marquis in revenge. The revolution is brewing.
+              </p>
+              <span class="year">1781</span>
+            </div>
+          </div>
+
+          <!-- Event 6 -->
+          <div class="infographic-item" data-delay="500">
+            <div class="connector gold"></div>
+            <div class="content">
+              <span class="icon">🇫🇷</span>
+              <div class="title">The Revolution Begins</div>
+              <p class="desc">
+                The storming of the Bastille in 1789 marks the start of the French Revolution. The Defarges lead the people in a wave of violence and destruction.
+              </p>
+              <span class="year">1789</span>
+            </div>
+          </div>
+
+          <!-- Event 7 -->
+          <div class="infographic-item" data-delay="600">
+            <div class="connector purple"></div>
+            <div class="content">
+              <span class="icon">📜</span>
+              <div class="title">Darnay's Arrest</div>
+              <p class="desc">
+                Darnay returns to France to save his servant Gabelle. He is arrested and imprisoned at La Force. Doctor Manette uses his influence to get Darnay a trial.
+              </p>
+              <span class="year">1792</span>
+            </div>
+          </div>
+
+          <!-- Event 8 -->
+          <div class="infographic-item" data-delay="700">
+            <div class="connector green"></div>
+            <div class="content">
+              <span class="icon">🧶</span>
+              <div class="title">The Letter from the Bastille</div>
+              <p class="desc">
+                Doctor Manette's secret letter is produced in court. It reveals the cruelty of the Evrémonde brothers and condemns Darnay to death. Madame Defarge's revenge is complete.
+              </p>
+              <span class="year">1793</span>
+            </div>
+          </div>
+
+          <!-- Event 9 -->
+          <div class="infographic-item" data-delay="800">
+            <div class="connector red"></div>
+            <div class="content">
+              <span class="icon">🕊️</span>
+              <div class="title">Carton's Sacrifice</div>
+              <p class="desc">
+                Sydney Carton takes Darnay's place in prison and goes to the guillotine. His final words: "It is a far, far better thing that I do, than I have ever done."
+              </p>
+              <span class="year">1793</span>
+            </div>
+          </div>
+
         </div>
 
-        <!-- Historical Background -->
-        <div class="card" style="margin-bottom: var(--spacing-6); background: var(--color-bg); border-left: 4px solid var(--color-secondary);">
-          <div class="card-title" style="font-size: var(--font-size-base);">📜 Historical Background</div>
-          <p style="color: var(--color-text-secondary);">Dickens was heavily influenced by Thomas Carlyle's <em>The French Revolution: A History</em> (1837). While Dickens sympathized with the suffering of the French poor, he also warned against how easily the oppressed could become oppressors once power shifted. The novel warns against the dangers of social injustice, mob rule, and vengeance.</p>
-          <p style="margin-top: var(--spacing-2); color: var(--color-text-secondary);">The dual settings of London and Paris allowed Dickens to draw comparisons between the relative stability of England and the turmoil in revolutionary France.</p>
+        <!-- ====== SOCIAL BACKGROUND ====== -->
+        <h2 class="text-xl" style="color: var(--color-primary); text-align: center; margin-top: var(--spacing-8);">
+          🏛️ Social Background
+        </h2>
+        <p style="text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-4);">
+          The society in both cities was divided into two classes
+        </p>
+
+        <div class="social-grid">
+
+          <div class="social-card upper">
+            <span class="card-icon">👑</span>
+            <h3>Upper Class (Aristocrats)</h3>
+            <p>
+              Represented by kings, queens, and aristocrats. They lived in luxury and comfort, having complete rights and disregarding the lower class.
+            </p>
+            <span class="year" style="display: inline-block; margin-top: var(--spacing-2); background: rgba(242, 101, 34, 0.1); color: var(--color-primary); padding: 2px var(--spacing-3); border-radius: var(--radius-full); font-size: var(--font-size-xs);">
+              👑 Privileged
+            </span>
+          </div>
+
+          <div class="social-card lower">
+            <span class="card-icon">🌾</span>
+            <h3>Lower Class (The Mob)</h3>
+            <p>
+              Represented by poor peasants and common people. They lived in poverty, misery, and hunger, suffering from high taxes and unjust laws.
+            </p>
+            <span class="year" style="display: inline-block; margin-top: var(--spacing-2); background: rgba(124, 92, 252, 0.1); color: var(--color-accent-1); padding: 2px var(--spacing-3); border-radius: var(--radius-full); font-size: var(--font-size-xs);">
+              💪 Oppressed
+            </span>
+          </div>
+
         </div>
 
-        <!-- Navigation -->
+        <!-- ====== FUN FACTS ====== -->
+        <h2 class="text-xl" style="color: var(--color-primary); text-align: center; margin-top: var(--spacing-8);">
+          📊 Fun Facts
+        </h2>
+        <p style="text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-4);">
+          Quick facts about the novel
+        </p>
+
+        <div class="fun-facts">
+          <div class="fun-fact">
+            <span class="fact-icon">📅</span>
+            <div class="fact-number">1859</div>
+            <div class="fact-label">First Published</div>
+          </div>
+          <div class="fun-fact">
+            <span class="fact-icon">📖</span>
+            <div class="fact-number">45</div>
+            <div class="fact-label">Chapters</div>
+          </div>
+          <div class="fun-fact">
+            <span class="fact-icon">👤</span>
+            <div class="fact-number">14</div>
+            <div class="fact-label">Main Characters</div>
+          </div>
+          <div class="fun-fact">
+            <span class="fact-icon">🏆</span>
+            <div class="fact-number">#1</div>
+            <div class="fact-label">Best-Selling Dickens Novel</div>
+          </div>
+        </div>
+
+        <!-- ====== NAVIGATION ====== -->
         <div style="margin-top: var(--spacing-10); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--spacing-4);">
           <a href="index.html" class="btn btn-secondary">← Back to Novel</a>
           <a href="characters.html" class="btn btn-primary">Next: Characters →</a>
         </div>
 
+        <!-- Footer -->
         <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
           <p>© 2026 · Interactive E-Book · Novel: Introduction</p>
         </footer>
@@ -93,9 +716,73 @@
     </section>
   </main>
 
+  <!-- ====== SCRIPTS ====== -->
   <script src="../js/main.js"></script>
   <script src="../js/navigation.js"></script>
-  <script src="novel.js"></script>
+
+  <script>
+    // ============================================================
+    // Intersection Observer for animations
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', function() {
+
+      // --- Timeline items ---
+      const timelineItems = document.querySelectorAll('.infographic-item');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const delay = parseInt(entry.target.dataset.delay) || 0;
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, delay);
+            }
+          });
+        }, {
+          threshold: 0.15,
+          rootMargin: '0px 0px -50px 0px'
+        });
+        timelineItems.forEach(item => observer.observe(item));
+      } else {
+        timelineItems.forEach(item => item.classList.add('visible'));
+      }
+
+      // --- Fun facts ---
+      const funFacts = document.querySelectorAll('.fun-fact');
+      if ('IntersectionObserver' in window) {
+        const observer2 = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, index * 100);
+            }
+          });
+        }, { threshold: 0.3 });
+        funFacts.forEach(fact => observer2.observe(fact));
+      } else {
+        funFacts.forEach(fact => fact.classList.add('visible'));
+      }
+
+      // --- Social cards ---
+      const socialCards = document.querySelectorAll('.social-card');
+      if ('IntersectionObserver' in window) {
+        const observer3 = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, index * 200);
+            }
+          });
+        }, { threshold: 0.3 });
+        socialCards.forEach(card => observer3.observe(card));
+      } else {
+        socialCards.forEach(card => card.classList.add('visible'));
+      }
+
+    });
+  </script>
 
 </body>
 </html>
