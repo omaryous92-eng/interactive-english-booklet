@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Themes &amp; Symbols · A Tale of Two Cities</title>
+  <title>Themes & Symbols · A Tale of Two Cities</title>
 
   <!-- Global CSS -->
   <link rel="stylesheet" href="../css/colors.css">
@@ -15,11 +15,385 @@
   <link rel="stylesheet" href="../css/animations.css">
   <link rel="stylesheet" href="../css/responsive.css">
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ============================================================
+       Themes Page Specific Styles
+       ============================================================ */
+
+    /* ---------- Hero Section ---------- */
+    .themes-hero {
+      background: var(--gradient-header);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-8);
+      text-align: center;
+      color: #fff;
+      margin-bottom: var(--spacing-8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .themes-hero::before {
+      content: '🎯';
+      position: absolute;
+      font-size: 12rem;
+      opacity: 0.08;
+      right: -20px;
+      bottom: -40px;
+      transform: rotate(-10deg);
+    }
+
+    .themes-hero h1 {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-extrabold);
+      margin-bottom: var(--spacing-3);
+      position: relative;
+      z-index: 1;
+    }
+
+    .themes-hero p {
+      font-size: var(--font-size-lg);
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .themes-hero .badge-group {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-3);
+      flex-wrap: wrap;
+      margin-top: var(--spacing-4);
+      position: relative;
+      z-index: 1;
+    }
+
+    .themes-hero .badge-group .badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: var(--spacing-2) var(--spacing-4);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      backdrop-filter: blur(4px);
+    }
+
+    /* ---------- Section Titles ---------- */
+    .section-title {
+      text-align: center;
+      margin: var(--spacing-8) 0 var(--spacing-4) 0;
+    }
+
+    .section-title h2 {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      display: inline-block;
+      position: relative;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: var(--gradient-header);
+      border-radius: var(--radius-full);
+    }
+
+    .section-title p {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      margin-top: var(--spacing-3);
+    }
+
+    /* ---------- Themes Grid ---------- */
+    .themes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-6);
+      margin-top: var(--spacing-6);
+    }
+
+    .theme-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-slow);
+      position: relative;
+      overflow: hidden;
+      border-bottom: 5px solid var(--color-primary);
+      opacity: 0;
+      transform: translateY(40px) scale(0.95);
+      transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+                  transform 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+                  box-shadow 0.3s ease;
+      cursor: default;
+    }
+
+    .theme-card.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .theme-card:hover {
+      box-shadow: var(--shadow-xl);
+      transform: translateY(-8px) scale(1.02);
+    }
+
+    .theme-card .card-icon {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: var(--spacing-3);
+      transition: transform var(--transition-base);
+    }
+
+    .theme-card:hover .card-icon {
+      transform: scale(1.2) rotate(-5deg);
+    }
+
+    .theme-card .card-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .theme-card .card-desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+    }
+
+    .theme-card .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-2);
+      margin-top: var(--spacing-3);
+    }
+
+    .theme-card .tag {
+      padding: 2px var(--spacing-3);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+    }
+
+    /* Theme color variants */
+    .theme-card:nth-child(1) { border-bottom-color: var(--color-primary); }
+    .theme-card:nth-child(2) { border-bottom-color: var(--color-secondary); }
+    .theme-card:nth-child(3) { border-bottom-color: var(--color-accent-1); }
+    .theme-card:nth-child(4) { border-bottom-color: var(--color-accent-2); }
+    .theme-card:nth-child(5) { border-bottom-color: #34C759; }
+
+    .theme-card:nth-child(1) .card-icon { animation-delay: 0.1s; }
+    .theme-card:nth-child(2) .card-icon { animation-delay: 0.2s; }
+    .theme-card:nth-child(3) .card-icon { animation-delay: 0.3s; }
+    .theme-card:nth-child(4) .card-icon { animation-delay: 0.4s; }
+    .theme-card:nth-child(5) .card-icon { animation-delay: 0.5s; }
+
+    /* ---------- Symbols Grid ---------- */
+    .symbols-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--spacing-5);
+      margin-top: var(--spacing-6);
+    }
+
+    .symbol-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-5);
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      transition: all var(--transition-slow);
+      border: 2px solid var(--color-border);
+      opacity: 0;
+      transform: scale(0.9) rotate(2deg);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+      cursor: default;
+    }
+
+    .symbol-card.visible {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+
+    .symbol-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-6px) scale(1.03);
+      border-color: var(--color-primary);
+    }
+
+    .symbol-card .symbol-icon {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: var(--spacing-3);
+      transition: all var(--transition-base);
+    }
+
+    .symbol-card:hover .symbol-icon {
+      transform: scale(1.2) rotate(10deg);
+    }
+
+    .symbol-card .symbol-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .symbol-card .symbol-desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    .symbol-card .symbol-example {
+      font-style: italic;
+      font-size: var(--font-size-xs);
+      color: var(--color-primary);
+      background: rgba(242, 101, 34, 0.08);
+      padding: var(--spacing-2) var(--spacing-3);
+      border-radius: var(--radius-md);
+      margin-top: var(--spacing-2);
+      display: inline-block;
+    }
+
+    /* Symbol color variants */
+    .symbol-card:nth-child(1) { border-color: var(--color-primary); }
+    .symbol-card:nth-child(2) { border-color: var(--color-secondary); }
+    .symbol-card:nth-child(3) { border-color: var(--color-accent-1); }
+    .symbol-card:nth-child(4) { border-color: var(--color-accent-2); }
+    .symbol-card:nth-child(5) { border-color: #34C759; }
+
+    .symbol-card:nth-child(1) .symbol-icon { animation-delay: 0.1s; }
+    .symbol-card:nth-child(2) .symbol-icon { animation-delay: 0.2s; }
+    .symbol-card:nth-child(3) .symbol-icon { animation-delay: 0.3s; }
+    .symbol-card:nth-child(4) .symbol-icon { animation-delay: 0.4s; }
+    .symbol-card:nth-child(5) .symbol-icon { animation-delay: 0.5s; }
+
+    /* ---------- Floating decoration ---------- */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .float-icon {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* ---------- Pulse for icons ---------- */
+    @keyframes pulse-icon {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .pulse-icon {
+      animation: pulse-icon 2s ease-in-out infinite;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 768px) {
+      .themes-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .symbols-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .themes-hero h1 {
+        font-size: var(--font-size-2xl);
+      }
+
+      .themes-hero {
+        padding: var(--spacing-4);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .symbols-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .theme-card {
+        padding: var(--spacing-4);
+      }
+
+      .symbol-card {
+        padding: var(--spacing-3);
+      }
+    }
+
+    /* ---------- Scroll indicator ---------- */
+    .scroll-indicator {
+      text-align: center;
+      padding: var(--spacing-4);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      animation: bounce 2s ease-in-out infinite;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Header / Mobile Nav omitted -->
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../units/unit-1/index.html">Unit 1</a>
+        <a href="../units/unit-2/index.html">Unit 2</a>
+        <a href="../units/unit-3/index.html">Unit 3</a>
+        <a href="../units/unit-4/index.html">Unit 4</a>
+        <a href="index.html" class="active">Novel</a>
+        <a href="../poetry/index.html">Poetry</a>
+        <a href="../skills/index.html">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../units/unit-1/index.html">Unit 1: Jump for Joy</a>
+      <a href="../units/unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../units/unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../units/unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="index.html" class="active">📖 A Tale of Two Cities</a>
+      <a href="../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../skills/index.html">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
   <main class="main-content">
     <section class="section">
       <div class="container">
@@ -30,80 +404,238 @@
           <span class="separator"> › </span>
           <a href="index.html">Novel</a>
           <span class="separator"> › </span>
-          <span class="current">Themes</span>
+          <span class="current">Themes &amp; Symbols</span>
         </nav>
 
-        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
-          <h1 class="text-2xl" style="color: var(--color-primary);">🎯 Themes &amp; Symbols</h1>
-        </div>
-
-        <!-- Themes -->
-        <div class="card" style="margin-bottom: var(--spacing-6);">
-          <div class="card-header">
-            <div class="card-title">🔹 Major Themes</div>
-            <span class="badge badge-primary">Analysis</span>
-          </div>
-
-          <div style="margin-bottom: var(--spacing-4);">
-            <h3 style="color: var(--color-primary); font-weight: var(--font-weight-semibold);">1. Resurrection</h3>
-            <p style="color: var(--color-text-secondary);">Dr. Manette is "recalled to life" after 18 years in prison. Charles Darnay escapes the guillotine twice. Sydney Carton undergoes spiritual resurrection before his death, finding purpose and redemption through sacrifice.</p>
-          </div>
-
-          <div style="margin-bottom: var(--spacing-4);">
-            <h3 style="color: var(--color-accent-2); font-weight: var(--font-weight-semibold);">2. Self-Sacrifice and Selfishness</h3>
-            <p style="color: var(--color-text-secondary);">Villains are distinguished by their selfish cruelty (the Evremonde brothers, Madame Defarge). Heroes are defined by their willingness to sacrifice themselves for others (Sydney Carton, Dr. Manette).</p>
-          </div>
-
-          <div>
-            <h3 style="color: var(--color-accent-1); font-weight: var(--font-weight-semibold);">3. Revolution and Retribution</h3>
-            <p style="color: var(--color-text-secondary);">Dickens provides a vivid description of the Reign of Terror, portraying it as the inevitable outcome of years of tyranny by the French aristocracy. The novel warns against the dangers of mob rule and vengeance.</p>
+        <!-- ====== HERO SECTION ====== -->
+        <div class="themes-hero fade-in">
+          <h1>🎯 Themes &amp; Symbols</h1>
+          <p>
+            Explore the deeper meaning behind Dickens' masterpiece.<br>
+            <span style="font-size: var(--font-size-base); opacity: 0.8;">
+              Resurrection, sacrifice, revolution, and the symbols that bring them to life.
+            </span>
+          </p>
+          <div class="badge-group">
+            <span class="badge">🌱 Resurrection</span>
+            <span class="badge">🕊️ Sacrifice</span>
+            <span class="badge">⚔️ Revolution</span>
+            <span class="badge">🧶 Symbolism</span>
           </div>
         </div>
 
-        <!-- Symbols -->
-        <div class="card" style="margin-bottom: var(--spacing-6); background: var(--color-bg);">
-          <div class="card-header">
-            <div class="card-title">🔸 Symbols</div>
-            <span class="badge badge-accent">Meaning</span>
-          </div>
-
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-4);">
-            <div style="background: var(--color-surface); padding: var(--spacing-4); border-radius: var(--radius-md); border-left: 4px solid var(--color-primary);">
-              <strong style="color: var(--color-primary);">The Broken Wine Cask</strong>
-              <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Represents both blood and hunger — foreshadows the bloodshed of the revolution and symbolizes the desperation of the French people.</p>
-            </div>
-            <div style="background: var(--color-surface); padding: var(--spacing-4); border-radius: var(--radius-md); border-left: 4px solid var(--color-accent-2);">
-              <strong style="color: var(--color-accent-2);">The Guillotine</strong>
-              <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Symbol of both justice and horror. Becomes a tool of mass murder during the Revolution, representing the loss of moral direction.</p>
-            </div>
-            <div style="background: var(--color-surface); padding: var(--spacing-4); border-radius: var(--radius-md); border-left: 4px solid var(--color-accent-1);">
-              <strong style="color: var(--color-accent-1);">Madame Defarge's Knitting</strong>
-              <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Symbol of fate and vengeance. She knits the names of people to be executed, reflecting how personal hatred fuels political violence.</p>
-            </div>
-            <div style="background: var(--color-surface); padding: var(--spacing-4); border-radius: var(--radius-md); border-left: 4px solid var(--color-secondary);">
-              <strong style="color: var(--color-secondary);">Shadows and Darkness</strong>
-              <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Suggest secrecy, fear, and danger — representing the looming threat of violence or emotional torment.</p>
-            </div>
-          </div>
+        <!-- ====== SCROLL INDICATOR ====== -->
+        <div class="scroll-indicator fade-in">
+          ⬇️ Scroll down to explore the themes and symbols ⬇️
         </div>
 
-        <!-- Navigation -->
+        <!-- ====== THEMES ====== -->
+        <div class="section-title">
+          <h2>📌 Major Themes</h2>
+          <p>Hover over each card to learn more about the central ideas of the novel</p>
+        </div>
+
+        <div class="themes-grid" id="themesGrid">
+
+          <!-- Theme 1: Resurrection -->
+          <div class="theme-card">
+            <span class="card-icon pulse-icon">🌱</span>
+            <div class="card-title">Resurrection</div>
+            <p class="card-desc">
+              Dr. Manette is <strong>"recalled to life"</strong> after 18 years in prison. Charles Darnay escapes the guillotine twice. Sydney Carton undergoes spiritual resurrection before his death, finding purpose and redemption through sacrifice.
+            </p>
+            <div class="card-tags">
+              <span class="tag">Rebirth</span>
+              <span class="tag">Redemption</span>
+              <span class="tag">Hope</span>
+            </div>
+          </div>
+
+          <!-- Theme 2: Self-Sacrifice -->
+          <div class="theme-card">
+            <span class="card-icon pulse-icon">🕊️</span>
+            <div class="card-title">Self-Sacrifice</div>
+            <p class="card-desc">
+              Villains are defined by selfish cruelty (the Evrémonde brothers, Madame Defarge). Heroes are defined by their willingness to <strong>sacrifice themselves</strong> for others — Sydney Carton, Dr. Manette, and Miss Pross.
+            </p>
+            <div class="card-tags">
+              <span class="tag">Selflessness</span>
+              <span class="tag">Heroism</span>
+              <span class="tag">Love</span>
+            </div>
+          </div>
+
+          <!-- Theme 3: Revolution & Retribution -->
+          <div class="theme-card">
+            <span class="card-icon pulse-icon">⚔️</span>
+            <div class="card-title">Revolution &amp; Retribution</div>
+            <p class="card-desc">
+              Dickens portrays the <strong>Reign of Terror</strong> as the inevitable outcome of years of tyranny by the French aristocracy. The novel warns against the dangers of mob rule, vengeance, and the cycle of violence.
+            </p>
+            <div class="card-tags">
+              <span class="tag">Justice</span>
+              <span class="tag">Vengeance</span>
+              <span class="tag">Tyranny</span>
+            </div>
+          </div>
+
+          <!-- Theme 4: Justice & Injustice -->
+          <div class="theme-card">
+            <span class="card-icon pulse-icon">⚖️</span>
+            <div class="card-title">Justice &amp; Injustice</div>
+            <p class="card-desc">
+              Dickens criticizes both the <strong>corrupt French aristocracy</strong> and the <strong>brutal revolutionaries</strong>. Dr. Manette's wrongful imprisonment and the misuse of the guillotine show how systems of justice can become tools of oppression.
+            </p>
+            <div class="card-tags">
+              <span class="tag">Fairness</span>
+              <span class="tag">Oppression</span>
+              <span class="tag">Law</span>
+            </div>
+          </div>
+
+          <!-- Theme 5: Love & Loyalty -->
+          <div class="theme-card">
+            <span class="card-icon pulse-icon">❤️</span>
+            <div class="card-title">Love &amp; Loyalty</div>
+            <p class="card-desc">
+              Lucie Manette's devotion to her father and husband represents <strong>healing and hope</strong>. Loyalty is also seen in the friendship between Mr. Lorry and the Manettes, and Miss Pross's fierce protection of Lucie.
+            </p>
+            <div class="card-tags">
+              <span class="tag">Devotion</span>
+              <span class="tag">Family</span>
+              <span class="tag">Friendship</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ====== SYMBOLS ====== -->
+        <div class="section-title" style="margin-top: var(--spacing-12);">
+          <h2>🔮 Symbols</h2>
+          <p>Discover the hidden meanings behind the objects and images in the novel</p>
+        </div>
+
+        <div class="symbols-grid" id="symbolsGrid">
+
+          <!-- Symbol 1: Broken Wine Cask -->
+          <div class="symbol-card">
+            <span class="symbol-icon float-icon">🍷</span>
+            <div class="symbol-title">The Broken Wine Cask</div>
+            <p class="symbol-desc">
+              Early in the novel, a cask of wine breaks in the street and the poor rush to drink from it. The wine represents both <strong>blood and hunger</strong> — foreshadowing the bloodshed of the revolution.
+            </p>
+            <span class="symbol-example">💡 Symbolizes: Bloodshed &amp; Desperation</span>
+          </div>
+
+          <!-- Symbol 2: The Guillotine -->
+          <div class="symbol-card">
+            <span class="symbol-icon float-icon">⚔️</span>
+            <div class="symbol-title">The Guillotine</div>
+            <p class="symbol-desc">
+              Intended as a fair way to execute criminals, it becomes a tool of <strong>mass murder</strong> during the Revolution. It represents the loss of moral direction and the terrifying consequences of mob rule.
+            </p>
+            <span class="symbol-example">💡 Symbolizes: Justice Turned to Horror</span>
+          </div>
+
+          <!-- Symbol 3: Madame Defarge's Knitting -->
+          <div class="symbol-card">
+            <span class="symbol-icon float-icon">🧶</span>
+            <div class="symbol-title">Madame Defarge's Knitting</div>
+            <p class="symbol-desc">
+              She knits the names of those condemned to death. Her knitting symbolizes <strong>fate and vengeance</strong> — reflecting how personal hatred can fuel political violence.
+            </p>
+            <span class="symbol-example">💡 Symbolizes: Fate &amp; Vengeance</span>
+          </div>
+
+          <!-- Symbol 4: Shadows & Darkness -->
+          <div class="symbol-card">
+            <span class="symbol-icon float-icon">🌑</span>
+            <div class="symbol-title">Shadows &amp; Darkness</div>
+            <p class="symbol-desc">
+              Dickens uses images of darkness and shadows to suggest <strong>secrecy, fear, and danger</strong>. They often represent the looming threat of violence or emotional torment.
+            </p>
+            <span class="symbol-example">💡 Symbolizes: Fear &amp; Danger</span>
+          </div>
+
+          <!-- Symbol 5: Footsteps -->
+          <div class="symbol-card">
+            <span class="symbol-icon float-icon">👣</span>
+            <div class="symbol-title">Footsteps</div>
+            <p class="symbol-desc">
+              Footsteps are used to represent <strong>the future drawing near</strong>. Lucie often imagines footsteps echoing around her home, foreshadowing the arrival of the revolution.
+            </p>
+            <span class="symbol-example">💡 Symbolizes: The Approaching Future</span>
+          </div>
+
+        </div>
+
+        <!-- ====== NAVIGATION ====== -->
         <div style="margin-top: var(--spacing-10); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--spacing-4);">
           <a href="characters.html" class="btn btn-secondary">← Characters</a>
           <a href="chapter-1.html" class="btn btn-primary">Next: Chapter 1 →</a>
         </div>
 
+        <!-- Footer -->
         <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-          <p>© 2026 · Interactive E-Book · Novel: Themes</p>
+          <p>© 2026 · Interactive E-Book · Novel: Themes &amp; Symbols</p>
         </footer>
 
       </div>
     </section>
   </main>
 
+  <!-- ====== SCRIPTS ====== -->
   <script src="../js/main.js"></script>
   <script src="../js/navigation.js"></script>
-  <script src="novel.js"></script>
+
+  <script>
+    // ============================================================
+    // Intersection Observer for animations
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', function() {
+
+      // --- Themes ---
+      const themeCards = document.querySelectorAll('.theme-card');
+      if ('IntersectionObserver' in window) {
+        const observer1 = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, index * 150);
+            }
+          });
+        }, {
+          threshold: 0.15,
+          rootMargin: '0px 0px -50px 0px'
+        });
+        themeCards.forEach(card => observer1.observe(card));
+      } else {
+        themeCards.forEach(card => card.classList.add('visible'));
+      }
+
+      // --- Symbols ---
+      const symbolCards = document.querySelectorAll('.symbol-card');
+      if ('IntersectionObserver' in window) {
+        const observer2 = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, index * 120);
+            }
+          });
+        }, {
+          threshold: 0.15,
+          rootMargin: '0px 0px -50px 0px'
+        });
+        symbolCards.forEach(card => observer2.observe(card));
+      } else {
+        symbolCards.forEach(card => card.classList.add('visible'));
+      }
+
+    });
+  </script>
 
 </body>
 </html>
