@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grammar 1 · Past Perfect · Unit 3</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../css/colors.css">
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/navigation.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/animations.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ====== GRAMMAR VISUAL STYLES ====== */
+    .grammar-visual {
+      background: var(--color-bg);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-6);
+      margin-bottom: var(--spacing-6);
+      border-left: 5px solid var(--color-primary);
+    }
+
+    .grammar-visual .grammar-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      margin-bottom: var(--spacing-3);
+    }
+
+    /* ====== TIMELINE ====== */
+    .timeline-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--spacing-4) 0;
+      position: relative;
+      margin: var(--spacing-4) 0;
+    }
+
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 5%;
+      right: 5%;
+      height: 4px;
+      background: var(--color-border);
+      transform: translateY(-50%);
+      border-radius: var(--radius-full);
+    }
+
+    .timeline-point {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      flex: 1;
+    }
+
+    .timeline-point .dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      border: 3px solid var(--color-surface);
+      box-shadow: 0 0 0 3px var(--color-primary);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .timeline-point .dot.blue {
+      background: var(--color-accent-1);
+      box-shadow: 0 0 0 3px var(--color-accent-1);
+    }
+
+    .timeline-point .dot.gold {
+      background: var(--color-secondary);
+      box-shadow: 0 0 0 3px var(--color-secondary);
+    }
+
+    .timeline-point .label {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-secondary);
+      text-align: center;
+      max-width: 100px;
+    }
+
+    .timeline-point .label strong {
+      color: var(--color-text-primary);
+      display: block;
+    }
+
+    /* ====== COMPARISON TABLE ====== */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-6);
+      margin-top: var(--spacing-4);
+    }
+
+    .comparison-box {
+      padding: var(--spacing-4);
+      border-radius: var(--radius-lg);
+      border: 2px solid var(--color-border);
+      transition: all var(--transition-base);
+    }
+
+    .comparison-box:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .comparison-box.simple {
+      border-color: var(--color-primary);
+      background: rgba(242, 101, 34, 0.05);
+    }
+
+    .comparison-box.simple .box-title {
+      color: var(--color-primary);
+    }
+
+    .comparison-box.continuous {
+      border-color: var(--color-accent-1);
+      background: rgba(124, 92, 252, 0.05);
+    }
+
+    .comparison-box.continuous .box-title {
+      color: var(--color-accent-1);
+    }
+
+    .comparison-box .box-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--spacing-3);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-2);
+    }
+
+    .comparison-box ul {
+      list-style: disc;
+      padding-left: var(--spacing-5);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      line-height: 1.8;
+    }
+
+    .comparison-box ul li strong {
+      color: var(--color-text-primary);
+    }
+
+    .comparison-box .example {
+      background: var(--color-surface);
+      padding: var(--spacing-3);
+      border-radius: var(--radius-md);
+      margin-top: var(--spacing-3);
+      font-style: italic;
+      border-left: 3px solid var(--color-primary);
+      color: var(--color-text-primary);
+    }
+
+    .comparison-box.continuous .example {
+      border-left-color: var(--color-accent-1);
+    }
+
+    /* ====== TIME EXPRESSIONS TABLE ====== */
+    .time-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--font-size-sm);
+      margin-top: var(--spacing-3);
+    }
+
+    .time-table th {
+      background: var(--color-bg);
+      padding: var(--spacing-3);
+      text-align: left;
+      border-bottom: 2px solid var(--color-border);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+    }
+
+    .time-table td {
+      padding: var(--spacing-3);
+      border-bottom: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+    }
+
+    .time-table td strong {
+      color: var(--color-text-primary);
+    }
+
+    .time-table tr:hover td {
+      background: var(--color-bg);
+    }
+
+    /* ====== NOTES BOX ====== */
+    .notes-box {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-5);
+      border-left: 5px solid var(--color-secondary);
+      margin-top: var(--spacing-4);
+    }
+
+    .notes-box .notes-title {
+      font-weight: var(--font-weight-bold);
+      color: var(--color-secondary);
+      margin-bottom: var(--spacing-2);
+      font-size: var(--font-size-lg);
+    }
+
+    .notes-box .note-item {
+      padding: var(--spacing-2) var(--spacing-3);
+      background: var(--color-bg);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--spacing-2);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .notes-box .note-item strong {
+      color: var(--color-text-primary);
+    }
+
+    .notes-box .note-item .formula {
+      font-family: 'Courier New', monospace;
+      background: var(--color-surface);
+      padding: 2px var(--spacing-2);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border);
+      color: var(--color-primary);
+    }
+
+    /* ====== QUICK REFERENCE ====== */
+    .quick-ref-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-4);
+    }
+
+    .quick-ref-item {
+      padding: var(--spacing-3);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      text-align: center;
+    }
+
+    .quick-ref-item .icon {
+      font-size: 2rem;
+    }
+
+    .quick-ref-item .name {
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-sm);
+      margin-top: var(--spacing-1);
+    }
+
+    .quick-ref-item .use {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+      margin-top: var(--spacing-1);
+    }
+
+    .quick-ref-item .formula {
+      font-family: 'Courier New', monospace;
+      font-size: var(--font-size-xs);
+      background: var(--color-bg);
+      padding: var(--spacing-1) var(--spacing-2);
+      border-radius: var(--radius-sm);
+      margin-top: var(--spacing-1);
+      color: var(--color-primary);
+    }
+
+    .quick-ref-item.past {
+      border-color: var(--color-primary);
+      background: rgba(242, 101, 34, 0.05);
+    }
+
+    .quick-ref-item.past .name {
+      color: var(--color-primary);
+    }
+
+    .quick-ref-item.cont {
+      border-color: var(--color-accent-1);
+      background: rgba(124, 92, 252, 0.05);
+    }
+
+    .quick-ref-item.cont .name {
+      color: var(--color-accent-1);
+    }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 768px) {
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-ref-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-container {
+        flex-wrap: wrap;
+        gap: var(--spacing-4);
+        justify-content: center;
+      }
+
+      .timeline-container::before {
+        display: none;
+      }
+
+      .timeline-point {
+        flex: 0 0 auto;
+        width: 80px;
+      }
+
+      .grammar-visual {
+        padding: var(--spacing-4);
+      }
+
+      .time-table {
+        font-size: var(--font-size-xs);
+      }
+
+      .time-table th,
+      .time-table td {
+        padding: var(--spacing-2);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a href="index.html" class="active">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+        <a href="../../novel/index.html">Novel</a>
+        <a href="../../poetry/index.html">Poetry</a>
+        <a href="../../skills/index.html">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../unit-1/index.html">Unit 1: Jump for Joy</a>
+      <a href="../unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="index.html" class="active">Unit 3: Role Models</a>
+      <a href="../unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="../../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../../skills/index.html">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <!-- Breadcrumbs -->
+        <nav class="breadcrumbs">
+          <a href="../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Unit 3</a>
+          <span class="separator"> › </span>
+          <span class="current">Grammar 1</span>
+        </nav>
+
+        <!-- Page Header -->
+        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
+          <h1 class="text-2xl" style="color: var(--color-primary);">📖 Past Perfect vs Past Perfect Continuous</h1>
+          <p class="text-base" style="color: var(--color-text-secondary);">
+            Express actions completed before another past action, with duration and cause — with visual illustrations.
+          </p>
+          <div style="margin-top: var(--spacing-3); display: flex; gap: var(--spacing-2); flex-wrap: wrap;">
+            <span class="badge badge-primary">Past Perfect</span>
+            <span class="badge badge-accent">Past Perfect Continuous</span>
+            <span class="badge" style="background: var(--color-secondary); color: #0D1326;">Time Expressions</span>
+          </div>
+        </div>
+
+        <!-- ====== VISUAL TIMELINE ====== -->
+        <div class="grammar-visual">
+          <div class="grammar-title">⏳ Visual Timeline: Past Perfect Tenses</div>
+          <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-4);">
+            Understanding the relationship between past actions:
+          </p>
+
+          <div class="timeline-container">
+            <div class="timeline-point">
+              <div class="dot gold"></div>
+              <div class="label"><strong>Earlier Action</strong>Past Perfect<br><small>Had + V3</small></div>
+            </div>
+            <div class="timeline-point">
+              <div class="dot"></div>
+              <div class="label"><strong>⬆ Interruption</strong>Later Action<br><small>Past Simple</small></div>
+            </div>
+            <div class="timeline-point">
+              <div class="dot blue"></div>
+              <div class="label"><strong>⏳ Duration</strong>Ongoing before<br><small>Past Perfect Continuous</small></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== PAST PERFECT ====== -->
+        <div class="grammar-visual">
+          <div class="grammar-title">✅ Past Perfect</div>
+          <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-3);">
+            <strong>Form:</strong> had + past participle
+          </p>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--spacing-3); margin-bottom: var(--spacing-3);">
+            <div style="background: var(--color-surface); padding: var(--spacing-3); border-radius: var(--radius-md); border-left: 4px solid var(--color-primary);">
+              <strong style="color: var(--color-primary);">Positive</strong>
+              <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
+                <em>I had finished my homework.</em>
+              </div>
+            </div>
+            <div style="background: var(--color-surface); padding: var(--spacing-3); border-radius: var(--radius-md); border-left: 4px solid var(--color-accent-1);">
+              <strong style="color: var(--color-accent-1);">Negative</strong>
+              <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
+                <em>She hadn't eaten breakfast.</em>
+              </div>
+            </div>
+            <div style="background: var(--color-surface); padding: var(--spacing-3); border-radius: var(--radius-md); border-left: 4px solid var(--color-secondary);">
+              <strong style="color: var(--color-secondary);">Question</strong>
+              <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
+                <em>Had you seen the film before?</em>
+              </div>
+            </div>
+          </div>
+
+          <ul style="list-style: disc; padding-left: var(--spacing-5); color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+            <li><strong>Action completed before another past action</strong> — <em>I met them after they had divorced each other.</em></li>
+            <li><strong>Two events in the past that are linked</strong> — <em>I couldn't take my flight because I had forgotten my boarding pass.</em></li>
+            <li><strong>Result of an activity in the past</strong> — <em>I had been to London twice by the time I got a job in New York.</em></li>
+          </ul>
+        </div>
+
+        <!-- ====== PAST PERFECT CONTINUOUS ====== -->
+        <div class="grammar-visual" style="border-left-color: var(--color-accent-1); background: rgba(124, 92, 252, 0.05);">
+          <div class="grammar-title" style="color: var(--color-accent-1);">🔄 Past Perfect Continuous</div>
+          <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-3);">
+            <strong>Form:</strong> had been + verb-ing
+          </p>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--spacing-3); margin-bottom: var(--spacing-3);">
+            <div style="background: var(--color-surface); padding: var(--spacing-3); border-radius: var(--radius-md); border-left: 4px solid var(--color-accent-1);">
+              <strong style="color: var(--color-accent-1);">Positive</strong>
+              <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
+                <em>I had been working for hours.</em>
+              </div>
+            </div>
+            <div style="background: var(--color-surface); padding: var(--spacing-3); border-radius: var(--radius-md); border-left: 4px solid var(--color-accent-2);">
+              <strong style="color: var(--color-accent-2);">Negative</strong>
+              <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
+                <em>She hadn't been sleeping well.</em>
+              </div>
+            </div>
+            <div style="background: var(--color-surface); padding: var(--spacing-3); border-radius: var(--radius-md); border-left: 4px solid var(--color-secondary);">
+              <strong style="color: var(--color-secondary);">Question</strong>
+              <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
+                <em>Had you been waiting long?</em>
+              </div>
+            </div>
+          </div>
+
+          <ul style="list-style: disc; padding-left: var(--spacing-5); color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+            <li><strong>Emphasize the duration of an activity</strong> — <em>Richard needed a holiday because he had been working hard for six months.</em></li>
+            <li><strong>Show the cause of a past action</strong> — <em>I had been travelling all night, so I was tired.</em></li>
+            <li><strong>Action that started in the past and continued to another past action</strong> — <em>Sara had been working here for two weeks when she had the accident.</em></li>
+          </ul>
+        </div>
+
+        <!-- ====== COMPARISON TABLE ====== -->
+        <h2 class="text-xl" style="margin-top: var(--spacing-8); margin-bottom: var(--spacing-4); color: var(--color-primary);">
+          📊 Comparison: Past Perfect vs Past Perfect Continuous
+        </h2>
+
+        <div class="comparison-grid">
+
+          <div class="comparison-box simple">
+            <div class="box-title">✅ Past Perfect</div>
+            <ul>
+              <li><strong>Completed action</strong> — before another past action</li>
+              <li><strong>Result</strong> — of a past activity</li>
+              <li><strong>Linked events</strong> — cause and effect</li>
+            </ul>
+            <div class="example">"I had finished my homework."</div>
+            <div class="example">"I had been to London twice."</div>
+          </div>
+
+          <div class="comparison-box continuous">
+            <div class="box-title">🔄 Past Perfect Continuous</div>
+            <ul>
+              <li><strong>Duration</strong> — how long an action lasted</li>
+              <li><strong>Cause</strong> — of a past situation</li>
+              <li><strong>Ongoing</strong> — action continued until another past action</li>
+            </ul>
+            <div class="example">"I had been doing my homework for 2 hours."</div>
+            <div class="example">"I was tired because I had been working."</div>
+          </div>
+
+        </div>
+
+        <!-- ====== TIME EXPRESSIONS ====== -->
+        <h2 class="text-xl" style="margin-top: var(--spacing-8); margin-bottom: var(--spacing-4); color: var(--color-primary);">
+          ⏰ Time Expressions
+        </h2>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📊 Time Expressions Table</div>
+            <span class="badge badge-primary">Quick Reference</span>
+          </div>
+          <table class="time-table">
+            <thead>
+              <tr>
+                <th>Expression</th>
+                <th>Structure</th>
+                <th>Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>After</strong></td>
+                <td>past perfect, past simple</td>
+                <td><em>"After he had had his lunch, he watched the television."</em></td>
+              </tr>
+              <tr>
+                <td><strong>As soon as</strong></td>
+                <td>past perfect, past simple</td>
+                <td><em>"As soon as she had finished, she left."</em></td>
+              </tr>
+              <tr>
+                <td><strong>Because</strong></td>
+                <td>past perfect, past simple</td>
+                <td><em>"I was tired because I had been working."</em></td>
+              </tr>
+              <tr>
+                <td><strong>Before</strong></td>
+                <td>past simple, past perfect</td>
+                <td><em>"Before I went to the club, I had called my sister."</em></td>
+              </tr>
+              <tr>
+                <td><strong>By the time</strong></td>
+                <td>past simple, past perfect</td>
+                <td><em>"By the time we arrived, the film had started."</em></td>
+              </tr>
+              <tr>
+                <td><strong>When</strong></td>
+                <td>past simple, past perfect</td>
+                <td><em>"When I got home, she had already left."</em></td>
+              </tr>
+              <tr>
+                <td><strong>Until / Till</strong></td>
+                <td>negative past simple, past perfect</td>
+                <td><em>"I didn't go to bed until I had finished my work."</em></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ====== NOTES ====== -->
+        <div class="notes-box">
+          <div class="notes-title">📝 Notes</div>
+
+          <div class="note-item">
+            <strong>1. After and before</strong> can be followed by <strong>verb+ing</strong> form.
+            <br>
+            <span class="formula">After having his lunch, he watched the television.</span>
+          </div>
+
+          <div class="note-item">
+            <strong>2. Having + past participle</strong> = After
+            <br>
+            <span class="formula">Having had his lunch, he watched the television.</span>
+          </div>
+
+          <div class="note-item">
+            <strong>3. Negative past simple + until/till + past perfect</strong>
+            <br>
+            <span class="formula">I didn't watch the television until I had had my lunch.</span>
+          </div>
+        </div>
+
+        <!-- ====== QUICK REFERENCE CARD ====== -->
+        <div class="grammar-visual" style="border-left-color: var(--color-secondary); background: rgba(255, 184, 48, 0.08);">
+          <div class="grammar-title">📌 Quick Reference Card</div>
+          <div class="quick-ref-grid">
+            <div class="quick-ref-item past">
+              <div class="icon">✅</div>
+              <div class="name">Past Perfect</div>
+              <div class="formula">had + V3</div>
+              <div class="use">Completed action before another past action</div>
+            </div>
+            <div class="quick-ref-item cont">
+              <div class="icon">⏳</div>
+              <div class="name">Past Perfect Continuous</div>
+              <div class="formula">had been + V-ing</div>
+              <div class="use">Duration / Cause of a past action</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== EXTRA EXAMPLES ====== -->
+        <div class="grammar-visual" style="border-left-color: var(--color-accent-2); background: rgba(234, 88, 12, 0.05);">
+          <div class="grammar-title">💡 More Examples</div>
+          <ul style="list-style: disc; padding-left: var(--spacing-5); color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+            <li><em>"She had been sleeping for ten hours when I woke her."</em></li>
+            <li><em>"They had been living in Beijing for three years when he lost his job."</em></li>
+            <li><em>"I had to have a break. I had been driving so long."</em></li>
+            <li><em>"His English was perfect. He had been studying it since he started school."</em></li>
+          </ul>
+        </div>
+
+        <!-- ====== Practice Questions Button ====== -->
+        <div style="margin-top: var(--spacing-10); text-align: center; padding: var(--spacing-6); background: var(--color-bg); border-radius: var(--radius-lg); border: 2px dashed var(--color-primary);">
+          <h3 style="color: var(--color-primary); font-size: var(--font-size-lg);">📝 Practice Questions</h3>
+          <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">Test your understanding with interactive questions from the booklet.</p>
+          <a href="exercises/index.html" class="btn btn-primary" style="margin-top: var(--spacing-3);">
+            🚀 Start Exercises
+          </a>
+        </div>
+
+        <!-- Navigation -->
+        <div style="margin-top: var(--spacing-8); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--spacing-4);">
+          <a href="vocabulary-1.html" class="btn btn-secondary">← Vocabulary</a>
+          <a href="grammar-2.html" class="btn btn-primary">Next: Grammar 2 →</a>
+        </div>
+
+        <!-- Footer -->
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 3 · Grammar 1</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="../../js/main.js"></script>
+  <script src="../../js/navigation.js"></script>
+  <script src="unit.js"></script>
+
+</body>
+</html>
