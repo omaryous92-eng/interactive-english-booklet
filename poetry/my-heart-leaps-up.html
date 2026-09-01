@@ -15,11 +15,558 @@
   <link rel="stylesheet" href="../css/animations.css">
   <link rel="stylesheet" href="../css/responsive.css">
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ============================================================
+       Poem Page Specific Styles
+       ============================================================ */
+
+    /* ---------- Hero Section ---------- */
+    .poem-hero {
+      background: var(--gradient-header);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-8);
+      text-align: center;
+      color: #fff;
+      margin-bottom: var(--spacing-8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .poem-hero::before {
+      content: '🌅';
+      position: absolute;
+      font-size: 12rem;
+      opacity: 0.08;
+      right: -20px;
+      bottom: -40px;
+      transform: rotate(-10deg);
+    }
+
+    .poem-hero h1 {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-extrabold);
+      margin-bottom: var(--spacing-3);
+      position: relative;
+      z-index: 1;
+    }
+
+    .poem-hero p {
+      font-size: var(--font-size-lg);
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .poem-hero .badge-group {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-3);
+      flex-wrap: wrap;
+      margin-top: var(--spacing-4);
+      position: relative;
+      z-index: 1;
+    }
+
+    .poem-hero .badge-group .badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: var(--spacing-2) var(--spacing-4);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      backdrop-filter: blur(4px);
+    }
+
+    /* ---------- Poet Biography ---------- */
+    .poet-bio {
+      background: var(--color-bg);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      margin-bottom: var(--spacing-8);
+      border-left: 6px solid var(--color-primary);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-6);
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .poet-bio.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .poet-bio .bio-icon {
+      font-size: 4rem;
+      flex-shrink: 0;
+      animation: float-icon 3s ease-in-out infinite;
+    }
+
+    .poet-bio .bio-content h3 {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      margin-bottom: var(--spacing-1);
+    }
+
+    .poet-bio .bio-content .bio-years {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .poet-bio .bio-content p {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .poet-bio .bio-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-2);
+      margin-top: var(--spacing-3);
+    }
+
+    .poet-bio .tag {
+      padding: 2px var(--spacing-3);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+    }
+
+    .poet-bio .tag.primary {
+      background: rgba(242, 101, 34, 0.1);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .poet-bio .tag.accent {
+      background: rgba(124, 92, 252, 0.1);
+      border-color: var(--color-accent-1);
+      color: var(--color-accent-1);
+    }
+
+    /* ---------- Poem Text ---------- */
+    .poem-text {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: var(--font-size-lg);
+      line-height: 2.2;
+      color: var(--color-text-primary);
+      border: 2px solid var(--color-border);
+      transition: all var(--transition-base);
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.3s ease;
+    }
+
+    .poem-text.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .poem-text:hover {
+      box-shadow: var(--shadow-lg);
+    }
+
+    .poem-text .poem-line {
+      display: block;
+    }
+
+    .poem-text .poem-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      margin-bottom: var(--spacing-3);
+      font-family: var(--font-family-heading);
+    }
+
+    .poem-text .poem-author {
+      font-size: var(--font-size-base);
+      color: var(--color-text-secondary);
+      font-family: var(--font-family);
+      margin-top: var(--spacing-3);
+    }
+
+    /* ---------- Section Titles ---------- */
+    .section-title {
+      text-align: center;
+      margin: var(--spacing-8) 0 var(--spacing-4) 0;
+    }
+
+    .section-title h2 {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      display: inline-block;
+      position: relative;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: var(--gradient-header);
+      border-radius: var(--radius-full);
+    }
+
+    .section-title p {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      margin-top: var(--spacing-3);
+    }
+
+    /* ---------- Vocabulary Grid ---------- */
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--spacing-4);
+      margin-top: var(--spacing-6);
+    }
+
+    .vocab-item {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-4);
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      transition: all var(--transition-slow);
+      border-bottom: 4px solid var(--color-primary);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+    }
+
+    .vocab-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .vocab-item:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px) scale(1.02);
+    }
+
+    .vocab-item .vocab-word {
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-lg);
+      color: var(--color-primary);
+      display: block;
+    }
+
+    .vocab-item .vocab-meaning {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-top: var(--spacing-1);
+    }
+
+    /* ---------- Paraphrase Box ---------- */
+    .paraphrase-box {
+      background: var(--color-bg);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      border-left: 6px solid var(--color-secondary);
+      margin: var(--spacing-6) 0;
+      opacity: 0;
+      transform: translateX(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .paraphrase-box.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .paraphrase-box h3 {
+      color: var(--color-secondary);
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--spacing-3);
+    }
+
+    .paraphrase-box p {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+    }
+
+    /* ---------- Literary Terms Grid ---------- */
+    .literary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-5);
+      margin-top: var(--spacing-6);
+    }
+
+    .literary-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-5);
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-slow);
+      border-bottom: 5px solid var(--color-accent-1);
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+      transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.3s ease;
+    }
+
+    .literary-card.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .literary-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-6px) scale(1.02);
+    }
+
+    .literary-card .lit-icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: var(--spacing-2);
+      animation: pulse-icon 2s ease-in-out infinite;
+    }
+
+    .literary-card .lit-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .literary-card .lit-example {
+      font-style: italic;
+      font-size: var(--font-size-sm);
+      color: var(--color-primary);
+      background: rgba(242, 101, 34, 0.08);
+      padding: var(--spacing-2) var(--spacing-3);
+      border-radius: var(--radius-md);
+      display: inline-block;
+      margin-bottom: var(--spacing-2);
+    }
+
+    .literary-card .lit-desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    /* Color variants */
+    .literary-card:nth-child(1) { border-bottom-color: var(--color-primary); }
+    .literary-card:nth-child(2) { border-bottom-color: var(--color-secondary); }
+    .literary-card:nth-child(3) { border-bottom-color: var(--color-accent-2); }
+    .literary-card:nth-child(4) { border-bottom-color: var(--color-accent-1); }
+    .literary-card:nth-child(5) { border-bottom-color: #34C759; }
+
+    .literary-card:nth-child(1) .lit-icon { animation-delay: 0.1s; }
+    .literary-card:nth-child(2) .lit-icon { animation-delay: 0.15s; }
+    .literary-card:nth-child(3) .lit-icon { animation-delay: 0.2s; }
+    .literary-card:nth-child(4) .lit-icon { animation-delay: 0.25s; }
+    .literary-card:nth-child(5) .lit-icon { animation-delay: 0.3s; }
+
+    /* ---------- Notes Box ---------- */
+    .notes-box {
+      background: var(--color-bg);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      border-left: 6px solid var(--color-accent-1);
+      margin: var(--spacing-6) 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .notes-box.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .notes-box h3 {
+      color: var(--color-accent-1);
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--spacing-3);
+    }
+
+    .notes-box ul {
+      list-style: disc;
+      padding-left: var(--spacing-5);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      line-height: 2;
+    }
+
+    .notes-box ul li strong {
+      color: var(--color-text-primary);
+    }
+
+    /* ---------- Questions Box ---------- */
+    .questions-box {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      box-shadow: var(--shadow-sm);
+      border: 2px solid var(--color-border);
+      margin: var(--spacing-6) 0;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.3s ease;
+    }
+
+    .questions-box.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .questions-box:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .questions-box h3 {
+      color: var(--color-primary);
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--spacing-3);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-2);
+    }
+
+    .questions-box ol {
+      list-style: decimal;
+      padding-left: var(--spacing-5);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      line-height: 2;
+    }
+
+    /* ---------- Animations ---------- */
+    @keyframes pulse-icon {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes float-icon {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* ---------- Scroll indicator ---------- */
+    .scroll-indicator {
+      text-align: center;
+      padding: var(--spacing-4);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 768px) {
+      .poet-bio {
+        flex-direction: column;
+        text-align: center;
+        padding: var(--spacing-4);
+      }
+
+      .poem-text {
+        font-size: var(--font-size-base);
+        padding: var(--spacing-4);
+      }
+
+      .literary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .vocab-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .poem-hero h1 {
+        font-size: var(--font-size-2xl);
+      }
+
+      .poem-hero {
+        padding: var(--spacing-4);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .vocab-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .poet-bio .bio-icon {
+        font-size: 3rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Header / Mobile Nav omitted (same as previous) -->
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../units/unit-1/index.html">Unit 1</a>
+        <a href="../units/unit-2/index.html">Unit 2</a>
+        <a href="../units/unit-3/index.html">Unit 3</a>
+        <a href="../units/unit-4/index.html">Unit 4</a>
+        <a href="../novel/index.html">Novel</a>
+        <a href="index.html" class="active">Poetry</a>
+        <a href="../skills/index.html">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../units/unit-1/index.html">Unit 1: Jump for Joy</a>
+      <a href="../units/unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../units/unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../units/unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="index.html" class="active">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../skills/index.html">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
   <main class="main-content">
     <section class="section">
       <div class="container">
@@ -33,140 +580,175 @@
           <span class="current">"My Heart Leaps Up"</span>
         </nav>
 
-        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
-          <h1 class="text-2xl" style="color: var(--color-primary);">🌅 "My Heart Leaps Up"</h1>
-          <p class="text-base" style="color: var(--color-text-secondary);">by <strong>William Wordsworth</strong></p>
-        </div>
-
-        <!-- The Poem -->
-        <div class="card" style="margin-bottom: var(--spacing-6);">
-          <div class="card-header">
-            <div class="card-title">📜 The Poem</div>
-            <span class="badge badge-primary">Romantic</span>
-          </div>
-          <div class="poem-text">
-My heart leaps up when I behold
-A rainbow in the sky;
-So was it when my life began;
-So is it now I am a man;
-So be it when I shall grow old,
-Or let me die!
-
-The Child is father of the Man;
-
-And I could wish my days to be
-Bound each to each by natural piety.
+        <!-- ====== HERO SECTION ====== -->
+        <div class="poem-hero fade-in">
+          <h1>🌅 "My Heart Leaps Up"</h1>
+          <p>
+            by <strong>William Wordsworth</strong>
+          </p>
+          <div class="badge-group">
+            <span class="badge">📜 Romantic</span>
+            <span class="badge">🌿 Nature</span>
+            <span class="badge">💡 9 Lines</span>
+            <span class="badge">⭐ 1802</span>
           </div>
         </div>
 
-        <!-- Vocabulary -->
-        <div class="card" style="margin-bottom: var(--spacing-6); background: var(--color-bg); border-left: 4px solid var(--color-secondary);">
-          <div class="card-title" style="font-size: var(--font-size-base);">📖 Vocabulary</div>
-          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: var(--spacing-2);">
-            <div><strong>Rainbow</strong></div>
-            <div style="color: var(--color-text-secondary);">an arch of different colours that sometimes appears in the sky opposite the sun after rain</div>
-            <div><strong>Leaps</strong></div>
-            <div style="color: var(--color-text-secondary);">jumps</div>
-            <div><strong>Behold</strong></div>
-            <div style="color: var(--color-text-secondary);">see</div>
-            <div><strong>Bound</strong></div>
-            <div style="color: var(--color-text-secondary);">joined together</div>
-            <div><strong>Piety</strong></div>
-            <div style="color: var(--color-text-secondary);">the showing and the feeling of deep respect for God</div>
+        <!-- ====== SCROLL INDICATOR ====== -->
+        <div class="scroll-indicator fade-in">
+          ⬇️ Scroll down to explore the poem ⬇️
+        </div>
+
+        <!-- ====== POET BIOGRAPHY ====== -->
+        <div class="poet-bio" id="poetBio">
+          <div class="bio-icon">📜</div>
+          <div class="bio-content">
+            <h3>William Wordsworth</h3>
+            <div class="bio-years">📅 1770 – 1850</div>
+            <p>
+              William Wordsworth was a major English Romantic poet who helped to launch the Romantic Age in English Literature. He is best known for his love of nature and his belief in the spiritual power of the natural world. His poetry often explores the relationship between humans and nature, memory, and childhood.
+            </p>
+            <div class="bio-tags">
+              <span class="tag primary">Lake District</span>
+              <span class="tag accent">Romantic Poet</span>
+              <span class="tag">Nature Lover</span>
+              <span class="tag">Poet Laureate</span>
+            </div>
           </div>
         </div>
 
-        <!-- Paraphrase -->
-        <div class="card" style="margin-bottom: var(--spacing-6);">
-          <div class="card-header">
-            <div class="card-title">📝 Paraphrase</div>
-            <span class="badge badge-accent">Explanation</span>
+        <!-- ====== POEM TEXT ====== -->
+        <div class="poem-text" id="poemText">
+          <div class="poem-title">My Heart Leaps Up</div>
+          <span class="poem-line">My heart leaps up when I behold</span>
+          <span class="poem-line">A rainbow in the sky;</span>
+          <span class="poem-line">So was it when my life began;</span>
+          <span class="poem-line">So is it now I am a man;</span>
+          <span class="poem-line">So be it when I shall grow old,</span>
+          <span class="poem-line">Or let me die!</span>
+          <span class="poem-line" style="margin-top: var(--spacing-3); font-weight: var(--font-weight-bold); color: var(--color-primary);">
+            The Child is father of the Man;
+          </span>
+          <span class="poem-line">And I could wish my days to be</span>
+          <span class="poem-line">Bound each to each by natural piety.</span>
+          <div class="poem-author">— William Wordsworth</div>
+        </div>
+
+        <!-- ====== VOCABULARY ====== -->
+        <div class="section-title">
+          <h2>📖 Vocabulary</h2>
+          <p>Key words and their meanings</p>
+        </div>
+
+        <div class="vocab-grid" id="vocabGrid">
+          <div class="vocab-item">
+            <span class="vocab-word">Rainbow</span>
+            <span class="vocab-meaning">an arch of different colours that sometimes appears in the sky</span>
           </div>
-          <p style="color: var(--color-text-secondary);">
+          <div class="vocab-item">
+            <span class="vocab-word">Leaps</span>
+            <span class="vocab-meaning">jumps</span>
+          </div>
+          <div class="vocab-item">
+            <span class="vocab-word">Behold</span>
+            <span class="vocab-meaning">see</span>
+          </div>
+          <div class="vocab-item">
+            <span class="vocab-word">Bound</span>
+            <span class="vocab-meaning">joined together</span>
+          </div>
+          <div class="vocab-item">
+            <span class="vocab-word">Piety</span>
+            <span class="vocab-meaning">the showing and the feeling of deep respect for God</span>
+          </div>
+        </div>
+
+        <!-- ====== PARAPHRASE ====== -->
+        <div class="paraphrase-box" id="paraphraseBox">
+          <h3>📝 Paraphrase</h3>
+          <p>
             In these lines, the poet is describing his happiness when he sees a rainbow in the sky. The poet's love for nature is reflected in these lines. He talks about himself in connection with nature. He says we acquire our love for nature as we grow up. He compares the continuity of this natural phenomenon (rainbow) to the continuity of man's life.
           </p>
-          <p style="color: var(--color-text-secondary); margin-top: var(--spacing-3);">
+          <p style="margin-top: var(--spacing-2);">
             The seventh line sums up this idea with a kind of philosophy: <strong>"The Child is father of the Man."</strong>
           </p>
-          <p style="color: var(--color-text-secondary); margin-top: var(--spacing-3);">
+          <p style="margin-top: var(--spacing-2);">
             In the last two lines, the poet sums up his love for nature saying: I wish my days to be linked together in harmony with the beauty of nature and love and respect for God. As long as he remembers nature, he feels happy.
           </p>
         </div>
 
-        <!-- Literary Terms -->
-        <div class="card" style="margin-bottom: var(--spacing-6); background: var(--color-bg); border-left: 4px solid var(--color-accent-1);">
-          <div class="card-title" style="font-size: var(--font-size-base);">🔍 Literary Terms</div>
-          
-          <div style="margin-bottom: var(--spacing-4);">
-            <strong style="color: var(--color-primary);">1. Personification</strong>
-            <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-              <em>"My heart leaps up when I behold"</em>
-            </p>
-            <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+        <!-- ====== LITERARY TERMS ====== -->
+        <div class="section-title" style="margin-top: var(--spacing-10);">
+          <h2>🔍 Literary Terms</h2>
+          <p>Figures of speech used in the poem</p>
+        </div>
+
+        <div class="literary-grid" id="literaryGrid">
+
+          <div class="literary-card">
+            <span class="lit-icon">🎭</span>
+            <div class="lit-title">Personification</div>
+            <span class="lit-example">"My heart leaps up when I behold"</span>
+            <p class="lit-desc">
               The poet gives the heart a human feature and depicts it as a man who can jump with joy. The poet is comparing his happiness when he sees the rainbow to a person jumping through the air.
             </p>
           </div>
 
-          <div style="margin-bottom: var(--spacing-4);">
-            <strong style="color: var(--color-secondary);">2. Repetition</strong>
-            <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-              <em>"So was it when my life began; / So is it now I am a man; / So be it when I shall grow old,"</em>
-            </p>
-            <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-              The word "so" is repeated three times.
-            </p>
-          </div>
-
-          <div style="margin-bottom: var(--spacing-4);">
-            <strong style="color: var(--color-accent-2);">3. Contrast</strong>
-            <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-              There is a contrast in the meaning between:
-              <br>
-              <em>"So was it when my life began; / So is it now I am a man; / So be it when I shall grow old, / Or let me die!"</em>
+          <div class="literary-card">
+            <span class="lit-icon">🔁</span>
+            <div class="lit-title">Repetition</div>
+            <span class="lit-example">"So was it when my life began; / So is it now I am a man; / So be it when I shall grow old,"</span>
+            <p class="lit-desc">
+              The word <strong>"so"</strong> is repeated three times to emphasize the continuity of the poet's love for nature throughout his life.
             </p>
           </div>
 
-          <div style="margin-bottom: var(--spacing-4);">
-            <strong style="color: var(--color-accent-1);">4. Metaphor</strong>
-            <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-              <em>"And I could wish my days to be / Bound each to each by natural piety"</em>
-            </p>
-            <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-              The poet gives life the image of a chain which is joined.
+          <div class="literary-card">
+            <span class="lit-icon">⚡</span>
+            <div class="lit-title">Contrast</div>
+            <span class="lit-example">"So was it when my life began; / So is it now I am a man; / So be it when I shall grow old, / Or let me die!"</span>
+            <p class="lit-desc">
+              There is a contrast between the different stages of life: childhood, adulthood, and old age — emphasizing the poet's enduring love for nature.
             </p>
           </div>
 
-          <div>
-            <strong style="color: var(--color-primary);">5. Paradox</strong>
-            <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-              <em>"The Child is father of the Man"</em>
-            </p>
-            <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-              The poet uses a statement which seems to be self-contradictory and absurd, yet turns out to have a reasonable and sensible meaning.
+          <div class="literary-card">
+            <span class="lit-icon">🔄</span>
+            <div class="lit-title">Metaphor</div>
+            <span class="lit-example">"And I could wish my days to be / Bound each to each by natural piety"</span>
+            <p class="lit-desc">
+              The poet gives life the image of a chain which is joined. Each day is linked to the next through a love of nature and respect for God.
             </p>
           </div>
+
+          <div class="literary-card">
+            <span class="lit-icon">💡</span>
+            <div class="lit-title">Paradox</div>
+            <span class="lit-example">"The Child is father of the Man"</span>
+            <p class="lit-desc">
+              A statement which seems self-contradictory and absurd, yet turns out to have a reasonable and sensible meaning. It suggests that childhood experiences shape the adult we become.
+            </p>
+          </div>
+
         </div>
 
-        <!-- Notes & Analysis -->
-        <div class="card" style="margin-bottom: var(--spacing-6);">
-          <div class="card-header">
-            <div class="card-title">💡 Notes &amp; Analysis</div>
-            <span class="badge badge-primary">Theme</span>
-          </div>
-          <ul style="list-style: disc; padding-left: var(--spacing-6); color: var(--color-text-secondary);">
-            <li>The poet describes the beauty of the rainbow and the cycle of life.</li>
-            <li>The poet sums up his philosophy of life. He believes that every human being is influenced by his childhood and that <strong>the child is man's father</strong>.</li>
-            <li>The rainbow represented the <strong>cycle of life</strong>.</li>
-            <li>The poet compares a man's life that ends to the rainbow that never ends as it is eternal.</li>
-            <li>The poet's wish for life is to live happily with the beauty of nature in respect to God.</li>
-            <li>He thinks that life is like a cycle, like the rainbow, and we should spend our lives in respect to God.</li>
+        <!-- ====== NOTES & ANALYSIS ====== -->
+        <div class="notes-box" id="notesBox">
+          <h3>💡 Notes &amp; Analysis</h3>
+          <ul>
+            <li>The poet describes the <strong>beauty of the rainbow</strong> and the <strong>cycle of life</strong>.</li>
+            <li>The poet sums up his philosophy of life. He believes that every human being is influenced by his childhood and that <strong>"the child is man's father"</strong>.</li>
+            <li>The rainbow represents the <strong>cycle of life</strong> — it is eternal and never ends.</li>
+            <li>The poet compares a man's life that ends to the rainbow that never ends as it is <strong>eternal</strong>.</li>
+            <li>The poet's wish for life is to live happily with the <strong>beauty of nature</strong> in respect to God.</li>
+            <li>He thinks that life is like a cycle, like the rainbow, and we should spend our lives in <strong>respect to God</strong>.</li>
           </ul>
         </div>
 
-        <!-- Questions -->
-        <div class="card" style="background: var(--color-bg); border-left: 4px solid var(--color-accent-1);">
-          <div class="card-title" style="font-size: var(--font-size-base);">❓ Questions</div>
-          <ul style="list-style: disc; padding-left: var(--spacing-6); color: var(--color-text-secondary);">
+        <!-- ====== QUESTIONS ====== -->
+        <div class="questions-box" id="questionsBox">
+          <h3>❓ Questions</h3>
+          <ol>
             <li>Who wrote the poem?</li>
             <li>What is the main theme of this poem?</li>
             <li>Paraphrase the lines and pick out the literary terms.</li>
@@ -175,15 +757,16 @@ Bound each to each by natural piety.
             <li>"Or let me die!" What is the comparison the poet means in this line?</li>
             <li>What is the poet's wish for his life?</li>
             <li>What is the poet's philosophy about life in this poem?</li>
-          </ul>
+          </ol>
         </div>
 
-        <!-- Navigation -->
+        <!-- ====== NAVIGATION ====== -->
         <div style="margin-top: var(--spacing-10); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--spacing-4);">
           <a href="romanticism.html" class="btn btn-secondary">← Romanticism</a>
           <a href="if-poem.html" class="btn btn-primary">Next: "If—" →</a>
         </div>
 
+        <!-- Footer -->
         <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
           <p>© 2026 · Interactive E-Book · Poetry: "My Heart Leaps Up"</p>
         </footer>
@@ -192,9 +775,127 @@ Bound each to each by natural piety.
     </section>
   </main>
 
+  <!-- ====== SCRIPTS ====== -->
   <script src="../js/main.js"></script>
   <script src="../js/navigation.js"></script>
-  <script src="poetry.js"></script>
+
+  <script>
+    // ============================================================
+    // Intersection Observer for animations
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', function() {
+
+      // --- Poet Bio ---
+      const poetBio = document.getElementById('poetBio');
+      if (poetBio && 'IntersectionObserver' in window) {
+        const observer1 = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.2 });
+        observer1.observe(poetBio);
+      } else if (poetBio) {
+        poetBio.classList.add('visible');
+      }
+
+      // --- Poem Text ---
+      const poemText = document.getElementById('poemText');
+      if (poemText && 'IntersectionObserver' in window) {
+        const observer2 = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.2 });
+        observer2.observe(poemText);
+      } else if (poemText) {
+        poemText.classList.add('visible');
+      }
+
+      // --- Vocabulary ---
+      const vocabItems = document.querySelectorAll('.vocab-item');
+      if ('IntersectionObserver' in window) {
+        const observer3 = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, index * 100);
+            }
+          });
+        }, { threshold: 0.15 });
+        vocabItems.forEach(item => observer3.observe(item));
+      } else {
+        vocabItems.forEach(item => item.classList.add('visible'));
+      }
+
+      // --- Paraphrase ---
+      const paraphraseBox = document.getElementById('paraphraseBox');
+      if (paraphraseBox && 'IntersectionObserver' in window) {
+        const observer4 = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.2 });
+        observer4.observe(paraphraseBox);
+      } else if (paraphraseBox) {
+        paraphraseBox.classList.add('visible');
+      }
+
+      // --- Literary Terms ---
+      const literaryCards = document.querySelectorAll('.literary-card');
+      if ('IntersectionObserver' in window) {
+        const observer5 = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, index * 120);
+            }
+          });
+        }, { threshold: 0.15 });
+        literaryCards.forEach(card => observer5.observe(card));
+      } else {
+        literaryCards.forEach(card => card.classList.add('visible'));
+      }
+
+      // --- Notes ---
+      const notesBox = document.getElementById('notesBox');
+      if (notesBox && 'IntersectionObserver' in window) {
+        const observer6 = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.2 });
+        observer6.observe(notesBox);
+      } else if (notesBox) {
+        notesBox.classList.add('visible');
+      }
+
+      // --- Questions ---
+      const questionsBox = document.getElementById('questionsBox');
+      if (questionsBox && 'IntersectionObserver' in window) {
+        const observer7 = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.2 });
+        observer7.observe(questionsBox);
+      } else if (questionsBox) {
+        questionsBox.classList.add('visible');
+      }
+
+    });
+  </script>
 
 </body>
 </html>
