@@ -6,9 +6,7 @@
   <title>🕵️ Mystery Word · Vocabulary Detective</title>
 
   <style>
-    /* ============================================================
-       GLOBAL STYLES
-    ============================================================ */
+    /* ====== RESET & GLOBAL ====== */
     * {
       margin: 0;
       padding: 0;
@@ -26,9 +24,6 @@
                         radial-gradient(ellipse at 80% 50%, rgba(124, 92, 252, 0.1), transparent 60%);
     }
 
-    /* ============================================================
-       GAME CONTAINER
-    ============================================================ */
     .game-container {
       background: linear-gradient(145deg, #1A1F3A, #0F1428);
       border-radius: 32px;
@@ -59,9 +54,7 @@
       50% { transform: scale(1.2); opacity: 1; }
     }
 
-    /* ============================================================
-       HEADER
-    ============================================================ */
+    /* ====== HEADER ====== */
     .game-header {
       display: flex;
       justify-content: space-between;
@@ -77,7 +70,6 @@
       background: linear-gradient(135deg, #F26522, #FFB830);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: none;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -105,12 +97,6 @@
       font-size: 16px;
       color: #fff;
       font-weight: 600;
-      animation: scorePulse 2s ease-in-out infinite;
-    }
-
-    @keyframes scorePulse {
-      0%, 100% { border-color: rgba(255, 255, 255, 0.08); }
-      50% { border-color: rgba(242, 101, 34, 0.3); }
     }
 
     .score-display .score-number {
@@ -121,9 +107,7 @@
       text-align: center;
     }
 
-    /* ============================================================
-       DETECTIVE CHARACTER
-    ============================================================ */
+    /* ====== DETECTIVE ====== */
     .detective-container {
       display: flex;
       justify-content: center;
@@ -190,13 +174,8 @@
       animation: eyeMove 4s ease-in-out infinite;
     }
 
-    .detective .eye-left {
-      left: 22px;
-    }
-
-    .detective .eye-right {
-      right: 22px;
-    }
+    .detective .eye-left { left: 22px; }
+    .detective .eye-right { right: 22px; }
 
     @keyframes eyeMove {
       0%, 100% { transform: scale(1); }
@@ -259,23 +238,16 @@
       font-size: 14px;
       color: #FFB830;
       font-weight: 600;
-      animation: thoughtPop 2s ease-in-out infinite;
       border: 1px solid rgba(255, 184, 48, 0.15);
       opacity: 0;
+      transition: all 0.4s ease;
     }
 
     .detective .thought-bubble.show {
       opacity: 1;
     }
 
-    @keyframes thoughtPop {
-      0%, 100% { transform: scale(0.9); opacity: 0; }
-      10%, 90% { transform: scale(1); opacity: 1; }
-    }
-
-    /* ============================================================
-       TIMER
-    ============================================================ */
+    /* ====== TIMER ====== */
     .timer-section {
       margin: 16px 0 24px 0;
       position: relative;
@@ -288,7 +260,6 @@
       background: rgba(255, 255, 255, 0.06);
       border-radius: 100px;
       overflow: hidden;
-      position: relative;
     }
 
     .timer-bar-fill {
@@ -352,39 +323,45 @@
       50% { transform: scale(1.2); }
     }
 
-    /* ============================================================
-       CLUES (THE QUESTION)
-    ============================================================ */
+    /* ====== 🔍 CLUES (THE QUESTION) ====== */
     .clues-container {
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.06);
       border-radius: 20px;
       padding: 24px;
       margin: 16px 0 24px 0;
-      border: 2px solid rgba(255, 184, 48, 0.15);
+      border: 2px solid rgba(255, 184, 48, 0.2);
       position: relative;
       z-index: 2;
-      min-height: 140px;
+      min-height: 160px;
       transition: all 0.5s ease;
+      box-shadow: 0 0 30px rgba(255, 184, 48, 0.05), inset 0 0 30px rgba(255, 184, 48, 0.02);
     }
 
     .clues-container .clues-header {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
+      gap: 12px;
+      margin-bottom: 16px;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
       color: rgba(255, 255, 255, 0.4);
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
+      border-bottom: 1px solid rgba(255, 184, 48, 0.08);
+      padding-bottom: 12px;
     }
 
     .clues-container .clues-header .badge {
-      background: rgba(242, 101, 34, 0.15);
+      background: rgba(242, 101, 34, 0.2);
       color: #F26522;
-      padding: 2px 12px;
+      padding: 2px 14px;
       border-radius: 100px;
       font-size: 11px;
+      font-weight: 600;
+    }
+
+    .clues-container .clues-header .icon {
+      font-size: 18px;
     }
 
     .clues-container.revealing {
@@ -398,20 +375,22 @@
     }
 
     .clue-item {
-      font-size: 18px;
-      color: rgba(255, 255, 255, 0.85);
-      padding: 10px 14px;
+      font-size: 19px;
+      color: rgba(255, 255, 255, 0.9);
+      padding: 12px 16px;
       border-radius: 12px;
-      margin-bottom: 6px;
-      background: rgba(255, 255, 255, 0.03);
+      margin-bottom: 8px;
+      background: rgba(255, 255, 255, 0.04);
       opacity: 0;
       transform: translateX(-20px);
       transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border-left: 3px solid transparent;
     }
 
     .clue-item.visible {
       opacity: 1;
       transform: translateX(0);
+      border-left-color: #F26522;
     }
 
     .clue-item .clue-number {
@@ -420,9 +399,9 @@
       color: #F26522;
       font-weight: 700;
       font-size: 12px;
-      padding: 2px 12px;
+      padding: 2px 14px;
       border-radius: 100px;
-      margin-right: 12px;
+      margin-right: 14px;
       letter-spacing: 0.5px;
     }
 
@@ -432,9 +411,7 @@
       color: #fff;
     }
 
-    /* ============================================================
-       OPTIONS
-    ============================================================ */
+    /* ====== OPTIONS ====== */
     .options-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -460,26 +437,10 @@
       letter-spacing: 0.3px;
     }
 
-    .option-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(242, 101, 34, 0.1), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
     .option-btn:hover:not(:disabled) {
       transform: translateY(-3px) scale(1.02);
       border-color: rgba(242, 101, 34, 0.4);
       box-shadow: 0 8px 30px rgba(242, 101, 34, 0.15);
-    }
-
-    .option-btn:hover:not(:disabled)::before {
-      opacity: 1;
     }
 
     .option-btn:active:not(:disabled) {
@@ -512,7 +473,6 @@
       color: #F26522;
     }
 
-    /* Option States */
     .option-btn.correct {
       border-color: #34C759;
       background: rgba(52, 199, 89, 0.15);
@@ -567,9 +527,7 @@
       100% { transform: scale(1); opacity: 1; }
     }
 
-    /* ============================================================
-       CONTROL BUTTONS
-    ============================================================ */
+    /* ====== CONTROLS ====== */
     .controls {
       display: flex;
       gap: 14px;
@@ -653,9 +611,7 @@
       100% { transform: translateY(0); opacity: 1; }
     }
 
-    /* ============================================================
-       FEEDBACK OVERLAY
-    ============================================================ */
+    /* ====== FEEDBACK OVERLAY ====== */
     .feedback-overlay {
       position: fixed;
       top: 0;
@@ -681,9 +637,7 @@
       100% { transform: scale(1) rotate(0deg); opacity: 1; }
     }
 
-    /* ============================================================
-       CONFETTI
-    ============================================================ */
+    /* ====== CONFETTI ====== */
     .confetti-container {
       position: fixed;
       top: 0;
@@ -713,9 +667,7 @@
       }
     }
 
-    /* ============================================================
-       GAME OVER
-    ============================================================ */
+    /* ====== GAME OVER ====== */
     .game-over {
       text-align: center;
       padding: 30px 20px;
@@ -780,155 +732,50 @@
       color: #FF3B30;
     }
 
-    /* ============================================================
-       RESPONSIVE
-    ============================================================ */
+    /* ====== RESPONSIVE ====== */
     @media (max-width: 600px) {
-      .game-container {
-        padding: 20px;
-        border-radius: 20px;
-        margin: 10px;
-      }
-
-      .game-title {
-        font-size: 20px;
-      }
-
-      .options-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
-      }
-
-      .option-btn {
-        padding: 14px 16px;
-        font-size: 14px;
-      }
-
-      .detective {
-        width: 80px;
-        height: 80px;
-      }
-
-      .detective .head {
-        width: 55px;
-        height: 55px;
-        top: 8px;
-      }
-
-      .detective .hat {
-        width: 60px;
-        height: 25px;
-      }
-
-      .detective .hat-brim {
-        width: 70px;
-        height: 8px;
-        top: 22px;
-      }
-
-      .detective .eye-left,
-      .detective .eye-right {
-        width: 8px;
-        height: 10px;
-        top: 22px;
-      }
-
+      .game-container { padding: 20px; border-radius: 20px; margin: 10px; }
+      .game-title { font-size: 20px; }
+      .options-grid { grid-template-columns: 1fr; gap: 10px; }
+      .option-btn { padding: 14px 16px; font-size: 14px; }
+      .detective { width: 80px; height: 80px; }
+      .detective .head { width: 55px; height: 55px; top: 8px; }
+      .detective .hat { width: 60px; height: 25px; }
+      .detective .hat-brim { width: 70px; height: 8px; top: 22px; }
+      .detective .eye-left, .detective .eye-right { width: 8px; height: 10px; top: 22px; }
       .detective .eye-left { left: 15px; }
       .detective .eye-right { right: 15px; }
-
-      .detective .mouth {
-        width: 12px;
-        height: 6px;
-        bottom: 12px;
-      }
-
-      .detective .magnifier {
-        font-size: 28px;
-        bottom: -5px;
-        right: -5px;
-      }
-
-      .clue-item {
-        font-size: 15px;
-        padding: 8px 10px;
-      }
-
-      .btn-start {
-        padding: 12px 30px;
-        font-size: 16px;
-      }
-
-      .game-over .final-score {
-        font-size: 48px;
-      }
-
-      .feedback-overlay .emoji {
-        font-size: 80px;
-      }
-
-      .score-display {
-        font-size: 13px;
-        padding: 6px 14px;
-      }
-
-      .score-display .score-number {
-        font-size: 18px;
-      }
-
-      .clues-container {
-        padding: 16px;
-        min-height: 100px;
-      }
-
-      .clues-container .clues-header {
-        font-size: 12px;
-      }
+      .detective .mouth { width: 12px; height: 6px; bottom: 12px; }
+      .detective .magnifier { font-size: 28px; bottom: -5px; right: -5px; }
+      .clue-item { font-size: 15px; padding: 10px 12px; }
+      .btn-start { padding: 12px 30px; font-size: 16px; }
+      .game-over .final-score { font-size: 48px; }
+      .feedback-overlay .emoji { font-size: 80px; }
+      .score-display { font-size: 13px; padding: 6px 14px; }
+      .score-display .score-number { font-size: 18px; }
+      .clues-container { padding: 16px; min-height: 120px; }
+      .clues-container .clues-header { font-size: 12px; }
     }
 
     @media (max-width: 400px) {
-      .game-container {
-        padding: 14px;
-      }
-
-      .game-title {
-        font-size: 17px;
-      }
-
-      .game-header {
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-
-      .clue-item {
-        font-size: 13px;
-        padding: 6px 8px;
-      }
-
-      .controls {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .btn-start, .btn-next {
-        width: 100%;
-        justify-content: center;
-      }
+      .game-container { padding: 14px; }
+      .game-title { font-size: 17px; }
+      .game-header { flex-wrap: wrap; gap: 8px; }
+      .clue-item { font-size: 13px; padding: 8px 10px; }
+      .controls { flex-direction: column; align-items: center; }
+      .btn-start, .btn-next { width: 100%; justify-content: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ====== GAME ====== -->
+  <!-- ====== GAME CONTAINER ====== -->
   <div class="game-container" id="gameContainer">
 
     <!-- Header -->
     <div class="game-header">
-      <div class="game-title">
-        🕵️ <span>Mystery Word</span>
-      </div>
-      <div class="score-display">
-        ⭐ Score: <span class="score-number" id="scoreDisplay">0</span>
-      </div>
+      <div class="game-title">🕵️ <span>Mystery Word</span></div>
+      <div class="score-display">⭐ Score: <span class="score-number" id="scoreDisplay">0</span></div>
     </div>
 
     <!-- Detective -->
@@ -957,10 +804,11 @@
       </div>
     </div>
 
-    <!-- Clues (THE QUESTION) -->
+    <!-- ====== 🔍 CLUES ====== -->
     <div class="clues-container" id="cluesContainer">
       <div class="clues-header">
-        <span>🔍 CLUES</span>
+        <span class="icon">🔍</span>
+        <span>CLUES</span>
         <span class="badge">Read carefully</span>
       </div>
       <div id="cluesList">
@@ -1000,9 +848,7 @@
       <button class="btn-start" id="btnStart">
         <span class="icon">🔍</span> Start Investigation
       </button>
-      <button class="btn-next" id="btnNext">
-        Next Word ➜
-      </button>
+      <button class="btn-next" id="btnNext">Next Word ➜</button>
     </div>
 
   </div>
@@ -1012,112 +858,108 @@
     <div class="emoji" id="feedbackEmoji">🎉</div>
   </div>
 
-  <!-- ====== CONFETTI CONTAINER ====== -->
+  <!-- ====== CONFETTI ====== -->
   <div class="confetti-container" id="confettiContainer"></div>
 
   <!-- ====== SCRIPT ====== -->
   <script>
-    // ============================================================
-    // WORD BANK — All Vocabulary from All Units
-    // ============================================================
+    // ====== WORD BANK ======
     const wordBank = [
-      // Unit 1: Jump for Joy
-      { word: 'upset', clues: ['A feeling of worry or anger', 'Something bad can make you feel this', 'You feel this when things don\'t go your way'], correct: 'upset' },
-      { word: 'behaviour', clues: ['The way someone acts', 'How you conduct yourself', 'It can be good or bad'], correct: 'behaviour' },
-      { word: 'sight', clues: ['Something you see', 'A view or scene', 'The ability to see'], correct: 'sight' },
-      { word: 'wonder', clues: ['To ask yourself about something', 'To be curious', 'You might ____ what will happen'], correct: 'wonder' },
-      { word: 'bother', clues: ['To annoy or disturb', 'To cause trouble', 'Don\'t ____ me while I\'m working'], correct: 'bother' },
-      { word: 'context', clues: ['The situation around something', 'Explains the meaning', 'You need this to understand'], correct: 'context' },
-      { word: 'supply', clues: ['An amount of something available', 'What you have in stock', 'The ____ of water was limited'], correct: 'supply' },
-      { word: 'interruption', clues: ['A break in an activity', 'Someone stops you while you\'re busy', 'An ____ during the exam'], correct: 'interruption' },
-      { word: 'bug', clues: ['To annoy someone', 'To irritate', 'His constant talking really ____s me'], correct: 'bug' },
-      { word: 'decade', clues: ['A period of ten years', 'A decade has 10 years', 'She lived there for a ____'], correct: 'decade' },
-      { word: 'research', clues: ['A study to discover new information', 'Scientists do this', 'They did ____ on climate change'], correct: 'research' },
-      { word: 'condition', clues: ['A disease or medical problem', 'A health issue', 'He has a heart ____'], correct: 'condition' },
-      { word: 'misophonia', clues: ['A condition where sounds cause strong reactions', 'Some sounds make you feel angry', 'Chewing sounds are unbearable'], correct: 'misophonia' },
-      { word: 'respond', clues: ['To react by saying or doing something', 'To reply', 'She didn\'t ____ to my message'], correct: 'respond' },
-      { word: 'suffer', clues: ['To experience pain or difficulty', 'To go through hardship', 'Many people ____ from allergies'], correct: 'suffer' },
-      { word: 'benefit', clues: ['A good effect of something', 'An advantage', 'Exercise has many ____s'], correct: 'benefit' },
-      { word: 'prevent', clues: ['To stop something from happening', 'To avoid', 'Wearing a seatbelt can ____ injuries'], correct: 'prevent' },
-      { word: 'amazement', clues: ['Extreme surprise', 'You feel this when something shocking happens', 'To my ____, I got full marks'], correct: 'amazement' },
-      { word: 'anxiety', clues: ['Worry or nervousness', 'Fear about the future', 'She felt ____ before the exam'], correct: 'anxiety' },
-      { word: 'despair', clues: ['A feeling of no hope', 'Complete hopelessness', 'He was in ____ after failing'], correct: 'despair' },
-      { word: 'embarrassment', clues: ['A feeling of shame or shyness', 'You feel this when you make a mistake', 'His ____ was clear when he fell'], correct: 'embarrassment' },
-      { word: 'frustration', clues: ['Feeling bad because you can\'t achieve something', 'You feel this when you fail', 'I felt ____ when the internet stopped'], correct: 'frustration' },
-      { word: 'guilt', clues: ['A feeling of unhappiness about something wrong you did', 'You feel this after lying', 'She felt ____ after lying to her friend'], correct: 'guilt' },
-      { word: 'joy', clues: ['A feeling of happiness', 'Great delight', 'The children shouted with ____'], correct: 'joy' },
-      { word: 'relief', clues: ['A feeling of happiness when something bad ends', 'You feel this after a difficult test', 'I felt ____ after finishing the exam'], correct: 'relief' },
-      { word: 'sympathy', clues: ['Understanding for someone else\'s suffering', 'You feel this for others', 'I felt ____ for the family who lost their home'], correct: 'sympathy' },
-      // Unit 2: Global Culture
-      { word: 'global', clues: ['Relating to the whole world', 'Worldwide', 'Climate change is a ____ problem'], correct: 'global' },
-      { word: 'culture', clues: ['The common habits and beliefs of a group', 'Traditions of a society', 'Egyptian ____ is rich in history'], correct: 'culture' },
-      { word: 'identity', clues: ['What makes you different from others', 'Your sense of self', 'Music is part of my ____'], correct: 'identity' },
-      { word: 'lifestyle', clues: ['The way someone lives', 'How you live your life', 'A healthy ____ includes exercise'], correct: 'lifestyle' },
-      { word: 'reflect', clues: ['To show or express the nature of something', 'To mirror', 'His actions ____ his kindness'], correct: 'reflect' },
-      { word: 'tribe', clues: ['A group of related families sharing a culture', 'A community', 'The ____ has lived in the desert for generations'], correct: 'tribe' },
-      { word: 'tradition', clues: ['A very old belief or way of acting', 'A custom', 'It is a ____ to eat special food during holidays'], correct: 'tradition' },
-      { word: 'legend', clues: ['A very old story that may be untrue', 'A myth', 'The ____ tells of a hidden treasure'], correct: 'legend' },
-      { word: 'ritual', clues: ['A series of actions performed as part of a ceremony', 'A routine', 'The ____ included lighting candles'], correct: 'ritual' },
-      { word: 'ceremony', clues: ['A set of traditional actions for a special occasion', 'A formal event', 'The wedding ____ was beautiful'], correct: 'ceremony' },
-      // Unit 3: Role Models
-      { word: 'potential', clues: ['Your ability to succeed in the future', 'What you could become', 'Every player has the ____ to improve'], correct: 'potential' },
-      { word: 'mission', clues: ['An important goal you want to achieve', 'A purpose', 'The school\'s ____ is to help students succeed'], correct: 'mission' },
-      { word: 'impact', clues: ['A powerful effect', 'A strong influence', 'Social media has a big ____ on opinions'], correct: 'impact' },
-      { word: 'motivate', clues: ['To make someone want to do something', 'To inspire', 'My parents ____ me to do my best'], correct: 'motivate' },
-      { word: 'inspire', clues: ['To give someone confidence to do something', 'To encourage', 'The scientist ____ many students to study science'], correct: 'inspire' },
-      { word: 'criticise', clues: ['To say what is wrong about something', 'To judge negatively', 'It is easy to ____ someone'], correct: 'criticise' },
-      { word: 'barrier', clues: ['Something that prevents progress', 'An obstacle', 'Language can be a ____'], correct: 'barrier' },
-      { word: 'expectation', clues: ['A strong belief about how someone should behave', 'An anticipation', 'There is an ____ that students will complete their homework'], correct: 'expectation' },
-      { word: 'admire', clues: ['To respect and approve of someone', 'To look up to', 'I ____ people who work hard'], correct: 'admire' },
-      { word: 'guide', clues: ['Someone who shows you the way', 'A mentor', 'Our teacher acted as a ____'], correct: 'guide' },
-      { word: 'phenomenon', clues: ['Something extremely successful and well known', 'A sensation', 'She became a worldwide ____'], correct: 'phenomenon' },
-      { word: 'remote', clues: ['Far away from where most people live', 'Isolated', 'They worked in a ____ village'], correct: 'remote' },
-      { word: 'eldest', clues: ['The oldest of three or more people', 'The oldest sibling', 'My ____ brother is studying engineering'], correct: 'eldest' },
-      { word: 'afford', clues: ['To have enough money to buy something', 'To be able to pay for', 'I cannot ____ a new laptop'], correct: 'afford' },
-      { word: 'excel', clues: ['To be extremely good at something', 'To shine', 'She continues to ____ in mathematics'], correct: 'excel' },
-      { word: 'donation', clues: ['Money given to help a person or organisation', 'A contribution', 'The charity received a large ____'], correct: 'donation' },
-      { word: 'compete', clues: ['To take part in a race or competition', 'To rival', 'Athletes will ____ in the tournament'], correct: 'compete' },
-      { word: 'attempt', clues: ['To try to do something', 'An effort', 'He will ____ to solve the problem'], correct: 'attempt' },
-      // Unit 4: City Living
-      { word: 'rural', clues: ['In the countryside', 'Not urban', 'My grandparents live in a ____ village'], correct: 'rural' },
-      { word: 'commercial', clues: ['Related to buying and selling', 'Business', 'The city center is a ____ area'], correct: 'commercial' },
-      { word: 'identical', clues: ['Exactly the same', 'Twin', 'The twins were wearing ____ jackets'], correct: 'identical' },
-      { word: 'rapid', clues: ['Fast', 'Quick', 'There has been a ____ increase in cars'], correct: 'rapid' },
-      { word: 'resident', clues: ['A person who lives in a place', 'An inhabitant', 'Every ____ of the building received a notice'], correct: 'resident' },
-      { word: 'pace', clues: ['The speed at which something happens', 'Rate', 'Technology is changing at a fast ____'], correct: 'pace' },
-      { word: 'shortage', clues: ['A situation where there isn\'t enough of something', 'A lack', 'There was a water ____'], correct: 'shortage' },
-      { word: 'entertainment', clues: ['Things that help people have fun', 'Amusement', 'Watching movies is popular ____'], correct: 'entertainment' },
-      { word: 'commute', clues: ['To travel between work and home regularly', 'To journey', 'My father ____s to work by train'], correct: 'commute' },
-      { word: 'outskirts', clues: ['The area around a town or city', 'The edge', 'They built a hospital on the ____'], correct: 'outskirts' },
-      { word: 'inhabitant', clues: ['A person or animal that lives in a place', 'A resident', 'The camel is a common ____ of the desert'], correct: 'inhabitant' },
-      { word: 'historical', clues: ['Connected with the past', 'Related to history', 'We visited a ____ museum'], correct: 'historical' },
-      { word: 'devote', clues: ['To give time or energy to something', 'To dedicate', 'She ____s two hours a day to studying'], correct: 'devote' },
-      { word: 'walkable', clues: ['Suitable for walking', 'Pedestrian-friendly', 'The neighborhood is very ____'], correct: 'walkable' },
-      { word: 'pedestrian', clues: ['A person who is walking', 'A walker', 'The ____ waited for the light'], correct: 'pedestrian' },
-      { word: 'housing', clues: ['Buildings for people to live in', 'Accommodation', 'The government is building new ____'], correct: 'housing' },
-      { word: 'approach', clues: ['A way of doing something', 'A method', 'We need a different ____ to solve this'], correct: 'approach' },
-      { word: 'growth', clues: ['An increase in size or importance', 'Expansion', 'The city has experienced significant ____'], correct: 'growth' },
-      { word: 'residential', clues: ['Having mainly private houses', 'Not commercial', 'This is a quiet ____ area'], correct: 'residential' },
-      { word: 'reduce', clues: ['To make smaller', 'To decrease', 'We should ____ plastic waste'], correct: 'reduce' },
-      { word: 'expand', clues: ['To make bigger', 'To grow', 'The company plans to ____ its offices'], correct: 'expand' },
-      { word: 'propose', clues: ['To suggest a plan', 'To put forward', 'The mayor ____ a new park'], correct: 'propose' },
-      { word: 'spread', clues: ['To reach or cover a wider area', 'To extend', 'News of the event quickly ____'], correct: 'spread' },
-      { word: 'claim', clues: ['To say something is true without proof', 'To assert', 'Some people ____ the house is haunted'], correct: 'claim' },
-      { word: 'demand', clues: ['To ask for something forcefully', 'To insist', 'The workers ____ better conditions'], correct: 'demand' },
-      { word: 'fence', clues: ['A barrier between two areas', 'A wooden wall', 'A ____ surrounds the garden'], correct: 'fence' },
-      { word: 'suburb', clues: ['An area outside the city centre', 'A residential area', 'Many families move to the ____s'], correct: 'suburb' },
-      { word: 'district', clues: ['An area of a town with a particular purpose', 'A zone', 'The business ____ is crowded'], correct: 'district' },
-      { word: 'industrial', clues: ['Related to factories', 'Manufacturing', 'The city has a large ____ area'], correct: 'industrial' },
-      { word: 'estate', clues: ['A group of houses built according to a plan', 'A development', 'They moved into a new housing ____'], correct: 'estate' },
-      { word: 'junction', clues: ['The place where roads or railways meet', 'An intersection', 'Turn left at the next ____'], correct: 'junction' },
-      { word: 'venue', clues: ['The place where an event takes place', 'A location', 'The school hall was the ____ for the ceremony'], correct: 'venue' },
-      { word: 'urbanisation', clues: ['The process of building towns and cities', 'Urban growth', '____ has led to the growth of many cities'], correct: 'urbanisation' },
-      { word: 'boundary', clues: ['A line that marks the limit of something', 'A border', 'A wall marks the ____ between the properties'], correct: 'boundary' }
+      // Unit 1
+      { word: 'upset', clues: ['A feeling of worry or anger', 'Something bad can make you feel this', 'You feel this when things don\'t go your way'] },
+      { word: 'behaviour', clues: ['The way someone acts', 'How you conduct yourself', 'It can be good or bad'] },
+      { word: 'sight', clues: ['Something you see', 'A view or scene', 'The ability to see'] },
+      { word: 'wonder', clues: ['To ask yourself about something', 'To be curious', 'You might ____ what will happen'] },
+      { word: 'bother', clues: ['To annoy or disturb', 'To cause trouble', 'Don\'t ____ me while I\'m working'] },
+      { word: 'context', clues: ['The situation around something', 'Explains the meaning', 'You need this to understand'] },
+      { word: 'supply', clues: ['An amount of something available', 'What you have in stock', 'The ____ of water was limited'] },
+      { word: 'interruption', clues: ['A break in an activity', 'Someone stops you while you\'re busy', 'An ____ during the exam'] },
+      { word: 'bug', clues: ['To annoy someone', 'To irritate', 'His constant talking really ____s me'] },
+      { word: 'decade', clues: ['A period of ten years', 'A decade has 10 years', 'She lived there for a ____'] },
+      { word: 'research', clues: ['A study to discover new information', 'Scientists do this', 'They did ____ on climate change'] },
+      { word: 'condition', clues: ['A disease or medical problem', 'A health issue', 'He has a heart ____'] },
+      { word: 'misophonia', clues: ['A condition where sounds cause strong reactions', 'Some sounds make you feel angry', 'Chewing sounds are unbearable'] },
+      { word: 'respond', clues: ['To react by saying or doing something', 'To reply', 'She didn\'t ____ to my message'] },
+      { word: 'suffer', clues: ['To experience pain or difficulty', 'To go through hardship', 'Many people ____ from allergies'] },
+      { word: 'benefit', clues: ['A good effect of something', 'An advantage', 'Exercise has many ____s'] },
+      { word: 'prevent', clues: ['To stop something from happening', 'To avoid', 'Wearing a seatbelt can ____ injuries'] },
+      { word: 'amazement', clues: ['Extreme surprise', 'You feel this when something shocking happens', 'To my ____, I got full marks'] },
+      { word: 'anxiety', clues: ['Worry or nervousness', 'Fear about the future', 'She felt ____ before the exam'] },
+      { word: 'despair', clues: ['A feeling of no hope', 'Complete hopelessness', 'He was in ____ after failing'] },
+      { word: 'embarrassment', clues: ['A feeling of shame or shyness', 'You feel this when you make a mistake', 'His ____ was clear when he fell'] },
+      { word: 'frustration', clues: ['Feeling bad because you can\'t achieve something', 'You feel this when you fail', 'I felt ____ when the internet stopped'] },
+      { word: 'guilt', clues: ['A feeling of unhappiness about something wrong you did', 'You feel this after lying', 'She felt ____ after lying to her friend'] },
+      { word: 'joy', clues: ['A feeling of happiness', 'Great delight', 'The children shouted with ____'] },
+      { word: 'relief', clues: ['A feeling of happiness when something bad ends', 'You feel this after a difficult test', 'I felt ____ after finishing the exam'] },
+      { word: 'sympathy', clues: ['Understanding for someone else\'s suffering', 'You feel this for others', 'I felt ____ for the family who lost their home'] },
+      // Unit 2
+      { word: 'global', clues: ['Relating to the whole world', 'Worldwide', 'Climate change is a ____ problem'] },
+      { word: 'culture', clues: ['The common habits and beliefs of a group', 'Traditions of a society', 'Egyptian ____ is rich in history'] },
+      { word: 'identity', clues: ['What makes you different from others', 'Your sense of self', 'Music is part of my ____'] },
+      { word: 'lifestyle', clues: ['The way someone lives', 'How you live your life', 'A healthy ____ includes exercise'] },
+      { word: 'reflect', clues: ['To show or express the nature of something', 'To mirror', 'His actions ____ his kindness'] },
+      { word: 'tribe', clues: ['A group of related families sharing a culture', 'A community', 'The ____ has lived in the desert for generations'] },
+      { word: 'tradition', clues: ['A very old belief or way of acting', 'A custom', 'It is a ____ to eat special food during holidays'] },
+      { word: 'legend', clues: ['A very old story that may be untrue', 'A myth', 'The ____ tells of a hidden treasure'] },
+      { word: 'ritual', clues: ['A series of actions performed as part of a ceremony', 'A routine', 'The ____ included lighting candles'] },
+      { word: 'ceremony', clues: ['A set of traditional actions for a special occasion', 'A formal event', 'The wedding ____ was beautiful'] },
+      // Unit 3
+      { word: 'potential', clues: ['Your ability to succeed in the future', 'What you could become', 'Every player has the ____ to improve'] },
+      { word: 'mission', clues: ['An important goal you want to achieve', 'A purpose', 'The school\'s ____ is to help students succeed'] },
+      { word: 'impact', clues: ['A powerful effect', 'A strong influence', 'Social media has a big ____ on opinions'] },
+      { word: 'motivate', clues: ['To make someone want to do something', 'To inspire', 'My parents ____ me to do my best'] },
+      { word: 'inspire', clues: ['To give someone confidence to do something', 'To encourage', 'The scientist ____ many students to study science'] },
+      { word: 'criticise', clues: ['To say what is wrong about something', 'To judge negatively', 'It is easy to ____ someone'] },
+      { word: 'barrier', clues: ['Something that prevents progress', 'An obstacle', 'Language can be a ____'] },
+      { word: 'expectation', clues: ['A strong belief about how someone should behave', 'An anticipation', 'There is an ____ that students will complete their homework'] },
+      { word: 'admire', clues: ['To respect and approve of someone', 'To look up to', 'I ____ people who work hard'] },
+      { word: 'guide', clues: ['Someone who shows you the way', 'A mentor', 'Our teacher acted as a ____'] },
+      { word: 'phenomenon', clues: ['Something extremely successful and well known', 'A sensation', 'She became a worldwide ____'] },
+      { word: 'remote', clues: ['Far away from where most people live', 'Isolated', 'They worked in a ____ village'] },
+      { word: 'eldest', clues: ['The oldest of three or more people', 'The oldest sibling', 'My ____ brother is studying engineering'] },
+      { word: 'afford', clues: ['To have enough money to buy something', 'To be able to pay for', 'I cannot ____ a new laptop'] },
+      { word: 'excel', clues: ['To be extremely good at something', 'To shine', 'She continues to ____ in mathematics'] },
+      { word: 'donation', clues: ['Money given to help a person or organisation', 'A contribution', 'The charity received a large ____'] },
+      { word: 'compete', clues: ['To take part in a race or competition', 'To rival', 'Athletes will ____ in the tournament'] },
+      { word: 'attempt', clues: ['To try to do something', 'An effort', 'He will ____ to solve the problem'] },
+      // Unit 4
+      { word: 'rural', clues: ['In the countryside', 'Not urban', 'My grandparents live in a ____ village'] },
+      { word: 'commercial', clues: ['Related to buying and selling', 'Business', 'The city center is a ____ area'] },
+      { word: 'identical', clues: ['Exactly the same', 'Twin', 'The twins were wearing ____ jackets'] },
+      { word: 'rapid', clues: ['Fast', 'Quick', 'There has been a ____ increase in cars'] },
+      { word: 'resident', clues: ['A person who lives in a place', 'An inhabitant', 'Every ____ of the building received a notice'] },
+      { word: 'pace', clues: ['The speed at which something happens', 'Rate', 'Technology is changing at a fast ____'] },
+      { word: 'shortage', clues: ['A situation where there isn\'t enough of something', 'A lack', 'There was a water ____'] },
+      { word: 'entertainment', clues: ['Things that help people have fun', 'Amusement', 'Watching movies is popular ____'] },
+      { word: 'commute', clues: ['To travel between work and home regularly', 'To journey', 'My father ____s to work by train'] },
+      { word: 'outskirts', clues: ['The area around a town or city', 'The edge', 'They built a hospital on the ____'] },
+      { word: 'inhabitant', clues: ['A person or animal that lives in a place', 'A resident', 'The camel is a common ____ of the desert'] },
+      { word: 'historical', clues: ['Connected with the past', 'Related to history', 'We visited a ____ museum'] },
+      { word: 'devote', clues: ['To give time or energy to something', 'To dedicate', 'She ____s two hours a day to studying'] },
+      { word: 'walkable', clues: ['Suitable for walking', 'Pedestrian-friendly', 'The neighborhood is very ____'] },
+      { word: 'pedestrian', clues: ['A person who is walking', 'A walker', 'The ____ waited for the light'] },
+      { word: 'housing', clues: ['Buildings for people to live in', 'Accommodation', 'The government is building new ____'] },
+      { word: 'approach', clues: ['A way of doing something', 'A method', 'We need a different ____ to solve this'] },
+      { word: 'growth', clues: ['An increase in size or importance', 'Expansion', 'The city has experienced significant ____'] },
+      { word: 'residential', clues: ['Having mainly private houses', 'Not commercial', 'This is a quiet ____ area'] },
+      { word: 'reduce', clues: ['To make smaller', 'To decrease', 'We should ____ plastic waste'] },
+      { word: 'expand', clues: ['To make bigger', 'To grow', 'The company plans to ____ its offices'] },
+      { word: 'propose', clues: ['To suggest a plan', 'To put forward', 'The mayor ____ a new park'] },
+      { word: 'spread', clues: ['To reach or cover a wider area', 'To extend', 'News of the event quickly ____'] },
+      { word: 'claim', clues: ['To say something is true without proof', 'To assert', 'Some people ____ the house is haunted'] },
+      { word: 'demand', clues: ['To ask for something forcefully', 'To insist', 'The workers ____ better conditions'] },
+      { word: 'fence', clues: ['A barrier between two areas', 'A wooden wall', 'A ____ surrounds the garden'] },
+      { word: 'suburb', clues: ['An area outside the city centre', 'A residential area', 'Many families move to the ____s'] },
+      { word: 'district', clues: ['An area of a town with a particular purpose', 'A zone', 'The business ____ is crowded'] },
+      { word: 'industrial', clues: ['Related to factories', 'Manufacturing', 'The city has a large ____ area'] },
+      { word: 'estate', clues: ['A group of houses built according to a plan', 'A development', 'They moved into a new housing ____'] },
+      { word: 'junction', clues: ['The place where roads or railways meet', 'An intersection', 'Turn left at the next ____'] },
+      { word: 'venue', clues: ['The place where an event takes place', 'A location', 'The school hall was the ____ for the ceremony'] },
+      { word: 'urbanisation', clues: ['The process of building towns and cities', 'Urban growth', '____ has led to the growth of many cities'] },
+      { word: 'boundary', clues: ['A line that marks the limit of something', 'A border', 'A wall marks the ____ between the properties'] }
     ];
 
-    // ============================================================
-    // GAME STATE
-    // ============================================================
+    // ====== GAME STATE ======
     let gameState = {
       words: [],
       currentIndex: 0,
@@ -1129,14 +971,11 @@
       timer: null,
       timeLeft: 20,
       maxTime: 20,
-      isRunning: false,
       isGameOver: false,
-      usedWords: []
+      clueIndex: 0
     };
 
-    // ============================================================
-    // DOM REFS
-    // ============================================================
+    // ====== DOM REFS ======
     const $ = id => document.getElementById(id);
     const scoreDisplay = $('scoreDisplay');
     const timerFill = $('timerFill');
@@ -1148,9 +987,7 @@
     const clue1 = $('clue1');
     const clue2 = $('clue2');
     const clue3 = $('clue3');
-    const optTexts = [
-      $('opt0'), $('opt1'), $('opt2'), $('opt3')
-    ];
+    const optTexts = [$('opt0'), $('opt1'), $('opt2'), $('opt3')];
     const optionBtns = document.querySelectorAll('.option-btn');
     const btnStart = $('btnStart');
     const btnNext = $('btnNext');
@@ -1158,17 +995,12 @@
     const feedbackOverlay = $('feedbackOverlay');
     const feedbackEmoji = $('feedbackEmoji');
     const confettiContainer = $('confettiContainer');
-    const gameContainer = $('gameContainer');
 
-    // ============================================================
-    // SOUND ENGINE (Web Audio API)
-    // ============================================================
+    // ====== SOUND ENGINE ======
     const SoundEngine = {
       ctx: null,
       init() {
-        if (!this.ctx) {
-          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-        }
+        if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
       },
       playTick() {
         this.init();
@@ -1267,9 +1099,7 @@
       }
     };
 
-    // ============================================================
-    // CONFETTI
-    // ============================================================
+    // ====== CONFETTI ======
     function triggerConfetti() {
       const container = confettiContainer;
       const colors = ['#F26522', '#FFB830', '#7C5CFC', '#EA580C', '#34C759', '#FF3B30', '#5AC8FA', '#FF9500'];
@@ -1288,9 +1118,7 @@
       }
     }
 
-    // ============================================================
-    // GAME FUNCTIONS
-    // ============================================================
+    // ====== GAME FUNCTIONS ======
     function shuffleArray(arr) {
       for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -1317,7 +1145,6 @@
       gameState.correct = 0;
       gameState.wrong = 0;
       gameState.isGameOver = false;
-      gameState.usedWords = [];
 
       scoreDisplay.textContent = '0';
       btnStart.disabled = true;
@@ -1340,16 +1167,20 @@
       gameState.answered = false;
       gameState.total++;
 
-      // Reset clues
+      // Reset clues - make sure text is set
       clueText1.textContent = wordData.clues[0] || '—';
-      clueText2.textContent = '—';
-      clueText3.textContent = '—';
+      clueText2.textContent = wordData.clues[1] || '—';
+      clueText3.textContent = wordData.clues[2] || '—';
+
+      // Hide all clues initially
       clue1.classList.remove('visible');
       clue2.classList.remove('visible');
       clue3.classList.remove('visible');
 
-      // Show first clue immediately
-      setTimeout(() => clue1.classList.add('visible'), 100);
+      // Show first clue immediately with a small delay for animation
+      setTimeout(() => {
+        clue1.classList.add('visible');
+      }, 100);
 
       // Reset options
       const allOptions = [wordData.word];
@@ -1420,7 +1251,6 @@
       // Show second clue after 3 seconds
       setTimeout(() => {
         if (!gameState.answered) {
-          clueText2.textContent = wordData.clues[1] || '—';
           clue2.classList.add('visible');
         }
       }, 3000);
@@ -1428,12 +1258,10 @@
       // Show third clue after 6 seconds
       setTimeout(() => {
         if (!gameState.answered) {
-          clueText3.textContent = wordData.clues[2] || '—';
           clue3.classList.add('visible');
         }
       }, 6000);
 
-      // Update thought bubble
       thoughtBubble.textContent = '🔍 Investigating...';
       thoughtBubble.classList.add('show');
 
@@ -1569,19 +1397,11 @@
           <div class="final-score">${gameState.score}</div>
           <div class="final-label">Total Score</div>
           <div class="final-stats">
-            <div class="correct-stat">
-              ✅ Correct<br><span>${gameState.correct}</span>
-            </div>
-            <div>
-              ❌ Wrong<br><span>${gameState.wrong}</span>
-            </div>
-            <div>
-              🎯 Accuracy<br><span>${pct}%</span>
-            </div>
+            <div class="correct-stat">✅ Correct<br><span>${gameState.correct}</span></div>
+            <div>❌ Wrong<br><span>${gameState.wrong}</span></div>
+            <div>🎯 Accuracy<br><span>${pct}%</span></div>
           </div>
-          <button class="btn-start" onclick="location.reload()" style="margin: 20px auto;">
-            🔄 Play Again
-          </button>
+          <button class="btn-start" onclick="location.reload()" style="margin: 20px auto;">🔄 Play Again</button>
         </div>
       `;
 
@@ -1591,20 +1411,21 @@
       document.querySelector('.timer-section').style.display = 'none';
     }
 
-    // ============================================================
-    // EVENT LISTENERS
-    // ============================================================
+    // ====== EVENT LISTENERS ======
     optionBtns.forEach(btn => {
       btn.addEventListener('click', handleOptionClick);
     });
 
     btnStart.addEventListener('click', () => {
       SoundEngine.playStart();
+
+      // Reset UI completely
       document.getElementById('optionsGrid').style.display = 'grid';
       document.querySelector('.timer-section').style.display = 'block';
       document.getElementById('btnStart').style.display = 'flex';
       document.getElementById('btnNext').style.display = 'none';
 
+      // Reset clues HTML to make sure DOM references are fresh
       document.getElementById('cluesList').innerHTML = `
         <div class="clue-item" id="clue1">
           <span class="clue-number">CLUE 1</span>
@@ -1619,20 +1440,34 @@
           <span class="clue-text" id="clueText3">—</span>
         </div>
       `;
+
+      // Reassign DOM refs after reset
+      const newClueText1 = document.getElementById('clueText1');
+      const newClueText2 = document.getElementById('clueText2');
+      const newClueText3 = document.getElementById('clueText3');
+      const newClue1 = document.getElementById('clue1');
+      const newClue2 = document.getElementById('clue2');
+      const newClue3 = document.getElementById('clue3');
+
+      // Update references in the closure
       Object.assign(window, {
-        clueText1: document.getElementById('clueText1'),
-        clueText2: document.getElementById('clueText2'),
-        clueText3: document.getElementById('clueText3'),
-        clue1: document.getElementById('clue1'),
-        clue2: document.getElementById('clue2'),
-        clue3: document.getElementById('clue3'),
+        clueText1: newClueText1,
+        clueText2: newClueText2,
+        clueText3: newClueText3,
+        clue1: newClue1,
+        clue2: newClue2,
+        clue3: newClue3
       });
+
+      // Also update the local variables by reassigning
+      // We'll use a more direct approach - the functions will use the window references
 
       startGame();
     });
 
     btnNext.addEventListener('click', nextWord);
 
+    // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
       if (e.key >= '1' && e.key <= '4') {
         const idx = parseInt(e.key) - 1;
@@ -1644,7 +1479,7 @@
         if (btnNext.classList.contains('show')) {
           btnNext.click();
         }
-        if (!btnStart.disabled && !gameState.isRunning && !gameState.isGameOver) {
+        if (!btnStart.disabled && !gameState.isGameOver) {
           btnStart.click();
         }
       }
