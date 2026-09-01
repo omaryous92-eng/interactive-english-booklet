@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vocab Rewriting · Unit 4 · Exercises</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+</head>
+<body>
+
+  <!-- Header / Mobile Nav omitted -->
+
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Unit 4</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Vocabulary: Rewriting</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">🔄 Vocabulary — Rewriting</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">6 Questions</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 6</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 4 · Vocab Rewriting</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // QUESTIONS — EXACTLY AS IN THE BOOKLET (Page 91)
+    const questions = [
+      { type: 'fill', text: '1. It was difficult to make a decision as the situation was _______ (continuously) changing. (Rewrite with the correct form)', correct: 'continually' },
+      { type: 'error', text: '2. The park is <span class="error-word">fenced</span>, so you can go and have a walk there any time you like. (Correct the error)', correct: 'unfenced' },
+      { type: 'fill', text: '3. In many modern cities, people have to live very close to each other, as housing is limited. (Rewrite with a suitable expression)', correct: 'live on top of each other' },
+      { type: 'fill', text: '4. Cities aren\'t usually as _______ (walk) as smaller towns. (Use the correct form)', correct: 'walkable' },
+      { type: 'error', text: '5. The hotel looked cold and <span class="error-word">inviting</span>; we definitely didn\'t want to stay there. (Correct the error)', correct: 'uninviting' },
+      { type: 'fill', text: '6. I couldn\'t stop myself from eating some more chocolate cake. (Rewrite with a suitable expression)', correct: 'I couldn\'t resist the temptation to eat more chocolate cake.' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
