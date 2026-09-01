@@ -18,12 +18,13 @@
 </head>
 <body>
 
-  <!-- Header / Mobile Nav omitted -->
+  <!-- Header / Mobile Nav omitted for brevity -->
 
   <main class="main-content">
     <section class="section">
       <div class="container">
 
+        <!-- Breadcrumbs -->
         <nav class="breadcrumbs">
           <a href="../../../index.html">Home</a>
           <span class="separator"> › </span>
@@ -91,11 +92,11 @@
       const script1 = document.createElement('script');
       script1.src = '../../../js/sounds.js';
       document.head.appendChild(script1);
-      
+
       const script2 = document.createElement('script');
       script2.src = '../../../js/confetti.js';
       document.head.appendChild(script2);
-      
+
       const script3 = document.createElement('script');
       script3.src = '../../../js/exercises.js';
       script3.onload = function() {
