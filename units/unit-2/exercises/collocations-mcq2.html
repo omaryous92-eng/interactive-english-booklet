@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collocations MCQ 2 · Unit 2 · Exercises</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+</head>
+<body>
+
+  <!-- Header / Mobile Nav omitted -->
+
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Unit 2</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Collocations: MCQ 2</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">📚 Collocations &amp; Idioms — Multiple Choice 2</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">10 Questions</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 10</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 2 · Collocations MCQ 2</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // QUESTIONS — EXACTLY AS IN THE BOOKLET (Page 49)
+    const questions = [
+      { type: 'mcq', text: '1. The carnival _______ to the 16th century.', options: ['talks into', 'dates back', 'gives a speech', 'spreads out'], correct: 'b' },
+      { type: 'mcq', text: '2. They had to _______ the football match due to the heavy rain.', options: ['call off', 'go ahead', 'identify with', 'build a reputation'], correct: 'a' },
+      { type: 'mcq', text: '3. He finally agreed to join after she _______ it.', options: ['looked back at', 'played a role', 'talked- into', 'held a festival'], correct: 'c' },
+      { type: 'mcq', text: '4. The celebrations were _______ three days across the city.', options: ['identified with', 'used without permission', 'spread out over', 'went ahead'], correct: 'c' },
+      { type: 'mcq', text: '5. She is _______ as a pioneer in educational reform.', options: ['widely known', 'talked into', 'dates back', 'dressed up'], correct: 'a' },
+      { type: 'mcq', text: '6. The mayor will _______ at the ceremony.', options: ['go ahead', 'give a speech', 'talk into', 'play a role'], correct: 'b' },
+      { type: 'mcq', text: '7. The play was cancelled, but they decided to _______ with the indoor event.', options: ['go ahead', 'look back at', 'call off', 'spread out'], correct: 'a' },
+      { type: 'mcq', text: '8. Many teenagers _______ characters who face social challenges.', options: ['date back', 'identify with', 'go ahead', 'give a speech'], correct: 'b' },
+      { type: 'mcq', text: '9. He loves to _______ as movie characters during Comic-Con.', options: ['play a role', 'dress up', 'spread out over', 'hold a festival'], correct: 'b' },
+      { type: 'mcq', text: '10. The art competition was canceled because someone _______ an image from the internet.', options: ['spread out', 'used without permission', 'talked into', 'identified with'], correct: 'b' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
