@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grammar 1 MCQ · Unit 2 · Exercises</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+</head>
+<body>
+
+  <!-- Header / Mobile Nav omitted -->
+
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Unit 2</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Grammar 1: MCQ</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">📖 Grammar 1 — Past Simple vs Continuous (MCQ)</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">15 Questions</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 15</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 2 · Grammar 1 MCQ</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // QUESTIONS — EXACTLY AS IN THE BOOKLET (Page 53)
+    const questions = [
+      { type: 'mcq', text: '1. TV while your dad was making lunch?', options: ['Has your mum been watching', 'Your mum was watching', 'Was your mum watching', 'Has your mum watched'], correct: 'c' },
+      { type: 'mcq', text: '2. I _______ Karim yesterday because I was ill.', options: ['didn\'t visited', 'don\'t visit', 'didn\'t visit', 'wasn\'t visiting'], correct: 'c' },
+      { type: 'mcq', text: '3. I was washing my clothes _______ my brother was doing his homework.', options: ['once', 'since', 'when', 'while'], correct: 'd' },
+      { type: 'mcq', text: '4. What time _______ home last night?', options: ['she came', 'did she come', 'she comes', 'was she coming'], correct: 'b' },
+      { type: 'mcq', text: '5. Sandy was having lunch while her mother _______ dinner.', options: ['was cooking', 'is cooking', 'cooking', 'cooked'], correct: 'a' },
+      { type: 'mcq', text: '6. Andrew arrived _______ and he is having a shower now.', options: ['for twenty minutes', 'twenty minutes ago', 'last twenty minutes', 'since twenty minutes'], correct: 'b' },
+      { type: 'mcq', text: '7. Were you studying when I _______ you last night?', options: ['phoned', 'phones', 'was phoning', 'have phoned'], correct: 'a' },
+      { type: 'mcq', text: '8. They _______ a very interesting film last night.', options: ['watched', 'are watching', 'watch', 'have watched'], correct: 'a' },
+      { type: 'mcq', text: '9. I went to Italy and had a wonderful time there _______.', options: ['once a month', 'in 1998', 'this morning', 'recently'], correct: 'b' },
+      { type: 'mcq', text: '10. What were you doing at three o\'clock yesterday? "I _______ a picture".', options: ['was drawing', 'am drawing', 'drew', 'have drawn'], correct: 'a' },
+      { type: 'mcq', text: '11. By the time the manager arrives, we _______ the presentation.', options: ['have already started', 'were starting', 'had already started', 'started'], correct: 'c' },
+      { type: 'mcq', text: '12. She _______ in five countries and still travels often.', options: ['lived', 'was living', 'has lived', 'had lived'], correct: 'c' },
+      { type: 'mcq', text: '13. I _______ to contact him all day, but his phone was off.', options: ['try', 'was trying', 'have tried', 'tried'], correct: 'd' },
+      { type: 'mcq', text: '14. While I _______ the document, the power went out.', options: ['was saving', 'saved', 'have saved', 'save'], correct: 'a' },
+      { type: 'mcq', text: '15. They _______ the results of the survey yet.', options: ['didn\'t receive', 'haven\'t received', 'weren\'t receiving', 'don\'t receive'], correct: 'b' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
