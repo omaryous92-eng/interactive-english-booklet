@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vocab MCQ · Unit 4 · Exercises</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+</head>
+<body>
+
+  <!-- Header / Mobile Nav omitted -->
+
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Unit 4</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Vocabulary: MCQ</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">📚 Vocabulary — Multiple Choice</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">15 Questions</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 15</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 4 · Vocab MCQ</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // QUESTIONS — EXACTLY AS IN THE BOOKLET (Page 90-91)
+    const questions = [
+      { type: 'mcq', text: '1. I can only _______ one hour of my time per day to the project.', options: ['reduce', 'devote', 'propose', 'commute'], correct: 'b' },
+      { type: 'mcq', text: '2. Our house is on a beautiful _______ lined with trees.', options: ['district', 'junction', 'venue', 'pavement'], correct: 'd' },
+      { type: 'mcq', text: '3. Are you a(n) _______ of the United States or are you here on a working visa?', options: ['resident', 'commuter', 'inhabitant', 'flat mate'], correct: 'a' },
+      { type: 'mcq', text: '4. I don\'t understand how she can live in a(n) _______ area with all those factories nearby.', options: ['industrial', 'urban', 'residential', 'rural'], correct: 'a' },
+      { type: 'mcq', text: '5. _______ areas are very busy at the weekends when everybody does their shopping.', options: ['Conventional', 'Commercial', 'Environmental', 'Archaeological'], correct: 'b' },
+      { type: 'mcq', text: '6. James lives on the _______ of the city and it takes him ages to reach the city centre.', options: ['district', 'suburb', 'inner city', 'outskirts'], correct: 'd' },
+      { type: 'mcq', text: '7. Can you please walk on the _______ instead of the road?', options: ['crossroad', 'asphalt', 'junction', 'pavement'], correct: 'd' },
+      { type: 'mcq', text: '8. Many young couples dream of living in a cottage in the _______.', options: ['urban', 'district', 'rural', 'outskirt'], correct: 'c' },
+      { type: 'mcq', text: '9. Apartment buildings have sprung up everywhere and _______ jungle has become unbearable.', options: ['rural', 'suburb', 'urban', 'city'], correct: 'c' },
+      { type: 'mcq', text: '10. The divorce of Angelina Jolie and Brad Pitt was the _______ of the town last year.', options: ['night', 'talk', 'walk', 'paint'], correct: 'b' },
+      { type: 'mcq', text: '11. Cars aren\'t allowed here because it\'s a/an _______ zone only.', options: ['pedestrian', 'industrial', 'estate', 'historical'], correct: 'a' },
+      { type: 'mcq', text: '12. He\'s prepared to _______ long distances if necessary, as he has been jobless for a year.', options: ['propose', 'spread', 'commute', 'demand'], correct: 'c' },
+      { type: 'mcq', text: '13. His shirt is _______ to mine — we bought them together.', options: ['commercial', 'industrial', 'residential', 'identical'], correct: 'd' },
+      { type: 'mcq', text: '14. The patient made a _______ recovery and was sent home in two days.', options: ['proposal', 'demand', 'rapid', 'growth'], correct: 'c' },
+      { type: 'mcq', text: '15. The school is suffering from a _______ of teachers these days. No new teachers want to apply.', options: ['shortage', 'growth', 'raise', 'pace'], correct: 'a' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
