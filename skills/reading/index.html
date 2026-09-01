@@ -15,16 +15,211 @@
   <link rel="stylesheet" href="../../css/animations.css">
   <link rel="stylesheet" href="../../css/responsive.css">
   <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    .passages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--spacing-6);
+      margin-top: var(--spacing-6);
+    }
+
+    .passage-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-5);
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-slow);
+      border-bottom: 5px solid var(--color-primary);
+      text-decoration: none;
+      color: var(--color-text-primary);
+      display: block;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+    }
+
+    .passage-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .passage-card:hover {
+      box-shadow: var(--shadow-xl);
+      transform: translateY(-8px) scale(1.02);
+    }
+
+    .passage-card .card-icon {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: var(--spacing-3);
+    }
+
+    .passage-card .card-number {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .passage-card .card-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin: var(--spacing-2) 0;
+    }
+
+    .passage-card .card-desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .passage-card .card-badge {
+      display: inline-block;
+      padding: 2px var(--spacing-3);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      background: var(--color-accent-1);
+      color: #fff;
+      margin-top: var(--spacing-3);
+    }
+
+    .passage-card:nth-child(1) { border-bottom-color: var(--color-primary); }
+    .passage-card:nth-child(2) { border-bottom-color: var(--color-secondary); }
+    .passage-card:nth-child(3) { border-bottom-color: var(--color-accent-1); }
+    .passage-card:nth-child(4) { border-bottom-color: var(--color-accent-2); }
+    .passage-card:nth-child(5) { border-bottom-color: #34C759; }
+
+    .passage-card:nth-child(1) .card-icon { animation-delay: 0.1s; }
+    .passage-card:nth-child(2) .card-icon { animation-delay: 0.15s; }
+    .passage-card:nth-child(3) .card-icon { animation-delay: 0.2s; }
+    .passage-card:nth-child(4) .card-icon { animation-delay: 0.25s; }
+    .passage-card:nth-child(5) .card-icon { animation-delay: 0.3s; }
+
+    .skills-hero {
+      background: var(--gradient-header);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-8);
+      text-align: center;
+      color: #fff;
+      margin-bottom: var(--spacing-8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skills-hero::before {
+      content: '📚';
+      position: absolute;
+      font-size: 12rem;
+      opacity: 0.08;
+      right: -20px;
+      bottom: -40px;
+      transform: rotate(-10deg);
+    }
+
+    .skills-hero h1 {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-extrabold);
+      margin-bottom: var(--spacing-3);
+      position: relative;
+      z-index: 1;
+    }
+
+    .skills-hero p {
+      font-size: var(--font-size-lg);
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .skills-hero .badge-group {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-3);
+      flex-wrap: wrap;
+      margin-top: var(--spacing-4);
+      position: relative;
+      z-index: 1;
+    }
+
+    .skills-hero .badge-group .badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: var(--spacing-2) var(--spacing-4);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      backdrop-filter: blur(4px);
+    }
+
+    @media (max-width: 768px) {
+      .passages-grid {
+        grid-template-columns: 1fr;
+      }
+      .skills-hero h1 {
+        font-size: var(--font-size-2xl);
+      }
+      .skills-hero {
+        padding: var(--spacing-4);
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Header / Mobile Nav omitted -->
+  <!-- HEADER & MOBILE NAV (same as before) -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../units/unit-1/index.html">Unit 1</a>
+        <a href="../../units/unit-2/index.html">Unit 2</a>
+        <a href="../../units/unit-3/index.html">Unit 3</a>
+        <a href="../../units/unit-4/index.html">Unit 4</a>
+        <a href="../../novel/index.html">Novel</a>
+        <a href="../../poetry/index.html">Poetry</a>
+        <a href="../index.html" class="active">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../../units/unit-1/index.html">Unit 1: Jump for Joy</a>
+      <a href="../../units/unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../../units/unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../../units/unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="../../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../index.html" class="active">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
   <main class="main-content">
     <section class="section">
       <div class="container">
 
-        <!-- Breadcrumbs -->
         <nav class="breadcrumbs">
           <a href="../../index.html">Home</a>
           <span class="separator"> › </span>
@@ -33,41 +228,63 @@
           <span class="current">Reading</span>
         </nav>
 
-        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
-          <h1 class="text-2xl" style="color: var(--color-primary);">📖 Reading Passages</h1>
-          <p class="text-base" style="color: var(--color-text-secondary);">5 comprehension passages with questions.</p>
+        <div class="skills-hero fade-in">
+          <h1>📖 Reading Passages</h1>
+          <p>
+            5 comprehension passages with questions.<br>
+            <span style="font-size: var(--font-size-base); opacity: 0.8;">
+              Read, think, and check your understanding.
+            </span>
+          </p>
+          <div class="badge-group">
+            <span class="badge">📚 5 Passages</span>
+            <span class="badge">❓ 27 Questions</span>
+            <span class="badge">👁️ Show Answers</span>
+          </div>
         </div>
 
-        <div class="grid grid-2" style="gap: var(--spacing-6);">
-          <a href="passage-1.html" class="unit-card" style="border-left-color: var(--color-primary);">
-            <div class="unit-number">Passage 1</div>
-            <div class="unit-title" style="font-size: var(--font-size-lg);">Elephant Seals</div>
-            <div class="unit-description">World's largest seal — habitat, behaviour, breeding, and adaptation.</div>
+        <div class="passages-grid" id="passagesGrid">
+
+          <a href="passage-1.html" class="passage-card">
+            <span class="card-icon">🐘</span>
+            <div class="card-number">Passage 1</div>
+            <div class="card-title">Elephant Seals</div>
+            <div class="card-desc">World's largest seal — habitat, behaviour, breeding, and adaptation.</div>
+            <span class="card-badge">5 questions</span>
           </a>
 
-          <a href="passage-2.html" class="unit-card" style="border-left-color: var(--color-secondary);">
-            <div class="unit-number">Passage 2</div>
-            <div class="unit-title" style="font-size: var(--font-size-lg);">Red Kangaroos</div>
-            <div class="unit-description">World's largest marsupial — habitat, hopping, diet, and joeys.</div>
+          <a href="passage-2.html" class="passage-card">
+            <span class="card-icon">🦘</span>
+            <div class="card-number">Passage 2</div>
+            <div class="card-title">Red Kangaroos</div>
+            <div class="card-desc">World's largest marsupial — habitat, hopping, diet, and joeys.</div>
+            <span class="card-badge">6 questions</span>
           </a>
 
-          <a href="passage-3.html" class="unit-card" style="border-left-color: var(--color-accent-2);">
-            <div class="unit-number">Passage 3</div>
-            <div class="unit-title" style="font-size: var(--font-size-lg);">Albert Einstein</div>
-            <div class="unit-description">Great Minds — early life, discoveries, Theory of Relativity, Nobel Prize.</div>
+          <a href="passage-3.html" class="passage-card">
+            <span class="card-icon">🧠</span>
+            <div class="card-number">Passage 3</div>
+            <div class="card-title">Albert Einstein</div>
+            <div class="card-desc">Great Minds — early life, discoveries, Theory of Relativity, Nobel Prize.</div>
+            <span class="card-badge">6 questions</span>
           </a>
 
-          <a href="passage-4.html" class="unit-card" style="border-left-color: var(--color-accent-1);">
-            <div class="unit-number">Passage 4</div>
-            <div class="unit-title" style="font-size: var(--font-size-lg);">Martin Luther King Jr.</div>
-            <div class="unit-description">Civil rights activist, Montgomery Bus Boycott, "I Have a Dream" speech.</div>
+          <a href="passage-4.html" class="passage-card">
+            <span class="card-icon">✊</span>
+            <div class="card-number">Passage 4</div>
+            <div class="card-title">Martin Luther King Jr.</div>
+            <div class="card-desc">Civil rights activist, Montgomery Bus Boycott, "I Have a Dream" speech.</div>
+            <span class="card-badge">5 questions</span>
           </a>
 
-          <a href="passage-5.html" class="unit-card" style="border-left-color: var(--color-secondary); grid-column: span 2;">
-            <div class="unit-number">Passage 5</div>
-            <div class="unit-title" style="font-size: var(--font-size-lg);">Bird Brains at Work</div>
-            <div class="unit-description">Carrier pigeons — mail carriers, lifeguards, spies, and their training.</div>
+          <a href="passage-5.html" class="passage-card">
+            <span class="card-icon">🐦</span>
+            <div class="card-number">Passage 5</div>
+            <div class="card-title">Bird Brains at Work</div>
+            <div class="card-desc">Carrier pigeons — mail carriers, lifeguards, spies, and their training.</div>
+            <span class="card-badge">5 questions</span>
           </a>
+
         </div>
 
         <div style="margin-top: var(--spacing-8);">
@@ -85,6 +302,26 @@
   <script src="../../js/main.js"></script>
   <script src="../../js/navigation.js"></script>
   <script src="../skills.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const cards = document.querySelectorAll('.passage-card');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, index * 100);
+            }
+          });
+        }, { threshold: 0.15 });
+        cards.forEach(card => observer.observe(card));
+      } else {
+        cards.forEach(card => card.classList.add('visible'));
+      }
+    });
+  </script>
 
 </body>
 </html>
