@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vocab MCQ · Unit 3 · Exercises</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+</head>
+<body>
+
+  <!-- Header / Mobile Nav omitted -->
+
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Unit 3</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Vocabulary: MCQ</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">📚 Vocabulary — Multiple Choice</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">15 Questions</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 15</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 3 · Vocab MCQ</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // QUESTIONS — EXACTLY AS IN THE BOOKLET (Page 68)
+    const questions = [
+      { type: 'mcq', text: '1. Firefighters had to cut the trapped driver free using special _______.', options: ['equipment', 'expectation', 'sponsorship', 'potential'], correct: 'a' },
+      { type: 'mcq', text: '2. I feel this job would allow me to achieve my full _______ and show what I am capable of.', options: ['inspiration', 'potential', 'success', 'determination'], correct: 'b' },
+      { type: 'mcq', text: '3. The fact that he didn\'t speak the language was a/an _______ to communication with the local people.', options: ['attempt', 'mission', 'barrier', 'impact'], correct: 'c' },
+      { type: 'mcq', text: '4. She made it her _______ in life to help the homeless.', options: ['influence', 'donation', 'mission', 'phenomenon'], correct: 'c' },
+      { type: 'mcq', text: '5. She always _______ in mathematics at school; she got top marks.', options: ['fetched', 'afforded', 'sponsored', 'excelled'], correct: 'd' },
+      { type: 'mcq', text: '6. The festival received $50,000 in _______ from banks.', options: ['sponsorship', 'determination', 'competition', 'donation'], correct: 'a' },
+      { type: 'mcq', text: '7. She had to work really hard to live up to her parents\' _______.', options: ['determinations', 'expectations', 'inspirations', 'motivations'], correct: 'b' },
+      { type: 'mcq', text: '8. Many farmers spray their _______ with chemicals to protect them from insects.', options: ['crops', 'roots', 'bonds', 'origins'], correct: 'a' },
+      { type: 'mcq', text: '9. She lives in a _______ village in the middle of the forest. It takes 2 hours to get there.', options: ['famous', 'remote', 'influential', 'real'], correct: 'b' },
+      { type: 'mcq', text: '10. He made a _______ towards the building of the new hospital.', options: ['sponsorship', 'application', 'donation', 'invitation'], correct: 'c' },
+      { type: 'mcq', text: '11. The two athletes _______ for the gold medal.', options: ['competitive', 'competed', 'competition', 'competitors'], correct: 'b' },
+      { type: 'mcq', text: '12. He looked very young, but in _______ he was over fifty.', options: ['real', 'realistic', 'reality', 'realise'], correct: 'c' },
+      { type: 'mcq', text: '13. I know you want to buy a new laptop, but we just can\'t _______ it.', options: ['fetch', 'afford', 'attempt', 'excel'], correct: 'b' },
+      { type: 'mcq', text: '14. Jane is my _______ sister; she\'s three years older than me.', options: ['old', 'young', 'older', 'elder'], correct: 'd' },
+      { type: 'mcq', text: '15. All you do is _______ — you never say anything positive.', options: ['criticise', 'inspire', 'motivate', 'donate'], correct: 'a' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
