@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classwork · Grammar 2 MCQ · Unit 1</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../../../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../../../index.html">Home</a>
+        <a href="../../index.html" class="active">Unit 1</a>
+        <a href="../../../units/unit-2/index.html">Unit 2</a>
+        <a href="../../../units/unit-3/index.html">Unit 3</a>
+        <a href="../../../units/unit-4/index.html">Unit 4</a>
+        <a href="../../../novel/index.html">Novel</a>
+        <a href="../../../poetry/index.html">Poetry</a>
+        <a href="../../../skills/index.html">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../../index.html" class="active">Unit 1: Jump for Joy</a>
+      <a href="../../../units/unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../../../units/unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../../../units/unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../../../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="../../../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../../../skills/index.html">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../../index.html">Unit 1</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Classwork · Grammar 2 MCQ</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">📖 Classwork — Grammar 2 (Multiple Choice)</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">10 Questions</span>
+              <span class="badge badge-accent">C.W</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 10</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="../index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 1 · Classwork · Grammar 2 MCQ</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // ====== QUESTIONS — EXACTLY AS IN THE BOOKLET (Page 29) ======
+    const questions = [
+      { type: 'mcq', text: '1. I ________ three emails this morning, but I still haven\'t received a reply.', options: ['have sent', 'have been sending', 'was sending', 'am sending'], correct: 'a' },
+      { type: 'mcq', text: '2. She looks exhausted because she ________ since 6 a.m.', options: ['worked', 'has worked', 'has been working', 'had worked'], correct: 'c' },
+      { type: 'mcq', text: '3. We ________ to that teacher three times about the issue, but nothing has changed.', options: ['have spoken', 'have been speaking', 'were speaking', 'are speaking'], correct: 'a' },
+      { type: 'mcq', text: '4. I ________ this song on repeat for over an hour. It\'s stuck in my head!', options: ['have listened', 'have been listening', 'am listening', 'had been listening'], correct: 'b' },
+      { type: 'mcq', text: '5. How long ________ in this neighborhood?', options: ['have you lived', 'have you been living', 'do you live', 'are you living'], correct: 'a' },
+      { type: 'mcq', text: '6. He ________ in five different countries so far.', options: ['has lived', 'has been living', 'lived', 'lives'], correct: 'a' },
+      { type: 'mcq', text: '7. I ________ to contact you all day, but your phone has been off.', options: ['have tried', 'have been trying', 'was trying', 'tried'], correct: 'a' },
+      { type: 'mcq', text: '8. She ________ ten chapters already. She\'s so fast!', options: ['has been reading', 'has read', 'read', 'had read'], correct: 'b' },
+      { type: 'mcq', text: '9. Why ________ so many breaks lately?', options: ['have you taken', 'have you been taking', 'did you take', 'do you take'], correct: 'a' },
+      { type: 'mcq', text: '10. We ________ about this issue for weeks and still can\'t agree.', options: ['have discussed', 'have been discussing', 'are discussing', 'had been discussing'], correct: 'b' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
