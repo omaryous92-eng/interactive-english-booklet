@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grammar 1 · Past Simple vs Continuous · Unit 2</title>
+  <title>Grammar 1 · Past Tenses · Unit 2</title>
 
   <!-- Global CSS -->
   <link rel="stylesheet" href="../../css/colors.css">
@@ -15,11 +15,291 @@
   <link rel="stylesheet" href="../../css/animations.css">
   <link rel="stylesheet" href="../../css/responsive.css">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ====== GRAMMAR VISUAL STYLES ====== */
+    .grammar-visual {
+      background: var(--color-bg);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-6);
+      margin-bottom: var(--spacing-6);
+      border-left: 5px solid var(--color-primary);
+    }
+
+    .grammar-visual .grammar-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      margin-bottom: var(--spacing-3);
+    }
+
+    /* ====== TIMELINE ====== */
+    .timeline-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--spacing-4) 0;
+      position: relative;
+      margin: var(--spacing-4) 0;
+    }
+
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 5%;
+      right: 5%;
+      height: 4px;
+      background: var(--color-border);
+      transform: translateY(-50%);
+      border-radius: var(--radius-full);
+    }
+
+    .timeline-point {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      flex: 1;
+    }
+
+    .timeline-point .dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      border: 3px solid var(--color-surface);
+      box-shadow: 0 0 0 3px var(--color-primary);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .timeline-point .dot.blue {
+      background: var(--color-accent-1);
+      box-shadow: 0 0 0 3px var(--color-accent-1);
+    }
+
+    .timeline-point .dot.gold {
+      background: var(--color-secondary);
+      box-shadow: 0 0 0 3px var(--color-secondary);
+    }
+
+    .timeline-point .dot.green {
+      background: #34C759;
+      box-shadow: 0 0 0 3px #34C759;
+    }
+
+    .timeline-point .label {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-secondary);
+      text-align: center;
+      max-width: 100px;
+    }
+
+    .timeline-point .label strong {
+      color: var(--color-text-primary);
+      display: block;
+    }
+
+    /* ====== COMPARISON TABLE ====== */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-6);
+      margin-top: var(--spacing-4);
+    }
+
+    .comparison-box {
+      padding: var(--spacing-4);
+      border-radius: var(--radius-lg);
+      border: 2px solid var(--color-border);
+      transition: all var(--transition-base);
+    }
+
+    .comparison-box:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .comparison-box.simple {
+      border-color: var(--color-primary);
+      background: rgba(242, 101, 34, 0.05);
+    }
+
+    .comparison-box.simple .box-title {
+      color: var(--color-primary);
+    }
+
+    .comparison-box.continuous {
+      border-color: var(--color-accent-1);
+      background: rgba(124, 92, 252, 0.05);
+    }
+
+    .comparison-box.continuous .box-title {
+      color: var(--color-accent-1);
+    }
+
+    .comparison-box.perfect {
+      border-color: #34C759;
+      background: rgba(52, 199, 89, 0.05);
+    }
+
+    .comparison-box.perfect .box-title {
+      color: #34C759;
+    }
+
+    .comparison-box .box-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--spacing-3);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-2);
+    }
+
+    .comparison-box ul {
+      list-style: disc;
+      padding-left: var(--spacing-5);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      line-height: 1.8;
+    }
+
+    .comparison-box ul li strong {
+      color: var(--color-text-primary);
+    }
+
+    .comparison-box .example {
+      background: var(--color-surface);
+      padding: var(--spacing-3);
+      border-radius: var(--radius-md);
+      margin-top: var(--spacing-3);
+      font-style: italic;
+      border-left: 3px solid var(--color-primary);
+      color: var(--color-text-primary);
+    }
+
+    .comparison-box.continuous .example {
+      border-left-color: var(--color-accent-1);
+    }
+
+    .comparison-box.perfect .example {
+      border-left-color: #34C759;
+    }
+
+    /* ====== SIGNAL WORDS ====== */
+    .signal-words {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-2);
+      margin-top: var(--spacing-3);
+    }
+
+    .signal-tag {
+      padding: var(--spacing-1) var(--spacing-3);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+    }
+
+    .signal-tag.primary {
+      background: rgba(242, 101, 34, 0.1);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .signal-tag.accent {
+      background: rgba(124, 92, 252, 0.1);
+      border-color: var(--color-accent-1);
+      color: var(--color-accent-1);
+    }
+
+    .signal-tag.green {
+      background: rgba(52, 199, 89, 0.1);
+      border-color: #34C759;
+      color: #34C759;
+    }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 768px) {
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-container {
+        flex-wrap: wrap;
+        gap: var(--spacing-4);
+        justify-content: center;
+      }
+
+      .timeline-container::before {
+        display: none;
+      }
+
+      .timeline-point {
+        flex: 0 0 auto;
+        width: 80px;
+      }
+
+      .grammar-visual {
+        padding: var(--spacing-4);
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Header / Mobile Nav omitted -->
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../unit-1/index.html">Unit 1</a>
+        <a href="index.html" class="active">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+        <a href="../../novel/index.html">Novel</a>
+        <a href="../../poetry/index.html">Poetry</a>
+        <a href="../../skills/index.html">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../unit-1/index.html">Unit 1: Jump for Joy</a>
+      <a href="index.html" class="active">Unit 2: Global Culture</a>
+      <a href="../unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="../../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../../skills/index.html">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
   <main class="main-content">
     <section class="section">
       <div class="container">
@@ -33,118 +313,209 @@
           <span class="current">Grammar 1</span>
         </nav>
 
+        <!-- Page Header -->
         <div class="fade-in" style="margin-bottom: var(--spacing-8);">
-          <h1 class="text-2xl" style="color: var(--color-primary);">📖 Past Simple vs Past Continuous</h1>
-          <p class="text-base" style="color: var(--color-text-secondary);">Completed actions vs ongoing actions in the past.</p>
+          <h1 class="text-2xl" style="color: var(--color-primary);">📖 Past Tenses</h1>
+          <p class="text-base" style="color: var(--color-text-secondary);">
+            Past Simple, Past Continuous, and a comparison with Present Perfect — with visual illustrations.
+          </p>
+          <div style="margin-top: var(--spacing-3); display: flex; gap: var(--spacing-2); flex-wrap: wrap;">
+            <span class="badge badge-primary">Past Simple</span>
+            <span class="badge badge-accent">Past Continuous</span>
+            <span class="badge" style="background: #34C759; color: #fff;">Present Perfect</span>
+          </div>
         </div>
 
-        <!-- Past Simple -->
-        <div class="card" style="margin-bottom: var(--spacing-6);">
-          <div class="card-header">
-            <div class="card-title">✅ Past Simple</div>
-            <span class="badge badge-primary">Completed</span>
+        <!-- ====== VISUAL TIMELINE ====== -->
+        <div class="grammar-visual">
+          <div class="grammar-title">⏳ Visual Timeline: Past Tenses</div>
+          <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-4);">
+            Understanding the relationship between different past tenses:
+          </p>
+
+          <div class="timeline-container">
+            <div class="timeline-point">
+              <div class="dot gold"></div>
+              <div class="label"><strong>Past</strong>Completed action<br><small>Past Simple</small></div>
+            </div>
+            <div class="timeline-point">
+              <div class="dot blue"></div>
+              <div class="label"><strong>⚡ Interruption</strong>Ongoing action interrupted<br><small>Past Continuous</small></div>
+            </div>
+            <div class="timeline-point">
+              <div class="dot green"></div>
+              <div class="label"><strong>⬆ Present</strong>Connection to now<br><small>Present Perfect</small></div>
+            </div>
           </div>
-          <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-4); margin-bottom: var(--spacing-4);">
-            <div style="background: var(--color-bg); padding: var(--spacing-3); border-radius: var(--radius-md);">
+        </div>
+
+        <!-- ====== PAST SIMPLE VS PAST CONTINUOUS ====== -->
+        <h2 class="text-xl" style="margin-bottom: var(--spacing-4); color: var(--color-primary);">
+          📊 Comparison 1: Past Simple vs Past Continuous
+        </h2>
+
+        <div class="comparison-grid">
+
+          <!-- Past Simple -->
+          <div class="comparison-box simple">
+            <div class="box-title">✅ Past Simple</div>
+            <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: var(--spacing-2);">
               <strong>Form:</strong> V2 (regular: -ed / irregular: 2nd column)
             </div>
-            <div style="background: var(--color-bg); padding: var(--spacing-3); border-radius: var(--radius-md);">
-              <em>I played</em> / <em>She went</em>
+            <ul>
+              <li><strong>Completed actions</strong> — finished in the past</li>
+              <li><strong>Past habits or facts</strong></li>
+              <li><strong>Sequential actions</strong> — one after another</li>
+            </ul>
+            <div class="example">"I watched a film last night."</div>
+            <div class="example">"He always walked to school."</div>
+            <div class="example">"She opened the door and went inside."</div>
+            <div style="margin-top: var(--spacing-3);">
+              <strong style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Signal words:</strong>
+              <div class="signal-words">
+                <span class="signal-tag primary">yesterday</span>
+                <span class="signal-tag primary">last week/month/year</span>
+                <span class="signal-tag primary">(days) ago</span>
+                <span class="signal-tag primary">when</span>
+              </div>
             </div>
           </div>
-          <div class="grid grid-2" style="gap: var(--spacing-6);">
-            <div>
-              <h3 style="font-weight: var(--font-weight-semibold);">Usage</h3>
-              <ul style="list-style: disc; padding-left: var(--spacing-6); color: var(--color-text-secondary);">
-                <li>Completed actions in the past</li>
-                <li>Past habits or facts</li>
-                <li>Sequential actions</li>
-              </ul>
-            </div>
-            <div>
-              <h3 style="font-weight: var(--font-weight-semibold);">Examples</h3>
-              <ul style="list-style: disc; padding-left: var(--spacing-6); color: var(--color-text-secondary);">
-                <li><em>I watched a film last night.</em></li>
-                <li><em>He always walked to school.</em></li>
-                <li><em>She opened the door and went inside.</em></li>
-              </ul>
-            </div>
-          </div>
-          <div style="margin-top: var(--spacing-4);">
-            <strong>Signal words:</strong> yesterday, last (week/month/year), (days/months) ago, when
-          </div>
-        </div>
 
-        <!-- Past Continuous -->
-        <div class="card" style="margin-bottom: var(--spacing-6);">
-          <div class="card-header">
-            <div class="card-title">🔄 Past Continuous</div>
-            <span class="badge badge-accent">Ongoing</span>
-          </div>
-          <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-4); margin-bottom: var(--spacing-4);">
-            <div style="background: var(--color-bg); padding: var(--spacing-3); border-radius: var(--radius-md);">
+          <!-- Past Continuous -->
+          <div class="comparison-box continuous">
+            <div class="box-title">🔄 Past Continuous</div>
+            <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: var(--spacing-2);">
               <strong>Form:</strong> was/were + verb-ing
             </div>
-            <div style="background: var(--color-bg); padding: var(--spacing-3); border-radius: var(--radius-md);">
-              <em>I was playing</em> / <em>They were eating</em>
+            <ul>
+              <li><strong>Action in progress</strong> — at a specific time in the past</li>
+              <li><strong>Background action</strong> — interrupted by another action</li>
+              <li><strong>Two ongoing actions</strong> — at the same time</li>
+            </ul>
+            <div class="example">"I was reading a book when the phone rang."</div>
+            <div class="example">"She was cooking while he was watching TV."</div>
+            <div class="example">"At 8 PM, I was having dinner."</div>
+            <div style="margin-top: var(--spacing-3);">
+              <strong style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Signal words:</strong>
+              <div class="signal-words">
+                <span class="signal-tag accent">while</span>
+                <span class="signal-tag accent">as</span>
+                <span class="signal-tag accent">at (time)</span>
+              </div>
             </div>
           </div>
-          <div class="grid grid-2" style="gap: var(--spacing-6);">
-            <div>
-              <h3 style="font-weight: var(--font-weight-semibold);">Usage</h3>
-              <ul style="list-style: disc; padding-left: var(--spacing-6); color: var(--color-text-secondary);">
-                <li>Action in progress at a specific time</li>
-                <li>Background action interrupted by another</li>
-                <li>Two ongoing actions at the same time</li>
-              </ul>
-            </div>
-            <div>
-              <h3 style="font-weight: var(--font-weight-semibold);">Examples</h3>
-              <ul style="list-style: disc; padding-left: var(--spacing-6); color: var(--color-text-secondary);">
-                <li><em>I was reading a book when the phone rang.</em></li>
-                <li><em>She was cooking while he was watching TV.</em></li>
-                <li><em>At 8 PM, I was having dinner.</em></li>
-              </ul>
-            </div>
-          </div>
-          <div style="margin-top: var(--spacing-4);">
-            <strong>Signal words:</strong> while, as, at (time)
-          </div>
+
         </div>
 
-        <!-- Comparison Diagram -->
-        <div class="card" style="background: var(--color-bg); border-left: 4px solid var(--color-secondary);">
-          <div class="card-title" style="font-size: var(--font-size-base);">📊 Comparison</div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-4);">
+        <!-- ====== PAST SIMPLE VS PRESENT PERFECT ====== -->
+        <h2 class="text-xl" style="margin-top: var(--spacing-8); margin-bottom: var(--spacing-4); color: var(--color-primary);">
+          📊 Comparison 2: Past Simple vs Present Perfect
+        </h2>
+
+        <div class="comparison-grid">
+
+          <!-- Past Simple -->
+          <div class="comparison-box simple">
+            <div class="box-title">✅ Past Simple</div>
+            <ul>
+              <li><strong>Finished past actions</strong> — with a specific time</li>
+              <li><strong>No connection to the present</strong></li>
+              <li><strong>Sequential past events</strong></li>
+            </ul>
+            <div class="example">"I saw that movie last year."</div>
+            <div class="example">"She lived in Paris for 5 years." (she no longer lives there)</div>
+            <div class="example">"He called me yesterday."</div>
+            <div style="margin-top: var(--spacing-3);">
+              <strong style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Signal words:</strong>
+              <div class="signal-words">
+                <span class="signal-tag primary">yesterday</span>
+                <span class="signal-tag primary">last week</span>
+                <span class="signal-tag primary">in 2010</span>
+                <span class="signal-tag primary">ago</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Present Perfect -->
+          <div class="comparison-box perfect">
+            <div class="box-title">⏳ Present Perfect</div>
+            <ul>
+              <li><strong>Past action with present result</strong></li>
+              <li><strong>Life experiences</strong> (ever, never)</li>
+              <li><strong>Unfinished actions</strong> (for, since)</li>
+              <li><strong>Recent events</strong> (just, already, yet)</li>
+            </ul>
+            <div class="example">"I have seen that movie." (I know it now)</div>
+            <div class="example">"She has lived in Paris for 5 years." (she still lives there)</div>
+            <div class="example">"He has just called me."</div>
+            <div style="margin-top: var(--spacing-3);">
+              <strong style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Signal words:</strong>
+              <div class="signal-words">
+                <span class="signal-tag green">just</span>
+                <span class="signal-tag green">already</span>
+                <span class="signal-tag green">yet</span>
+                <span class="signal-tag green">for</span>
+                <span class="signal-tag green">since</span>
+                <span class="signal-tag green">ever</span>
+                <span class="signal-tag green">never</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ====== QUICK REFERENCE CARD ====== -->
+        <div class="grammar-visual" style="border-left-color: var(--color-secondary); background: rgba(255, 184, 48, 0.08);">
+          <div class="grammar-title">📌 Quick Reference Card</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--spacing-4);">
             <div>
               <strong style="color: var(--color-primary);">Past Simple</strong>
-              <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">She <strong>washed</strong> the dishes.</p>
-              <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">(Finished action)</p>
+              <ul style="list-style: disc; padding-left: var(--spacing-4); color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+                <li>✅ Completed actions</li>
+                <li>📅 Past habits</li>
+                <li>📜 Sequential events</li>
+                <li>⏰ Specific time</li>
+              </ul>
             </div>
             <div>
               <strong style="color: var(--color-accent-1);">Past Continuous</strong>
-              <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">She <strong>was washing</strong> the dishes when the phone rang.</p>
-              <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">(Ongoing action interrupted)</p>
+              <ul style="list-style: disc; padding-left: var(--spacing-4); color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+                <li>⏳ Actions in progress</li>
+                <li>⚡ Interrupted actions</li>
+                <li>🔄 Simultaneous actions</li>
+                <li>⏰ At a specific time</li>
+              </ul>
+            </div>
+            <div>
+              <strong style="color: #34C759;">Present Perfect</strong>
+              <ul style="list-style: disc; padding-left: var(--spacing-4); color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+                <li>📌 Present result</li>
+                <li>⭐ Life experiences</li>
+                <li>🔄 Unfinished actions</li>
+                <li>📰 Recent events</li>
+              </ul>
             </div>
           </div>
         </div>
 
+        <!-- ====== Practice Questions Button ====== -->
+        <div style="margin-top: var(--spacing-10); text-align: center; padding: var(--spacing-6); background: var(--color-bg); border-radius: var(--radius-lg); border: 2px dashed var(--color-primary);">
+          <h3 style="color: var(--color-primary); font-size: var(--font-size-lg);">📝 Practice Questions</h3>
+          <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">Test your understanding with interactive questions from the booklet.</p>
+          <a href="exercises/index.html" class="btn btn-primary" style="margin-top: var(--spacing-3);">
+            🚀 Start Exercises
+          </a>
+        </div>
+
         <!-- Navigation -->
-        <div style="margin-top: var(--spacing-10); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--spacing-4);">
+        <div style="margin-top: var(--spacing-8); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--spacing-4);">
           <a href="vocabulary-2.html" class="btn btn-secondary">← Vocabulary 2</a>
           <a href="grammar-2.html" class="btn btn-primary">Next: Grammar 2 →</a>
         </div>
 
+        <!-- Footer -->
         <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
           <p>© 2026 · Interactive E-Book · Unit 2 · Grammar 1</p>
-<!-- ====== Practice Questions Button ====== -->
-<div style="margin-top: var(--spacing-10); text-align: center; padding: var(--spacing-6); background: var(--color-bg); border-radius: var(--radius-lg); border: 2px dashed var(--color-primary);">
-    <h3 style="color: var(--color-primary); font-size: var(--font-size-lg);">📝 Practice Questions</h3>
-    <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">Test your understanding with interactive questions from the booklet.</p>
-    <a href="exercises/index.html" class="btn btn-primary" style="margin-top: var(--spacing-3);">
-        🚀 Start Exercises
-    </a>
-</div>
         </footer>
 
       </div>
