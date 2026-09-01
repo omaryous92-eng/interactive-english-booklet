@@ -3,9 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🕵️ Mystery Word · Game</title>
+  <title>🕵️ Mystery Word · Vocabulary Detective</title>
+
   <style>
-    /* ====== RESET ====== */
+    /* ============================================================
+       GLOBAL STYLES
+    ============================================================ */
     * {
       margin: 0;
       padding: 0;
@@ -13,1079 +16,1629 @@
     }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0D1326;
       min-height: 100vh;
       display: flex;
-      justify-content: center;
       align-items: center;
-      background: radial-gradient(ellipse at center, #1a0a2e, #0d0d1a);
-      overflow: hidden;
-      padding: 16px;
+      justify-content: center;
+      background-image: radial-gradient(ellipse at 20% 50%, rgba(242, 101, 34, 0.15), transparent 60%),
+                        radial-gradient(ellipse at 80% 50%, rgba(124, 92, 252, 0.1), transparent 60%);
     }
 
-    /* ====== BACKGROUND ANIMATION ====== */
-    .stars {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .star {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      animation: twinkle var(--duration) ease-in-out infinite alternate;
-      width: var(--size);
-      height: var(--size);
-    }
-    @keyframes twinkle {
-      0% { opacity: 0.2; transform: scale(0.8); }
-      100% { opacity: 1; transform: scale(1.2); }
-    }
-
-    /* ====== GAME CONTAINER ====== */
+    /* ============================================================
+       GAME CONTAINER
+    ============================================================ */
     .game-container {
-      position: relative;
-      z-index: 1;
+      background: linear-gradient(145deg, #1A1F3A, #0F1428);
+      border-radius: 32px;
+      padding: 40px;
+      max-width: 820px;
       width: 100%;
-      max-width: 640px;
-      background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 48px;
-      padding: 32px 24px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      transition: all 0.3s;
-      animation: floatUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-    }
-    @keyframes floatUp {
-      0% { opacity: 0; transform: translateY(60px) scale(0.95); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    /* ====== DETECTIVE CHARACTER ====== */
-    .detective {
-      text-align: center;
-      margin-bottom: 8px;
-      position: relative;
-      animation: detectiveBounce 3s ease-in-out infinite;
-    }
-    @keyframes detectiveBounce {
-      0%, 100% { transform: translateY(0) rotate(-2deg); }
-      50% { transform: translateY(-12px) rotate(2deg); }
-    }
-    .detective-emoji {
-      font-size: 90px;
-      line-height: 1;
-      display: inline-block;
-      filter: drop-shadow(0 8px 20px rgba(255, 200, 50, 0.3));
-      animation: detectiveGlow 2s ease-in-out infinite alternate;
-    }
-    @keyframes detectiveGlow {
-      0% { filter: drop-shadow(0 8px 20px rgba(255, 200, 50, 0.2)); }
-      100% { filter: drop-shadow(0 8px 40px rgba(255, 200, 50, 0.6)); }
-    }
-    .detective-hat {
-      position: absolute;
-      top: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 32px;
-      animation: hatSpin 6s linear infinite;
-    }
-    @keyframes hatSpin {
-      0% { transform: translateX(-50%) rotate(0deg); }
-      100% { transform: translateX(-50%) rotate(360deg); }
-    }
-
-    /* ====== HEADER ====== */
-    .game-header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .game-title {
-      font-size: 32px;
-      font-weight: 800;
-      background: linear-gradient(135deg, #f7971e, #ffd200);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: -0.5px;
-      animation: titlePulse 2s ease-in-out infinite;
-    }
-    @keyframes titlePulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.02); }
-    }
-    .game-subtitle {
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 13px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-top: 2px;
-    }
-
-    /* ====== TIMER ====== */
-    .timer-section {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
-      padding: 8px 20px;
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 60px;
+      margin: 20px;
       border: 1px solid rgba(255, 255, 255, 0.06);
-      animation: timerSlide 0.6s ease;
-    }
-    @keyframes timerSlide {
-      0% { opacity: 0; transform: scale(0.8); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-    .timer-icon {
-      font-size: 24px;
-      animation: timerPulse 1s ease-in-out infinite;
-    }
-    @keyframes timerPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.15); }
-    }
-    .timer-display {
-      font-size: 48px;
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
-      background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      min-width: 80px;
-      text-align: center;
-      animation: timerZoom 0.2s ease;
-    }
-    @keyframes timerZoom {
-      0% { transform: scale(1.2); }
-      100% { transform: scale(1); }
-    }
-    .timer-display.warning {
-      animation: timerBlink 0.5s ease-in-out 3;
-    }
-    @keyframes timerBlink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.2; }
-    }
-    .timer-label {
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    /* ====== DEFINITIONS ====== */
-    .definitions-area {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 24px;
-      padding: 20px 24px;
-      min-height: 140px;
-      margin-bottom: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      transition: all 0.3s;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(242, 101, 34, 0.1) inset;
       position: relative;
       overflow: hidden;
     }
-    .definitions-area::before {
+
+    .game-container::before {
       content: '';
       position: absolute;
       top: -50%;
       left: -50%;
       width: 200%;
       height: 200%;
-      background: conic-gradient(from 0deg, transparent, rgba(255, 200, 50, 0.03), transparent, rgba(255, 200, 50, 0.03), transparent);
-      animation: rotateBg 20s linear infinite;
-    }
-    @keyframes rotateBg {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    .definition-item {
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 18px;
-      line-height: 1.6;
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      animation: defFadeIn 0.5s ease forwards;
-      position: relative;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    @keyframes defFadeIn {
-      0% { opacity: 0; transform: translateX(-12px) scale(0.95); }
-      100% { opacity: 1; transform: translateX(0) scale(1); }
-    }
-    .definition-item .bullet {
-      color: #ffd700;
-      font-size: 20px;
-    }
-    .definition-item .def-text {
-      flex: 1;
-    }
-    .definition-item .def-number {
-      color: rgba(255, 255, 255, 0.3);
-      font-size: 12px;
-      font-weight: 700;
-    }
-    .hint-text {
-      color: rgba(255, 255, 255, 0.3);
-      font-size: 14px;
-      text-align: center;
-      margin-top: 4px;
-      font-style: italic;
-      animation: pulseHint 2s ease-in-out infinite;
-      position: relative;
-      z-index: 1;
-    }
-    @keyframes pulseHint {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 0.7; }
+      background: radial-gradient(circle at 30% 40%, rgba(242, 101, 34, 0.03), transparent 70%);
+      animation: bgPulse 8s ease-in-out infinite;
+      pointer-events: none;
     }
 
-    /* ====== INPUT AREA ====== */
-    .input-area {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 16px;
-      animation: inputSlide 0.6s ease 0.2s both;
-    }
-    @keyframes inputSlide {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    .guess-input {
-      flex: 1;
-      padding: 14px 20px;
-      border-radius: 60px;
-      border: 2px solid rgba(255, 255, 255, 0.1);
-      background: rgba(0, 0, 0, 0.4);
-      color: white;
-      font-size: 18px;
-      outline: none;
-      transition: all 0.3s;
-    }
-    .guess-input:focus {
-      border-color: #ffd700;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
-      background: rgba(0, 0, 0, 0.6);
-    }
-    .guess-input::placeholder {
-      color: rgba(255, 255, 255, 0.3);
-    }
-    .guess-input.shake {
-      animation: shake 0.4s ease;
-    }
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20% { transform: translateX(-12px); }
-      40% { transform: translateX(12px); }
-      60% { transform: translateX(-8px); }
-      80% { transform: translateX(8px); }
-    }
-    .guess-input.correct {
-      border-color: #00e676;
-      background: rgba(0, 230, 118, 0.1);
-      animation: correctPulse 0.6s ease;
-    }
-    @keyframes correctPulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.03); }
-      100% { transform: scale(1); }
-    }
-    .guess-btn {
-      padding: 14px 28px;
-      border-radius: 60px;
-      border: none;
-      background: linear-gradient(135deg, #f7971e, #ffd200);
-      color: #1a0a2e;
-      font-weight: 700;
-      font-size: 16px;
-      cursor: pointer;
-      transition: all 0.3s;
-      white-space: nowrap;
-      box-shadow: 0 4px 20px rgba(255, 215, 0, 0.25);
-    }
-    .guess-btn:hover:not(:disabled) {
-      transform: scale(1.04);
-      box-shadow: 0 6px 30px rgba(255, 215, 0, 0.4);
-    }
-    .guess-btn:active:not(:disabled) {
-      transform: scale(0.96);
-    }
-    .guess-btn:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-      transform: none;
+    @keyframes bgPulse {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.2); opacity: 1; }
     }
 
-    /* ====== START BUTTON ====== */
-    .start-btn-wrapper {
-      text-align: center;
-      margin: 8px 0 12px;
-      animation: startPulse 1.5s ease-in-out infinite;
-    }
-    @keyframes startPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.02); }
-    }
-    .start-btn {
-      padding: 16px 48px;
-      border-radius: 60px;
-      border: none;
-      background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-      color: white;
-      font-weight: 800;
-      font-size: 22px;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 8px 30px rgba(238, 90, 36, 0.4);
-      animation: startGlow 1.5s ease-in-out infinite alternate;
-    }
-    @keyframes startGlow {
-      0% { box-shadow: 0 8px 30px rgba(238, 90, 36, 0.3); }
-      100% { box-shadow: 0 8px 50px rgba(238, 90, 36, 0.7); }
-    }
-    .start-btn:hover {
-      transform: scale(1.05);
-    }
-    .start-btn:active {
-      transform: scale(0.95);
-    }
-    .start-btn:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-      transform: none;
-      animation: none;
-    }
-
-    /* ====== SCORE & STATUS ====== */
-    .status-row {
+    /* ============================================================
+       HEADER
+    ============================================================ */
+    .game-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 12px;
-      padding: 10px 16px;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 60px;
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      animation: statusSlide 0.6s ease 0.4s both;
-    }
-    @keyframes statusSlide {
-      0% { opacity: 0; transform: translateY(12px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    .status-score {
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 14px;
-    }
-    .status-score span {
-      color: #ffd700;
-      font-weight: 700;
-      font-size: 18px;
-    }
-    .status-message {
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 13px;
-      animation: messagePop 0.3s ease;
-    }
-    @keyframes messagePop {
-      0% { transform: scale(0.8); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    .status-message.success {
-      color: #00e676;
-    }
-    .status-message.fail {
-      color: #ff6b6b;
-    }
-    .status-message.timeout {
-      color: #ffd93d;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
     }
 
-    /* ====== CONFETTI OVERLAY ====== */
+    .game-title {
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #F26522, #FFB830);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: titleGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes titleGlow {
+      0%, 100% { filter: drop-shadow(0 0 20px rgba(242, 101, 34, 0.2)); }
+      50% { filter: drop-shadow(0 0 40px rgba(242, 101, 34, 0.4)); }
+    }
+
+    .game-title span {
+      -webkit-text-fill-color: initial;
+      color: #fff;
+    }
+
+    .score-display {
+      background: rgba(255, 255, 255, 0.06);
+      padding: 8px 20px;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      color: #fff;
+      font-weight: 600;
+      animation: scorePulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scorePulse {
+      0%, 100% { border-color: rgba(255, 255, 255, 0.08); }
+      50% { border-color: rgba(242, 101, 34, 0.3); }
+    }
+
+    .score-display .score-number {
+      color: #FFB830;
+      font-size: 24px;
+      font-weight: 800;
+      min-width: 30px;
+      text-align: center;
+    }
+
+    /* ============================================================
+       DETECTIVE CHARACTER
+    ============================================================ */
+    .detective-container {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0 20px 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .detective {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      animation: detectiveFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes detectiveFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(2deg); }
+    }
+
+    .detective .head {
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle at 40% 35%, #F5D0B8, #D4A88C);
+      border-radius: 50%;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .detective .hat {
+      width: 90px;
+      height: 35px;
+      background: linear-gradient(180deg, #2C3E6B, #1A2A4A);
+      border-radius: 100px 100px 0 0;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .detective .hat-brim {
+      width: 100px;
+      height: 10px;
+      background: #2C3E6B;
+      border-radius: 50%;
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .detective .eye-left,
+    .detective .eye-right {
+      width: 12px;
+      height: 14px;
+      background: #1A2A4A;
+      border-radius: 50%;
+      position: absolute;
+      top: 30px;
+      animation: eyeMove 4s ease-in-out infinite;
+    }
+
+    .detective .eye-left {
+      left: 22px;
+    }
+
+    .detective .eye-right {
+      right: 22px;
+    }
+
+    @keyframes eyeMove {
+      0%, 100% { transform: scale(1); }
+      25% { transform: scale(1.2); }
+      50% { transform: scale(1); }
+      75% { transform: scale(0.8); }
+    }
+
+    .detective .eye-left::after,
+    .detective .eye-right::after {
+      content: '';
+      width: 4px;
+      height: 4px;
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 3px;
+      left: 4px;
+    }
+
+    .detective .mouth {
+      width: 18px;
+      height: 8px;
+      border-bottom: 3px solid #8B6B5A;
+      border-radius: 0 0 50% 50%;
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: mouthMove 2s ease-in-out infinite;
+    }
+
+    @keyframes mouthMove {
+      0%, 100% { border-bottom-width: 3px; }
+      50% { border-bottom-width: 5px; }
+    }
+
+    .detective .magnifier {
+      position: absolute;
+      bottom: -10px;
+      right: -10px;
+      font-size: 40px;
+      animation: magnifierSwing 3s ease-in-out infinite;
+      filter: drop-shadow(0 4px 15px rgba(242, 101, 34, 0.3));
+    }
+
+    @keyframes magnifierSwing {
+      0%, 100% { transform: rotate(-5deg) scale(1); }
+      50% { transform: rotate(5deg) scale(1.1); }
+    }
+
+    .detective .thought-bubble {
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+      padding: 6px 14px;
+      border-radius: 20px 20px 20px 4px;
+      font-size: 14px;
+      color: #FFB830;
+      font-weight: 600;
+      animation: thoughtPop 2s ease-in-out infinite;
+      border: 1px solid rgba(255, 184, 48, 0.15);
+      opacity: 0;
+    }
+
+    .detective .thought-bubble.show {
+      opacity: 1;
+    }
+
+    @keyframes thoughtPop {
+      0%, 100% { transform: scale(0.9); opacity: 0; }
+      10%, 90% { transform: scale(1); opacity: 1; }
+    }
+
+    /* ============================================================
+       TIMER
+    ============================================================ */
+    .timer-section {
+      margin: 16px 0 24px 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .timer-bar-track {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 100px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .timer-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #EA580C, #F26522, #FFB830);
+      border-radius: 100px;
+      width: 100%;
+      transition: width 0.1s linear;
+      position: relative;
+    }
+
+    .timer-bar-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: shimmer 1s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .timer-bar-fill.warning {
+      background: linear-gradient(90deg, #FF3B30, #EA580C);
+      animation: timerPulse 0.5s ease-in-out infinite;
+    }
+
+    @keyframes timerPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .timer-info {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 500;
+    }
+
+    .timer-number {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      transition: color 0.3s;
+    }
+
+    .timer-number.warning {
+      color: #FF3B30;
+      animation: numberPulse 0.5s ease-in-out infinite;
+    }
+
+    @keyframes numberPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    /* ============================================================
+       CLUES
+    ============================================================ */
+    .clues-container {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 20px;
+      padding: 24px;
+      margin: 16px 0 24px 0;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+      z-index: 2;
+      min-height: 120px;
+      transition: all 0.5s ease;
+    }
+
+    .clues-container.revealing {
+      animation: clueReveal 0.6s ease;
+    }
+
+    @keyframes clueReveal {
+      0% { transform: scale(0.95); opacity: 0.3; }
+      50% { transform: scale(1.02); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .clue-item {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.7);
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .clue-item.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .clue-item:last-child {
+      border-bottom: none;
+    }
+
+    .clue-item .clue-number {
+      display: inline-block;
+      background: rgba(242, 101, 34, 0.15);
+      color: #F26522;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 2px 10px;
+      border-radius: 100px;
+      margin-right: 12px;
+    }
+
+    .clue-item .clue-text {
+      font-weight: 400;
+      letter-spacing: 0.3px;
+    }
+
+    /* ============================================================
+       OPTIONS
+    ============================================================ */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 20px 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .option-btn {
+      padding: 16px 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 2px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.3px;
+    }
+
+    .option-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(242, 101, 34, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      transform: translateY(-3px) scale(1.02);
+      border-color: rgba(242, 101, 34, 0.4);
+      box-shadow: 0 8px 30px rgba(242, 101, 34, 0.15);
+    }
+
+    .option-btn:hover:not(:disabled)::before {
+      opacity: 1;
+    }
+
+    .option-btn:active:not(:disabled) {
+      transform: scale(0.95);
+    }
+
+    .option-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+      transform: none !important;
+    }
+
+    .option-btn .option-letter {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      line-height: 28px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.4);
+      margin-right: 10px;
+      transition: all 0.3s;
+    }
+
+    .option-btn:hover:not(:disabled) .option-letter {
+      background: rgba(242, 101, 34, 0.2);
+      color: #F26522;
+    }
+
+    /* Option States */
+    .option-btn.correct {
+      border-color: #34C759;
+      background: rgba(52, 199, 89, 0.15);
+      animation: correctPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .option-btn.correct .option-letter {
+      background: #34C759;
+      color: #fff;
+    }
+
+    @keyframes correctPop {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.1); }
+      60% { transform: scale(0.95); }
+      100% { transform: scale(1); }
+    }
+
+    .option-btn.wrong {
+      border-color: #FF3B30;
+      background: rgba(255, 59, 48, 0.15);
+      animation: wrongShake 0.5s ease;
+    }
+
+    .option-btn.wrong .option-letter {
+      background: #FF3B30;
+      color: #fff;
+    }
+
+    @keyframes wrongShake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-10px); }
+      40% { transform: translateX(10px); }
+      60% { transform: translateX(-5px); }
+      80% { transform: translateX(5px); }
+    }
+
+    .option-btn.show-correct {
+      border-color: #34C759;
+      background: rgba(52, 199, 89, 0.08);
+      animation: correctReveal 0.6s ease;
+    }
+
+    .option-btn.show-correct .option-letter {
+      background: #34C759;
+      color: #fff;
+    }
+
+    @keyframes correctReveal {
+      0% { transform: scale(0.9); opacity: 0.5; }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* ============================================================
+       CONTROL BUTTONS
+    ============================================================ */
+    .controls {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      margin-top: 20px;
+      position: relative;
+      z-index: 2;
+      flex-wrap: wrap;
+    }
+
+    .btn-start {
+      padding: 14px 48px;
+      background: linear-gradient(135deg, #F26522, #EA580C);
+      border: none;
+      border-radius: 100px;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 4px 30px rgba(242, 101, 34, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-start:hover:not(:disabled) {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 50px rgba(242, 101, 34, 0.4);
+    }
+
+    .btn-start:active:not(:disabled) {
+      transform: scale(0.95);
+    }
+
+    .btn-start:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .btn-start .icon {
+      font-size: 22px;
+      animation: iconBounce 2s ease-in-out infinite;
+    }
+
+    @keyframes iconBounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .btn-next {
+      padding: 14px 36px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 2px solid rgba(255, 255, 255, 0.08);
+      border-radius: 100px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-next:hover {
+      transform: translateY(-3px);
+      border-color: rgba(242, 101, 34, 0.4);
+      box-shadow: 0 8px 30px rgba(242, 101, 34, 0.1);
+    }
+
+    .btn-next.show {
+      display: flex;
+      animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes slideUp {
+      0% { transform: translateY(20px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    /* ============================================================
+       FEEDBACK OVERLAY
+    ============================================================ */
+    .feedback-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feedback-overlay .emoji {
+      font-size: 120px;
+      animation: feedbackPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+      filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.5));
+    }
+
+    @keyframes feedbackPop {
+      0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+      60% { transform: scale(1.3) rotate(5deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
+    /* ============================================================
+       CONFETTI
+    ============================================================ */
     .confetti-container {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      right: 0;
+      bottom: 0;
       pointer-events: none;
       z-index: 999;
       overflow: hidden;
     }
+
     .confetti-piece {
       position: absolute;
       width: 10px;
       height: 10px;
-      top: -20px;
-      animation: confettiFall var(--fall-duration) linear forwards;
+      animation: confettiFall linear forwards;
     }
+
     @keyframes confettiFall {
-      0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
-      100% { transform: translateY(110vh) rotate(720deg) scale(0.3); opacity: 0; }
+      0% {
+        transform: translateY(-20px) rotate(0deg) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(calc(100vh + 50px)) rotate(720deg) scale(0.3);
+        opacity: 0;
+      }
     }
 
-    /* ====== RESPONSIVE ====== */
-    @media (max-width: 480px) {
-      .game-container { padding: 20px 16px; border-radius: 32px; }
-      .detective-emoji { font-size: 64px; }
-      .game-title { font-size: 26px; }
-      .timer-display { font-size: 36px; min-width: 60px; }
-      .definition-item { font-size: 16px; }
-      .guess-input { font-size: 16px; padding: 12px 16px; }
-      .guess-btn { font-size: 14px; padding: 12px 20px; }
-      .start-btn { font-size: 18px; padding: 14px 32px; }
+    /* ============================================================
+       GAME OVER
+    ============================================================ */
+    .game-over {
+      text-align: center;
+      padding: 30px 20px;
+      position: relative;
+      z-index: 2;
+      animation: gameOverIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    /* ====== SCREEN READER ====== */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      border: 0;
+    @keyframes gameOverIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .game-over .final-score {
+      font-size: 72px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #FFB830, #F26522);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: scoreFloat 2s ease-in-out infinite;
+    }
+
+    @keyframes scoreFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .game-over .final-label {
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 4px;
+    }
+
+    .game-over .final-message {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 12px;
+    }
+
+    .game-over .final-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 20px 0;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 14px;
+    }
+
+    .game-over .final-stats span {
+      display: block;
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .game-over .final-stats .correct-stat span {
+      color: #34C759;
+    }
+
+    .game-over .final-stats .wrong-stat span {
+      color: #FF3B30;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 600px) {
+      .game-container {
+        padding: 20px;
+        border-radius: 20px;
+        margin: 10px;
+      }
+
+      .game-title {
+        font-size: 20px;
+      }
+
+      .options-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .option-btn {
+        padding: 14px 16px;
+        font-size: 14px;
+      }
+
+      .detective {
+        width: 80px;
+        height: 80px;
+      }
+
+      .detective .head {
+        width: 55px;
+        height: 55px;
+        top: 8px;
+      }
+
+      .detective .hat {
+        width: 60px;
+        height: 25px;
+      }
+
+      .detective .hat-brim {
+        width: 70px;
+        height: 8px;
+        top: 22px;
+      }
+
+      .detective .eye-left,
+      .detective .eye-right {
+        width: 8px;
+        height: 10px;
+        top: 22px;
+      }
+
+      .detective .eye-left { left: 15px; }
+      .detective .eye-right { right: 15px; }
+
+      .detective .mouth {
+        width: 12px;
+        height: 6px;
+        bottom: 12px;
+      }
+
+      .detective .magnifier {
+        font-size: 28px;
+        bottom: -5px;
+        right: -5px;
+      }
+
+      .clue-item {
+        font-size: 15px;
+      }
+
+      .btn-start {
+        padding: 12px 30px;
+        font-size: 16px;
+      }
+
+      .game-over .final-score {
+        font-size: 48px;
+      }
+
+      .feedback-overlay .emoji {
+        font-size: 80px;
+      }
+
+      .score-display {
+        font-size: 13px;
+        padding: 6px 14px;
+      }
+
+      .score-display .score-number {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .game-container {
+        padding: 14px;
+      }
+
+      .game-title {
+        font-size: 17px;
+      }
+
+      .game-header {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .clue-item {
+        font-size: 13px;
+        padding: 8px 0;
+      }
+
+      .controls {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn-start, .btn-next {
+        width: 100%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- ====== STARS BACKGROUND ====== -->
-  <div class="stars" id="stars"></div>
-
-  <!-- ====== CONFETTI CONTAINER ====== -->
-  <div class="confetti-container" id="confettiContainer"></div>
-
   <!-- ====== GAME ====== -->
-  <div class="game-container" role="main" aria-label="Mystery Word Game">
-
-    <!-- Detective -->
-    <div class="detective">
-      <span class="detective-hat">🎩</span>
-      <span class="detective-emoji" aria-hidden="true">🕵️</span>
-    </div>
+  <div class="game-container" id="gameContainer">
 
     <!-- Header -->
     <div class="game-header">
-      <div class="game-title">🔍 Mystery Word</div>
-      <div class="game-subtitle">Guess the word from the clues</div>
-    </div>
-
-    <!-- Timer -->
-    <div class="timer-section" id="timerSection">
-      <span class="timer-icon">⏳</span>
-      <span class="timer-display" id="timerDisplay">30</span>
-      <span class="timer-label">seconds</span>
-    </div>
-
-    <!-- Definitions -->
-    <div class="definitions-area" id="definitionsArea">
-      <div id="definitionsContainer">
-        <div class="hint-text" id="hintText">Press "Start" to begin the investigation 🔎</div>
+      <div class="game-title">
+        🕵️ <span>Mystery Word</span>
+      </div>
+      <div class="score-display">
+        ⭐ Score: <span class="score-number" id="scoreDisplay">0</span>
       </div>
     </div>
 
-    <!-- Input -->
-    <div class="input-area">
-      <input type="text" class="guess-input" id="guessInput" placeholder="Type your guess..." disabled autocomplete="off">
-      <button class="guess-btn" id="guessBtn" disabled>🔍 Guess</button>
+    <!-- Detective -->
+    <div class="detective-container">
+      <div class="detective" id="detective">
+        <div class="hat"></div>
+        <div class="hat-brim"></div>
+        <div class="head">
+          <div class="eye-left"></div>
+          <div class="eye-right"></div>
+          <div class="mouth"></div>
+        </div>
+        <div class="magnifier">🔍</div>
+        <div class="thought-bubble" id="thoughtBubble">🤔 Hmm...</div>
+      </div>
     </div>
 
-    <!-- Start Button -->
-    <div class="start-btn-wrapper">
-      <button class="start-btn" id="startBtn">🚀 Start</button>
+    <!-- Timer -->
+    <div class="timer-section">
+      <div class="timer-bar-track">
+        <div class="timer-bar-fill" id="timerFill"></div>
+      </div>
+      <div class="timer-info">
+        <span>⏱️ Time Left</span>
+        <span class="timer-number" id="timerNumber">10s</span>
+      </div>
     </div>
 
-    <!-- Status -->
-    <div class="status-row">
-      <div class="status-score">⭐ Score: <span id="scoreDisplay">0</span></div>
-      <div class="status-message" id="statusMessage">Ready to play?</div>
+    <!-- Clues -->
+    <div class="clues-container" id="cluesContainer">
+      <div id="cluesList">
+        <div class="clue-item" id="clue1">
+          <span class="clue-number">🔎 CLUE 1</span>
+          <span class="clue-text" id="clueText1">Press "Start" to begin the investigation!</span>
+        </div>
+        <div class="clue-item" id="clue2">
+          <span class="clue-number">🔎 CLUE 2</span>
+          <span class="clue-text" id="clueText2">—</span>
+        </div>
+        <div class="clue-item" id="clue3">
+          <span class="clue-number">🔎 CLUE 3</span>
+          <span class="clue-text" id="clueText3">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Options -->
+    <div class="options-grid" id="optionsGrid">
+      <button class="option-btn" data-index="0" disabled>
+        <span class="option-letter">A</span> <span class="option-text" id="opt0">—</span>
+      </button>
+      <button class="option-btn" data-index="1" disabled>
+        <span class="option-letter">B</span> <span class="option-text" id="opt1">—</span>
+      </button>
+      <button class="option-btn" data-index="2" disabled>
+        <span class="option-letter">C</span> <span class="option-text" id="opt2">—</span>
+      </button>
+      <button class="option-btn" data-index="3" disabled>
+        <span class="option-letter">D</span> <span class="option-text" id="opt3">—</span>
+      </button>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <button class="btn-start" id="btnStart">
+        <span class="icon">🔍</span> Start Investigation
+      </button>
+      <button class="btn-next" id="btnNext">
+        Next Word ➜
+      </button>
     </div>
 
   </div>
 
+  <!-- ====== FEEDBACK OVERLAY ====== -->
+  <div class="feedback-overlay" id="feedbackOverlay" style="display: none;">
+    <div class="emoji" id="feedbackEmoji">🎉</div>
+  </div>
+
+  <!-- ====== CONFETTI CONTAINER ====== -->
+  <div class="confetti-container" id="confettiContainer"></div>
+
+  <!-- ====== SCRIPT ====== -->
   <script>
     // ============================================================
-    //  🕵️ MYSTERY WORD — FULL GAME ENGINE
+    // WORD BANK — All Vocabulary from All Units
     // ============================================================
+    const wordBank = [
+      // Unit 1: Jump for Joy
+      { word: 'upset', clues: ['A feeling of worry or anger', 'Something bad can make you feel this', 'You feel this when things don\'t go your way'], correct: 'upset' },
+      { word: 'behaviour', clues: ['The way someone acts', 'How you conduct yourself', 'It can be good or bad'], correct: 'behaviour' },
+      { word: 'sight', clues: ['Something you see', 'A view or scene', 'The ability to see'], correct: 'sight' },
+      { word: 'wonder', clues: ['To ask yourself about something', 'To be curious', 'You might ____ what will happen'], correct: 'wonder' },
+      { word: 'bother', clues: ['To annoy or disturb', 'To cause trouble', 'Don\'t ____ me while I\'m working'], correct: 'bother' },
+      { word: 'context', clues: ['The situation around something', 'Explains the meaning', 'You need this to understand'], correct: 'context' },
+      { word: 'supply', clues: ['An amount of something available', 'What you have in stock', 'The ____ of water was limited'], correct: 'supply' },
+      { word: 'interruption', clues: ['A break in an activity', 'Someone stops you while you\'re busy', 'An ____ during the exam'], correct: 'interruption' },
+      { word: 'bug', clues: ['To annoy someone', 'To irritate', 'His constant talking really ____s me'], correct: 'bug' },
+      { word: 'decade', clues: ['A period of ten years', 'A decade has 10 years', 'She lived there for a ____'], correct: 'decade' },
+      { word: 'research', clues: ['A study to discover new information', 'Scientists do this', 'They did ____ on climate change'], correct: 'research' },
+      { word: 'condition', clues: ['A disease or medical problem', 'A health issue', 'He has a heart ____'], correct: 'condition' },
+      { word: 'misophonia', clues: ['A condition where sounds cause strong reactions', 'Some sounds make you feel angry', 'Chewing sounds are unbearable'], correct: 'misophonia' },
+      { word: 'respond', clues: ['To react by saying or doing something', 'To reply', 'She didn\'t ____ to my message'], correct: 'respond' },
+      { word: 'suffer', clues: ['To experience pain or difficulty', 'To go through hardship', 'Many people ____ from allergies'], correct: 'suffer' },
+      { word: 'benefit', clues: ['A good effect of something', 'An advantage', 'Exercise has many ____s'], correct: 'benefit' },
+      { word: 'prevent', clues: ['To stop something from happening', 'To avoid', 'Wearing a seatbelt can ____ injuries'], correct: 'prevent' },
+      { word: 'amazement', clues: ['Extreme surprise', 'You feel this when something shocking happens', 'To my ____, I got full marks'], correct: 'amazement' },
+      { word: 'anxiety', clues: ['Worry or nervousness', 'Fear about the future', 'She felt ____ before the exam'], correct: 'anxiety' },
+      { word: 'despair', clues: ['A feeling of no hope', 'Complete hopelessness', 'He was in ____ after failing'], correct: 'despair' },
+      { word: 'embarrassment', clues: ['A feeling of shame or shyness', 'You feel this when you make a mistake', 'His ____ was clear when he fell'], correct: 'embarrassment' },
+      { word: 'frustration', clues: ['Feeling bad because you can\'t achieve something', 'You feel this when you fail', 'I felt ____ when the internet stopped'], correct: 'frustration' },
+      { word: 'guilt', clues: ['A feeling of unhappiness about something wrong you did', 'You feel this after lying', 'She felt ____ after lying to her friend'], correct: 'guilt' },
+      { word: 'joy', clues: ['A feeling of happiness', 'Great delight', 'The children shouted with ____'], correct: 'joy' },
+      { word: 'relief', clues: ['A feeling of happiness when something bad ends', 'You feel this after a difficult test', 'I felt ____ after finishing the exam'], correct: 'relief' },
+      { word: 'sympathy', clues: ['Understanding for someone else\'s suffering', 'You feel this for others', 'I felt ____ for the family who lost their home'], correct: 'sympathy' },
+      // Unit 2: Global Culture
+      { word: 'global', clues: ['Relating to the whole world', 'Worldwide', 'Climate change is a ____ problem'], correct: 'global' },
+      { word: 'culture', clues: ['The common habits and beliefs of a group', 'Traditions of a society', 'Egyptian ____ is rich in history'], correct: 'culture' },
+      { word: 'identity', clues: ['What makes you different from others', 'Your sense of self', 'Music is part of my ____'], correct: 'identity' },
+      { word: 'lifestyle', clues: ['The way someone lives', 'How you live your life', 'A healthy ____ includes exercise'], correct: 'lifestyle' },
+      { word: 'reflect', clues: ['To show or express the nature of something', 'To mirror', 'His actions ____ his kindness'], correct: 'reflect' },
+      { word: 'tribe', clues: ['A group of related families sharing a culture', 'A community', 'The ____ has lived in the desert for generations'], correct: 'tribe' },
+      { word: 'tradition', clues: ['A very old belief or way of acting', 'A custom', 'It is a ____ to eat special food during holidays'], correct: 'tradition' },
+      { word: 'legend', clues: ['A very old story that may be untrue', 'A myth', 'The ____ tells of a hidden treasure'], correct: 'legend' },
+      { word: 'ritual', clues: ['A series of actions performed as part of a ceremony', 'A routine', 'The ____ included lighting candles'], correct: 'ritual' },
+      { word: 'ceremony', clues: ['A set of traditional actions for a special occasion', 'A formal event', 'The wedding ____ was beautiful'], correct: 'ceremony' },
+      // Unit 3: Role Models
+      { word: 'potential', clues: ['Your ability to succeed in the future', 'What you could become', 'Every player has the ____ to improve'], correct: 'potential' },
+      { word: 'mission', clues: ['An important goal you want to achieve', 'A purpose', 'The school\'s ____ is to help students succeed'], correct: 'mission' },
+      { word: 'impact', clues: ['A powerful effect', 'A strong influence', 'Social media has a big ____ on opinions'], correct: 'impact' },
+      { word: 'motivate', clues: ['To make someone want to do something', 'To inspire', 'My parents ____ me to do my best'], correct: 'motivate' },
+      { word: 'inspire', clues: ['To give someone confidence to do something', 'To encourage', 'The scientist ____ many students to study science'], correct: 'inspire' },
+      { word: 'criticise', clues: ['To say what is wrong about something', 'To judge negatively', 'It is easy to ____ someone'], correct: 'criticise' },
+      { word: 'barrier', clues: ['Something that prevents progress', 'An obstacle', 'Language can be a ____'], correct: 'barrier' },
+      { word: 'expectation', clues: ['A strong belief about how someone should behave', 'An anticipation', 'There is an ____ that students will complete their homework'], correct: 'expectation' },
+      { word: 'admire', clues: ['To respect and approve of someone', 'To look up to', 'I ____ people who work hard'], correct: 'admire' },
+      { word: 'guide', clues: ['Someone who shows you the way', 'A mentor', 'Our teacher acted as a ____'], correct: 'guide' },
+      { word: 'phenomenon', clues: ['Something extremely successful and well known', 'A sensation', 'She became a worldwide ____'], correct: 'phenomenon' },
+      { word: 'remote', clues: ['Far away from where most people live', 'Isolated', 'They worked in a ____ village'], correct: 'remote' },
+      { word: 'eldest', clues: ['The oldest of three or more people', 'The oldest sibling', 'My ____ brother is studying engineering'], correct: 'eldest' },
+      { word: 'afford', clues: ['To have enough money to buy something', 'To be able to pay for', 'I cannot ____ a new laptop'], correct: 'afford' },
+      { word: 'excel', clues: ['To be extremely good at something', 'To shine', 'She continues to ____ in mathematics'], correct: 'excel' },
+      { word: 'donation', clues: ['Money given to help a person or organisation', 'A contribution', 'The charity received a large ____'], correct: 'donation' },
+      { word: 'compete', clues: ['To take part in a race or competition', 'To rival', 'Athletes will ____ in the tournament'], correct: 'compete' },
+      { word: 'attempt', clues: ['To try to do something', 'An effort', 'He will ____ to solve the problem'], correct: 'attempt' },
+      // Unit 4: City Living
+      { word: 'rural', clues: ['In the countryside', 'Not urban', 'My grandparents live in a ____ village'], correct: 'rural' },
+      { word: 'commercial', clues: ['Related to buying and selling', 'Business', 'The city center is a ____ area'], correct: 'commercial' },
+      { word: 'identical', clues: ['Exactly the same', 'Twin', 'The twins were wearing ____ jackets'], correct: 'identical' },
+      { word: 'rapid', clues: ['Fast', 'Quick', 'There has been a ____ increase in cars'], correct: 'rapid' },
+      { word: 'resident', clues: ['A person who lives in a place', 'An inhabitant', 'Every ____ of the building received a notice'], correct: 'resident' },
+      { word: 'pace', clues: ['The speed at which something happens', 'Rate', 'Technology is changing at a fast ____'], correct: 'pace' },
+      { word: 'shortage', clues: ['A situation where there isn\'t enough of something', 'A lack', 'There was a water ____'], correct: 'shortage' },
+      { word: 'entertainment', clues: ['Things that help people have fun', 'Amusement', 'Watching movies is popular ____'], correct: 'entertainment' },
+      { word: 'commute', clues: ['To travel between work and home regularly', 'To journey', 'My father ____s to work by train'], correct: 'commute' },
+      { word: 'outskirts', clues: ['The area around a town or city', 'The edge', 'They built a hospital on the ____'], correct: 'outskirts' },
+      { word: 'inhabitant', clues: ['A person or animal that lives in a place', 'A resident', 'The camel is a common ____ of the desert'], correct: 'inhabitant' },
+      { word: 'historical', clues: ['Connected with the past', 'Related to history', 'We visited a ____ museum'], correct: 'historical' },
+      { word: 'devote', clues: ['To give time or energy to something', 'To dedicate', 'She ____s two hours a day to studying'], correct: 'devote' },
+      { word: 'walkable', clues: ['Suitable for walking', 'Pedestrian-friendly', 'The neighborhood is very ____'], correct: 'walkable' },
+      { word: 'pedestrian', clues: ['A person who is walking', 'A walker', 'The ____ waited for the light'], correct: 'pedestrian' },
+      { word: 'housing', clues: ['Buildings for people to live in', 'Accommodation', 'The government is building new ____'], correct: 'housing' },
+      { word: 'approach', clues: ['A way of doing something', 'A method', 'We need a different ____ to solve this'], correct: 'approach' },
+      { word: 'growth', clues: ['An increase in size or importance', 'Expansion', 'The city has experienced significant ____'], correct: 'growth' },
+      { word: 'residential', clues: ['Having mainly private houses', 'Not commercial', 'This is a quiet ____ area'], correct: 'residential' },
+      { word: 'reduce', clues: ['To make smaller', 'To decrease', 'We should ____ plastic waste'], correct: 'reduce' },
+      { word: 'expand', clues: ['To make bigger', 'To grow', 'The company plans to ____ its offices'], correct: 'expand' },
+      { word: 'propose', clues: ['To suggest a plan', 'To put forward', 'The mayor ____ a new park'], correct: 'propose' },
+      { word: 'spread', clues: ['To reach or cover a wider area', 'To extend', 'News of the event quickly ____'], correct: 'spread' },
+      { word: 'claim', clues: ['To say something is true without proof', 'To assert', 'Some people ____ the house is haunted'], correct: 'claim' },
+      { word: 'demand', clues: ['To ask for something forcefully', 'To insist', 'The workers ____ better conditions'], correct: 'demand' },
+      { word: 'fence', clues: ['A barrier between two areas', 'A wooden wall', 'A ____ surrounds the garden'], correct: 'fence' },
+      { word: 'suburb', clues: ['An area outside the city centre', 'A residential area', 'Many families move to the ____s'], correct: 'suburb' },
+      { word: 'district', clues: ['An area of a town with a particular purpose', 'A zone', 'The business ____ is crowded'], correct: 'district' },
+      { word: 'industrial', clues: ['Related to factories', 'Manufacturing', 'The city has a large ____ area'], correct: 'industrial' },
+      { word: 'estate', clues: ['A group of houses built according to a plan', 'A development', 'They moved into a new housing ____'], correct: 'estate' },
+      { word: 'junction', clues: ['The place where roads or railways meet', 'An intersection', 'Turn left at the next ____'], correct: 'junction' },
+      { word: 'venue', clues: ['The place where an event takes place', 'A location', 'The school hall was the ____ for the ceremony'], correct: 'venue' },
+      { word: 'urbanisation', clues: ['The process of building towns and cities', 'Urban growth', '____ has led to the growth of many cities'], correct: 'urbanisation' },
+      { word: 'boundary', clues: ['A line that marks the limit of something', 'A border', 'A wall marks the ____ between the properties'], correct: 'boundary' }
+    ];
 
-    (function() {
-      'use strict';
+    // ============================================================
+    // GAME STATE
+    // ============================================================
+    let gameState = {
+      words: [],
+      currentIndex: 0,
+      score: 0,
+      total: 0,
+      correct: 0,
+      wrong: 0,
+      answered: false,
+      timer: null,
+      timeLeft: 10,
+      maxTime: 10,
+      isRunning: false,
+      isGameOver: false,
+      usedWords: []
+    };
 
-      // ---------- VOCABULARY DATABASE (all units) ----------
-      const WORDS = [
-        // Unit 1
-        { word: 'upset', definitions: ['Make someone feel worried or angry', 'Disturb emotionally', 'Cause to feel unhappy'] },
-        { word: 'behaviour', definitions: ['The way someone acts', 'Conduct or manners', 'How you behave in a situation'] },
-        { word: 'sight', definitions: ['Something that you see', 'A view or scene', 'The ability to see'] },
-        { word: 'wonder', definitions: ['Ask yourself; want to know', 'Be curious about something', 'Think about something with doubt'] },
-        { word: 'bother', definitions: ['Make someone angry or worried', 'Annoy or disturb', 'Cause inconvenience'] },
-        { word: 'context', definitions: ['The situation that explains something', 'Surrounding circumstances', 'Background information'] },
-        { word: 'supply', definitions: ['An amount of something available', 'Stock or provision', 'Provide what is needed'] },
-        { word: 'interruption', definitions: ['A break or pause in an activity', 'Something that stops a process', 'Disturbance'] },
-        { word: 'bug', definitions: ['Annoy or irritate', 'A small insect', 'A hidden defect in a system'] },
-        { word: 'decade', definitions: ['A period of ten years', 'Ten-year span', 'Time frame of 10 years'] },
-        { word: 'research', definitions: ['Study to discover new information', 'Systematic investigation', 'Academic inquiry'] },
-        { word: 'condition', definitions: ['A disease or medical problem', 'State of health', 'A requirement'] },
-        { word: 'misophonia', definitions: ['Strong negative reaction to certain sounds', 'Hatred of specific noises', 'Sound sensitivity disorder'] },
-        { word: 'respond', definitions: ['React by saying or doing something', 'Answer or reply', 'Give a response'] },
-        { word: 'yawn', definitions: ['Open mouth wide when tired', 'Involuntary deep breath', 'Sign of sleepiness'] },
-        { word: 'chew', definitions: ['Bite food into small pieces', 'Masticate', 'Grind with teeth'] },
-        { word: 'suffer', definitions: ['Experience pain or hardship', 'Undergo distress', 'Endure difficulty'] },
-        { word: 'benefit', definitions: ['A good effect or advantage', 'Positive outcome', 'Help or profit'] },
-        { word: 'prevent', definitions: ['Stop from happening', 'Avoid or hinder', 'Keep from occurring'] },
-        { word: 'amazement', definitions: ['Extreme surprise', 'Great wonder', 'Astonishment'] },
-        { word: 'anxiety', definitions: ['Worry or nervousness', 'Feeling of unease', 'Apprehension about the future'] },
-        { word: 'despair', definitions: ['Loss of all hope', 'Deep sadness', 'Feeling of helplessness'] },
-        { word: 'embarrassment', definitions: ['Feeling of shame or shyness', 'Humiliation', 'Awkwardness'] },
-        { word: 'frustration', definitions: ['Feeling of being unable to achieve something', 'Annoyance', 'Irritation'] },
-        { word: 'guilt', definitions: ['Feeling of having done wrong', 'Remorse', 'Self-blame'] },
-        { word: 'joy', definitions: ['Great happiness', 'Delight', 'Pleasure'] },
-        { word: 'relief', definitions: ['Feeling when something bad ends', 'Release from worry', 'Comfort'] },
-        { word: 'sympathy', definitions: ['Understanding of another\'s suffering', 'Compassion', 'Pity'] },
+    // ============================================================
+    // DOM REFS
+    // ============================================================
+    const $ = id => document.getElementById(id);
+    const scoreDisplay = $('scoreDisplay');
+    const timerFill = $('timerFill');
+    const timerNumber = $('timerNumber');
+    const cluesContainer = $('cluesContainer');
+    const clueText1 = $('clueText1');
+    const clueText2 = $('clueText2');
+    const clueText3 = $('clueText3');
+    const clue1 = $('clue1');
+    const clue2 = $('clue2');
+    const clue3 = $('clue3');
+    const optTexts = [
+      $('opt0'), $('opt1'), $('opt2'), $('opt3')
+    ];
+    const optionBtns = document.querySelectorAll('.option-btn');
+    const btnStart = $('btnStart');
+    const btnNext = $('btnNext');
+    const thoughtBubble = $('thoughtBubble');
+    const feedbackOverlay = $('feedbackOverlay');
+    const feedbackEmoji = $('feedbackEmoji');
+    const confettiContainer = $('confettiContainer');
+    const gameContainer = $('gameContainer');
 
-        // Unit 2
-        { word: 'global', definitions: ['Relating to the whole world', 'Worldwide', 'International'] },
-        { word: 'culture', definitions: ['Habits and beliefs of a group', 'Way of life', 'Customs and traditions'] },
-        { word: 'identity', definitions: ['What makes you different from others', 'Personal characteristics', 'Self-image'] },
-        { word: 'lifestyle', definitions: ['A particular way of living', 'Daily habits', 'Life choices'] },
-        { word: 'reflect', definitions: ['Show or express something', 'Mirror or indicate', 'Give a true picture'] },
-        { word: 'tribe', definitions: ['A group of families sharing a culture', 'Clan', 'Ethnic group'] },
-        { word: 'warrior', definitions: ['A skilled fighter', 'Soldier', 'Brave fighter'] },
-        { word: 'status', definitions: ['Position in a social group', 'Standing', 'Rank'] },
-        { word: 'inspire', definitions: ['Give someone a creative idea', 'Motivate', 'Encourage'] },
-        { word: 'trademark', definitions: ['A registered design or name', 'Brand mark', 'Legal protection for a logo'] },
-        { word: 'permission', definitions: ['Allowing someone to do something', 'Consent', 'Authorization'] },
-        { word: 'series', definitions: ['A number of related events or things', 'Sequence', 'Set'] },
-        { word: 'hold', definitions: ['Organize an event', 'Conduct', 'Arrange'] },
-        { word: 'state', definitions: ['Say or write clearly', 'Declare', 'Express'] },
-        { word: 'settle', definitions: ['Go to live in a new place', 'Establish', 'Set up home'] },
-        { word: 'originally', definitions: ['In the beginning', 'Initially', 'First'] },
-        { word: 'impressive', definitions: ['Very large or important', 'Striking', 'Grand'] },
-        { word: 'astonishing', definitions: ['Very surprising', 'Amazing', 'Incredible'] },
-        { word: 'massive', definitions: ['Very large', 'Huge', 'Immense'] },
-        { word: 'pirate', definitions: ['Person who attacks ships at sea', 'Sea robber', 'Buccaneer'] },
-        { word: 'equator', definitions: ['The line around the middle of Earth', 'Zero latitude', 'Equatorial line'] },
-        { word: 'proper', definitions: ['Suitable or correct', 'Appropriate', 'Right'] },
-        { word: 'tradition', definitions: ['Very old belief or way of acting', 'Custom', 'Heritage'] },
-        { word: 'spectator', definitions: ['Someone who watches an event', 'Observer', 'Onlooker'] },
-        { word: 'spectacle', definitions: ['A public event that is exciting to watch', 'Grand display', 'Impressive show'] },
-        { word: 'costume', definitions: ['Clothes worn for a country or special activity', 'Outfit', 'Garment'] },
-        { word: 'mask', definitions: ['Face covering for protection or disguise', 'Cover', 'Camouflage'] },
-        { word: 'legend', definitions: ['A very old story, often untrue', 'Myth', 'Tale'] },
-        { word: 'bonfire', definitions: ['A large outdoor fire', 'Campfire', 'Pyre'] },
-        { word: 'ritual', definitions: ['Series of actions in a ceremony', 'Tradition', 'Practice'] },
-        { word: 'ceremony', definitions: ['Traditional actions on a special occasion', 'Ritual', 'Observance'] },
-
-        // Unit 3
-        { word: 'role model', definitions: ['A person you admire and try to copy', 'Inspiration', 'Example to follow'] },
-        { word: 'potential', definitions: ['Ability to develop or succeed', 'Capability', 'Promise'] },
-        { word: 'mission', definitions: ['An important goal or task', 'Purpose', 'Aim'] },
-        { word: 'impact', definitions: ['A powerful effect', 'Influence', 'Impression'] },
-        { word: 'motivate', definitions: ['Make someone want to do something', 'Encourage', 'Inspire'] },
-        { word: 'inspire', definitions: ['Give someone confidence to do something', 'Motivate', 'Elevate'] },
-        { word: 'criticise', definitions: ['Say what is wrong about someone or something', 'Censure', 'Find fault'] },
-        { word: 'barrier', definitions: ['Something that prevents progress', 'Obstacle', 'Hurdle'] },
-        { word: 'expectation', definitions: ['Strong belief about how someone should behave', 'Anticipation', 'Prospect'] },
-        { word: 'admire', definitions: ['Respect and approve of someone', 'Look up to', 'Appreciate'] },
-        { word: 'guide', definitions: ['Someone who shows the way', 'Leader', 'Mentor'] },
-        { word: 'phenomenon', definitions: ['Something extremely successful and well known', 'Wonder', 'Sensation'] },
-        { word: 'remote', definitions: ['Far away from most people', 'Isolated', 'Distant'] },
-        { word: 'eldest', definitions: ['The oldest of three or more', 'Firstborn', 'Senior'] },
-        { word: 'fetch', definitions: ['Go and bring back', 'Retrieve', 'Collect'] },
-        { word: 'crop', definitions: ['Plants grown in large quantities as food', 'Harvest', 'Produce'] },
-        { word: 'afford', definitions: ['Have enough money or time to do something', 'Bear the cost', 'Manage'] },
-        { word: 'excel', definitions: ['Be extremely good at something', 'Outshine', 'Surpass'] },
-        { word: 'equipment', definitions: ['Items needed for a particular purpose', 'Gear', 'Apparatus'] },
-        { word: 'donation', definitions: ['Money given to help a person or organisation', 'Contribution', 'Gift'] },
-        { word: 'compete', definitions: ['Take part in a race or competition', 'Contend', 'Vie'] },
-        { word: 'attempt', definitions: ['Try to do something', 'Endeavor', 'Strive'] },
-        { word: 'sponsorship', definitions: ['Money given to support an activity', 'Funding', 'Patronage'] },
-
-        // Unit 4
-        { word: 'rural', definitions: ['In the countryside', 'Agricultural', 'Pastoral'] },
-        { word: 'commercial', definitions: ['Related to buying and selling', 'Trade', 'Business'] },
-        { word: 'identical', definitions: ['Exactly the same', 'Indistinguishable', 'Duplicate'] },
-        { word: 'rapid', definitions: ['Fast', 'Quick', 'Speedy'] },
-        { word: 'resident', definitions: ['A person who lives in a place', 'Inhabitant', 'Dweller'] },
-        { word: 'pace', definitions: ['The speed at which something happens', 'Rate', 'Tempo'] },
-        { word: 'shortage', definitions: ['Not enough of something needed', 'Lack', 'Deficiency'] },
-        { word: 'entertainment', definitions: ['Films, music, shows for fun', 'Amusement', 'Recreation'] },
-        { word: 'commute', definitions: ['Travel between work and home', 'Journey to work', 'Daily travel'] },
-        { word: 'outskirts', definitions: ['The area around a town or city', 'Periphery', 'Fringes'] },
-        { word: 'inhabitant', definitions: ['A person or animal that lives in a place', 'Resident', 'Occupant'] },
-        { word: 'historical', definitions: ['Connected with the past', 'Historic', 'Archival'] },
-        { word: 'devote', definitions: ['Give time or energy to something', 'Commit', 'Dedicate'] },
-        { word: 'walkable', definitions: ['Suitable for walking', 'Pedestrian-friendly', 'Navigable on foot'] },
-        { word: 'pedestrian', definitions: ['A person who is walking', 'Walker', 'Foot traveler'] },
-        { word: 'housing', definitions: ['Buildings for people to live in', 'Accommodation', 'Homes'] },
-        { word: 'linear', definitions: ['Continuing logically in a straight line', 'Sequential', 'Chronological'] },
-        { word: 'approach', definitions: ['A way of doing or thinking about something', 'Method', 'Strategy'] },
-        { word: 'growth', definitions: ['An increase in size or importance', 'Expansion', 'Development'] },
-        { word: 'residential', definitions: ['Having mainly private houses', 'Housing', 'Domestic'] },
-        { word: 'reduce', definitions: ['Make or become smaller', 'Decrease', 'Lower'] },
-        { word: 'expand', definitions: ['Make something bigger', 'Enlarge', 'Extend'] },
-        { word: 'propose', definitions: ['Suggest a plan or idea', 'Put forward', 'Submit'] },
-        { word: 'spread', definitions: ['Reach or cover a wider area', 'Extend', 'Diffuse'] },
-        { word: 'claim', definitions: ['Say something is true without proof', 'Allege', 'Assert'] },
-        { word: 'humanistic', definitions: ['Treating people with respect and care', 'Humane', 'Compassionate'] },
-        { word: 'demand', definitions: ['Ask forcefully', 'Require', 'Insist on'] },
-        { word: 'fence', definitions: ['A barrier between two areas', 'Enclosure', 'Railing'] },
-        { word: 'suburb', definitions: ['An area outside the city centre', 'Outlying district', 'Residential area'] },
-        { word: 'district', definitions: ['An area with a particular purpose', 'Region', 'Sector'] },
-        { word: 'industrial', definitions: ['Related to factories', 'Manufacturing', 'Production'] },
-        { word: 'estate', definitions: ['A group of houses or factories built together', 'Complex', 'Development'] },
-        { word: 'pavement', definitions: ['Path on the side of the road for walking', 'Sidewalk', 'Footpath'] },
-        { word: 'crossroads', definitions: ['A place where two roads meet and cross', 'Intersection', 'Junction'] },
-        { word: 'junction', definitions: ['A place where roads or railways meet', 'Intersection', 'Crossing'] },
-        { word: 'venue', definitions: ['A place where an event takes place', 'Location', 'Site'] },
-        { word: 'urbanisation', definitions: ['Process of building cities in the countryside', 'City development', 'Urban growth'] },
-        { word: 'boundary', definitions: ['A line marking a limit', 'Border', 'Edge'] },
-        { word: 'ghost town', definitions: ['A town with few or no people', 'Abandoned town', 'Deserted settlement'] },
-      ];
-
-      // ---------- GAME STATE ----------
-      let state = {
-        currentWord: null,
-        definitions: [],
-        revealedCount: 0,
-        score: 0,
-        timer: 30,
-        timerInterval: null,
-        isPlaying: false,
-        isFinished: false,
-        usedIndices: [],
-        availableWords: [],
-      };
-
-      // ---------- DOM REFERENCES ----------
-      const elements = {
-        timerDisplay: document.getElementById('timerDisplay'),
-        definitionsContainer: document.getElementById('definitionsContainer'),
-        hintText: document.getElementById('hintText'),
-        guessInput: document.getElementById('guessInput'),
-        guessBtn: document.getElementById('guessBtn'),
-        startBtn: document.getElementById('startBtn'),
-        scoreDisplay: document.getElementById('scoreDisplay'),
-        statusMessage: document.getElementById('statusMessage'),
-        timerSection: document.getElementById('timerSection'),
-        confettiContainer: document.getElementById('confettiContainer'),
-        stars: document.getElementById('stars'),
-      };
-
-      // ---------- AUDIO ENGINE (Web Audio) ----------
-      class AudioEngine {
-        constructor() {
-          this.ctx = null;
+    // ============================================================
+    // SOUND ENGINE (Web Audio API)
+    // ============================================================
+    const SoundEngine = {
+      ctx: null,
+      init() {
+        if (!this.ctx) {
+          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
         }
-
-        init() {
-          if (!this.ctx) {
-            this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-          }
-          return this.ctx;
-        }
-
-        playTick() {
-          const ctx = this.init();
+      },
+      playTick() {
+        this.init();
+        const ctx = this.ctx;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = 600;
+        gain.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.05);
+      },
+      playTickFast() {
+        this.init();
+        const ctx = this.ctx;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = 800;
+        gain.gain.setValueAtTime(0.1, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.03);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.03);
+      },
+      playCorrect() {
+        this.init();
+        const ctx = this.ctx;
+        const notes = [523.25, 659.25, 783.99];
+        notes.forEach((freq, i) => {
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
           osc.type = 'sine';
-          osc.frequency.value = 800;
-          gain.gain.setValueAtTime(0.08, ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0.12, ctx.currentTime + i * 0.12);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.12 + 0.25);
           osc.connect(gain);
           gain.connect(ctx.destination);
-          osc.start(ctx.currentTime);
-          osc.stop(ctx.currentTime + 0.05);
-        }
-
-        playCorrect() {
-          const ctx = this.init();
-          const notes = [523.25, 659.25, 783.99];
-          notes.forEach((freq, i) => {
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'sine';
-            osc.frequency.value = freq;
-            gain.gain.setValueAtTime(0.12, ctx.currentTime + i * 0.1);
-            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.1 + 0.2);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(ctx.currentTime + i * 0.1);
-            osc.stop(ctx.currentTime + i * 0.1 + 0.2);
-          });
-        }
-
-        playWrong() {
-          const ctx = this.init();
+          osc.start(ctx.currentTime + i * 0.12);
+          osc.stop(ctx.currentTime + i * 0.12 + 0.25);
+        });
+      },
+      playWrong() {
+        this.init();
+        const ctx = this.ctx;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(200, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.3);
+        gain.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.3);
+      },
+      playGameOver() {
+        this.init();
+        const ctx = this.ctx;
+        const melody = [523.25, 523.25, 523.25, 659.25, 783.99, 659.25, 783.99];
+        const durations = [0.15, 0.15, 0.15, 0.15, 0.3, 0.15, 0.3];
+        let time = ctx.currentTime;
+        melody.forEach((freq, i) => {
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
-          osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(300, ctx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 0.3);
-          gain.gain.setValueAtTime(0.08, ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+          osc.type = 'sine';
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0.1, time);
+          gain.gain.exponentialRampToValueAtTime(0.001, time + durations[i]);
           osc.connect(gain);
           gain.connect(ctx.destination);
-          osc.start(ctx.currentTime);
-          osc.stop(ctx.currentTime + 0.3);
-        }
-
-        playWin() {
-          const ctx = this.init();
-          const melody = [523.25, 523.25, 523.25, 659.25, 783.99, 659.25, 783.99];
-          const durations = [0.12, 0.12, 0.12, 0.12, 0.25, 0.12, 0.25];
-          let time = ctx.currentTime;
-          melody.forEach((freq, i) => {
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'sine';
-            osc.frequency.value = freq;
-            gain.gain.setValueAtTime(0.10, time);
-            gain.gain.exponentialRampToValueAtTime(0.001, time + durations[i]);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(time);
-            osc.stop(time + durations[i]);
-            time += durations[i] + 0.02;
-          });
-        }
-
-        playTimeout() {
-          const ctx = this.init();
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = 'square';
-          osc.frequency.setValueAtTime(400, ctx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.6);
-          gain.gain.setValueAtTime(0.06, ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(ctx.currentTime);
-          osc.stop(ctx.currentTime + 0.6);
-        }
-      }
-
-      const audio = new AudioEngine();
-
-      // ---------- UTILITY ----------
-      function shuffleArray(arr) {
-        for (let i = arr.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
-        return arr;
-      }
-
-      function getRandomWords(count = 50) {
-        const shuffled = shuffleArray([...WORDS]);
-        return shuffled.slice(0, count);
-      }
-
-      // ---------- STAR BACKGROUND ----------
-      function createStars() {
-        const container = elements.stars;
-        for (let i = 0; i < 80; i++) {
-          const star = document.createElement('div');
-          star.className = 'star';
-          const size = Math.random() * 3 + 1;
-          star.style.setProperty('--size', size + 'px');
-          star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
-          star.style.left = Math.random() * 100 + '%';
-          star.style.top = Math.random() * 100 + '%';
-          star.style.animationDelay = Math.random() * 3 + 's';
-          container.appendChild(star);
-        }
-      }
-
-      // ---------- CONFETTI ----------
-      function fireConfetti(count = 80) {
-        const container = elements.confettiContainer;
-        const colors = ['#f7971e', '#ffd200', '#ff6b6b', '#00e676', '#7c5cfc', '#ff4081', '#40c4ff'];
-        for (let i = 0; i < count; i++) {
-          const piece = document.createElement('div');
-          piece.className = 'confetti-piece';
-          const size = Math.random() * 8 + 4;
-          piece.style.width = size + 'px';
-          piece.style.height = size + 'px';
-          piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-          piece.style.left = Math.random() * 100 + '%';
-          piece.style.setProperty('--fall-duration', (Math.random() * 2 + 1.5) + 's');
-          piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-          piece.style.transform = `rotate(${Math.random() * 360}deg)`;
-          piece.style.animationDelay = (Math.random() * 0.8) + 's';
-          container.appendChild(piece);
-        }
-        setTimeout(() => {
-          container.innerHTML = '';
-        }, 4000);
-      }
-
-      // ---------- GAME LOGIC ----------
-      function pickNewWord() {
-        // Ensure we have available words
-        if (state.availableWords.length === 0) {
-          state.availableWords = shuffleArray([...WORDS]);
-        }
-        // Pick the first available word
-        const wordObj = state.availableWords.pop();
-        state.currentWord = wordObj;
-        state.definitions = shuffleArray([...wordObj.definitions]);
-        state.revealedCount = 0;
-        state.isFinished = false;
-        return wordObj;
-      }
-
-      function renderDefinitions() {
-        const container = elements.definitionsContainer;
-        container.innerHTML = '';
-        const count = state.revealedCount;
-        if (count === 0) {
-          container.innerHTML = `<div class="hint-text" id="hintText">🔎 Investigating... Clues coming soon!</div>`;
-          return;
-        }
-        for (let i = 0; i < Math.min(count, state.definitions.length); i++) {
-          const div = document.createElement('div');
-          div.className = 'definition-item';
-          div.innerHTML = `
-            <span class="bullet">🔍</span>
-            <span class="def-text">${state.definitions[i]}</span>
-            <span class="def-number">#${i+1}</span>
-          `;
-          container.appendChild(div);
-        }
-        if (count < state.definitions.length) {
-          const remaining = state.definitions.length - count;
-          const hint = document.createElement('div');
-          hint.className = 'hint-text';
-          hint.textContent = `💡 ${remaining} more clue${remaining > 1 ? 's' : ''} coming...`;
-          container.appendChild(hint);
-        } else {
-          // All clues revealed
-          const allRevealed = document.createElement('div');
-          allRevealed.className = 'hint-text';
-          allRevealed.style.color = 'rgba(255,215,0,0.6)';
-          allRevealed.textContent = '🕵️ All clues revealed! Can you guess the word?';
-          container.appendChild(allRevealed);
-        }
-      }
-
-      function revealNextClue() {
-        if (!state.isPlaying || state.isFinished) return;
-        if (state.revealedCount < state.definitions.length) {
-          state.revealedCount++;
-          renderDefinitions();
-          // Play a subtle tick sound for each clue
-          audio.playTick();
-        }
-        // If all clues revealed, we could optionally do something
-      }
-
-      function startTimer() {
-        state.timer = 30;
-        updateTimerDisplay();
-        clearInterval(state.timerInterval);
-        state.timerInterval = setInterval(() => {
-          state.timer--;
-          updateTimerDisplay();
-          audio.playTick();
-          if (state.timer <= 5) {
-            elements.timerDisplay.classList.add('warning');
-          }
-          if (state.timer <= 0) {
-            clearInterval(state.timerInterval);
-            handleTimeout();
-          }
-        }, 1000);
-      }
-
-      function updateTimerDisplay() {
-        elements.timerDisplay.textContent = state.timer;
-        // Animate the timer zoom
-        elements.timerDisplay.style.animation = 'none';
-        requestAnimationFrame(() => {
-          elements.timerDisplay.style.animation = 'timerZoom 0.2s ease';
+          osc.start(time);
+          osc.stop(time + durations[i]);
+          time += durations[i] + 0.02;
         });
+      },
+      playStart() {
+        this.init();
+        const ctx = this.ctx;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(440, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.2);
+        gain.gain.setValueAtTime(0.1, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.2);
+      }
+    };
+
+    // ============================================================
+    // CONFETTI
+    // ============================================================
+    function triggerConfetti() {
+      const container = confettiContainer;
+      const colors = ['#F26522', '#FFB830', '#7C5CFC', '#EA580C', '#34C759', '#FF3B30', '#5AC8FA', '#FF9500'];
+      for (let i = 0; i < 80; i++) {
+        const el = document.createElement('div');
+        el.className = 'confetti-piece';
+        el.style.left = Math.random() * 100 + '%';
+        el.style.background = colors[Math.floor(Math.random() * colors.length)];
+        el.style.width = (Math.random() * 8 + 4) + 'px';
+        el.style.height = (Math.random() * 8 + 4) + 'px';
+        el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+        el.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+        el.style.animationDelay = (Math.random() * 0.5) + 's';
+        container.appendChild(el);
+        setTimeout(() => el.remove(), 4000);
+      }
+    }
+
+    // ============================================================
+    // GAME FUNCTIONS
+    // ============================================================
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function getRandomWords(count = 8) {
+      const shuffled = shuffleArray([...wordBank]);
+      const selected = shuffled.slice(0, Math.min(count, shuffled.length));
+      // Make sure we have at least 4 words
+      while (selected.length < 4) {
+        const extra = shuffleArray([...wordBank]).slice(0, 4 - selected.length);
+        selected.push(...extra);
+      }
+      return selected;
+    }
+
+    function startGame() {
+      // Reset game state
+      gameState.words = getRandomWords(8);
+      gameState.currentIndex = 0;
+      gameState.score = 0;
+      gameState.total = 0;
+      gameState.correct = 0;
+      gameState.wrong = 0;
+      gameState.isGameOver = false;
+      gameState.usedWords = [];
+
+      scoreDisplay.textContent = '0';
+      btnStart.disabled = true;
+      btnStart.innerHTML = '<span class="icon">⏳</span> Loading...';
+
+      setTimeout(() => {
+        btnStart.innerHTML = '<span class="icon">🔍</span> Start Investigation';
+        btnStart.disabled = false;
+        showWord();
+      }, 500);
+    }
+
+    function showWord() {
+      if (gameState.currentIndex >= gameState.words.length) {
+        endGame();
+        return;
       }
 
-      function handleTimeout() {
-        if (state.isFinished) return;
-        state.isPlaying = false;
-        state.isFinished = true;
-        audio.playTimeout();
-        const word = state.currentWord.word;
-        setStatus(`⏰ Time's up! The word was: "${word}"`, 'timeout');
-        elements.guessInput.disabled = true;
-        elements.guessBtn.disabled = true;
-        // Show the word as a definition
-        const container = elements.definitionsContainer;
-        container.innerHTML = `
-          <div class="definition-item" style="border-bottom: none; justify-content: center;">
-            <span style="font-size: 24px; margin-right: 8px;">🕵️</span>
-            <span style="font-size: 22px; font-weight: 700; color: #ffd700;">${word}</span>
-          </div>
-          <div class="hint-text" style="color: rgba(255,255,255,0.4);">Better luck next time!</div>
-        `;
-        elements.startBtn.disabled = false;
-        elements.startBtn.textContent = '🔄 Play Again';
-      }
+      const wordData = gameState.words[gameState.currentIndex];
+      gameState.answered = false;
+      gameState.total++;
 
-      function handleGuess() {
-        if (!state.isPlaying || state.isFinished) return;
-        const input = elements.guessInput.value.trim();
-        if (!input) {
-          setStatus('✏️ Type a guess first!', '');
-          return;
+      // Reset clues
+      clueText1.textContent = wordData.clues[0] || '—';
+      clueText2.textContent = '—';
+      clueText3.textContent = '—';
+      clue1.classList.remove('visible');
+      clue2.classList.remove('visible');
+      clue3.classList.remove('visible');
+
+      // Show first clue immediately
+      setTimeout(() => clue1.classList.add('visible'), 100);
+
+      // Reset options
+      const allOptions = [wordData.word];
+      const shuffledBank = shuffleArray([...wordBank]);
+      let added = 0;
+      for (const item of shuffledBank) {
+        if (added >= 3) break;
+        if (item.word !== wordData.word && !allOptions.includes(item.word)) {
+          allOptions.push(item.word);
+          added++;
         }
-        const word = state.currentWord.word.toLowerCase();
-        if (input.toLowerCase() === word) {
-          // Correct!
-          state.isPlaying = false;
-          state.isFinished = true;
-          clearInterval(state.timerInterval);
-          audio.playWin();
-          const bonus = Math.max(10, state.timer * 2);
-          state.score += bonus;
-          updateScore();
-          setStatus(`🎉 Correct! +${bonus} points!`, 'success');
-          elements.guessInput.disabled = true;
-          elements.guessBtn.disabled = true;
-          elements.guessInput.classList.add('correct');
-          // Show word with celebration
-          const container = elements.definitionsContainer;
-          container.innerHTML = `
-            <div class="definition-item" style="border-bottom: none; justify-content: center; animation: defFadeIn 0.5s ease;">
-              <span style="font-size: 28px; margin-right: 8px;">🏆</span>
-              <span style="font-size: 24px; font-weight: 700; color: #00e676;">${word}</span>
-            </div>
-            <div class="hint-text" style="color: rgba(0,230,118,0.6);">You cracked the case! 🕵️</div>
-          `;
-          fireConfetti(100);
-          elements.startBtn.disabled = false;
-          elements.startBtn.textContent = '🔍 Next Word';
-        } else {
-          // Wrong guess
-          audio.playWrong();
-          elements.guessInput.classList.add('shake');
-          setTimeout(() => elements.guessInput.classList.remove('shake'), 400);
-          setStatus(`❌ "${input}" is not correct. Try again!`, 'fail');
-          elements.guessInput.value = '';
-          elements.guessInput.focus();
-          // Reveal a clue as a penalty (but not if all are revealed)
-          if (state.revealedCount < state.definitions.length) {
-            state.revealedCount++;
-            renderDefinitions();
-          }
-        }
       }
+      const shuffledOptions = shuffleArray(allOptions);
 
-      function setStatus(message, type) {
-        const el = elements.statusMessage;
-        el.textContent = message;
-        el.className = 'status-message';
-        if (type) el.classList.add(type);
-        // Animation
-        el.style.animation = 'none';
-        requestAnimationFrame(() => {
-          el.style.animation = 'messagePop 0.3s ease';
-        });
-      }
-
-      function updateScore() {
-        elements.scoreDisplay.textContent = state.score;
-      }
-
-      // ---------- START GAME ----------
-      function startGame() {
-        // Reset UI
-        clearInterval(state.timerInterval);
-        elements.timerDisplay.classList.remove('warning');
-        elements.guessInput.classList.remove('correct', 'shake');
-        elements.guessInput.value = '';
-        elements.guessInput.disabled = false;
-        elements.guessBtn.disabled = false;
-        elements.startBtn.disabled = true;
-        elements.startBtn.textContent = '⏳ Playing...';
-        setStatus('🔍 Investigating...', '');
-
-        // Pick a new word
-        pickNewWord();
-        state.isPlaying = true;
-        state.isFinished = false;
-        state.revealedCount = 1; // Show first clue immediately
-        renderDefinitions();
-
-        // Focus input
-        setTimeout(() => elements.guessInput.focus(), 300);
-
-        // Start timer
-        startTimer();
-
-        // Schedule clue reveals every 4 seconds
-        const interval = setInterval(() => {
-          if (!state.isPlaying || state.isFinished) {
-            clearInterval(interval);
-            return;
-          }
-          if (state.revealedCount < state.definitions.length) {
-            revealNextClue();
-          } else {
-            clearInterval(interval);
-          }
-        }, 4000);
-      }
-
-      // ---------- EVENT LISTENERS ----------
-      elements.startBtn.addEventListener('click', function() {
-        if (this.textContent === '🔄 Play Again' || this.textContent === '🔍 Next Word') {
-          startGame();
-        } else {
-          startGame();
-        }
+      optionBtns.forEach((btn, i) => {
+        btn.disabled = false;
+        btn.classList.remove('correct', 'wrong', 'show-correct');
+        optTexts[i].textContent = shuffledOptions[i] || '—';
+        btn.dataset.correct = shuffledOptions[i] === wordData.word ? 'true' : 'false';
+        btn.style.opacity = '1';
       });
 
-      elements.guessBtn.addEventListener('click', handleGuess);
+      // Reset timer
+      gameState.timeLeft = gameState.maxTime;
+      timerFill.style.width = '100%';
+      timerFill.classList.remove('warning');
+      timerNumber.textContent = gameState.timeLeft + 's';
+      timerNumber.classList.remove('warning');
 
-      elements.guessInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          handleGuess();
+      // Start timer
+      if (gameState.timer) clearInterval(gameState.timer);
+      gameState.timer = setInterval(() => {
+        gameState.timeLeft -= 0.1;
+        const pct = Math.max(0, (gameState.timeLeft / gameState.maxTime) * 100);
+        timerFill.style.width = pct + '%';
+        timerNumber.textContent = Math.ceil(gameState.timeLeft) + 's';
+
+        // Play tick sounds
+        if (gameState.timeLeft <= 3) {
+          timerFill.classList.add('warning');
+          timerNumber.classList.add('warning');
+          SoundEngine.playTickFast();
+        } else if (gameState.timeLeft <= 5) {
+          SoundEngine.playTick();
         }
-      });
 
-      // ---------- INIT ----------
-      createStars();
+        if (gameState.timeLeft <= 0) {
+          clearInterval(gameState.timer);
+          timerNumber.textContent = '0s';
+          if (!gameState.answered) {
+            // Time's up — auto reveal
+            gameState.answered = true;
+            gameState.wrong++;
+            SoundEngine.playWrong();
+            optionBtns.forEach(btn => {
+              btn.disabled = true;
+              if (btn.dataset.correct === 'true') {
+                btn.classList.add('show-correct');
+              }
+            });
+            showFeedback('⏰', 'Time\'s Up!');
+            updateScore();
+            setTimeout(() => {
+              btnNext.classList.add('show');
+            }, 800);
+          }
+        }
+      }, 100);
 
-      // Pre-load audio context on first user interaction
-      document.addEventListener('click', () => {
-        audio.init();
-      }, { once: true });
+      // Show second clue after 3 seconds
+      setTimeout(() => {
+        if (!gameState.answered) {
+          clueText2.textContent = wordData.clues[1] || '—';
+          clue2.classList.add('visible');
+        }
+      }, 3000);
 
-      // Initial state
-      state.availableWords = shuffleArray([...WORDS]);
+      // Show third clue after 6 seconds
+      setTimeout(() => {
+        if (!gameState.answered) {
+          clueText3.textContent = wordData.clues[2] || '—';
+          clue3.classList.add('visible');
+        }
+      }, 6000);
+
+      // Update thought bubble
+      thoughtBubble.textContent = '🔍 Investigating...';
+      thoughtBubble.classList.add('show');
+
+      // Animate clues container
+      cluesContainer.classList.remove('revealing');
+      void cluesContainer.offsetWidth;
+      cluesContainer.classList.add('revealing');
+
+      btnNext.classList.remove('show');
+    }
+
+    function handleOptionClick(e) {
+      const btn = e.currentTarget;
+      if (btn.disabled || gameState.answered) return;
+
+      const isCorrect = btn.dataset.correct === 'true';
+      gameState.answered = true;
+
+      // Stop timer
+      if (gameState.timer) {
+        clearInterval(gameState.timer);
+        gameState.timer = null;
+      }
+
+      // Disable all options
+      optionBtns.forEach(b => b.disabled = true);
+
+      if (isCorrect) {
+        btn.classList.add('correct');
+        gameState.score += 10;
+        gameState.correct++;
+        SoundEngine.playCorrect();
+        showFeedback('🎉', 'Correct! +10 points');
+        triggerConfetti();
+        // Change thought bubble
+        thoughtBubble.textContent = '🎉 Brilliant!';
+        thoughtBubble.classList.add('show');
+      } else {
+        btn.classList.add('wrong');
+        gameState.wrong++;
+        SoundEngine.playWrong();
+        showFeedback('❌', 'Oops! Not quite...');
+        // Show correct answer
+        optionBtns.forEach(b => {
+          if (b.dataset.correct === 'true') {
+            b.classList.add('show-correct');
+          }
+        });
+        thoughtBubble.textContent = '🤔 Keep trying!';
+        thoughtBubble.classList.add('show');
+      }
+
       updateScore();
-      setStatus('🕵️ Ready to play? Press Start!', '');
 
-      console.log('🕵️ Mystery Word game loaded!');
-    })();
+      // Show next button
+      setTimeout(() => {
+        btnNext.classList.add('show');
+      }, 600);
+    }
+
+    function nextWord() {
+      gameState.currentIndex++;
+      btnNext.classList.remove('show');
+      // Hide thought bubble
+      thoughtBubble.classList.remove('show');
+      setTimeout(() => {
+        showWord();
+      }, 300);
+    }
+
+    function updateScore() {
+      scoreDisplay.textContent = gameState.score;
+    }
+
+    function showFeedback(emoji, message) {
+      feedbackEmoji.textContent = emoji;
+      feedbackOverlay.style.display = 'flex';
+      // Remove previous animation
+      feedbackEmoji.style.animation = 'none';
+      void feedbackEmoji.offsetWidth;
+      feedbackEmoji.style.animation = 'feedbackPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+
+      // Show message below emoji (optional)
+      const msgEl = document.createElement('div');
+      msgEl.textContent = message;
+      msgEl.style.cssText = `
+        position: absolute;
+        bottom: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #fff;
+        font-size: 24px;
+        font-weight: 700;
+        background: rgba(0,0,0,0.5);
+        padding: 8px 24px;
+        border-radius: 100px;
+        backdrop-filter: blur(10px);
+        animation: fadeIn 0.5s ease;
+      `;
+      msgEl.id = 'feedbackMessage';
+      const oldMsg = document.getElementById('feedbackMessage');
+      if (oldMsg) oldMsg.remove();
+      feedbackOverlay.appendChild(msgEl);
+
+      setTimeout(() => {
+        feedbackOverlay.style.display = 'none';
+        const m = document.getElementById('feedbackMessage');
+        if (m) m.remove();
+      }, 1200);
+    }
+
+    function endGame() {
+      gameState.isGameOver = true;
+      if (gameState.timer) {
+        clearInterval(gameState.timer);
+        gameState.timer = null;
+      }
+
+      SoundEngine.playGameOver();
+
+      // Show game over screen
+      const total = gameState.correct + gameState.wrong;
+      const pct = total > 0 ? Math.round((gameState.correct / total) * 100) : 0;
+
+      let message = '💪 Keep practicing!';
+      let emoji = '📖';
+      if (pct >= 90) { message = '🏆 Detective Master! Amazing!'; emoji = '🏆'; }
+      else if (pct >= 70) { message = '⭐ Great Detective! Keep it up!'; emoji = '⭐'; }
+      else if (pct >= 50) { message = '🔍 Good effort! You\'re getting there!'; emoji = '🔍'; }
+
+      if (pct >= 70) {
+        triggerConfetti();
+        setTimeout(triggerConfetti, 1000);
+      }
+
+      const cluesList = document.getElementById('cluesList');
+      cluesList.innerHTML = `
+        <div class="game-over">
+          <div style="font-size: 60px; margin-bottom: 10px;">${emoji}</div>
+          <div class="final-message">${message}</div>
+          <div class="final-score">${gameState.score}</div>
+          <div class="final-label">Total Score</div>
+          <div class="final-stats">
+            <div class="correct-stat">
+              ✅ Correct<br><span>${gameState.correct}</span>
+            </div>
+            <div>
+              ❌ Wrong<br><span>${gameState.wrong}</span>
+            </div>
+            <div>
+              🎯 Accuracy<br><span>${pct}%</span>
+            </div>
+          </div>
+          <button class="btn-start" onclick="location.reload()" style="margin: 20px auto;">
+            🔄 Play Again
+          </button>
+        </div>
+      `;
+
+      // Hide options and controls
+      document.getElementById('optionsGrid').style.display = 'none';
+      document.getElementById('btnStart').style.display = 'none';
+      document.getElementById('btnNext').style.display = 'none';
+      document.querySelector('.timer-section').style.display = 'none';
+    }
+
+    // ============================================================
+    // EVENT LISTENERS
+    // ============================================================
+    optionBtns.forEach(btn => {
+      btn.addEventListener('click', handleOptionClick);
+    });
+
+    btnStart.addEventListener('click', () => {
+      SoundEngine.playStart();
+      // Reset UI for a fresh game
+      document.getElementById('optionsGrid').style.display = 'grid';
+      document.querySelector('.timer-section').style.display = 'block';
+      document.getElementById('btnStart').style.display = 'flex';
+      document.getElementById('btnNext').style.display = 'none';
+
+      // Reset clues container
+      document.getElementById('cluesList').innerHTML = `
+        <div class="clue-item" id="clue1">
+          <span class="clue-number">🔎 CLUE 1</span>
+          <span class="clue-text" id="clueText1">Press "Start" to begin the investigation!</span>
+        </div>
+        <div class="clue-item" id="clue2">
+          <span class="clue-number">🔎 CLUE 2</span>
+          <span class="clue-text" id="clueText2">—</span>
+        </div>
+        <div class="clue-item" id="clue3">
+          <span class="clue-number">🔎 CLUE 3</span>
+          <span class="clue-text" id="clueText3">—</span>
+        </div>
+      `;
+      // Reassign refs
+      Object.assign(window, {
+        clueText1: document.getElementById('clueText1'),
+        clueText2: document.getElementById('clueText2'),
+        clueText3: document.getElementById('clueText3'),
+        clue1: document.getElementById('clue1'),
+        clue2: document.getElementById('clue2'),
+        clue3: document.getElementById('clue3'),
+      });
+
+      startGame();
+    });
+
+    btnNext.addEventListener('click', nextWord);
+
+    // ============================================================
+    // KEYBOARD SHORTCUTS
+    // ============================================================
+    document.addEventListener('keydown', (e) => {
+      if (e.key >= '1' && e.key <= '4') {
+        const idx = parseInt(e.key) - 1;
+        if (optionBtns[idx] && !optionBtns[idx].disabled) {
+          optionBtns[idx].click();
+        }
+      }
+      if (e.key === 'Enter' || e.key === ' ') {
+        if (btnNext.classList.contains('show')) {
+          btnNext.click();
+        }
+        if (!btnStart.disabled && !gameState.isRunning && !gameState.isGameOver) {
+          btnStart.click();
+        }
+      }
+    });
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    console.log('🕵️ Mystery Word Game loaded!');
   </script>
 
 </body>
