@@ -15,11 +15,311 @@
   <link rel="stylesheet" href="../../css/animations.css">
   <link rel="stylesheet" href="../../css/responsive.css">
   <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    .page-hero {
+      background: var(--gradient-header);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      text-align: center;
+      color: #fff;
+      margin-bottom: var(--spacing-6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '📝';
+      position: absolute;
+      font-size: 10rem;
+      opacity: 0.08;
+      right: -10px;
+      bottom: -30px;
+      transform: rotate(-10deg);
+    }
+
+    .page-hero h1 {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-extrabold);
+      margin-bottom: var(--spacing-2);
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-hero p {
+      font-size: var(--font-size-base);
+      opacity: 0.85;
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-hero .badge-group {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-3);
+      flex-wrap: wrap;
+      margin-top: var(--spacing-3);
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-hero .badge-group .badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: var(--spacing-1) var(--spacing-4);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      backdrop-filter: blur(4px);
+    }
+
+    /* ====== INFOGRAPHIC ====== */
+    .infographic {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-4);
+      margin: var(--spacing-6) 0;
+    }
+
+    .infographic-step {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-4);
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-4);
+      box-shadow: var(--shadow-sm);
+      border: 2px solid var(--color-border);
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+    }
+
+    .infographic-step.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .infographic-step:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-primary);
+    }
+
+    .infographic-step .step-number {
+      font-size: 2.5rem;
+      font-weight: var(--font-weight-extrabold);
+      color: var(--color-primary);
+      min-width: 60px;
+      text-align: center;
+      line-height: 1;
+    }
+
+    .infographic-step .step-content {
+      flex: 1;
+    }
+
+    .infographic-step .step-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-1);
+    }
+
+    .infographic-step .step-desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    .infographic-step .step-icon {
+      font-size: 2rem;
+      min-width: 50px;
+      text-align: center;
+    }
+
+    /* Color variants */
+    .infographic-step:nth-child(1) { border-left: 5px solid var(--color-primary); }
+    .infographic-step:nth-child(2) { border-left: 5px solid var(--color-secondary); }
+    .infographic-step:nth-child(3) { border-left: 5px solid var(--color-accent-1); }
+    .infographic-step:nth-child(4) { border-left: 5px solid var(--color-accent-2); }
+    .infographic-step:nth-child(5) { border-left: 5px solid #34C759; }
+
+    .infographic-step:nth-child(1) .step-number { color: var(--color-primary); }
+    .infographic-step:nth-child(2) .step-number { color: var(--color-secondary); }
+    .infographic-step:nth-child(3) .step-number { color: var(--color-accent-1); }
+    .infographic-step:nth-child(4) .step-number { color: var(--color-accent-2); }
+    .infographic-step:nth-child(5) .step-number { color: #34C759; }
+
+    /* ====== RULES ====== */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--spacing-4);
+      margin: var(--spacing-4) 0;
+    }
+
+    .rule-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-4);
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      border: 2px solid var(--color-border);
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+    }
+
+    .rule-card.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .rule-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+    }
+
+    .rule-card .rule-icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: var(--spacing-2);
+    }
+
+    .rule-card .rule-title {
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-1);
+    }
+
+    .rule-card .rule-desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .rule-card:nth-child(1) { border-color: var(--color-primary); }
+    .rule-card:nth-child(2) { border-color: var(--color-secondary); }
+    .rule-card:nth-child(3) { border-color: var(--color-accent-1); }
+
+    /* ====== PRACTICE PROMPT ====== */
+    .practice-box {
+      background: var(--color-bg);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      border: 2px dashed var(--color-primary);
+      margin: var(--spacing-6) 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .practice-box.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .practice-box .prompt-icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: var(--spacing-2);
+    }
+
+    .practice-box .prompt-text {
+      font-size: var(--font-size-lg);
+      font-style: italic;
+      color: var(--color-text-primary);
+    }
+
+    .practice-box .prompt-tags {
+      display: flex;
+      gap: var(--spacing-2);
+      flex-wrap: wrap;
+      margin-top: var(--spacing-3);
+      justify-content: center;
+    }
+
+    .practice-box .prompt-tags .tag {
+      padding: 2px var(--spacing-3);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+    }
+
+    .practice-box .prompt-tags .tag.primary {
+      background: rgba(242, 101, 34, 0.1);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    @media (max-width: 768px) {
+      .infographic-step {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .infographic-step .step-number {
+        min-width: auto;
+      }
+      .rules-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Header / Mobile Nav omitted -->
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../units/unit-1/index.html">Unit 1</a>
+        <a href="../../units/unit-2/index.html">Unit 2</a>
+        <a href="../../units/unit-3/index.html">Unit 3</a>
+        <a href="../../units/unit-4/index.html">Unit 4</a>
+        <a href="../../novel/index.html">Novel</a>
+        <a href="../../poetry/index.html">Poetry</a>
+        <a href="../index.html" class="active">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../../units/unit-1/index.html">Unit 1: Jump for Joy</a>
+      <a href="../../units/unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../../units/unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../../units/unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="../../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../index.html" class="active">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
   <main class="main-content">
     <section class="section">
       <div class="container">
@@ -34,64 +334,107 @@
           <span class="current">Opinion Essay</span>
         </nav>
 
-        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
-          <h1 class="text-2xl" style="color: var(--color-primary);">📝 Opinion Essay</h1>
-        </div>
-
-        <!-- Rules -->
-        <div class="card" style="margin-bottom: var(--spacing-6);">
-          <div class="card-header">
-            <div class="card-title">📋 Rules</div>
-            <span class="badge badge-primary">Guidelines</span>
-          </div>
-          <ul style="list-style: decimal; padding-left: var(--spacing-6); color: var(--color-text-secondary);">
-            <li>Base your point of view on <strong>strong evidence and arguments</strong>.</li>
-            <li>You are free to <strong>not agree</strong> with the topics and state your position.</li>
-            <li>Use <strong>logical connectors</strong> throughout your opinion essay so that your writing sounds smooth.</li>
-          </ul>
-        </div>
-
-        <!-- Structure -->
-        <div class="card" style="margin-bottom: var(--spacing-6); background: var(--color-bg); border-left: 4px solid var(--color-secondary);">
-          <div class="card-title" style="font-size: var(--font-size-base);">🏗️ Structure</div>
-          <div style="display: grid; gap: var(--spacing-3);">
-            <div style="background: var(--color-surface); padding: var(--spacing-3); border-radius: var(--radius-md); border-left: 4px solid var(--color-primary);">
-              <strong>Introduction</strong>
-              <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Present the topic and state your opinion clearly.</p>
-            </div>
-            <div style="background: var(--color-surface); padding: var(--spacing-3); border-radius: var(--radius-md); border-left: 4px solid var(--color-accent-2);">
-              <strong>Body Paragraph 1</strong>
-              <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">First argument with evidence and examples.</p>
-            </div>
-            <div style="background: var(--color-surface); padding: var(--spacing-3); border-radius: var(--radius-md); border-left: 4px solid var(--color-accent-2);">
-              <strong>Body Paragraph 2</strong>
-              <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Second argument with evidence and examples.</p>
-            </div>
-            <div style="background: var(--color-surface); padding: var(--spacing-3); border-radius: var(--radius-md); border-left: 4px solid var(--color-accent-1);">
-              <strong>Conclusion</strong>
-              <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Summarize your opinion and restate your position.</p>
-            </div>
+        <div class="page-hero fade-in">
+          <h1>📝 Opinion Essay</h1>
+          <p>Structure &amp; Rules — base your point of view on strong evidence and arguments.</p>
+          <div class="badge-group">
+            <span class="badge">📌 Introduction</span>
+            <span class="badge">📌 Body</span>
+            <span class="badge">📌 Conclusion</span>
           </div>
         </div>
 
-        <!-- Practice Prompt -->
-        <div class="card" style="background: var(--color-bg); border-left: 4px solid var(--color-accent-1);">
-          <div class="card-title" style="font-size: var(--font-size-base);">✏️ Practice Prompt</div>
-          <p style="color: var(--color-text-secondary); font-style: italic;">
+        <!-- ====== RULES ====== -->
+        <div class="rules-grid" id="rulesGrid">
+          <div class="rule-card">
+            <span class="rule-icon">💡</span>
+            <div class="rule-title">Strong Evidence</div>
+            <div class="rule-desc">Base your point of view on strong evidence and arguments.</div>
+          </div>
+          <div class="rule-card">
+            <span class="rule-icon">🔄</span>
+            <div class="rule-title">State Your Position</div>
+            <div class="rule-desc">You are free to not agree with the topics and state your position.</div>
+          </div>
+          <div class="rule-card">
+            <span class="rule-icon">🔗</span>
+            <div class="rule-title">Logical Connectors</div>
+            <div class="rule-desc">Use logical connectors throughout your essay so that your writing sounds smooth.</div>
+          </div>
+        </div>
+
+        <!-- ====== INFOGRAPHIC ====== -->
+        <h2 style="color: var(--color-primary); font-size: var(--font-size-xl); margin: var(--spacing-6) 0 var(--spacing-4) 0; text-align: center;">🏗️ Structure</h2>
+
+        <div class="infographic" id="infographic">
+
+          <div class="infographic-step">
+            <div class="step-number">01</div>
+            <div class="step-content">
+              <div class="step-title">Introduction</div>
+              <div class="step-desc">Present the topic and state your opinion clearly. Hook the reader with an interesting opening.</div>
+            </div>
+            <div class="step-icon">📌</div>
+          </div>
+
+          <div class="infographic-step">
+            <div class="step-number">02</div>
+            <div class="step-content">
+              <div class="step-title">Body Paragraph 1</div>
+              <div class="step-desc">First argument with <strong>evidence</strong> and <strong>examples</strong>. Use logical connectors to link your ideas.</div>
+            </div>
+            <div class="step-icon">📄</div>
+          </div>
+
+          <div class="infographic-step">
+            <div class="step-number">03</div>
+            <div class="step-content">
+              <div class="step-title">Body Paragraph 2</div>
+              <div class="step-desc">Second argument with <strong>evidence</strong> and <strong>examples</strong>. Build on your previous points.</div>
+            </div>
+            <div class="step-icon">📄</div>
+          </div>
+
+          <div class="infographic-step">
+            <div class="step-number">04</div>
+            <div class="step-content">
+              <div class="step-title">Body Paragraph 3 (Optional)</div>
+              <div class="step-desc">Third argument or counterargument. Address opposing views and explain why your position is stronger.</div>
+            </div>
+            <div class="step-icon">📄</div>
+          </div>
+
+          <div class="infographic-step">
+            <div class="step-number">05</div>
+            <div class="step-content">
+              <div class="step-title">Conclusion</div>
+              <div class="step-desc">Summarize your opinion and restate your position. Leave the reader with a final thought or call to action.</div>
+            </div>
+            <div class="step-icon">🏁</div>
+          </div>
+
+        </div>
+
+        <!-- ====== PRACTICE PROMPT ====== -->
+        <div class="practice-box" id="practiceBox">
+          <div class="prompt-icon">✏️</div>
+          <div class="prompt-text">
             "All cars that burn fossil fuels should be banned and electric cars should replace them."
-          </p>
+          </div>
           <p style="color: var(--color-text-secondary); margin-top: var(--spacing-2);">
             <strong>Do you agree or disagree?</strong> Write an opinion essay expressing your view with clear arguments.
           </p>
-          <div style="margin-top: var(--spacing-4); display: flex; gap: var(--spacing-3);">
-            <span class="badge badge-primary">Draft</span>
-            <span class="badge badge-accent">Publishing</span>
-            <span class="badge" style="background: var(--color-secondary); color: #0D1326;">500 words</span>
+          <div class="prompt-tags">
+            <span class="tag primary">Draft</span>
+            <span class="tag">Publishing</span>
+            <span class="tag">500 words</span>
           </div>
         </div>
 
-        <div style="margin-top: var(--spacing-8);">
+        <!-- ====== NAVIGATION ====== -->
+        <div style="margin-top: var(--spacing-8); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--spacing-4);">
           <a href="index.html" class="btn btn-secondary">← Back to Writing</a>
+          <a href="descriptive-writing.html" class="btn btn-primary">Next: Descriptive →</a>
         </div>
 
         <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
@@ -104,7 +447,58 @@
 
   <script src="../../js/main.js"></script>
   <script src="../../js/navigation.js"></script>
-  <script src="../skills.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Rules
+      const rules = document.querySelectorAll('.rule-card');
+      if ('IntersectionObserver' in window) {
+        const observer1 = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, index * 150);
+            }
+          });
+        }, { threshold: 0.15 });
+        rules.forEach(r => observer1.observe(r));
+      } else {
+        rules.forEach(r => r.classList.add('visible'));
+      }
+
+      // Infographic steps
+      const steps = document.querySelectorAll('.infographic-step');
+      if ('IntersectionObserver' in window) {
+        const observer2 = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, index * 120);
+            }
+          });
+        }, { threshold: 0.15 });
+        steps.forEach(s => observer2.observe(s));
+      } else {
+        steps.forEach(s => s.classList.add('visible'));
+      }
+
+      // Practice box
+      const practice = document.getElementById('practiceBox');
+      if (practice && 'IntersectionObserver' in window) {
+        const observer3 = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.2 });
+        observer3.observe(practice);
+      } else if (practice) {
+        practice.classList.add('visible');
+      }
+    });
+  </script>
 
 </body>
 </html>
