@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework · Grammar General · Unit 1</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../../../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../../../index.html">Home</a>
+        <a href="../../index.html" class="active">Unit 1</a>
+        <a href="../../../units/unit-2/index.html">Unit 2</a>
+        <a href="../../../units/unit-3/index.html">Unit 3</a>
+        <a href="../../../units/unit-4/index.html">Unit 4</a>
+        <a href="../../../novel/index.html">Novel</a>
+        <a href="../../../poetry/index.html">Poetry</a>
+        <a href="../../../skills/index.html">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../../index.html" class="active">Unit 1: Jump for Joy</a>
+      <a href="../../../units/unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../../../units/unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../../../units/unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../../../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="../../../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../../../skills/index.html">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../../index.html">Unit 1</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Homework · Grammar General</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">🧩 Homework — Grammar (General Mixed)</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">40 Questions</span>
+              <span class="badge badge-accent">H.W</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 40</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="../index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 1 · Homework · Grammar General</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // ====== QUESTIONS — EXACTLY AS IN THE BOOKLET (Pages 31-33) ======
+    const questions = [
+      // Part 1: MCQ (15 questions)
+      { type: 'mcq', text: '1. Derek ________ flowers for his mom every Mother\'s Day.', options: ['buys', 'to buy', 'has bought', 'buying'], correct: 'a' },
+      { type: 'mcq', text: '2. We usually ________ to the beach with our friends every week.', options: ['have gone', 'going', 'goes', 'go'], correct: 'd' },
+      { type: 'mcq', text: '3. The Sun ________ in the east and ________ in the west.', options: ['rising, setting', 'rises, sets', 'rise, set', 'to rise, to set'], correct: 'b' },
+      { type: 'mcq', text: '4. Tom and Linda ________ the subway train to work every day.', options: ['takes', 'took', 'take', 'have taken'], correct: 'c' },
+      { type: 'mcq', text: '5. He ________ the car at the moment.', options: ['is washing', 'are washing', 'washed', 'has washed'], correct: 'a' },
+      { type: 'mcq', text: '6. Shh! Be quiet. The baby ________ now.', options: ['sleeps', 'has slept', 'are sleeping', 'is sleeping'], correct: 'd' },
+      { type: 'mcq', text: '7. I ________ him since yesterday morning.', options: ['didn\'t see', 'hasn\'t seen', 'haven\'t seen', 'haven\'t seeing'], correct: 'c' },
+      { type: 'mcq', text: '8. The Prime Minister ________ a speech on television right now.', options: ['is giving', 'was give', 'are giving', 'has given'], correct: 'a' },
+      { type: 'mcq', text: '9. We ________ just ________ cleaning the kitchen.', options: ['finished', 'have finished', 'finish', 'are finishing'], correct: 'b' },
+      { type: 'mcq', text: '10. For three hours, Jim ________ for his mother at the airport.', options: ['have waited', 'is waiting', 'waited', 'has waited'], correct: 'd' },
+      { type: 'mcq', text: '11. Lauren and Sarah ________ Spanish with Mrs. Andersen right now.', options: ['are studying', 'is studying', 'will study', 'studied'], correct: 'a' },
+      { type: 'mcq', text: '12. So far, he ________ anything to make me feel bad.', options: ['haven\'t done', 'having done', 'hasn\'t done', 'hadn\'t done'], correct: 'c' },
+      { type: 'mcq', text: '13. Since I last saw him, he ________ in London.', options: ['lived', 'is living', 'lives', 'has been living'], correct: 'd' },
+      { type: 'mcq', text: '14. We can\'t open the door, Jack ________ it and it is still wet.', options: ['is painting', 'painted', 'has painted', 'paints'], correct: 'c' },
+      { type: 'mcq', text: '15. I have been waiting for you _______.', options: ['since 2 minutes', 'since 9 a.m.', 'for two o\'clock', 'for yesterday'], correct: 'b' },
+
+      // Part 2: Rewriting (10 questions)
+      { type: 'fill', text: '16. Look! It ________ (Complete to make a meaningful sentence)', correct: 'is raining' },
+      { type: 'fill', text: '17. How long ________ she ________ (work) there when you met her?', correct: 'had, worked' },
+      { type: 'error', text: '18. My teacher <span class="error-word">have</span> given me a lot of homework to do.', correct: 'has' },
+      { type: 'fill', text: '19. I am still doing my homework. (Rewrite using: yet)', correct: 'I haven\'t finished my homework yet.' },
+      { type: 'fill', text: '20. They go on a picnic every Sunday. (Rewrite using: this Sunday)', correct: 'They are going on a picnic this Sunday.' },
+      { type: 'error', text: '21. This guitar <span class="error-word">is belonging</span> to my grandmother.', correct: 'belongs' },
+      { type: 'fill', text: '22. My dog and I ________ (run) all day.', correct: 'have been running' },
+      { type: 'mcq', text: '23. Cathy isn\'t at home now she ________ to work.', options: ['went', 'has gone', 'has been', 'is going'], correct: 'b' },
+      { type: 'fill', text: '24. I have talked to him for 3 hours. (Rewrite using: since)', correct: 'I have talked to him since 3 hours ago.' },
+      { type: 'error', text: '25. He <span class="error-word">has been</span> to the club. He will be back at 2 o\'clock.', correct: 'has gone' },
+
+      // Part 3: Verb Forms (15 questions)
+      { type: 'fill', text: '26. They ________ (wait) for their teacher to come, but the teacher ________ (not/come) yet.', correct: 'are waiting, hasn\'t come' },
+      { type: 'fill', text: '27. She ________ (just/tell) me that our teacher ________ (fall) ill.', correct: 'has just told, has fallen' },
+      { type: 'fill', text: '28. The children outside are very loud! I guess they ________ (play) hop scotch.', correct: 'are playing' },
+      { type: 'fill', text: '29. We ________ (already/write) three essays this term.', correct: 'have already written' },
+      { type: 'fill', text: '30. Kate ________ (read) a lot of magazines. She usually ________ (buy) three or four.', correct: 'reads, buys' },
+      { type: 'fill', text: '31. Although our sales ________ (fall) at the moment, we normally ________ (perform) well in the market.', correct: 'are falling, perform' },
+      { type: 'fill', text: '32. She ________ (live) in Poland, she ________ (only/visit) Sicily for business.', correct: 'lives, only visits' },
+      { type: 'fill', text: '33. ________ (you/travel) for business frequently?', correct: 'Do you travel' },
+      { type: 'fill', text: '34. What ________ (you/do) this weekend?', correct: 'are you doing' },
+      { type: 'fill', text: '35. David ________ (not/drink) coffee, he ________ (not/like) it.', correct: 'doesn\'t drink, doesn\'t like' },
+      { type: 'fill', text: '36. We ________ (just/buy) a new house. Now we ________ (renovate) it. We ________ (not/move) in yet.', correct: 'have just bought, are renovating, haven\'t moved' },
+      { type: 'fill', text: '37. I ________ (go) to work by bus, but my sister usually ________ (walk) as she ________ (think) that it is healthier.', correct: 'go, walks, thinks' },
+      { type: 'fill', text: '38. The family usually ________ (travel) together. They ________ (be) to many different countries so far.', correct: 'travels, have been' },
+      { type: 'fill', text: '39. I ________ (work) a lot lately. My exams ________ (start) on 1st May and I still ________ (have) a lot to do.', correct: 'have been working, start, have' },
+      { type: 'fill', text: '40. I ________ (read) three books but I ________ (have) two more to read.', correct: 'have read, have' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
