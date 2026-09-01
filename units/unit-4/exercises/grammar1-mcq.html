@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grammar 1 MCQ · Unit 4 · Exercises</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+</head>
+<body>
+
+  <!-- Header / Mobile Nav omitted -->
+
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Unit 4</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Grammar 1: MCQ</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">📖 Grammar 1 — Future Tenses (MCQ)</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">15 Questions</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 15</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 4 · Grammar 1 MCQ</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // QUESTIONS — EXACTLY AS IN THE BOOKLET (Page 97)
+    const questions = [
+      { type: 'mcq', text: '1. We _______ less paper if we read e-books.', options: ['will be used', 'are using', 'are used', 'will use'], correct: 'd' },
+      { type: 'mcq', text: '2. The new underground railway line _______ by 2030.', options: ['will have been built', 'will be building', 'has built', 'have built'], correct: 'a' },
+      { type: 'mcq', text: '3. In an hour\'s time, Hanaa _______ home on the train.', options: ['will be travelling', 'will travel', 'travels', 'travelled'], correct: 'a' },
+      { type: 'mcq', text: '4. There is a good film on TV tonight. It _______ at ten o\'clock.', options: ['finish', 'finishes', 'will finish', 'is finishing'], correct: 'b' },
+      { type: 'mcq', text: '5. At one o\'clock tomorrow, I _______ lunch with my friends.', options: ['will eat', 'am going to eat', 'will be eating', 'will have eaten'], correct: 'c' },
+      { type: 'mcq', text: '6. I feel dizzy. I think I _______ fall down.', options: ['will', 'am', 'am going to', 'will be'], correct: 'c' },
+      { type: 'mcq', text: '7. The water is boiling. I _______ the gas off.', options: ['will turn', 'am going to turn', 'am turning', 'turn'], correct: 'a' },
+      { type: 'mcq', text: '8. Will you watch this film with me tomorrow evening? — Sorry, I _______ an irresistible novel.', options: ['will read', 'am going to read', 'will be reading', 'am reading'], correct: 'c' },
+      { type: 'mcq', text: '9. The teacher says that we _______ poetry next week.', options: ['going to study', 'study', 'are studying', 'studying'], correct: 'c' },
+      { type: 'mcq', text: '10. She won\'t go shopping _______ she has dusted the furniture.', options: ['when', 'as soon as', 'until', 'by'], correct: 'c' },
+      { type: 'mcq', text: '11. It is 35 degrees and it\'s only 7 a.m. It _______ very hot today.', options: ['was', 'is going to be', 'is being', 'will be being'], correct: 'b' },
+      { type: 'mcq', text: '12. I\'m sorry but your car _______ this week.', options: ['won\'t repair', 'can\'t repair', 'repaired', 'won\'t be repaired'], correct: 'd' },
+      { type: 'mcq', text: '13. Running too many programs at the same time _______ the computer crash.', options: ['will probably make', 'will probably be made', 'has probably been made', 'is probably made'], correct: 'a' },
+      { type: 'mcq', text: '14. Somebody is knocking on the door. I _______ and open it.', options: ['am going', 'will go', 'have gone', 'go'], correct: 'b' },
+      { type: 'mcq', text: '15. It\'s arranged. We _______ to the Red Sea this summer.', options: ['will go', 'go', 'are going', 'are going to go'], correct: 'c' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
