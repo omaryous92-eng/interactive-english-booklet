@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grammar 2 MCQ · Unit 4 · Exercises</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+</head>
+<body>
+
+  <!-- Header / Mobile Nav omitted -->
+
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Unit 4</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Grammar 2: MCQ</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">📖 Grammar 2 — Countable / Uncountable (MCQ)</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">15 Questions</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 15</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 4 · Grammar 2 MCQ</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // QUESTIONS — EXACTLY AS IN THE BOOKLET (Page 104)
+    const questions = [
+      { type: 'mcq', text: '1. Don\'t make _______ spelling mistakes.', options: ['much', 'many', 'lots', 'a lot'], correct: 'b' },
+      { type: 'mcq', text: '2. There aren\'t _______ chips on the table.', options: ['some', 'little', 'any', 'no'], correct: 'c' },
+      { type: 'mcq', text: '3. Would you like _______ tea?', options: ['some', 'many', 'any', 'much'], correct: 'a' },
+      { type: 'mcq', text: '4. He didn\'t miss _______ of his friends.', options: ['some', 'any', 'few', 'much'], correct: 'b' },
+      { type: 'mcq', text: '5. He didn\'t manage to learn _______ information.', options: ['many', 'some', 'much', 'no'], correct: 'c' },
+      { type: 'mcq', text: '6. There is still _______ tart in the fridge.', options: ['a little', 'some', 'any', 'a few'], correct: 'a' },
+      { type: 'mcq', text: '7. Arabic _______ more difficult than English.', options: ['is', 'are', 'were', 'have'], correct: 'a' },
+      { type: 'mcq', text: '8. Unfortunately, there _______ recycling bins on this street.', options: ['are a little', 'aren\'t many', 'is a few', 'aren\'t much'], correct: 'b' },
+      { type: 'mcq', text: '9. My new flat is very nice because it\'s got _______ natural light.', options: ['lot of', 'lots of', 'a lots of', 'a lot'], correct: 'b' },
+      { type: 'mcq', text: '10. I have _______ money. However, I can buy my needs.', options: ['little', 'a little', 'few', 'many'], correct: 'b' },
+      { type: 'mcq', text: '11. How _______ seconds are there in an hour?', options: ['much', 'many', 'little', 'few'], correct: 'b' },
+      { type: 'mcq', text: '12. We didn\'t take _______ photographs yesterday.', options: ['some', 'many', 'much', 'little'], correct: 'b' },
+      { type: 'mcq', text: '13. They didn\'t do _______ shopping last week.', options: ['a', 'much', 'many', 'some'], correct: 'b' },
+      { type: 'mcq', text: '14. She has _______ problem. Can you help her?', options: ['a', 'a few', 'any', 'a lot'], correct: 'a' },
+      { type: 'mcq', text: '15. He hasn\'t got _______ furniture in his house.', options: ['lot of', 'some', 'any', 'many'], correct: 'c' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
