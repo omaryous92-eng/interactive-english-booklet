@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grammar 1 Verb Forms · Unit 3 · Exercises</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+</head>
+<body>
+
+  <!-- Header / Mobile Nav omitted -->
+
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Unit 3</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Grammar 1: Verb Forms</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">✏️ Grammar 1 — Past Perfect Verb Forms</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">15 Questions</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 15</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 3 · Grammar 1 Verb Forms</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // QUESTIONS — EXACTLY AS IN THE BOOKLET (Page 76)
+    const questions = [
+      { type: 'fill', text: '1. I _______ (work) all day, so I didn\'t want to go out.', correct: 'had been working' },
+      { type: 'fill', text: '2. She _______ (sleep) for ten hours when I woke her.', correct: 'had been sleeping' },
+      { type: 'fill', text: '3. They _______ (live) in Beijing for three years when he lost his job.', correct: 'had been living' },
+      { type: 'fill', text: '4. I had to have a break. I _______ so long. (drive)', correct: 'had been driving' },
+      { type: 'fill', text: '5. Before we parked our car we _______ the ticket. (collect)', correct: 'had collected' },
+      { type: 'fill', text: '6. I arrived on Sunday. I _______ at home for two days. (not be)', correct: 'had not been' },
+      { type: 'fill', text: '7. The roads were blocked in the morning. It _______ all night. (snow)', correct: 'had been snowing' },
+      { type: 'fill', text: '8. They got to the beach after they _______ for hours. (walk)', correct: 'had been walking' },
+      { type: 'fill', text: '9. She called the police when she _______ the light in the hall. (see)', correct: 'had seen' },
+      { type: 'fill', text: '10. His English was perfect. He _______ it since he started school. (study)', correct: 'had been studying' },
+      { type: 'fill', text: '11. After finishing his drink he got up. (Rewrite)', correct: 'After he had finished his drink, he got up.' },
+      { type: 'fill', text: '12. His driving too fast caused an accident. (Rewrite)', correct: 'He had an accident because he had been driving too fast.' },
+      { type: 'fill', text: '13. Everyone sat down. The show started. (Rewrite)', correct: 'The show started when everyone had sat down.' },
+      { type: 'fill', text: '14. After switching on the radio she heard the news. (Rewrite)', correct: 'After she had switched on the radio, she heard the news.' },
+      { type: 'fill', text: '15. The ship sailed for two days. It landed in Nice. (Rewrite)', correct: 'The ship landed in Nice after it had sailed for two days.' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
