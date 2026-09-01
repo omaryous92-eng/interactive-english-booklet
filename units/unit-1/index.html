@@ -14,7 +14,6 @@
   <link rel="stylesheet" href="../../css/components.css">
   <link rel="stylesheet" href="../../css/animations.css">
   <link rel="stylesheet" href="../../css/responsive.css">
-  <!-- Unit-specific CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -47,10 +46,7 @@
 
   <!-- ====== MOBILE NAV ====== -->
   <nav class="mobile-nav" id="mobileNav">
-    <div class="nav-group">
-      <div class="nav-group-title">Main</div>
-      <a href="../../index.html">Home</a>
-    </div>
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../index.html">Home</a></div>
     <div class="nav-group">
       <div class="nav-group-title">Units</div>
       <a href="index.html" class="active">Unit 1: Jump for Joy</a>
@@ -75,7 +71,7 @@
       <div class="container">
 
         <!-- Breadcrumbs -->
-        <nav class="breadcrumbs" id="breadcrumbs">
+        <nav class="breadcrumbs">
           <a href="../../index.html">Home</a>
           <span class="separator"> › </span>
           <span class="current">Unit 1: Jump for Joy</span>
@@ -87,38 +83,60 @@
           <p class="text-lg" style="color: var(--color-text-secondary); max-width: 700px; margin-top: var(--spacing-2);">
             Vocabulary, Grammar, Phrasal Verbs &amp; Idioms — all content exactly as the booklet.
           </p>
+          <div style="margin-top: var(--spacing-3); display: flex; gap: var(--spacing-2); flex-wrap: wrap;">
+            <span class="badge badge-primary">31 Vocab Words</span>
+            <span class="badge badge-accent">24 Emotions & Personality</span>
+            <span class="badge" style="background: var(--color-secondary); color: #0D1326;">12 Idioms</span>
+            <span class="badge" style="background: var(--color-accent-1);">7 Phrasal Verbs</span>
+          </div>
         </div>
 
-        <!-- Sub-section Cards -->
+        <!-- Sub-section Cards (in correct booklet order) -->
         <div class="grid grid-2" style="gap: var(--spacing-6);">
 
+          <!-- Vocabulary 1 -->
           <a href="vocabulary-1.html" class="unit-card" style="border-left-color: var(--color-primary);">
             <div class="unit-number">📚 Vocabulary 1</div>
-            <div class="unit-title" style="font-size: var(--font-size-lg);">28 Key Words</div>
+            <div class="unit-title" style="font-size: var(--font-size-lg);">31 Key Words</div>
             <div class="unit-description">
               upset, behaviour, sight, wonder, bother, context, supply, public transport, interruption, bug, decade, research, condition, misophonia, respond, yawn, chew, suffer, benefit, prevent, amazement, anxiety, despair, embarrassment, frustration, guilt, joy, relief, sympathy
             </div>
-            <span class="unit-badge">Flip cards</span>
+            <span class="unit-badge">31 words</span>
+            <span class="unit-badge" style="background: var(--color-accent-1);">+ Emotions & Personality</span>
           </a>
 
+          <!-- Vocabulary 2 (Idioms) -->
           <a href="vocabulary-2.html" class="unit-card" style="border-left-color: var(--color-secondary);">
-            <div class="unit-number">📝 Vocabulary 2</div>
-            <div class="unit-title" style="font-size: var(--font-size-lg);">Emotions &amp; Personality</div>
+            <div class="unit-number">🔗 Vocabulary 2</div>
+            <div class="unit-title" style="font-size: var(--font-size-lg);">12 Idioms</div>
             <div class="unit-description">
-              16 adjectives (harmful, irritating, furious, annoying, awful, packed, overjoyed, distracted, aggressive, calm, arrogant, bad-tempered, loyal, mature, mean, stubborn) + 5 adverbs
+              jump for joy, take for granted, drive crazy, get stuck, push your way, on the edge of our seats, get under my skin, lost for words, in agony, with regret, burst into tears, burst out laughing
             </div>
-            <span class="unit-badge" style="background: var(--color-secondary); color: #0D1326;">Adjectives</span>
+            <span class="unit-badge" style="background: var(--color-secondary); color: #0D1326;">12 idioms</span>
           </a>
 
-          <a href="grammar-1.html" class="unit-card" style="border-left-color: var(--color-accent-2);">
+          <!-- Phrasal Verbs -->
+          <a href="phrasal-verbs.html" class="unit-card" style="border-left-color: var(--color-accent-2);">
+            <div class="unit-number">🔁 Phrasal Verbs</div>
+            <div class="unit-title" style="font-size: var(--font-size-lg);">7 Phrasal Verbs + Prepositions</div>
+            <div class="unit-description">
+              gone off, cheered up, chill out, hit it off, fall out, get down, stand up — plus prepositions: lead to, respond to, concentrate on, focus on, switch on, burst into, figure out, responsible for
+            </div>
+            <span class="unit-badge" style="background: var(--color-accent-2);">7 phrasal verbs</span>
+            <span class="unit-badge" style="background: var(--color-accent-1);">8 prepositions</span>
+          </a>
+
+          <!-- Grammar 1 -->
+          <a href="grammar-1.html" class="unit-card" style="border-left-color: var(--color-primary);">
             <div class="unit-number">📖 Grammar 1</div>
             <div class="unit-title" style="font-size: var(--font-size-lg);">Present Simple vs Continuous</div>
             <div class="unit-description">
               Usage, signal words, stative verbs, temporary vs permanent, future arrangements
             </div>
-            <span class="unit-badge" style="background: var(--color-accent-2);">Rules + Examples</span>
+            <span class="unit-badge" style="background: var(--color-primary);">Rules + Examples</span>
           </a>
 
+          <!-- Grammar 2 -->
           <a href="grammar-2.html" class="unit-card" style="border-left-color: var(--color-accent-1);">
             <div class="unit-number">📖 Grammar 2</div>
             <div class="unit-title" style="font-size: var(--font-size-lg);">Present Perfect</div>
@@ -128,24 +146,28 @@
             <span class="unit-badge" style="background: var(--color-accent-1);">Rules + Examples</span>
           </a>
 
-          <a href="phrasal-verbs.html" class="unit-card" style="border-left-color: var(--color-secondary); grid-column: span 2;">
-            <div class="unit-number">🔗 Phrasal Verbs &amp; Idioms</div>
-            <div class="unit-title" style="font-size: var(--font-size-lg);">Idiomatic Expressions</div>
-            <div class="unit-description">
-              jump for joy, take for granted, drive crazy, get stuck, push your way, edge of seats, get under skin, lost for words, in agony, with regret, burst into tears, burst out laughing, gone off, cheered up, chill out, hit it off, fall out, get down, stand up
-            </div>
-            <span class="unit-badge" style="background: var(--color-secondary); color: #0D1326;">Phrasal Verbs</span>
-          </a>
-
         </div>
-<!-- ====== Practice Questions Button ====== -->
-<div style="margin-top: var(--spacing-10); text-align: center; padding: var(--spacing-6); background: var(--color-bg); border-radius: var(--radius-lg); border: 2px dashed var(--color-primary);">
-    <h3 style="color: var(--color-primary); font-size: var(--font-size-lg);">📝 Practice Questions</h3>
-    <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">Test your understanding with interactive questions from the booklet.</p>
-    <a href="exercises/index.html" class="btn btn-primary" style="margin-top: var(--spacing-3);">
-        🚀 Start Exercises
-    </a>
-</div>
+
+        <!-- ====== Practice Questions Button ====== -->
+        <div style="margin-top: var(--spacing-10); text-align: center; padding: var(--spacing-8); background: var(--color-bg); border-radius: var(--radius-xl); border: 3px dashed var(--color-primary);">
+          <div style="font-size: 3rem; margin-bottom: var(--spacing-2);">📝</div>
+          <h2 style="color: var(--color-primary); font-size: var(--font-size-2xl);">Practice Questions</h2>
+          <p style="color: var(--color-text-secondary); max-width: 600px; margin: var(--spacing-2) auto;">
+            Test your understanding with interactive questions from all sections of Unit 1.
+          </p>
+          <div style="display: flex; gap: var(--spacing-3); justify-content: center; flex-wrap: wrap; margin-top: var(--spacing-4);">
+            <a href="exercises/index.html" class="btn btn-primary btn-lg">
+              🚀 Start All Exercises
+            </a>
+          </div>
+          <div style="margin-top: var(--spacing-3); display: flex; gap: var(--spacing-3); justify-content: center; flex-wrap: wrap; font-size: var(--font-size-sm); color: var(--color-text-secondary);">
+            <span>📚 16 exercise sets</span>
+            <span>•</span>
+            <span>📝 ~285 questions</span>
+            <span>•</span>
+            <span>⭐ Instant feedback</span>
+          </div>
+        </div>
 
         <!-- Footer -->
         <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
