@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grammar 1 Verb Forms · Unit 4 · Exercises</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+</head>
+<body>
+
+  <!-- Header / Mobile Nav omitted -->
+
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Unit 4</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Grammar 1: Verb Forms</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">✏️ Grammar 1 — Future Verb Forms</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">8 Questions</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 8</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 4 · Grammar 1 Verb Forms</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // QUESTIONS — EXACTLY AS IN THE BOOKLET (Page 98)
+    const questions = [
+      { type: 'fill', text: '1. Aaron is carrying two tyres — he _______ (change) the tyres on a car.', correct: 'is going to change' },
+      { type: 'fill', text: '2. Do you think the teacher _______ (mark) our homework by Monday morning?', correct: 'will have marked' },
+      { type: 'fill', text: '3. By the time we get home, the football match _______ (start).', correct: 'will have started' },
+      { type: 'fill', text: '4. You\'re carrying too much. I _______ (open) the door for you.', correct: 'will open' },
+      { type: 'fill', text: '5. I\'ve just checked the flight details and the plane _______ (arrive) at 6pm.', correct: 'arrives' },
+      { type: 'fill', text: '6. I don\'t think you _______ (have) any problems when you land in Boston.', correct: 'will have' },
+      { type: 'fill', text: '7. By the time we get home, they _______ (play) football for 30 minutes.', correct: 'will have been playing' },
+      { type: 'fill', text: '8. Look at the clouds — it _______ (rain) in a few minutes.', correct: 'is going to rain' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
