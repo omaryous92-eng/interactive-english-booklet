@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Homework · Grammar 2 MCQ · Unit 1</title>
 
-  <!-- Global CSS -->
-  <link rel="stylesheet" href="../../../css/colors.css">
-  <link rel="stylesheet" href="../../../css/variables.css">
-  <link rel="stylesheet" href="../../../css/reset.css">
-  <link rel="stylesheet" href="../../../css/layout.css">
-  <link rel="stylesheet" href="../../../css/navigation.css">
-  <link rel="stylesheet" href="../../../css/components.css">
-  <link rel="stylesheet" href="../../../css/animations.css">
-  <link rel="stylesheet" href="../../../css/responsive.css">
-  <link rel="stylesheet" href="../../../css/exercises.css">
+  <!-- ====== CSS — المسارات الصحيحة ====== -->
+  <link rel="stylesheet" href="../../../../css/colors.css">
+  <link rel="stylesheet" href="../../../../css/variables.css">
+  <link rel="stylesheet" href="../../../../css/reset.css">
+  <link rel="stylesheet" href="../../../../css/layout.css">
+  <link rel="stylesheet" href="../../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../../css/components.css">
+  <link rel="stylesheet" href="../../../../css/animations.css">
+  <link rel="stylesheet" href="../../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../../css/exercises.css">
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
@@ -22,7 +22,7 @@
   <!-- ====== HEADER ====== -->
   <header class="site-header">
     <div class="container">
-      <a href="../../../index.html" class="logo" style="text-decoration: none;">
+      <a href="../../../../index.html" class="logo" style="text-decoration: none;">
         <div class="logo-icon">📘</div>
         <div>
           <span>Prep 3 · E-Book</span>
@@ -30,14 +30,14 @@
         </div>
       </a>
       <nav class="nav-links">
-        <a href="../../../index.html">Home</a>
+        <a href="../../../../index.html">Home</a>
         <a href="../../index.html" class="active">Unit 1</a>
-        <a href="../../../units/unit-2/index.html">Unit 2</a>
-        <a href="../../../units/unit-3/index.html">Unit 3</a>
-        <a href="../../../units/unit-4/index.html">Unit 4</a>
-        <a href="../../../novel/index.html">Novel</a>
-        <a href="../../../poetry/index.html">Poetry</a>
-        <a href="../../../skills/index.html">Skills</a>
+        <a href="../../../unit-2/index.html">Unit 2</a>
+        <a href="../../../unit-3/index.html">Unit 3</a>
+        <a href="../../../unit-4/index.html">Unit 4</a>
+        <a href="../../../../novel/index.html">Novel</a>
+        <a href="../../../../poetry/index.html">Poetry</a>
+        <a href="../../../../skills/index.html">Skills</a>
       </nav>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -47,22 +47,22 @@
 
   <!-- ====== MOBILE NAV ====== -->
   <nav class="mobile-nav" id="mobileNav">
-    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../../index.html">Home</a></div>
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../../../index.html">Home</a></div>
     <div class="nav-group">
       <div class="nav-group-title">Units</div>
       <a href="../../index.html" class="active">Unit 1: Jump for Joy</a>
-      <a href="../../../units/unit-2/index.html">Unit 2: Global Culture</a>
-      <a href="../../../units/unit-3/index.html">Unit 3: Role Models</a>
-      <a href="../../../units/unit-4/index.html">Unit 4: City Living</a>
+      <a href="../../../unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../../../unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../../../unit-4/index.html">Unit 4: City Living</a>
     </div>
     <div class="nav-group">
       <div class="nav-group-title">Literature</div>
-      <a href="../../../novel/index.html">📖 A Tale of Two Cities</a>
-      <a href="../../../poetry/index.html">📝 Poetry</a>
+      <a href="../../../../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="../../../../poetry/index.html">📝 Poetry</a>
     </div>
     <div class="nav-group">
       <div class="nav-group-title">Skills</div>
-      <a href="../../../skills/index.html">📚 Reading · Dialogues · Writing</a>
+      <a href="../../../../skills/index.html">📚 Reading · Dialogues · Writing</a>
     </div>
   </nav>
 
@@ -72,7 +72,7 @@
       <div class="container">
 
         <nav class="breadcrumbs">
-          <a href="../../../index.html">Home</a>
+          <a href="../../../../index.html">Home</a>
           <span class="separator"> › </span>
           <a href="../../index.html">Unit 1</a>
           <span class="separator"> › </span>
@@ -137,13 +137,13 @@
 
     document.addEventListener('DOMContentLoaded', function() {
       const script1 = document.createElement('script');
-      script1.src = '../../../js/sounds.js';
+      script1.src = '../../../../js/sounds.js';
       document.head.appendChild(script1);
       const script2 = document.createElement('script');
-      script2.src = '../../../js/confetti.js';
+      script2.src = '../../../../js/confetti.js';
       document.head.appendChild(script2);
       const script3 = document.createElement('script');
-      script3.src = '../../../js/exercises.js';
+      script3.src = '../../../../js/exercises.js';
       script3.onload = function() {
         if (typeof ExerciseEngine !== 'undefined') {
           ExerciseEngine.init(questions);
@@ -153,8 +153,8 @@
     });
   </script>
 
-  <script src="../../../js/main.js"></script>
-  <script src="../../../js/navigation.js"></script>
+  <script src="../../../../js/main.js"></script>
+  <script src="../../../../js/navigation.js"></script>
 
 </body>
 </html>
