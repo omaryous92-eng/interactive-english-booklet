@@ -15,15 +15,471 @@
   <link rel="stylesheet" href="../css/animations.css">
   <link rel="stylesheet" href="../css/responsive.css">
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ============================================================
+       Literary Terms Page Specific Styles
+       ============================================================ */
+
+    /* ---------- Hero Section ---------- */
+    .terms-hero {
+      background: var(--gradient-header);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-8);
+      text-align: center;
+      color: #fff;
+      margin-bottom: var(--spacing-8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .terms-hero::before {
+      content: '📝';
+      position: absolute;
+      font-size: 12rem;
+      opacity: 0.08;
+      right: -20px;
+      bottom: -40px;
+      transform: rotate(-10deg);
+    }
+
+    .terms-hero h1 {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-extrabold);
+      margin-bottom: var(--spacing-3);
+      position: relative;
+      z-index: 1;
+    }
+
+    .terms-hero p {
+      font-size: var(--font-size-lg);
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .terms-hero .badge-group {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-3);
+      flex-wrap: wrap;
+      margin-top: var(--spacing-4);
+      position: relative;
+      z-index: 1;
+    }
+
+    .terms-hero .badge-group .badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: var(--spacing-2) var(--spacing-4);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      backdrop-filter: blur(4px);
+    }
+
+    /* ---------- Section Titles ---------- */
+    .section-title {
+      text-align: center;
+      margin: var(--spacing-8) 0 var(--spacing-4) 0;
+    }
+
+    .section-title h2 {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      display: inline-block;
+      position: relative;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: var(--gradient-header);
+      border-radius: var(--radius-full);
+    }
+
+    .section-title p {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      margin-top: var(--spacing-3);
+    }
+
+    /* ---------- Terms Grid ---------- */
+    .terms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-5);
+      margin-top: var(--spacing-6);
+    }
+
+    .term-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-5);
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-slow);
+      position: relative;
+      overflow: hidden;
+      border-bottom: 5px solid var(--color-primary);
+      opacity: 0;
+      transform: translateY(40px) scale(0.95);
+      transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+                  transform 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+                  box-shadow 0.3s ease;
+      cursor: default;
+    }
+
+    .term-card.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .term-card:hover {
+      box-shadow: var(--shadow-xl);
+      transform: translateY(-8px) scale(1.02);
+    }
+
+    /* Card Icon */
+    .term-card .card-icon {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: var(--spacing-3);
+      transition: transform var(--transition-base);
+      animation: pulse-icon 2s ease-in-out infinite;
+    }
+
+    .term-card:hover .card-icon {
+      transform: scale(1.2) rotate(-10deg);
+    }
+
+    .term-card .card-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .term-card .card-definition {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+      margin-bottom: var(--spacing-3);
+    }
+
+    .term-card .card-example {
+      background: var(--color-bg);
+      padding: var(--spacing-3);
+      border-radius: var(--radius-md);
+      border-left: 4px solid var(--color-primary);
+      font-style: italic;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-primary);
+      transition: all var(--transition-base);
+    }
+
+    .term-card:hover .card-example {
+      border-left-color: var(--color-accent-1);
+      background: rgba(124, 92, 252, 0.05);
+    }
+
+    .term-card .card-example strong {
+      color: var(--color-primary);
+    }
+
+    .term-card .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-2);
+      margin-top: var(--spacing-3);
+    }
+
+    .term-card .tag {
+      padding: 2px var(--spacing-3);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+    }
+
+    .term-card .tag.primary {
+      background: rgba(242, 101, 34, 0.1);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .term-card .tag.accent {
+      background: rgba(124, 92, 252, 0.1);
+      border-color: var(--color-accent-1);
+      color: var(--color-accent-1);
+    }
+
+    .term-card .tag.gold {
+      background: rgba(255, 184, 48, 0.1);
+      border-color: var(--color-secondary);
+      color: #b8860b;
+    }
+
+    /* Color variants */
+    .term-card:nth-child(1) { border-bottom-color: var(--color-primary); }
+    .term-card:nth-child(2) { border-bottom-color: var(--color-secondary); }
+    .term-card:nth-child(3) { border-bottom-color: var(--color-accent-1); }
+    .term-card:nth-child(4) { border-bottom-color: var(--color-accent-2); }
+    .term-card:nth-child(5) { border-bottom-color: #34C759; }
+    .term-card:nth-child(6) { border-bottom-color: #5AC8FA; }
+    .term-card:nth-child(7) { border-bottom-color: #FF9500; }
+    .term-card:nth-child(8) { border-bottom-color: #FF3B30; }
+
+    .term-card:nth-child(1) .card-icon { animation-delay: 0.1s; }
+    .term-card:nth-child(2) .card-icon { animation-delay: 0.15s; }
+    .term-card:nth-child(3) .card-icon { animation-delay: 0.2s; }
+    .term-card:nth-child(4) .card-icon { animation-delay: 0.25s; }
+    .term-card:nth-child(5) .card-icon { animation-delay: 0.3s; }
+    .term-card:nth-child(6) .card-icon { animation-delay: 0.35s; }
+    .term-card:nth-child(7) .card-icon { animation-delay: 0.4s; }
+    .term-card:nth-child(8) .card-icon { animation-delay: 0.45s; }
+
+    /* ---------- Sound Devices Grid ---------- */
+    .sound-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-5);
+      margin-top: var(--spacing-6);
+    }
+
+    .sound-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-5);
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-slow);
+      position: relative;
+      overflow: hidden;
+      border-bottom: 5px solid var(--color-secondary);
+      opacity: 0;
+      transform: translateX(-30px) scale(0.95);
+      transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+                  transform 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+                  box-shadow 0.3s ease;
+      cursor: default;
+    }
+
+    .sound-card.visible {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+
+    .sound-card:hover {
+      box-shadow: var(--shadow-xl);
+      transform: translateY(-8px) scale(1.02);
+    }
+
+    .sound-card .card-icon {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: var(--spacing-3);
+      transition: transform var(--transition-base);
+      animation: float-icon 3s ease-in-out infinite;
+    }
+
+    .sound-card:hover .card-icon {
+      transform: scale(1.2) rotate(5deg);
+    }
+
+    .sound-card .card-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .sound-card .card-definition {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+      margin-bottom: var(--spacing-3);
+    }
+
+    .sound-card .card-example {
+      background: var(--color-bg);
+      padding: var(--spacing-3);
+      border-radius: var(--radius-md);
+      border-left: 4px solid var(--color-secondary);
+      font-style: italic;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-primary);
+      transition: all var(--transition-base);
+    }
+
+    .sound-card:hover .card-example {
+      border-left-color: var(--color-accent-1);
+      background: rgba(124, 92, 252, 0.05);
+    }
+
+    .sound-card .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-2);
+      margin-top: var(--spacing-3);
+    }
+
+    .sound-card .tag {
+      padding: 2px var(--spacing-3);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+    }
+
+    .sound-card .tag.gold {
+      background: rgba(255, 184, 48, 0.1);
+      border-color: var(--color-secondary);
+      color: #b8860b;
+    }
+
+    .sound-card .tag.primary {
+      background: rgba(242, 101, 34, 0.1);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    /* Sound card color variants */
+    .sound-card:nth-child(1) { border-bottom-color: var(--color-secondary); }
+    .sound-card:nth-child(2) { border-bottom-color: var(--color-accent-1); }
+    .sound-card:nth-child(3) { border-bottom-color: var(--color-accent-2); }
+
+    .sound-card:nth-child(1) .card-icon { animation-delay: 0.1s; }
+    .sound-card:nth-child(2) .card-icon { animation-delay: 0.2s; }
+    .sound-card:nth-child(3) .card-icon { animation-delay: 0.3s; }
+
+    /* ---------- Animations ---------- */
+    @keyframes pulse-icon {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes float-icon {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    /* ---------- Scroll indicator ---------- */
+    .scroll-indicator {
+      text-align: center;
+      padding: var(--spacing-4);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 768px) {
+      .terms-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sound-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .terms-hero h1 {
+        font-size: var(--font-size-2xl);
+      }
+
+      .terms-hero {
+        padding: var(--spacing-4);
+      }
+
+      .term-card {
+        padding: var(--spacing-4);
+      }
+
+      .sound-card {
+        padding: var(--spacing-4);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .term-card .card-title {
+        font-size: var(--font-size-lg);
+      }
+
+      .sound-card .card-title {
+        font-size: var(--font-size-lg);
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Header / Mobile Nav omitted -->
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../units/unit-1/index.html">Unit 1</a>
+        <a href="../units/unit-2/index.html">Unit 2</a>
+        <a href="../units/unit-3/index.html">Unit 3</a>
+        <a href="../units/unit-4/index.html">Unit 4</a>
+        <a href="../novel/index.html">Novel</a>
+        <a href="index.html" class="active">Poetry</a>
+        <a href="../skills/index.html">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../units/unit-1/index.html">Unit 1: Jump for Joy</a>
+      <a href="../units/unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../units/unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../units/unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="index.html" class="active">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../skills/index.html">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
   <main class="main-content">
     <section class="section">
       <div class="container">
 
+        <!-- Breadcrumbs -->
         <nav class="breadcrumbs">
           <a href="../index.html">Home</a>
           <span class="separator"> › </span>
@@ -32,93 +488,191 @@
           <span class="current">Literary Terms</span>
         </nav>
 
-        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
-          <h1 class="text-2xl" style="color: var(--color-primary);">🔍 Literary Terms</h1>
-          <p class="text-base" style="color: var(--color-text-secondary);">Figures of speech and sound devices used in poetry.</p>
+        <!-- ====== HERO SECTION ====== -->
+        <div class="terms-hero fade-in">
+          <h1>🔍 Literary Terms</h1>
+          <p>
+            Figures of speech and sound devices used in poetry.<br>
+            <span style="font-size: var(--font-size-base); opacity: 0.8;">
+              Master the language of poetry with visual explanations and examples.
+            </span>
+          </p>
+          <div class="badge-group">
+            <span class="badge">🎭 Figures of Speech</span>
+            <span class="badge">🔊 Sound Devices</span>
+            <span class="badge">📚 8 Terms</span>
+          </div>
         </div>
 
-        <!-- Figures of Speech -->
-        <div class="card" style="margin-bottom: var(--spacing-6);">
-          <div class="card-header">
-            <div class="card-title">🎭 Figures of Speech</div>
-            <span class="badge badge-primary">Imaginative Language</span>
-          </div>
-
-          <div class="literary-term">
-            <strong>1. Personification</strong>
-            <p style="color: var(--color-text-secondary);">Giving human characteristics to inanimate objects or things.</p>
-            <p style="font-style: italic; color: var(--color-accent-1);">Example: "The crying moon" — the poet personifies the moon as a crying human being.</p>
-          </div>
-
-          <div class="literary-term">
-            <strong>2. Simile</strong>
-            <p style="color: var(--color-text-secondary);">A clear and direct comparison between two things that are different using words such as "like" or "as".</p>
-            <p style="font-style: italic; color: var(--color-accent-1);">Example: "The clouds looked like cotton candy."</p>
-          </div>
-
-          <div class="literary-term">
-            <strong>3. Metaphor</strong>
-            <p style="color: var(--color-text-secondary);">An indirect comparison between two unlike things that have something in common.</p>
-            <p style="font-style: italic; color: var(--color-accent-1);">Example: "Her voice is a nice song."</p>
-          </div>
-
-          <div class="literary-term">
-            <strong>4. Contrast</strong>
-            <p style="color: var(--color-text-secondary);">The use of opposite words to make the meaning clear.</p>
-            <p style="font-style: italic; color: var(--color-accent-1);">Example: "I looked up and down."</p>
-          </div>
-
-          <div class="literary-term">
-            <strong>5. Hyperbole</strong>
-            <p style="color: var(--color-text-secondary);">An extreme exaggeration used to make a point.</p>
-            <p style="font-style: italic; color: var(--color-accent-1);">Example: "My grandmother is as old as the hills."</p>
-          </div>
-
+        <!-- ====== SCROLL INDICATOR ====== -->
+        <div class="scroll-indicator fade-in">
+          ⬇️ Scroll down to explore the literary terms ⬇️
         </div>
 
-        <!-- Sound Devices -->
-        <div class="card" style="margin-bottom: var(--spacing-6);">
-          <div class="card-header">
-            <div class="card-title">🔊 Sound Devices</div>
-            <span class="badge badge-accent">Rhythm &amp; Sound</span>
-          </div>
+        <!-- ====== FIGURES OF SPEECH ====== -->
+        <div class="section-title">
+          <h2>🎭 Figures of Speech</h2>
+          <p>Hover over each card to learn more about the term</p>
+        </div>
 
-          <div class="literary-term">
-            <strong>1. Rhyme Scheme</strong>
-            <p style="color: var(--color-text-secondary);">The pattern of rhyming words at the end of each line. Presented by giving the same letter of the alphabet to each similar sound.</p>
-            <p style="font-style: italic; color: var(--color-accent-1);">
-              In winter, I get up at night (a)<br>
-              And dress by yellow candle light. (a)<br>
-              In summer, quite the other way (b)<br>
-              I have to go to bed by day. (b)
+        <div class="terms-grid" id="termsGrid">
+
+          <!-- 1. Personification -->
+          <div class="term-card">
+            <span class="card-icon">🎭</span>
+            <div class="card-title">Personification</div>
+            <p class="card-definition">
+              Giving human characteristics to inanimate objects or things.
             </p>
-            <p style="color: var(--color-text-secondary);"><strong>Rhyme scheme:</strong> aabb</p>
+            <div class="card-example">
+              <strong>💡 Example:</strong> "The crying moon" — the poet personifies the moon as a crying human being.
+            </div>
+            <div class="card-tags">
+              <span class="tag primary">Human traits</span>
+              <span class="tag accent">Objects</span>
+            </div>
           </div>
 
-          <div class="literary-term">
-            <strong>2. Alliteration</strong>
-            <p style="color: var(--color-text-secondary);">The repetition of the same sounds at the beginning of words in a line.</p>
-            <p style="font-style: italic; color: var(--color-accent-1);">Example: "I am busy," said the sea. (repetition of /s/ sound)</p>
-          </div>
-
-          <div class="literary-term">
-            <strong>3. Repetition</strong>
-            <p style="color: var(--color-text-secondary);">The repetition of a sound, word or phrase for emphasis (to strengthen the idea or to make it clear).</p>
-            <p style="font-style: italic; color: var(--color-accent-1);">
-              Inside the house I get ready<br>
-              Inside the can I go to school<br>
-              Inside the school I wait for the bell to ring
+          <!-- 2. Simile -->
+          <div class="term-card">
+            <span class="card-icon">🔗</span>
+            <div class="card-title">Simile</div>
+            <p class="card-definition">
+              A clear and direct comparison between two things that are different using words such as <strong>"like"</strong> or <strong>"as"</strong>.
             </p>
+            <div class="card-example">
+              <strong>💡 Example:</strong> "The clouds looked <strong>like</strong> cotton candy."
+            </div>
+            <div class="card-tags">
+              <span class="tag gold">Like / As</span>
+              <span class="tag primary">Comparison</span>
+            </div>
+          </div>
+
+          <!-- 3. Metaphor -->
+          <div class="term-card">
+            <span class="card-icon">🔄</span>
+            <div class="card-title">Metaphor</div>
+            <p class="card-definition">
+              An indirect comparison between two unlike things that have something in common.
+            </p>
+            <div class="card-example">
+              <strong>💡 Example:</strong> "Her voice <strong>is</strong> a nice song."
+            </div>
+            <div class="card-tags">
+              <span class="tag accent">Indirect</span>
+              <span class="tag primary">Comparison</span>
+            </div>
+          </div>
+
+          <!-- 4. Contrast -->
+          <div class="term-card">
+            <span class="card-icon">⚡</span>
+            <div class="card-title">Contrast</div>
+            <p class="card-definition">
+              The use of opposite words to make the meaning clear.
+            </p>
+            <div class="card-example">
+              <strong>💡 Example:</strong> "I looked <strong>up</strong> and <strong>down</strong>."
+            </div>
+            <div class="card-tags">
+              <span class="tag gold">Opposites</span>
+              <span class="tag primary">Clarity</span>
+            </div>
+          </div>
+
+          <!-- 5. Hyperbole -->
+          <div class="term-card">
+            <span class="card-icon">📈</span>
+            <div class="card-title">Hyperbole</div>
+            <p class="card-definition">
+              An extreme exaggeration used to make a point.
+            </p>
+            <div class="card-example">
+              <strong>💡 Example:</strong> "My grandmother is <strong>as old as the hills</strong>."
+            </div>
+            <div class="card-tags">
+              <span class="tag accent">Exaggeration</span>
+              <span class="tag primary">Emphasis</span>
+            </div>
           </div>
 
         </div>
 
-        <!-- Navigation -->
+        <!-- ====== SOUND DEVICES ====== -->
+        <div class="section-title" style="margin-top: var(--spacing-10);">
+          <h2>🔊 Sound Devices</h2>
+          <p>Explore the musical elements of poetry</p>
+        </div>
+
+        <div class="sound-grid" id="soundGrid">
+
+          <!-- 1. Rhyme Scheme -->
+          <div class="sound-card">
+            <span class="card-icon">🎵</span>
+            <div class="card-title">Rhyme Scheme</div>
+            <p class="card-definition">
+              The pattern of rhyming words at the end of each line. Presented by giving the same letter of the alphabet to each similar sound.
+            </p>
+            <div class="card-example">
+              <strong>💡 Example:</strong><br>
+              "In winter, I get up at night <strong>(a)</strong><br>
+              And dress by yellow candle light. <strong>(a)</strong><br>
+              In summer, quite the other way <strong>(b)</strong><br>
+              I have to go to bed by day. <strong>(b)</strong>"
+              <br><br>
+              <strong>🎯 Rhyme scheme:</strong> aabb
+            </div>
+            <div class="card-tags">
+              <span class="tag gold">Pattern</span>
+              <span class="tag primary">Rhythm</span>
+            </div>
+          </div>
+
+          <!-- 2. Alliteration -->
+          <div class="sound-card">
+            <span class="card-icon">🔁</span>
+            <div class="card-title">Alliteration</div>
+            <p class="card-definition">
+              The repetition of the same sounds at the beginning of words in a line.
+            </p>
+            <div class="card-example">
+              <strong>💡 Example:</strong> "I am busy," said the <strong>s</strong>ea. (repetition of <strong>/s/</strong> sound)
+            </div>
+            <div class="card-tags">
+              <span class="tag gold">Repetition</span>
+              <span class="tag primary">Consonant</span>
+            </div>
+          </div>
+
+          <!-- 3. Repetition -->
+          <div class="sound-card">
+            <span class="card-icon">🔄</span>
+            <div class="card-title">Repetition</div>
+            <p class="card-definition">
+              The repetition of a sound, word or phrase for emphasis (to strengthen the idea or to make it clear).
+            </p>
+            <div class="card-example">
+              <strong>💡 Example:</strong><br>
+              "<strong>Inside</strong> the house I get ready<br>
+              <strong>Inside</strong> the can I go to school<br>
+              <strong>Inside</strong> the school I wait for the bell to ring"
+            </div>
+            <div class="card-tags">
+              <span class="tag accent">Emphasis</span>
+              <span class="tag primary">Strengthen</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ====== NAVIGATION ====== -->
         <div style="margin-top: var(--spacing-10); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--spacing-4);">
           <a href="index.html" class="btn btn-secondary">← Back to Poetry</a>
           <a href="romanticism.html" class="btn btn-primary">Next: Romanticism →</a>
         </div>
 
+        <!-- Footer -->
         <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
           <p>© 2026 · Interactive E-Book · Poetry: Literary Terms</p>
         </footer>
@@ -127,9 +681,58 @@
     </section>
   </main>
 
+  <!-- ====== SCRIPTS ====== -->
   <script src="../js/main.js"></script>
   <script src="../js/navigation.js"></script>
-  <script src="poetry.js"></script>
+
+  <script>
+    // ============================================================
+    // Intersection Observer for animations
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', function() {
+
+      // --- Figures of Speech ---
+      const termCards = document.querySelectorAll('.term-card');
+      if ('IntersectionObserver' in window) {
+        const observer1 = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, index * 120);
+            }
+          });
+        }, {
+          threshold: 0.15,
+          rootMargin: '0px 0px -50px 0px'
+        });
+        termCards.forEach(card => observer1.observe(card));
+      } else {
+        termCards.forEach(card => card.classList.add('visible'));
+      }
+
+      // --- Sound Devices ---
+      const soundCards = document.querySelectorAll('.sound-card');
+      if ('IntersectionObserver' in window) {
+        const observer2 = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, index * 150);
+            }
+          });
+        }, {
+          threshold: 0.15,
+          rootMargin: '0px 0px -50px 0px'
+        });
+        soundCards.forEach(card => observer2.observe(card));
+      } else {
+        soundCards.forEach(card => card.classList.add('visible'));
+      }
+
+    });
+  </script>
 
 </body>
 </html>
