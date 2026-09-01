@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grammar 1 MCQ · Unit 3 · Exercises</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+</head>
+<body>
+
+  <!-- Header / Mobile Nav omitted -->
+
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Unit 3</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Grammar 1: MCQ</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">📖 Grammar 1 — Past Perfect (MCQ)</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">10 Questions</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 10</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 3 · Grammar 1 MCQ</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // QUESTIONS — EXACTLY AS IN THE BOOKLET (Page 74)
+    const questions = [
+      { type: 'mcq', text: '1. She _______ in that remote village for three years before she published her study on tribal traditions.', options: ['had lived', 'lived', 'was living', 'has lived'], correct: 'a' },
+      { type: 'mcq', text: '2. When the performance began, the audience _______ in their seats, waiting eagerly.', options: ['sat', 'had sat', 'had been sitting', 'were sitting'], correct: 'd' },
+      { type: 'mcq', text: '3. The historian _______ about ancient rituals long before they became a subject of global interest.', options: ['had written', 'was writing', 'wrote', 'had been written'], correct: 'a' },
+      { type: 'mcq', text: '4. They _______ the costumes on stage by the time we arrived at the theatre.', options: ['had already worn', 'were already wearing', 'had already been wearing', 'had already put on'], correct: 'd' },
+      { type: 'mcq', text: '5. The tribe\'s chief _______ for his role in preserving the community\'s oral history.', options: ['had long been respected', 'has long respected', 'long respected', 'was long respecting'], correct: 'a' },
+      { type: 'mcq', text: '6. By the time the cannon was fired, the soldiers _______ into their final positions.', options: ['had moved', 'moved', 'had been moving', 'move'], correct: 'a' },
+      { type: 'mcq', text: '7. He was tired because he _______ in the parade all afternoon under the sun.', options: ['had been marching', 'marched', 'had marched', 'marches'], correct: 'a' },
+      { type: 'mcq', text: '8. After the festival _______, they reflected on its cultural impact.', options: ['had ended', 'ended', 'was ending', 'has ended'], correct: 'a' },
+      { type: 'mcq', text: '9. The dancers _______ for over thirty minutes when the power suddenly went out.', options: ['had danced', 'danced', 'had been dancing', 'were dancing'], correct: 'c' },
+      { type: 'mcq', text: '10. I didn\'t recognize her at first because I _______ her in traditional costume before.', options: ['hadn\'t seen', 'didn\'t see', 'haven\'t seen', 'wasn\'t seeing'], correct: 'a' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
