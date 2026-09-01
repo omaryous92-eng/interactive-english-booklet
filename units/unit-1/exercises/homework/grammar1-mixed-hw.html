@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework · Grammar 1 Mixed · Unit 1</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../../../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../../../index.html">Home</a>
+        <a href="../../index.html" class="active">Unit 1</a>
+        <a href="../../../units/unit-2/index.html">Unit 2</a>
+        <a href="../../../units/unit-3/index.html">Unit 3</a>
+        <a href="../../../units/unit-4/index.html">Unit 4</a>
+        <a href="../../../novel/index.html">Novel</a>
+        <a href="../../../poetry/index.html">Poetry</a>
+        <a href="../../../skills/index.html">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../../index.html" class="active">Unit 1: Jump for Joy</a>
+      <a href="../../../units/unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../../../units/unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../../../units/unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../../../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="../../../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../../../skills/index.html">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../../index.html">Unit 1</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Homework · Grammar 1 Mixed</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">🧩 Homework — Grammar 1 (Verb Forms &amp; Error Correction)</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">15 Questions</span>
+              <span class="badge badge-accent">H.W</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 15</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="../index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 1 · Homework · Grammar 1 Mixed</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // ====== QUESTIONS — EXACTLY AS IN THE BOOKLET (Page 23-24) ======
+    const questions = [
+      { type: 'fill', text: '1. I ________ (not trust) people easily, and you ________ (give) me no reason to change that right now.', correct: 'don\'t trust, are giving' },
+      { type: 'fill', text: '2. Even though he ________ (appear) calm, I know he ________ (struggle) with anxiety at the moment.', correct: 'appears, is struggling' },
+      { type: 'fill', text: '3. She always ________ (take) the lead in group projects, but this time she ________ (let) others contribute more.', correct: 'takes, is letting' },
+      { type: 'fill', text: '4. I ________ (think) about what you said yesterday, and I ________ (start) to change my mind.', correct: 'am thinking, am starting' },
+      { type: 'fill', text: '5. The software normally ________ (detect) errors quickly, but it ________ (fail) today for some reason.', correct: 'detects, is failing' },
+      { type: 'error', text: '6. She <span class="error-word">go</span> to work every day.', correct: 'goes' },
+      { type: 'error', text: '7. We <span class="error-word">not</span> work hard.', correct: 'don\'t' },
+      { type: 'error', text: '8. Does she <span class="error-word">knows</span> the right answer?', correct: 'know' },
+      { type: 'error', text: '9. She <span class="error-word">are</span> writing a poem now.', correct: 'is' },
+      { type: 'error', text: '10. Does he <span class="error-word">works</span> very hard?', correct: 'work' },
+      { type: 'error', text: '11. I <span class="error-word">listening</span> to music, don\'t disturb me.', correct: 'am listening' },
+      { type: 'error', text: '12. We <span class="error-word">look</span> at that wonderful picture!', correct: 'are looking' },
+      { type: 'error', text: '13. He <span class="error-word">does</span> his homework at the moment.', correct: 'is doing' },
+      { type: 'error', text: '14. The children <span class="error-word">has</span> many toys.', correct: 'have' },
+      { type: 'error', text: '15. Anna <span class="error-word">isn\'t liking</span> pizza.', correct: 'doesn\'t like' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
