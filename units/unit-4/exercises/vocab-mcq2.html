@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vocab MCQ 2 · Unit 4 · Exercises</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../../css/colors.css">
+  <link rel="stylesheet" href="../../../css/variables.css">
+  <link rel="stylesheet" href="../../../css/reset.css">
+  <link rel="stylesheet" href="../../../css/layout.css">
+  <link rel="stylesheet" href="../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/animations.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/exercises.css">
+</head>
+<body>
+
+  <!-- Header / Mobile Nav omitted -->
+
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Unit 4</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Vocabulary: MCQ 2</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">📚 Vocabulary — Multiple Choice 2</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">15 Questions</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 15</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 4 · Vocab MCQ 2</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // QUESTIONS — EXACTLY AS IN THE BOOKLET (Page 93)
+    const questions = [
+      { type: 'mcq', text: '1. I\'d prefer to live in a _______ building rather than a tower block.', options: ['high rise', 'low-rise', 'block of flats', 'industrial'], correct: 'b' },
+      { type: 'mcq', text: '2. The story doesn\'t move in a/an _______ fashion; it begins with the death of the hero.', options: ['linear', 'entertaining', 'uninviting', 'historical'], correct: 'a' },
+      { type: 'mcq', text: '3. The _______ of the company led to many new employees being hired.', options: ['pace', 'raise', 'venue', 'growth'], correct: 'd' },
+      { type: 'mcq', text: '4. After travelling around Europe for two months, we ended _______ in Prague.', options: ['in', 'up', 'at', 'into'], correct: 'b' },
+      { type: 'mcq', text: '5. When architects create a new building, they need to take the local area into _______.', options: ['attention', 'temptation', 'consideration', 'urbanisation'], correct: 'c' },
+      { type: 'mcq', text: '6. My train to work is always here at 7:30 without _______.', options: ['fail', 'chance', 'regret', 'resist'], correct: 'a' },
+      { type: 'mcq', text: '7. The marketing manager _______ changing the name of the company and the board of directors is discussing the matter.', options: ['demanded', 'proposed', 'claimed', 'spread'], correct: 'b' },
+      { type: 'mcq', text: '8. The virus _______ quickly through physical contact.', options: ['spread', 'grew', 'expanded', 'raised'], correct: 'a' },
+      { type: 'mcq', text: '9. He _______ he was very poor, but we didn\'t believe him.', options: ['proposed', 'claimed', 'demanded', 'spread'], correct: 'b' },
+      { type: 'mcq', text: '10. The fence marks the _______ between our garden and our neighbours\'.', options: ['limit', 'junction', 'boundary', 'pavement'], correct: 'c' },
+      { type: 'mcq', text: '11. The hotel has special _______ for disabled people.', options: ['facilities', 'estates', 'courses', 'boundaries'], correct: 'a' },
+      { type: 'mcq', text: '12. There are people from all _______ of life in my dance class, from lawyers to builders and hairdressers.', options: ['talks', 'suburbs', 'walks', 'facilities'], correct: 'c' },
+      { type: 'mcq', text: '13. His book collection is always _______ the increase; he must have more than 10,000 books already.', options: ['in', 'at', 'up', 'on'], correct: 'd' },
+      { type: 'mcq', text: '14. She really went to _______ on her birthday party — it went on all night.', options: ['city', 'urban', 'town', 'rural'], correct: 'c' },
+      { type: 'mcq', text: '15. The place looked like a _______ town with dark, empty streets.', options: ['ghost', 'urban', 'rural', 'jungle'], correct: 'a' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../js/sounds.js';
+      document.head.appendChild(script1);
+      const script2 = document.createElement('script');
+      script2.src = '../../../js/confetti.js';
+      document.head.appendChild(script2);
+      const script3 = document.createElement('script');
+      script3.src = '../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../js/main.js"></script>
+  <script src="../../../js/navigation.js"></script>
+
+</body>
+</html>
