@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grammar 2 · Present Perfect · Unit 1</title>
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../../css/colors.css">
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/navigation.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/animations.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ====== GRAMMAR VISUAL STYLES ====== */
+    .grammar-visual {
+      background: var(--color-bg);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-6);
+      margin-bottom: var(--spacing-6);
+      border-left: 5px solid var(--color-primary);
+    }
+
+    .grammar-visual .grammar-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      margin-bottom: var(--spacing-3);
+    }
+
+    /* ====== TIMELINE ====== */
+    .timeline-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--spacing-4) 0;
+      position: relative;
+      margin: var(--spacing-4) 0;
+    }
+
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 5%;
+      right: 5%;
+      height: 4px;
+      background: var(--color-border);
+      transform: translateY(-50%);
+      border-radius: var(--radius-full);
+    }
+
+    .timeline-point {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      flex: 1;
+    }
+
+    .timeline-point .dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      border: 3px solid var(--color-surface);
+      box-shadow: 0 0 0 3px var(--color-primary);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .timeline-point .dot.purple {
+      background: var(--color-accent-1);
+      box-shadow: 0 0 0 3px var(--color-accent-1);
+    }
+
+    .timeline-point .dot.gold {
+      background: var(--color-secondary);
+      box-shadow: 0 0 0 3px var(--color-secondary);
+    }
+
+    .timeline-point .label {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-secondary);
+      text-align: center;
+      max-width: 100px;
+    }
+
+    .timeline-point .label strong {
+      color: var(--color-text-primary);
+      display: block;
+    }
+
+    /* ====== COMPARISON TABLE ====== */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-6);
+      margin-top: var(--spacing-4);
+    }
+
+    .comparison-box {
+      padding: var(--spacing-4);
+      border-radius: var(--radius-lg);
+      border: 2px solid var(--color-border);
+      transition: all var(--transition-base);
+    }
+
+    .comparison-box:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .comparison-box.simple {
+      border-color: var(--color-primary);
+      background: rgba(242, 101, 34, 0.05);
+    }
+
+    .comparison-box.simple .box-title {
+      color: var(--color-primary);
+    }
+
+    .comparison-box.continuous {
+      border-color: var(--color-accent-1);
+      background: rgba(124, 92, 252, 0.05);
+    }
+
+    .comparison-box.continuous .box-title {
+      color: var(--color-accent-1);
+    }
+
+    .comparison-box .box-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--spacing-3);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-2);
+    }
+
+    .comparison-box ul {
+      list-style: disc;
+      padding-left: var(--spacing-5);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      line-height: 1.8;
+    }
+
+    .comparison-box ul li strong {
+      color: var(--color-text-primary);
+    }
+
+    .comparison-box .example {
+      background: var(--color-surface);
+      padding: var(--spacing-3);
+      border-radius: var(--radius-md);
+      margin-top: var(--spacing-3);
+      font-style: italic;
+      border-left: 3px solid var(--color-primary);
+      color: var(--color-text-primary);
+    }
+
+    .comparison-box.continuous .example {
+      border-left-color: var(--color-accent-1);
+    }
+
+    /* ====== SIGNAL WORDS TABLE ====== */
+    .signal-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--font-size-sm);
+      margin-top: var(--spacing-3);
+    }
+
+    .signal-table th {
+      background: var(--color-bg);
+      padding: var(--spacing-3);
+      text-align: left;
+      border-bottom: 2px solid var(--color-border);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+    }
+
+    .signal-table td {
+      padding: var(--spacing-3);
+      border-bottom: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+    }
+
+    .signal-table td strong {
+      color: var(--color-text-primary);
+    }
+
+    .signal-table tr:hover td {
+      background: var(--color-bg);
+    }
+
+    /* ====== BEEN VS GONE ====== */
+    .been-gone-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-4);
+      margin-top: var(--spacing-3);
+    }
+
+    .been-gone-item {
+      padding: var(--spacing-4);
+      border-radius: var(--radius-lg);
+      border: 2px solid var(--color-border);
+    }
+
+    .been-gone-item.been {
+      border-color: var(--color-primary);
+      background: rgba(242, 101, 34, 0.05);
+    }
+
+    .been-gone-item.gone {
+      border-color: var(--color-accent-1);
+      background: rgba(124, 92, 252, 0.05);
+    }
+
+    .been-gone-item .title {
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-lg);
+    }
+
+    .been-gone-item.been .title {
+      color: var(--color-primary);
+    }
+
+    .been-gone-item.gone .title {
+      color: var(--color-accent-1);
+    }
+
+    .been-gone-item .example {
+      font-style: italic;
+      color: var(--color-text-primary);
+      margin-top: var(--spacing-2);
+      padding: var(--spacing-2) var(--spacing-3);
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+    }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 768px) {
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .been-gone-box {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-container {
+        flex-wrap: wrap;
+        gap: var(--spacing-4);
+        justify-content: center;
+      }
+
+      .timeline-container::before {
+        display: none;
+      }
+
+      .timeline-point {
+        flex: 0 0 auto;
+        width: 80px;
+      }
+
+      .grammar-visual {
+        padding: var(--spacing-4);
+      }
+
+      .signal-table {
+        font-size: var(--font-size-xs);
+      }
+
+      .signal-table th,
+      .signal-table td {
+        padding: var(--spacing-2);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="index.html" class="active">Unit 1</a>
+        <a href="../unit-2/index.html">Unit 2</a>
+        <a href="../unit-3/index.html">Unit 3</a>
+        <a href="../unit-4/index.html">Unit 4</a>
+        <a href="../../novel/index.html">Novel</a>
+        <a href="../../poetry/index.html">Poetry</a>
+        <a href="../../skills/index.html">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="index.html" class="active">Unit 1: Jump for Joy</a>
+      <a href="../unit-2/index.html">Unit 2: Global Culture</a>
+      <a href="../unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="../../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../../skills/index.html">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <!-- Breadcrumbs -->
+        <nav class="breadcrumbs">
+          <a href="../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="index.html">Unit 1</a>
+          <span class="separator"> › </span>
+          <span class="current">Grammar 2</span>
+        </nav>
+
+        <!-- Page Header -->
+        <div class="fade-in" style="margin-bottom: var(--spacing-8);">
+          <h1 class="text-2xl" style="color: var(--color-primary);">⏳ Present Perfect Simple &amp; Continuous</h1>
+          <p class="text-base" style="color: var(--color-text-secondary);">Forms, usage, signal words, and the difference between been and gone.</p>
+          <div style="margin-top: var(--spacing-3); display: flex; gap: var(--spacing-2); flex-wrap: wrap;">
+            <span class="badge badge-primary">Present Perfect Simple</span>
+            <span class="badge badge-accent">Present Perfect Continuous</span>
+            <span class="badge" style="background: var(--color-secondary); color: #0D1326;">Been vs Gone</span>
+          </div>
+        </div>
+
+        <!-- ====== VISUAL TIMELINE ====== -->
+        <div class="grammar-visual">
+          <div class="grammar-title">⏳ Visual Timeline: Present Perfect</div>
+          <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-4);">
+            Understanding the connection between past and present:
+          </p>
+
+          <div class="timeline-container">
+            <div class="timeline-point">
+              <div class="dot gold"></div>
+              <div class="label"><strong>Past</strong>Started in the past</div>
+            </div>
+            <div class="timeline-point">
+              <div class="dot"></div>
+              <div class="label"><strong>⏳ Duration</strong>For / Since<br><small>Present Perfect Continuous</small></div>
+            </div>
+            <div class="timeline-point">
+              <div class="dot purple"></div>
+              <div class="label"><strong>⚡ NOW</strong>Result / Experience<br><small>Present Perfect Simple</small></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== COMPARISON TABLE ====== -->
+        <h2 class="text-xl" style="margin-bottom: var(--spacing-4); color: var(--color-primary);">📊 Comparison: Simple vs Continuous</h2>
+
+        <div class="comparison-grid">
+
+          <!-- Present Perfect Simple -->
+          <div class="comparison-box simple">
+            <div class="box-title">✅ Present Perfect Simple</div>
+            <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: var(--spacing-2);">
+              <strong>Form:</strong> have/has + past participle
+            </div>
+            <ul>
+              <li><strong>Result</strong> — past action with present result</li>
+              <li><strong>Experience</strong> — life experiences (ever, never)</li>
+              <li><strong>Unfinished</strong> — actions that continue (for, since)</li>
+              <li><strong>Recent</strong> — recent events (just, already, yet)</li>
+            </ul>
+            <div class="example">"I've just had dinner."</div>
+            <div class="example">"Have you ever been to Europe?"</div>
+            <div class="example">"He has lived here since 2010."</div>
+          </div>
+
+          <!-- Present Perfect Continuous -->
+          <div class="comparison-box continuous">
+            <div class="box-title">🔄 Present Perfect Continuous</div>
+            <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: var(--spacing-2);">
+              <strong>Form:</strong> have/has + been + verb-ing
+            </div>
+            <ul>
+              <li><strong>Duration</strong> — started in the past and continues to now</li>
+              <li><strong>Emphasis</strong> — on how long the action has been happening</li>
+              <li><strong>Repeated</strong> — actions repeated up to now</li>
+            </ul>
+            <div class="example">"I have been working since 6 a.m."</div>
+            <div class="example">"She has been studying for hours."</div>
+            <div class="example">"They have been playing tennis all afternoon."</div>
+          </div>
+
+        </div>
+
+        <!-- ====== BEEN VS GONE ====== -->
+        <div class="grammar-visual" style="border-left-color: var(--color-secondary); background: rgba(255, 184, 48, 0.08);">
+          <div class="grammar-title">🧭 Have been to vs Have gone to</div>
+
+          <div class="been-gone-box">
+            <div class="been-gone-item been">
+              <div class="title">✅ Have been to</div>
+              <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Used to talk about <strong>experiences</strong> — places one has travelled to.</p>
+              <div class="example">"He has been to Iraq, Russia and North Korea."</div>
+              <div style="margin-top: var(--spacing-2); font-size: var(--font-size-xs); color: var(--color-text-secondary);">
+                ⚡ <strong>Meaning:</strong> He went there and <strong>came back</strong>.
+              </div>
+            </div>
+
+            <div class="been-gone-item gone">
+              <div class="title">❌ Have gone to</div>
+              <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Used to say someone has gone somewhere and <strong>is still there</strong>.</p>
+              <div class="example">"She has gone to bed."</div>
+              <div style="margin-top: var(--spacing-2); font-size: var(--font-size-xs); color: var(--color-text-secondary);">
+                ⚡ <strong>Meaning:</strong> She went to bed and <strong>is still there</strong>.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== SIGNAL WORDS TABLE ====== -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">⏰ Signal Words</div>
+            <span class="badge badge-primary">Quick Reference</span>
+          </div>
+          <table class="signal-table">
+            <thead>
+              <tr>
+                <th>Word</th>
+                <th>Meaning</th>
+                <th>Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>just</strong></td>
+                <td>A very short time ago</td>
+                <td><em>"I've just had dinner."</em></td>
+              </tr>
+              <tr>
+                <td><strong>already</strong></td>
+                <td>Before now / earlier than expected</td>
+                <td><em>"It has already started."</em></td>
+              </tr>
+              <tr>
+                <td><strong>yet</strong></td>
+                <td>Before now / until now (negative/questions)</td>
+                <td><em>"He hasn't arrived yet."</em></td>
+              </tr>
+              <tr>
+                <td><strong>for</strong></td>
+                <td>Duration (period of time)</td>
+                <td><em>"I've lived here for 10 years."</em></td>
+              </tr>
+              <tr>
+                <td><strong>since</strong></td>
+                <td>Specific point in time</td>
+                <td><em>"I've lived here since 2010."</em></td>
+              </tr>
+              <tr>
+                <td><strong>ever / never</strong></td>
+                <td>General experiences</td>
+                <td><em>"Have you ever been to Paris?"</em></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ====== QUICK REFERENCE ====== -->
+        <div class="grammar-visual" style="border-left-color: var(--color-accent-1); background: rgba(124, 92, 252, 0.08);">
+          <div class="grammar-title">📌 Quick Reference Card</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-4);">
+            <div>
+              <strong style="color: var(--color-primary);">Present Perfect Simple</strong>
+              <ul style="list-style: disc; padding-left: var(--spacing-4); color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+                <li>📌 Result of past action</li>
+                <li>⭐ Life experiences</li>
+                <li>🔄 Unfinished actions (for/since)</li>
+                <li>📰 Recent news (just/yet/already)</li>
+              </ul>
+            </div>
+            <div>
+              <strong style="color: var(--color-accent-1);">Present Perfect Continuous</strong>
+              <ul style="list-style: disc; padding-left: var(--spacing-4); color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+                <li>⏳ Duration of an action</li>
+                <li>⚡ Emphasis on how long</li>
+                <li>🔁 Repeated actions</li>
+                <li>🔥 Cause of present state</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== Practice Questions Button ====== -->
+        <div style="margin-top: var(--spacing-10); text-align: center; padding: var(--spacing-6); background: var(--color-bg); border-radius: var(--radius-lg); border: 2px dashed var(--color-primary);">
+          <h3 style="color: var(--color-primary); font-size: var(--font-size-lg);">📝 Practice Questions</h3>
+          <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">Test your understanding with interactive questions from the booklet.</p>
+          <a href="exercises/index.html" class="btn btn-primary" style="margin-top: var(--spacing-3);">
+            🚀 Start Exercises
+          </a>
+        </div>
+
+        <!-- Navigation -->
+        <div style="margin-top: var(--spacing-8); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--spacing-4);">
+          <a href="grammar-1.html" class="btn btn-secondary">← Grammar 1</a>
+          <a href="index.html" class="btn btn-primary">↑ Back to Unit 1</a>
+        </div>
+
+        <!-- Footer -->
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 1 · Grammar 2</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ====== SCRIPTS ====== -->
+  <script src="../../js/main.js"></script>
+  <script src="../../js/navigation.js"></script>
+  <script src="unit.js"></script>
+
+</body>
+</html>
