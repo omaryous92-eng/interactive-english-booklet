@@ -1,1346 +1,362 @@
-<script>
-  // ====== WORD BANK ======
-  // Keep your existing wordBank here exactly as it is.
-  // Do not change it.
-  const wordBank = [
-    // PASTE YOUR CURRENT WORD BANK HERE
-  ];
-
-  // ====== GAME STATE ======
-  let g = {
-    words: [],
-    currentIndex: 0,
-    score: 0,
-    correct: 0,
-    wrong: 0,
-    answered: false,
-    timer: null,
-    timeLeft: 20,
-    maxTime: 20,
-    isGameOver: false
-  };
-
-  // ====== DOM ======
-  const $ = id => document.getElementById(id);
-
-  const scoreDisplay = $('scoreDisplay');
-  const timerFill = $('timerFill');
-  const timerNumber = $('timerNumber');
-
-  const optTexts = [
-    $('opt0'),
-    $('opt1'),
-    $('opt2'),
-    $('opt3')
-  ];
-
-  const optionBtns = document.querySelectorAll('.option-btn');
-
-  const btnStart = $('btnStart');
-  const btnNext = $('btnNext');
-
-  const thoughtBubble = $('thoughtBubble');
-  const feedbackOverlay = $('feedbackOverlay');
-  const feedbackEmoji = $('feedbackEmoji');
-  const confettiContainer = $('confettiContainer');
-
-
-  // ====== SOUND ======
-  const Sound = {
-
-    ctx: null,
-
-    init() {
-      if (!this.ctx) {
-        this.ctx = new (
-          window.AudioContext ||
-          window.webkitAudioContext
-        )();
-      }
-    },
-
-    tick() {
-      this.init();
-
-      const ctx = this.ctx;
-      const o = ctx.createOscillator();
-      const gain = ctx.createGain();
-
-      o.type = 'sine';
-      o.frequency.value = 600;
-
-      gain.gain.setValueAtTime(
-        0.08,
-        ctx.currentTime
-      );
-
-      gain.gain.exponentialRampToValueAtTime(
-        0.001,
-        ctx.currentTime + 0.05
-      );
-
-      o.connect(gain);
-      gain.connect(ctx.destination);
-
-      o.start(ctx.currentTime);
-      o.stop(ctx.currentTime + 0.05);
-    },
-
-
-    tickFast() {
-      this.init();
-
-      const ctx = this.ctx;
-      const o = ctx.createOscillator();
-      const gain = ctx.createGain();
-
-      o.type = 'sine';
-      o.frequency.value = 800;
-
-      gain.gain.setValueAtTime(
-        0.1,
-        ctx.currentTime
-      );
-
-      gain.gain.exponentialRampToValueAtTime(
-        0.001,
-        ctx.currentTime + 0.03
-      );
-
-      o.connect(gain);
-      gain.connect(ctx.destination);
-
-      o.start(ctx.currentTime);
-      o.stop(ctx.currentTime + 0.03);
-    },
-
-
-    correct() {
-      this.init();
-
-      const ctx = this.ctx;
-
-      [523.25, 659.25, 783.99].forEach((f, i) => {
-
-        const o = ctx.createOscillator();
-        const gain = ctx.createGain();
-
-        o.type = 'sine';
-        o.frequency.value = f;
-
-        gain.gain.setValueAtTime(
-          0.12,
-          ctx.currentTime + i * 0.12
-        );
-
-        gain.gain.exponentialRampToValueAtTime(
-          0.001,
-          ctx.currentTime + i * 0.12 + 0.25
-        );
-
-        o.connect(gain);
-        gain.connect(ctx.destination);
-
-        o.start(ctx.currentTime + i * 0.12);
-
-        o.stop(
-          ctx.currentTime + i * 0.12 + 0.25
-        );
-      });
-    },
-
-
-    wrong() {
-      this.init();
-
-      const ctx = this.ctx;
-
-      const o = ctx.createOscillator();
-      const gain = ctx.createGain();
-
-      o.type = 'sawtooth';
-
-      o.frequency.setValueAtTime(
-        200,
-        ctx.currentTime
-      );
-
-      o.frequency.exponentialRampToValueAtTime(
-        100,
-        ctx.currentTime + 0.3
-      );
-
-      gain.gain.setValueAtTime(
-        0.08,
-        ctx.currentTime
-      );
-
-      gain.gain.exponentialRampToValueAtTime(
-        0.001,
-        ctx.currentTime + 0.3
-      );
-
-      o.connect(gain);
-      gain.connect(ctx.destination);
-
-      o.start(ctx.currentTime);
-      o.stop(ctx.currentTime + 0.3);
-    },
-
-
-    gameOver() {
-      this.init();
-
-      const ctx = this.ctx;
-
-      const melody = [
-        523.25,
-        523.25,
-        523.25,
-        659.25,
-        783.99,
-        659.25,
-        783.99
-      ];
-
-      const duration = [
-        0.15,
-        0.15,
-        0.15,
-        0.15,
-        0.3,
-        0.15,
-        0.3
-      ];
-
-      let time = ctx.currentTime;
-
-      melody.forEach((frequency, i) => {
-
-        const o = ctx.createOscillator();
-        const gain = ctx.createGain();
-
-        o.type = 'sine';
-        o.frequency.value = frequency;
-
-        gain.gain.setValueAtTime(
-          0.1,
-          time
-        );
-
-        gain.gain.exponentialRampToValueAtTime(
-          0.001,
-          time + duration[i]
-        );
-
-        o.connect(gain);
-        gain.connect(ctx.destination);
-
-        o.start(time);
-        o.stop(time + duration[i]);
-
-        time += duration[i] + 0.02;
-      });
-    },
-
-
-    start() {
-      this.init();
-
-      const ctx = this.ctx;
-
-      const o = ctx.createOscillator();
-      const gain = ctx.createGain();
-
-      o.type = 'sine';
-
-      o.frequency.setValueAtTime(
-        440,
-        ctx.currentTime
-      );
-
-      o.frequency.exponentialRampToValueAtTime(
-        880,
-        ctx.currentTime + 0.2
-      );
-
-      gain.gain.setValueAtTime(
-        0.1,
-        ctx.currentTime
-      );
-
-      gain.gain.exponentialRampToValueAtTime(
-        0.001,
-        ctx.currentTime + 0.2
-      );
-
-      o.connect(gain);
-      gain.connect(ctx.destination);
-
-      o.start(ctx.currentTime);
-      o.stop(ctx.currentTime + 0.2);
-    }
-  };
-
-
-  // ====== CONFETTI ======
-  function confetti() {
-
-    const colors = [
-      '#F26522',
-      '#FFB830',
-      '#7C5CFC',
-      '#EA580C',
-      '#34C759',
-      '#FF3B30',
-      '#5AC8FA',
-      '#FF9500'
-    ];
-
-    for (let i = 0; i < 80; i++) {
-
-      const el = document.createElement('div');
-
-      el.className = 'confetti-piece';
-
-      el.style.left =
-        Math.random() * 100 + '%';
-
-      el.style.background =
-        colors[
-          Math.floor(
-            Math.random() * colors.length
-          )
-        ];
-
-      el.style.width =
-        Math.random() * 8 + 4 + 'px';
-
-      el.style.height =
-        Math.random() * 8 + 4 + 'px';
-
-      el.style.borderRadius =
-        Math.random() > 0.5
-          ? '50%'
-          : '2px';
-
-      el.style.animationDuration =
-        Math.random() * 2 + 1.5 + 's';
-
-      el.style.animationDelay =
-        Math.random() * 0.5 + 's';
-
-      confettiContainer.appendChild(el);
-
-      setTimeout(() => {
-        el.remove();
-      }, 4000);
-    }
-  }
-
-
-  // ====== HELPERS ======
-  function shuffle(arr) {
-
-    for (
-      let i = arr.length - 1;
-      i > 0;
-      i--
-    ) {
-
-      const j = Math.floor(
-        Math.random() * (i + 1)
-      );
-
-      [arr[i], arr[j]] =
-        [arr[j], arr[i]];
-    }
-
-    return arr;
-  }
-
-
-  function getWords(count = 8) {
-
-    const shuffledWords =
-      shuffle([...wordBank]);
-
-    return shuffledWords.slice(
-      0,
-      Math.min(
-        count,
-        shuffledWords.length
-      )
-    );
-  }
-
-
-  // ====== FEEDBACK ======
-  function showFeedback(emoji, msg) {
-
-    feedbackEmoji.textContent = emoji;
-
-    feedbackOverlay.style.display =
-      'flex';
-
-    feedbackEmoji.style.animation =
-      'none';
-
-    void feedbackEmoji.offsetWidth;
-
-    feedbackEmoji.style.animation =
-      'feedbackPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
-
-    const old =
-      document.getElementById('fbMsg');
-
-    if (old) {
-      old.remove();
-    }
-
-    const el =
-      document.createElement('div');
-
-    el.textContent = msg;
-
-    el.style.cssText = `
-      position: absolute;
-      bottom: 20%;
-      left: 50%;
-      transform: translateX(-50%);
-      color: #fff;
-      font-size: 24px;
-      font-weight: 700;
-      background: rgba(0,0,0,0.5);
-      padding: 8px 24px;
-      border-radius: 100px;
-      backdrop-filter: blur(10px);
-    `;
-
-    el.id = 'fbMsg';
-
-    feedbackOverlay.appendChild(el);
-
-    setTimeout(() => {
-
-      feedbackOverlay.style.display =
-        'none';
-
-      const message =
-        document.getElementById('fbMsg');
-
-      if (message) {
-        message.remove();
-      }
-
-    }, 1200);
-  }
-
-
-  // ====== SCORE ======
-  function updateScore() {
-    scoreDisplay.textContent =
-      g.score;
-  }
-
-
-  // =====================================
-  // ====== SHOW WORD AND CLUES 🔍 =======
-  // =====================================
-
-  function showWord() {
-
-    if (
-      g.currentIndex >=
-      g.words.length
-    ) {
-
-      endGame();
-      return;
-    }
-
-
-    // Get the CURRENT clue elements
-    // directly from the page every time
-
-    const clue1 =
-      document.getElementById('clue1');
-
-    const clue2 =
-      document.getElementById('clue2');
-
-    const clue3 =
-      document.getElementById('clue3');
-
-    const clueText1 =
-      document.getElementById('clueText1');
-
-    const clueText2 =
-      document.getElementById('clueText2');
-
-    const clueText3 =
-      document.getElementById('clueText3');
-
-
-    const w =
-      g.words[g.currentIndex];
-
-    g.answered = false;
-
-
-    // ====== CHANGE CLUES ======
-
-    clueText1.textContent =
-      w.clues[0] || '—';
-
-    clueText2.textContent =
-      w.clues[1] || '—';
-
-    clueText3.textContent =
-      w.clues[2] || '—';
-
-
-    // ====== HIDE OLD CLUES ======
-
-    clue1.classList.remove(
-      'visible'
-    );
-
-    clue2.classList.remove(
-      'visible'
-    );
-
-    clue3.classList.remove(
-      'visible'
-    );
-
-
-    // ====== SHOW CLUES ONE BY ONE ======
-
-    setTimeout(() => {
-
-      if (!g.answered) {
-        clue1.classList.add(
-          'visible'
-        );
-      }
-
-    }, 200);
-
-
-    setTimeout(() => {
-
-      if (!g.answered) {
-        clue2.classList.add(
-          'visible'
-        );
-      }
-
-    }, 3000);
-
-
-    setTimeout(() => {
-
-      if (!g.answered) {
-        clue3.classList.add(
-          'visible'
-        );
-      }
-
-    }, 6000);
-
-
-    // ====== BUILD OPTIONS ======
-
-    const opts =
-      [w.word];
-
-    const shuffledBank =
-      shuffle([...wordBank]);
-
-    let added = 0;
-
-    for (
-      const item of shuffledBank
-    ) {
-
-      if (added >= 3) {
-        break;
-      }
-
-      if (
-        item.word !== w.word &&
-        !opts.includes(item.word)
-      ) {
-
-        opts.push(
-          item.word
-        );
-
-        added++;
-      }
-    }
-
-
-    const shuffledOpts =
-      shuffle(opts);
-
-
-    optionBtns.forEach(
-      (btn, i) => {
-
-        btn.disabled = false;
-
-        btn.classList.remove(
-          'correct',
-          'wrong',
-          'show-correct'
-        );
-
-        optTexts[i].textContent =
-          shuffledOpts[i] || '—';
-
-        btn.dataset.correct =
-          shuffledOpts[i] === w.word
-            ? 'true'
-            : 'false';
-      }
-    );
-
-
-    // ====== RESET TIMER ======
-
-    g.timeLeft =
-      g.maxTime;
-
-    timerFill.style.width =
-      '100%';
-
-    timerFill.classList.remove(
-      'warning'
-    );
-
-    timerNumber.textContent =
-      g.timeLeft + 's';
-
-    timerNumber.classList.remove(
-      'warning'
-    );
-
-
-    // Stop old timer
-    if (g.timer) {
-      clearInterval(g.timer);
-    }
-
-
-    // ====== START TIMER ======
-
-    g.timer = setInterval(() => {
-
-      g.timeLeft -= 0.1;
-
-      const pct =
-        Math.max(
-          0,
-          (
-            g.timeLeft /
-            g.maxTime
-          ) * 100
-        );
-
-
-      timerFill.style.width =
-        pct + '%';
-
-
-      timerNumber.textContent =
-        Math.ceil(
-          g.timeLeft
-        ) + 's';
-
-
-      if (
-        g.timeLeft <= 5
-      ) {
-
-        timerFill.classList.add(
-          'warning'
-        );
-
-        timerNumber.classList.add(
-          'warning'
-        );
-
-        Sound.tickFast();
-
-      } else if (
-        g.timeLeft <= 8
-      ) {
-
-        Sound.tick();
-      }
-
-
-      // ====== TIME UP ======
-
-      if (
-        g.timeLeft <= 0
-      ) {
-
-        clearInterval(
-          g.timer
-        );
-
-        g.timer = null;
-
-        timerNumber.textContent =
-          '0s';
-
-
-        if (!g.answered) {
-
-          g.answered = true;
-
-          g.wrong++;
-
-          Sound.wrong();
-
-
-          optionBtns.forEach(
-            b => {
-
-              b.disabled = true;
-
-              if (
-                b.dataset.correct ===
-                'true'
-              ) {
-
-                b.classList.add(
-                  'show-correct'
-                );
-              }
-            }
-          );
-
-
-          showFeedback(
-            '⏰',
-            'Time\'s Up!'
-          );
-
-
-          updateScore();
-
-
-          setTimeout(() => {
-
-            btnNext.classList.add(
-              'show'
-            );
-
-          }, 800);
-        }
-      }
-
-    }, 100);
-
-
-    // ====== DETECTIVE MESSAGE ======
-
-    thoughtBubble.textContent =
-      '🔍 Investigating...';
-
-    thoughtBubble.classList.add(
-      'show'
-    );
-
-    btnNext.classList.remove(
-      'show'
-    );
-  }
-
-
-  // ====== ANSWER CLICK ======
-
-  function handleClick(e) {
-
-    const btn =
-      e.currentTarget;
-
-
-    if (
-      btn.disabled ||
-      g.answered
-    ) {
-      return;
-    }
-
-
-    const correct =
-      btn.dataset.correct ===
-      'true';
-
-
-    g.answered = true;
-
-
-    if (g.timer) {
-
-      clearInterval(
-        g.timer
-      );
-
-      g.timer = null;
-    }
-
-
-    optionBtns.forEach(
-      b => {
-        b.disabled = true;
-      }
-    );
-
-
-    if (correct) {
-
-      btn.classList.add(
-        'correct'
-      );
-
-
-      const bonus =
-        Math.max(
-          0,
-          Math.floor(
-            g.timeLeft
-          )
-        );
-
-
-      const points =
-        10 + bonus;
-
-
-      g.score +=
-        points;
-
-      g.correct++;
-
-
-      Sound.correct();
-
-
-      showFeedback(
-        '🎉',
-        `Correct! +${points} pts`
-      );
-
-
-      confetti();
-
-
-      thoughtBubble.textContent =
-        `🎉 Brilliant! +${points}`;
-
-      thoughtBubble.classList.add(
-        'show'
-      );
-
-
-    } else {
-
-      btn.classList.add(
-        'wrong'
-      );
-
-      g.wrong++;
-
-
-      Sound.wrong();
-
-
-      showFeedback(
-        '❌',
-        'Oops! Not quite...'
-      );
-
-
-      optionBtns.forEach(
-        b => {
-
-          if (
-            b.dataset.correct ===
-            'true'
-          ) {
-
-            b.classList.add(
-              'show-correct'
-            );
-          }
-        }
-      );
-
-
-      thoughtBubble.textContent =
-        '🤔 Keep trying!';
-
-      thoughtBubble.classList.add(
-        'show'
-      );
-    }
-
-
-    updateScore();
-
-
-    setTimeout(() => {
-
-      btnNext.classList.add(
-        'show'
-      );
-
-    }, 600);
-  }
-
-
-  // ====== NEXT WORD ======
-
-  function nextWord() {
-
-    g.currentIndex++;
-
-
-    btnNext.classList.remove(
-      'show'
-    );
-
-
-    thoughtBubble.classList.remove(
-      'show'
-    );
-
-
-    setTimeout(
-      showWord,
-      300
-    );
-  }
-
-
-  // ====== START GAME ======
-
-  function startGame() {
-
-    // Select new random words
-
-    g.words =
-      getWords(8);
-
-
-    g.currentIndex = 0;
-
-    g.score = 0;
-
-    g.correct = 0;
-
-    g.wrong = 0;
-
-    g.answered = false;
-
-    g.isGameOver = false;
-
-
-    // ====== RESET UI ======
-
-    document
-      .getElementById(
-        'optionsGrid'
-      )
-      .style.display =
-        'grid';
-
-
-    document
-      .querySelector(
-        '.timer-section'
-      )
-      .style.display =
-        'block';
-
-
-    btnStart.style.display =
-      'flex';
-
-
-    btnNext.style.display =
-      'none';
-
-
-    // ====== GET CLUES ======
-
-    const clue1 =
-      document.getElementById(
-        'clue1'
-      );
-
-    const clue2 =
-      document.getElementById(
-        'clue2'
-      );
-
-    const clue3 =
-      document.getElementById(
-        'clue3'
-      );
-
-
-    const clueText1 =
-      document.getElementById(
-        'clueText1'
-      );
-
-    const clueText2 =
-      document.getElementById(
-        'clueText2'
-      );
-
-    const clueText3 =
-      document.getElementById(
-        'clueText3'
-      );
-
-
-    // ====== RESET CLUES ======
-
-    clue1.classList.remove(
-      'visible'
-    );
-
-    clue2.classList.remove(
-      'visible'
-    );
-
-    clue3.classList.remove(
-      'visible'
-    );
-
-
-    clueText1.textContent =
-      'Get ready...';
-
-    clueText2.textContent =
-      '—';
-
-    clueText3.textContent =
-      '—';
-
-
-    // ====== RESET SCORE ======
-
-    scoreDisplay.textContent =
-      '0';
-
-
-    // ====== BUTTON LOADING ======
-
-    btnStart.disabled =
-      true;
-
-
-    btnStart.innerHTML =
-      '<span class="icon">⏳</span> Loading...';
-
-
-    setTimeout(() => {
-
-      btnStart.innerHTML =
-        '<span class="icon">🔍</span> Start Investigation';
-
-
-      btnStart.disabled =
-        false;
-
-
-      // Start first random word
-
-      showWord();
-
-    }, 500);
-  }
-
-
-  // ====== GAME OVER ======
-
-  function endGame() {
-
-    g.isGameOver =
-      true;
-
-
-    if (g.timer) {
-
-      clearInterval(
-        g.timer
-      );
-
-      g.timer = null;
-    }
-
-
-    Sound.gameOver();
-
-
-    const total =
-      g.correct +
-      g.wrong;
-
-
-    const pct =
-      total > 0
-        ? Math.round(
-            (
-              g.correct /
-              total
-            ) * 100
-          )
-        : 0;
-
-
-    let msg =
-      '💪 Keep practicing!';
-
-    let emoji =
-      '📖';
-
-
-    if (pct >= 90) {
-
-      msg =
-        '🏆 Detective Master! Amazing!';
-
-      emoji =
-        '🏆';
-
-    } else if (pct >= 70) {
-
-      msg =
-        '⭐ Great Detective! Keep it up!';
-
-      emoji =
-        '⭐';
-
-    } else if (pct >= 50) {
-
-      msg =
-        '🔍 Good effort! You\'re getting there!';
-
-      emoji =
-        '🔍';
-    }
-
-
-    if (pct >= 70) {
-
-      confetti();
-
-      setTimeout(
-        confetti,
-        1000
-      );
-    }
-
-
-    const list =
-      document.getElementById(
-        'cluesList'
-      );
-
-
-    list.innerHTML = `
-
-      <div class="game-over">
-
-        <div style="font-size:60px;">
-          ${emoji}
-        </div>
-
-        <div class="final-message">
-          ${msg}
-        </div>
-
-        <div class="final-score">
-          ${g.score}
-        </div>
-
-        <div class="final-label">
-          Total Score
-        </div>
-
-
-        <div class="final-stats">
-
-          <div class="correct-stat">
-            ✅ Correct
-            <br>
-            <span>
-              ${g.correct}
-            </span>
-          </div>
-
-
-          <div class="wrong-stat">
-            ❌ Wrong
-            <br>
-            <span>
-              ${g.wrong}
-            </span>
-          </div>
-
-
-          <div>
-            🎯 Accuracy
-            <br>
-            <span>
-              ${pct}%
-            </span>
-          </div>
-
-        </div>
-
-
-        <button
-          class="btn-start"
-          onclick="location.reload()"
-          style="margin:20px auto;"
-        >
-          🔄 Play Again
-        </button>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🕵️ Mystery Word · Vocabulary Detective</title>
+
+<style>
+/* ... كل الـ CSS من النسخة السابقة التي كانت شغالة ... */
+</style>
+</head>
+<body>
+
+<!-- ====== GAME CONTAINER ====== -->
+<div class="game-container">
+
+  <!-- Header -->
+  <div class="game-header">
+    <div class="game-title">🕵️ <span>Mystery Word</span></div>
+    <div class="score-display">⭐ Score: <span class="score-number" id="scoreDisplay">0</span></div>
+  </div>
+
+  <!-- Detective -->
+  <div class="detective-container">
+    <div class="detective">
+      <div class="hat"></div>
+      <div class="hat-brim"></div>
+      <div class="head">
+        <div class="eye-left"></div>
+        <div class="eye-right"></div>
+        <div class="mouth"></div>
       </div>
-    `;
+      <div class="magnifier">🔍</div>
+      <div class="thought-bubble" id="thoughtBubble">🤔 Hmm...</div>
+    </div>
+  </div>
 
+  <!-- Timer (20 seconds) -->
+  <div class="timer-section">
+    <div class="timer-bar-track">
+      <div class="timer-bar-fill" id="timerFill"></div>
+    </div>
+    <div class="timer-info">
+      <span>⏱️ Time Left</span>
+      <span class="timer-number" id="timerNumber">20s</span>
+    </div>
+  </div>
 
-    document
-      .getElementById(
-        'optionsGrid'
-      )
-      .style.display =
-        'none';
+  <!-- ====== CLUES ====== -->
+  <div class="clues-container">
+    <div class="clues-header">
+      <span>🔍</span>
+      <span>CLUES</span>
+      <span class="badge">READ CAREFULLY</span>
+    </div>
+    <div id="cluesList">
+      <!-- سيتم إعادة بناء هذا القسم بالكامل في كل جولة -->
+    </div>
+  </div>
 
+  <!-- Options -->
+  <div class="options-grid" id="optionsGrid">
+    <button class="option-btn" data-index="0" disabled>
+      <span class="option-letter">A</span> <span class="option-text" id="opt0">—</span>
+    </button>
+    <button class="option-btn" data-index="1" disabled>
+      <span class="option-letter">B</span> <span class="option-text" id="opt1">—</span>
+    </button>
+    <button class="option-btn" data-index="2" disabled>
+      <span class="option-letter">C</span> <span class="option-text" id="opt2">—</span>
+    </button>
+    <button class="option-btn" data-index="3" disabled>
+      <span class="option-letter">D</span> <span class="option-text" id="opt3">—</span>
+    </button>
+  </div>
 
-    btnStart.style.display =
-      'none';
+  <div class="controls">
+    <button class="btn-start" id="btnStart">
+      <span class="icon">🔍</span> Start Investigation
+    </button>
+    <button class="btn-next" id="btnNext">Next Word ➜</button>
+  </div>
 
+</div>
 
-    btnNext.style.display =
-      'none';
+<script>
+// ====== WORD BANK (مختصر للاختبار) ======
+const wordBank = [
+  { word: 'upset', clues: ['A feeling of worry or anger', 'Something bad can make you feel this', 'You feel this when things don\'t go your way'] },
+  { word: 'joy', clues: ['A feeling of happiness', 'Great delight', 'The children shouted with ____'] },
+  { word: 'frustration', clues: ['Feeling bad because you can\'t achieve something', 'You feel this when you fail', 'I felt ____ when the internet stopped'] }
+];
 
+// ====== GAME STATE ======
+let g = {
+  words: [],
+  currentIndex: 0,
+  score: 0,
+  correct: 0,
+  wrong: 0,
+  answered: false,
+  timer: null,
+  timeLeft: 20,
+  maxTime: 20,
+  isGameOver: false
+};
 
-    document
-      .querySelector(
-        '.timer-section'
-      )
-      .style.display =
-        'none';
+// ====== DOM REFS ======
+const $ = id => document.getElementById(id);
+const scoreDisplay = $('scoreDisplay');
+const timerFill = $('timerFill');
+const timerNumber = $('timerNumber');
+const cluesList = $('cluesList');
+const optTexts = [$('opt0'), $('opt1'), $('opt2'), $('opt3')];
+const optionBtns = document.querySelectorAll('.option-btn');
+const btnStart = $('btnStart');
+const btnNext = $('btnNext');
+const thoughtBubble = $('thoughtBubble');
+
+// ====== HELPERS ======
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function getWords(count = 4) {
+  const s = shuffle([...wordBank]);
+  return s.slice(0, Math.min(count, s.length));
+}
+
+// ====== CORE FUNCTION: Show Word ======
+function showWord() {
+  if (g.currentIndex >= g.words.length || g.isGameOver) {
+    endGame();
+    return;
   }
 
+  const w = g.words[g.currentIndex];
+  g.answered = false;
 
-  // ====== EVENTS ======
+  // ---------- 🔥 إعادة بناء CLUES من الصفر ----------
+  cluesList.innerHTML = `
+    <div class="clue-item" id="clue1">
+      <span class="clue-number">CLUE 1</span>
+      <span class="clue-text" id="clueText1">${w.clues[0] || '—'}</span>
+    </div>
+    <div class="clue-item" id="clue2">
+      <span class="clue-number">CLUE 2</span>
+      <span class="clue-text" id="clueText2">${w.clues[1] || '—'}</span>
+    </div>
+    <div class="clue-item" id="clue3">
+      <span class="clue-number">CLUE 3</span>
+      <span class="clue-text" id="clueText3">${w.clues[2] || '—'}</span>
+    </div>
+  `;
 
-  optionBtns.forEach(
-    b => {
+  // جلب المراجع الجديدة
+  const clue1 = document.getElementById('clue1');
+  const clue2 = document.getElementById('clue2');
+  const clue3 = document.getElementById('clue3');
 
-      b.addEventListener(
-        'click',
-        handleClick
-      );
+  // إظهار التلميحة الأولى فوراً
+  setTimeout(() => clue1.classList.add('visible'), 50);
 
+  // إظهار الثانية بعد 3 ثوانٍ
+  setTimeout(() => {
+    if (!g.answered) clue2.classList.add('visible');
+  }, 3000);
+
+  // إظهار الثالثة بعد 6 ثوانٍ
+  setTimeout(() => {
+    if (!g.answered) clue3.classList.add('visible');
+  }, 6000);
+
+  // ---------- الخيارات ----------
+  const opts = [w.word];
+  const shuffledBank = shuffle([...wordBank]);
+  let added = 0;
+  for (const item of shuffledBank) {
+    if (added >= 3) break;
+    if (item.word !== w.word && !opts.includes(item.word)) {
+      opts.push(item.word);
+      added++;
     }
-  );
+  }
+  const shuffledOpts = shuffle(opts);
 
+  optionBtns.forEach((btn, i) => {
+    btn.disabled = false;
+    btn.classList.remove('correct', 'wrong', 'show-correct');
+    optTexts[i].textContent = shuffledOpts[i] || '—';
+    btn.dataset.correct = shuffledOpts[i] === w.word ? 'true' : 'false';
+  });
 
-  // ====== START BUTTON ======
+  // ---------- المؤقت ----------
+  g.timeLeft = g.maxTime;
+  timerFill.style.width = '100%';
+  timerFill.classList.remove('warning');
+  timerNumber.textContent = g.timeLeft + 's';
+  timerNumber.classList.remove('warning');
 
-  btnStart.addEventListener(
-    'click',
-    () => {
+  if (g.timer) clearInterval(g.timer);
+  g.timer = setInterval(() => {
+    g.timeLeft -= 0.1;
+    const pct = Math.max(0, (g.timeLeft / g.maxTime) * 100);
+    timerFill.style.width = pct + '%';
+    timerNumber.textContent = Math.ceil(g.timeLeft) + 's';
 
-      Sound.start();
-
-      startGame();
-
+    if (g.timeLeft <= 5) {
+      timerFill.classList.add('warning');
+      timerNumber.classList.add('warning');
     }
-  );
 
-
-  // ====== NEXT BUTTON ======
-
-  btnNext.addEventListener(
-    'click',
-    nextWord
-  );
-
-
-  // ====== KEYBOARD ======
-
-  document.addEventListener(
-    'keydown',
-    (e) => {
-
-      if (
-        e.key >= '1' &&
-        e.key <= '4'
-      ) {
-
-        const idx =
-          parseInt(
-            e.key
-          ) - 1;
-
-
-        if (
-          optionBtns[idx] &&
-          !optionBtns[idx].disabled
-        ) {
-
-          optionBtns[idx].click();
-        }
+    if (g.timeLeft <= 0) {
+      clearInterval(g.timer);
+      timerNumber.textContent = '0s';
+      if (!g.answered) {
+        g.answered = true;
+        g.wrong++;
+        optionBtns.forEach(b => {
+          b.disabled = true;
+          if (b.dataset.correct === 'true') b.classList.add('show-correct');
+        });
+        setTimeout(() => btnNext.classList.add('show'), 800);
+        updateScore();
       }
-
-
-      if (
-        e.key === 'Enter' ||
-        e.key === ' '
-      ) {
-
-        if (
-          btnNext.classList.contains(
-            'show'
-          )
-        ) {
-
-          btnNext.click();
-
-          return;
-        }
-
-
-        if (
-          !btnStart.disabled &&
-          !g.isGameOver
-        ) {
-
-          btnStart.click();
-        }
-      }
-
     }
-  );
+  }, 100);
 
+  thoughtBubble.textContent = '🔍 Investigating...';
+  thoughtBubble.classList.add('show');
+  btnNext.classList.remove('show');
+}
 
-  console.log(
-    '🕵️ Mystery Word Game loaded successfully!'
-  );
+// ====== EVENT HANDLERS ======
+function handleClick(e) {
+  const btn = e.currentTarget;
+  if (btn.disabled || g.answered) return;
+
+  const correct = btn.dataset.correct === 'true';
+  g.answered = true;
+
+  if (g.timer) { clearInterval(g.timer); g.timer = null; }
+
+  optionBtns.forEach(b => b.disabled = true);
+
+  if (correct) {
+    btn.classList.add('correct');
+    g.score += 10 + Math.floor(g.timeLeft);
+    g.correct++;
+    thoughtBubble.textContent = '🎉 Brilliant!';
+    thoughtBubble.classList.add('show');
+  } else {
+    btn.classList.add('wrong');
+    g.wrong++;
+    optionBtns.forEach(b => {
+      if (b.dataset.correct === 'true') b.classList.add('show-correct');
+    });
+    thoughtBubble.textContent = '🤔 Keep trying!';
+    thoughtBubble.classList.add('show');
+  }
+
+  updateScore();
+  setTimeout(() => btnNext.classList.add('show'), 600);
+}
+
+function nextWord() {
+  g.currentIndex++;
+  btnNext.classList.remove('show');
+  thoughtBubble.classList.remove('show');
+  setTimeout(showWord, 300);
+}
+
+function updateScore() { scoreDisplay.textContent = g.score; }
+
+function startGame() {
+  g.words = getWords(4);
+  g.currentIndex = 0;
+  g.score = 0;
+  g.correct = 0;
+  g.wrong = 0;
+  g.isGameOver = false;
+
+  document.getElementById('optionsGrid').style.display = 'grid';
+  document.querySelector('.timer-section').style.display = 'block';
+  document.getElementById('btnStart').style.display = 'flex';
+  document.getElementById('btnNext').style.display = 'none';
+
+  scoreDisplay.textContent = '0';
+
+  btnStart.disabled = true;
+  btnStart.innerHTML = '<span class="icon">⏳</span> Loading...';
+
+  setTimeout(() => {
+    btnStart.innerHTML = '<span class="icon">🔍</span> Start Investigation';
+    btnStart.disabled = false;
+    showWord();
+  }, 500);
+}
+
+function endGame() {
+  g.isGameOver = true;
+  if (g.timer) { clearInterval(g.timer); g.timer = null; }
+
+  const total = g.correct + g.wrong;
+  const pct = total > 0 ? Math.round((g.correct / total) * 100) : 0;
+
+  cluesList.innerHTML = `
+    <div class="game-over">
+      <div style="font-size:60px;">🏁</div>
+      <div class="final-message">Game Over!</div>
+      <div class="final-score">${g.score}</div>
+      <div class="final-label">Total Score</div>
+      <div class="final-stats">
+        <div class="correct-stat">✅ Correct<br><span>${g.correct}</span></div>
+        <div>❌ Wrong<br><span>${g.wrong}</span></div>
+        <div>🎯 Accuracy<br><span>${pct}%</span></div>
+      </div>
+      <button class="btn-start" onclick="location.reload()" style="margin:20px auto;">🔄 Play Again</button>
+    </div>
+  `;
+
+  document.getElementById('optionsGrid').style.display = 'none';
+  document.getElementById('btnStart').style.display = 'none';
+  document.getElementById('btnNext').style.display = 'none';
+  document.querySelector('.timer-section').style.display = 'none';
+}
+
+// ====== EVENTS ======
+optionBtns.forEach(b => b.addEventListener('click', handleClick));
+
+btnStart.addEventListener('click', () => {
+  // إعادة تعيين cluesList إلى الحالة الأولية
+  cluesList.innerHTML = `
+    <div class="clue-item" id="clue1">
+      <span class="clue-number">CLUE 1</span>
+      <span class="clue-text" id="clueText1">Press "Start" to begin!</span>
+    </div>
+    <div class="clue-item" id="clue2">
+      <span class="clue-number">CLUE 2</span>
+      <span class="clue-text" id="clueText2">—</span>
+    </div>
+    <div class="clue-item" id="clue3">
+      <span class="clue-number">CLUE 3</span>
+      <span class="clue-text" id="clueText3">—</span>
+    </div>
+  `;
+  // إزالة أي class "visible" عالقة
+  document.querySelectorAll('.clue-item').forEach(el => el.classList.remove('visible'));
+  startGame();
+});
+
+btnNext.addEventListener('click', nextWord);
+
+console.log('🕵️ Mystery Word loaded!');
 </script>
+
+</body>
+</html>
