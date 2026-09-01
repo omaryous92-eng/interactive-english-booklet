@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework · Collocations Fill · Unit 2</title>
+
+  <!-- ====== CSS — المسارات الصحيحة ====== -->
+  <link rel="stylesheet" href="../../../../css/colors.css">
+  <link rel="stylesheet" href="../../../../css/variables.css">
+  <link rel="stylesheet" href="../../../../css/reset.css">
+  <link rel="stylesheet" href="../../../../css/layout.css">
+  <link rel="stylesheet" href="../../../../css/navigation.css">
+  <link rel="stylesheet" href="../../../../css/components.css">
+  <link rel="stylesheet" href="../../../../css/animations.css">
+  <link rel="stylesheet" href="../../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../../css/exercises.css">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="../../../../index.html" class="logo" style="text-decoration: none;">
+        <div class="logo-icon">📘</div>
+        <div>
+          <span>Prep 3 · E-Book</span>
+          <div class="sub">New Close up B2 · First Term</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="../../../../index.html">Home</a>
+        <a href="../../../unit-1/index.html">Unit 1</a>
+        <a href="../../index.html" class="active">Unit 2</a>
+        <a href="../../../unit-3/index.html">Unit 3</a>
+        <a href="../../../unit-4/index.html">Unit 4</a>
+        <a href="../../../../novel/index.html">Novel</a>
+        <a href="../../../../poetry/index.html">Poetry</a>
+        <a href="../../../../skills/index.html">Skills</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ====== MOBILE NAV ====== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="nav-group"><div class="nav-group-title">Main</div><a href="../../../../index.html">Home</a></div>
+    <div class="nav-group">
+      <div class="nav-group-title">Units</div>
+      <a href="../../../unit-1/index.html">Unit 1: Jump for Joy</a>
+      <a href="../../index.html" class="active">Unit 2: Global Culture</a>
+      <a href="../../../unit-3/index.html">Unit 3: Role Models</a>
+      <a href="../../../unit-4/index.html">Unit 4: City Living</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Literature</div>
+      <a href="../../../../novel/index.html">📖 A Tale of Two Cities</a>
+      <a href="../../../../poetry/index.html">📝 Poetry</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Skills</div>
+      <a href="../../../../skills/index.html">📚 Reading · Dialogues · Writing</a>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main class="main-content">
+    <section class="section">
+      <div class="container">
+
+        <nav class="breadcrumbs">
+          <a href="../../../../index.html">Home</a>
+          <span class="separator"> › </span>
+          <a href="../../index.html">Unit 2</a>
+          <span class="separator"> › </span>
+          <a href="../index.html">Exercises</a>
+          <span class="separator"> › </span>
+          <span class="current">Homework · Collocations Fill</span>
+        </nav>
+
+        <div class="exercise-container">
+          <div class="exercise-header">
+            <div class="exercise-title">📝 Homework — Vocabulary 2 (Fill in the Blank)</div>
+            <div class="exercise-meta">
+              <span class="badge badge-primary">10 Questions</span>
+              <span class="badge badge-accent">H.W</span>
+              <span class="score-display">⭐ Score: <span id="score-display">0</span></span>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span id="progress-text">0 / 10</span>
+            </div>
+          </div>
+
+          <div id="question-container"></div>
+
+          <div class="nav-buttons" id="nav-buttons">
+            <button class="btn-nav btn-prev" id="btn-prev" onclick="ExerciseEngine.prevQuestion()">← Previous</button>
+            <button class="btn-nav btn-next" id="btn-next" onclick="ExerciseEngine.nextQuestion()">Next Question →</button>
+          </div>
+
+          <div style="margin-top: var(--spacing-8);">
+            <a href="../index.html" class="btn btn-secondary">← Back to Exercises</a>
+          </div>
+        </div>
+
+        <footer style="margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 2px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+          <p>© 2026 · Interactive E-Book · Unit 2 · Homework · Collocations Fill</p>
+        </footer>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // ====== QUESTIONS — EXACTLY AS IN THE BOOKLET (Page 49-50) ======
+    const questions = [
+      { type: 'fill', text: '1. We\'ll still ________ with the ceremony, even if it rains.', correct: 'go ahead' },
+      { type: 'fill', text: '2. They plan to ________ in April to celebrate spring.', correct: 'hold a festival' },
+      { type: 'fill', text: '3. This dance ________ African tribal rituals.', correct: 'has roots in' },
+      { type: 'fill', text: '4. He will ________ about climate change at the event.', correct: 'give a speech' },
+      { type: 'fill', text: '5. She tried to ________ him ________ running for class president.', correct: 'talk, into' },
+      { type: 'fill', text: '6. I don\'t want to ________ my past mistakes.', correct: 'look back at' },
+      { type: 'fill', text: '7. The celebration will be ________ four weekends.', correct: 'spread out over' },
+      { type: 'fill', text: '8. He has ________ as a reliable team leader.', correct: 'built a reputation' },
+      { type: 'fill', text: '9. The students will ________ as Shakespearean characters.', correct: 'dress up' },
+      { type: 'fill', text: '10. She is ________ for her charity work and kindness.', correct: 'widely known' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const script1 = document.createElement('script');
+      script1.src = '../../../../js/sounds.js';
+      document.head.appendChild(script1);
+      const script2 = document.createElement('script');
+      script2.src = '../../../../js/confetti.js';
+      document.head.appendChild(script2);
+      const script3 = document.createElement('script');
+      script3.src = '../../../../js/exercises.js';
+      script3.onload = function() {
+        if (typeof ExerciseEngine !== 'undefined') {
+          ExerciseEngine.init(questions);
+        }
+      };
+      document.head.appendChild(script3);
+    });
+  </script>
+
+  <script src="../../../../js/main.js"></script>
+  <script src="../../../../js/navigation.js"></script>
+
+</body>
+</html>
