@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔪 The Guillotine · A Tale of Two Cities</title>
+
+  <style>
+    /* ====== RESET & GLOBAL ====== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0a0505;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: radial-gradient(ellipse at 20% 50%, rgba(180, 20, 20, 0.2), transparent 70%),
+                        radial-gradient(ellipse at 80% 50%, rgba(100, 10, 10, 0.15), transparent 70%);
+      padding: 16px;
+      overflow: hidden;
+    }
+
+    .game-container {
+      background: linear-gradient(145deg, #1a0a0a, #0d0505);
+      border-radius: 32px;
+      padding: 30px 35px 35px 35px;
+      max-width: 920px;
+      width: 100%;
+      border: 2px solid rgba(180, 30, 30, 0.3);
+      box-shadow: 0 0 60px rgba(180, 0, 0, 0.2), inset 0 0 60px rgba(180, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255, 0, 0, 0.01) 40px, rgba(255, 0, 0, 0.01) 41px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ====== HEADER ====== */
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .game-title {
+      font-size: 28px;
+      font-weight: 900;
+      color: #cc3333;
+      text-shadow: 0 0 20px rgba(200, 0, 0, 0.4), 0 0 60px rgba(200, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: 1px;
+      font-family: 'MedievalSharp', cursive;
+    }
+    .game-title .icon { font-size: 32px; }
+
+    .score-lives {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: rgba(0,0,0,0.5);
+      padding: 6px 18px 6px 22px;
+      border-radius: 100px;
+      border: 1px solid rgba(180, 30, 30, 0.3);
+    }
+    .score-lives .score {
+      color: #ffcc88;
+      font-weight: 700;
+      font-size: 18px;
+    }
+    .score-lives .score span { color: #fff; font-size: 22px; margin-left: 4px; }
+    .lives {
+      display: flex;
+      gap: 6px;
+    }
+    .life-heart {
+      font-size: 22px;
+      transition: all 0.3s;
+    }
+    .life-heart.lost {
+      opacity: 0.2;
+      transform: scale(0.8);
+      filter: grayscale(1);
+    }
+
+    /* ====== GUILLOTINE VISUAL ====== */
+    .guillotine-area {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+    .guillotine-frame {
+      width: 120px;
+      height: 160px;
+      background: #2a1a1a;
+      border: 4px solid #4a2a2a;
+      border-radius: 8px 8px 0 0;
+      position: relative;
+      box-shadow: inset 0 -30px 40px rgba(0,0,0,0.8);
+      overflow: hidden;
+    }
+    .guillotine-blade {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 40px;
+      background: linear-gradient(180deg, #8a8a8a, #4a4a4a);
+      clip-path: polygon(10% 0%, 90% 0%, 70% 100%, 30% 100%);
+      transition: top 0.8s cubic-bezier(0.34, 1.2, 0.64, 1);
+      box-shadow: 0 0 20px rgba(200, 50, 50, 0.3);
+      z-index: 10;
+    }
+    .guillotine-blade.danger {
+      box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+    }
+    .guillotine-blade.fallen {
+      top: 120px !important;
+      transition: top 0.15s cubic-bezier(0.34, 0.9, 0.64, 1);
+    }
+
+    .guillotine-rope {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 25px;
+      background: #6a5a4a;
+      border-radius: 2px;
+      z-index: 5;
+    }
+    .guillotine-base {
+      width: 140px;
+      height: 20px;
+      background: #3a2a2a;
+      border-radius: 4px;
+      margin-top: -2px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+      position: relative;
+      z-index: 1;
+    }
+    .guillotine-base .basket {
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 30px;
+      background: #1a0f0a;
+      border-radius: 0 0 50% 50%;
+      border: 2px solid #3a2a1a;
+      opacity: 0.6;
+    }
+
+    .guillotine-area .status-text {
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(200, 100, 100, 0.6);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* ====== TIMER ====== */
+    .timer-section {
+      margin: 6px 0 16px 0;
+      position: relative;
+      z-index: 2;
+    }
+    .timer-bar-track {
+      width: 100%; height: 6px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .timer-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #cc2222, #ff6644);
+      border-radius: 100px;
+      width: 100%;
+      transition: width 0.1s linear;
+    }
+    .timer-bar-fill.warning {
+      background: linear-gradient(90deg, #ff1111, #ff4400);
+      animation: timerPulse 0.4s ease-in-out infinite;
+    }
+    @keyframes timerPulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+
+    .timer-info {
+      display: flex; justify-content: space-between;
+      margin-top: 4px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    .timer-number {
+      font-size: 18px; font-weight: 800;
+      color: #ff8866;
+      transition: color 0.3s;
+    }
+    .timer-number.warning { color: #ff2222; animation: numberPulse 0.4s ease-in-out infinite; }
+    @keyframes numberPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+
+    /* ====== QUESTION ====== */
+    .question-area {
+      position: relative;
+      z-index: 2;
+      background: rgba(0,0,0,0.5);
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin: 12px 0 18px 0;
+      border-left: 4px solid #882222;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+    }
+    .question-text {
+      font-size: 22px;
+      font-weight: 600;
+      color: #f0e0d0;
+      line-height: 1.4;
+      letter-spacing: 0.3px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    .question-text .q-number {
+      color: #aa3333;
+      font-weight: 800;
+      margin-right: 12px;
+      font-size: 18px;
+    }
+
+    /* ====== OPTIONS ====== */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 14px 0 20px 0;
+      position: relative;
+      z-index: 2;
+    }
+    .option-btn {
+      padding: 16px 18px;
+      background: rgba(30, 15, 15, 0.7);
+      border: 2px solid rgba(120, 40, 40, 0.3);
+      border-radius: 14px;
+      color: #d4c8b8;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      backdrop-filter: blur(5px);
+      letter-spacing: 0.2px;
+    }
+    .option-btn:hover:not(:disabled) {
+      transform: translateY(-2px) scale(1.01);
+      border-color: rgba(200, 60, 60, 0.6);
+      background: rgba(60, 20, 20, 0.6);
+      box-shadow: 0 0 30px rgba(200, 0, 0, 0.1);
+    }
+    .option-btn:active:not(:disabled) { transform: scale(0.96); }
+    .option-btn:disabled { cursor: not-allowed; opacity: 0.5; transform: none !important; }
+
+    .option-btn .letter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px; height: 32px;
+      background: rgba(100, 20, 20, 0.4);
+      border-radius: 50%;
+      font-weight: 800;
+      font-size: 14px;
+      color: #aa5555;
+      flex-shrink: 0;
+      transition: all 0.3s;
+    }
+    .option-btn:hover:not(:disabled) .letter {
+      background: rgba(180, 40, 40, 0.4);
+      color: #ff8888;
+    }
+
+    .option-btn.correct {
+      border-color: #44cc88;
+      background: rgba(40, 180, 80, 0.15);
+      animation: correctPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .option-btn.correct .letter { background: #44cc88; color: #fff; }
+
+    .option-btn.wrong {
+      border-color: #ff2244;
+      background: rgba(200, 20, 40, 0.25);
+      animation: wrongShake 0.5s ease;
+    }
+    .option-btn.wrong .letter { background: #ff2244; color: #fff; }
+
+    .option-btn.show-correct {
+      border-color: #44cc88;
+      background: rgba(40, 180, 80, 0.08);
+    }
+    .option-btn.show-correct .letter { background: #44cc88; color: #fff; }
+
+    @keyframes correctPop { 0%{ transform: scale(1); } 30%{ transform: scale(1.05); } 60%{ transform: scale(0.95); } 100%{ transform: scale(1); } }
+    @keyframes wrongShake { 0%,100%{ transform: translateX(0); } 20%{ transform: translateX(-10px); } 40%{ transform: translateX(10px); } 60%{ transform: translateX(-5px); } 80%{ transform: translateX(5px); } }
+
+    /* ====== CONTROLS ====== */
+    .controls {
+      display: flex; gap: 14px; justify-content: center; margin-top: 8px; position: relative; z-index: 2; flex-wrap: wrap;
+    }
+    .btn-start {
+      padding: 14px 48px;
+      background: linear-gradient(135deg, #882222, #441111);
+      border: none;
+      border-radius: 100px;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 4px 30px rgba(150, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .btn-start:hover:not(:disabled) { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 50px rgba(200, 0, 0, 0.4); background: linear-gradient(135deg, #aa3333, #551111); }
+    .btn-start:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+    .btn-start .icon { font-size: 24px; }
+
+    .btn-next {
+      padding: 14px 36px;
+      background: rgba(255,255,255,0.05);
+      border: 2px solid rgba(150, 50, 50, 0.3);
+      border-radius: 100px;
+      color: #aa8888;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-next:hover { border-color: rgba(200, 80, 80, 0.5); color: #ffcccc; transform: translateY(-2px); }
+    .btn-next.show { display: flex; animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    @keyframes slideUp { 0%{ transform: translateY(20px); opacity:0; } 100%{ transform: translateY(0); opacity:1; } }
+
+    /* ====== FEEDBACK OVERLAY ====== */
+    .feedback-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 1000; display: flex; align-items: center; justify-content: center;
+    }
+    .feedback-overlay .emoji { font-size: 100px; animation: feedbackPop 0.8s cubic-bezier(0.34,1.56,0.64,1); filter: drop-shadow(0 20px 60px rgba(0,0,0,0.8)); }
+    @keyframes feedbackPop { 0%{ transform: scale(0) rotate(-20deg); opacity:0; } 60%{ transform: scale(1.2) rotate(5deg); opacity:1; } 100%{ transform: scale(1) rotate(0); opacity:1; } }
+
+    /* ====== SCREEN SHAKE ====== */
+    .shake {
+      animation: screenShake 0.4s ease;
+    }
+    @keyframes screenShake {
+      0%,100% { transform: translateX(0); }
+      20% { transform: translateX(-15px) rotate(-0.5deg); }
+      40% { transform: translateX(15px) rotate(0.5deg); }
+      60% { transform: translateX(-8px); }
+      80% { transform: translateX(8px); }
+    }
+
+    /* ====== GAME OVER ====== */
+    .game-over {
+      text-align: center; padding: 20px 10px; animation: gameOverIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes gameOverIn { 0%{ transform: scale(0.8); opacity:0; } 100%{ transform: scale(1); opacity:1; } }
+    .game-over .final-score {
+      font-size: 60px; font-weight: 900;
+      background: linear-gradient(135deg, #ff4444, #cc0000);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: scoreFloat 2s ease-in-out infinite;
+    }
+    @keyframes scoreFloat { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-10px); } }
+    .game-over .final-label { font-size: 18px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+    .game-over .final-message { font-size: 26px; font-weight: 700; color: #ff6666; margin-top: 8px; text-shadow: 0 0 30px rgba(255,0,0,0.3); }
+    .game-over .final-stats {
+      display: flex; justify-content: center; gap: 40px; margin: 16px 0; color: rgba(255,255,255,0.4); font-size: 14px;
+    }
+    .game-over .final-stats span { display: block; font-size: 28px; font-weight: 800; color: #fff; }
+    .game-over .final-stats .correct-stat span { color: #44cc88; }
+    .game-over .final-stats .wrong-stat span { color: #ff4444; }
+    .game-over .btn-restart {
+      margin-top: 20px; padding: 14px 48px;
+      background: linear-gradient(135deg, #882222, #441111);
+      border: none; border-radius: 100px; color: #fff; font-size: 18px; font-weight: 800; cursor: pointer; transition: all 0.3s;
+      box-shadow: 0 4px 30px rgba(150,0,0,0.3);
+    }
+    .game-over .btn-restart:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 50px rgba(200,0,0,0.4); }
+
+    /* ====== BLOOD SPLATTER (Decorative) ====== */
+    .blood-splat {
+      position: absolute;
+      font-size: 100px;
+      opacity: 0.05;
+      pointer-events: none;
+      z-index: 0;
+      transform: rotate(var(--rot, 0deg));
+    }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 700px) {
+      .game-container { padding: 18px; }
+      .game-title { font-size: 22px; }
+      .question-text { font-size: 18px; }
+      .options-grid { grid-template-columns: 1fr; gap: 10px; }
+      .option-btn { font-size: 15px; padding: 14px 16px; }
+      .guillotine-frame { width: 80px; height: 120px; }
+      .guillotine-blade { width: 60px; height: 30px; }
+      .score-lives { padding: 4px 14px; }
+      .score-lives .score { font-size: 14px; }
+      .life-heart { font-size: 18px; }
+      .btn-start { padding: 12px 30px; font-size: 16px; }
+      .feedback-overlay .emoji { font-size: 70px; }
+      .game-over .final-score { font-size: 40px; }
+    }
+    @media (max-width: 400px) {
+      .game-title { font-size: 18px; }
+      .question-text { font-size: 16px; }
+      .guillotine-frame { width: 60px; height: 90px; }
+      .guillotine-blade { width: 45px; height: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="game-container" id="gameContainer">
+
+  <!-- Blood Splatters (decoration) -->
+  <div class="blood-splat" style="top:-20px; right:-30px; font-size:120px; opacity:0.04; transform:rotate(20deg);">🩸</div>
+  <div class="blood-splat" style="bottom:40px; left:-40px; font-size:150px; opacity:0.03; transform:rotate(-40deg);">🩸</div>
+
+  <!-- Header -->
+  <div class="game-header">
+    <div class="game-title">
+      <span class="icon">🔪</span> The Guillotine
+    </div>
+    <div class="score-lives">
+      <div class="score">🏆 <span id="scoreDisplay">0</span></div>
+      <div class="lives" id="livesContainer">
+        <span class="life-heart" id="heart1">❤️</span>
+        <span class="life-heart" id="heart2">❤️</span>
+        <span class="life-heart" id="heart3">❤️</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guillotine Visual -->
+  <div class="guillotine-area">
+    <div style="display:flex; flex-direction:column; align-items:center; position:relative;">
+      <div class="guillotine-frame">
+        <div class="guillotine-rope"></div>
+        <div class="guillotine-blade" id="guillotineBlade"></div>
+      </div>
+      <div class="guillotine-base">
+        <div class="basket"></div>
+      </div>
+      <div class="status-text" id="bladeStatus">⚖️ THE TRIAL</div>
+    </div>
+  </div>
+
+  <!-- Timer -->
+  <div class="timer-section">
+    <div class="timer-bar-track">
+      <div class="timer-bar-fill" id="timerFill"></div>
+    </div>
+    <div class="timer-info">
+      <span>⏳ Time Left</span>
+      <span class="timer-number" id="timerNumber">25s</span>
+    </div>
+  </div>
+
+  <!-- Question -->
+  <div class="question-area" id="questionArea">
+    <div class="question-text" id="questionText">
+      <span class="q-number">⚔️</span> Press "Start Trial" to face the guillotine!
+    </div>
+  </div>
+
+  <!-- Options -->
+  <div class="options-grid" id="optionsGrid">
+    <button class="option-btn" data-index="0" disabled>
+      <span class="letter">A</span> <span class="option-text" id="opt0">—</span>
+    </button>
+    <button class="option-btn" data-index="1" disabled>
+      <span class="letter">B</span> <span class="option-text" id="opt1">—</span>
+    </button>
+    <button class="option-btn" data-index="2" disabled>
+      <span class="letter">C</span> <span class="option-text" id="opt2">—</span>
+    </button>
+    <button class="option-btn" data-index="3" disabled>
+      <span class="letter">D</span> <span class="option-text" id="opt3">—</span>
+    </button>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button class="btn-start" id="btnStart">
+      <span class="icon">⚔️</span> Start Trial
+    </button>
+    <button class="btn-next" id="btnNext">Next Prisoner ➜</button>
+  </div>
+
+</div>
+
+<!-- Feedback Overlay -->
+<div class="feedback-overlay" id="feedbackOverlay" style="display:none;">
+  <div class="emoji" id="feedbackEmoji">🎉</div>
+</div>
+
+<script>
+  // ============================================================
+  // QUESTION BANK — A Tale of Two Cities (Deep Analysis)
+  // ============================================================
+  const questionBank = [
+    // --- Author & Context ---
+    { q: 'Who is the author of "A Tale of Two Cities"?', opts: ['Charles Dickens', 'Victor Hugo', 'Mark Twain', 'Leo Tolstoy'], correct: 0 },
+    { q: 'In which year was "A Tale of Two Cities" first published?', opts: ['1839', '1859', '1879', '1899'], correct: 1 },
+    { q: 'What historical event is the backdrop of the novel?', opts: ['The American Revolution', 'The French Revolution', 'The Industrial Revolution', 'The Russian Revolution'], correct: 1 },
+
+    // --- Characters ---
+    { q: 'Who is the lawyer\'s assistant who looks exactly like Charles Darnay?', opts: ['Sydney Carton', 'Mr. Lorry', 'Ernest Defarge', 'John Barsad'], correct: 0 },
+    { q: 'What is Dr. Manette\'s prisoner number in the Bastille?', opts: ['One Hundred and Five, South Tower', 'One Hundred and Five, North Tower', 'Two Hundred and Ten, East Tower', 'Fifty, West Tower'], correct: 1 },
+    { q: 'Who is Madame Defarge\'s husband?', opts: ['Charles Darnay', 'Sydney Carton', 'Ernest Defarge', 'Jarvis Lorry'], correct: 2 },
+    { q: 'What does Lucie Manette represent in the novel?', opts: ['Vengeance', 'Resurrection and Love', 'Death and Decay', 'Revolution and Chaos'], correct: 1 },
+    { q: 'Who is the Marquis Evremonde?', opts: ['Darnay\'s father', 'Darnay\'s uncle', 'A revolutionary leader', 'A prison guard'], correct: 1 },
+    { q: 'Who killed the Marquis Evremonde?', opts: ['Charles Darnay', 'Gaspard', 'Sydney Carton', 'Monsieur Defarge'], correct: 1 },
+    { q: 'What is the profession of Dr. Alexandre Manette?', opts: ['Lawyer', 'Doctor', 'Shoemaker', 'Banker'], correct: 1 },
+
+    // --- Themes & Symbols ---
+    { q: 'What does the broken wine cask in Saint Antoine symbolize?', opts: ['Prosperity and Hope', 'Blood and Hunger for Revolution', 'Joy and Celebration', 'Peace and Friendship'], correct: 1 },
+    { q: 'What does Madame Defarge\'s knitting represent?', opts: ['Love and Warmth', 'Fate and Vengeance', 'Peace and Harmony', 'Trade and Commerce'], correct: 1 },
+    { q: 'What does the guillotine symbolize in the novel?', opts: ['Justice and Equality', 'Terror and Moral Loss', 'Progress and Modernity', 'Peace and Stability'], correct: 1 },
+    { q: 'What is the central theme of "Resurrection" in the novel?', opts: ['Characters rising from the dead', 'Spiritual redemption and being "recalled to life"', 'The rebuilding of Paris', 'The return of the monarchy'], correct: 1 },
+    { q: 'What does Sydney Carton\'s final sacrifice represent?', opts: ['Selfishness', 'Redemption and Selfless Love', 'Revenge', 'Political ambition'], correct: 1 },
+    { q: 'What does the phrase "The Child is father of the Man" (from the poem) imply in the context of the novel?', opts: ['Children should rule', 'Childhood experiences shape adulthood', 'Adults are childish', 'Children are wiser'], correct: 1 },
+
+    // --- Plot Events ---
+    { q: 'Why was Charles Darnay arrested when he returned to Paris?', opts: ['For stealing money', 'For being an emigrant and a noble', 'For killing a guard', 'For betraying Lucie'], correct: 1 },
+    { q: 'What did Dr. Manette\'s letter from the Bastille reveal?', opts: ['A treasure map', 'The Evremonde brothers\' crimes', 'Lucie\'s true mother', 'A recipe for wine'], correct: 1 },
+    { q: 'What was Gaspard\'s crime?', opts: ['He robbed a bank', 'He killed the Marquis Evremonde', 'He betrayed the revolution', 'He helped a prisoner escape'], correct: 1 },
+    { q: 'Why did Miss Pross fight Madame Defarge?', opts: ['To protect Lucie and her daughter', 'To steal money', 'To prove her strength', 'To stop the revolution'], correct: 0 },
+    { q: 'Who said "It is a far, far better thing that I do, than I have ever done"?', opts: ['Charles Darnay', 'Sydney Carton', 'Dr. Manette', 'Mr. Lorry'], correct: 1 },
+
+    // --- Critical Analysis ---
+    { q: 'What is the "double mirror image" theme in the novel?', opts: ['Characters looking in mirrors', 'Darnay and Carton looking alike', 'London and Paris mirroring each other', 'All of the above'], correct: 1 },
+    { q: 'What was the main cause of the French Revolution as portrayed in the novel?', opts: ['Religious conflict', 'Social injustice and tyranny of the aristocracy', 'Economic prosperity', 'Foreign invasion'], correct: 1 },
+    { q: 'What happens to Madame Defarge at the end of the novel?', opts: ['She escapes to England', 'She is killed by Miss Pross', 'She dies of old age', 'She becomes the Queen'], correct: 1 },
+    { q: 'Why was Darnay sentenced to death in the second trial?', opts: ['For his own crimes', 'For the crimes of his family as revealed in Dr. Manette\'s letter', 'For treason against England', 'For murdering the Marquis'], correct: 1 },
+    { q: 'What does the phrase "recalled to life" refer to?', opts: ['Dr. Manette\'s release from prison', 'Coming back from a holiday', 'Being born again', 'Moving to a new city'], correct: 0 },
+    { q: 'Who are the "Three Jacques" in the novel?', opts: ['Three brothers', 'Revolutionaries and the Defarges\' network', 'Three lawyers', 'Three prisoners'], correct: 1 },
+    { q: 'Where does the novel get its title from?', opts: ['Two cities: London and Paris', 'Two cities: Rome and Athens', 'Two families: Manette and Darnay', 'Two countries: France and England'], correct: 0 },
+    { q: 'How does Sydney Carton manage to save Charles Darnay?', opts: ['He bribes the guards', 'He takes Darnay\'s place in prison', 'He reveals the real spy', 'He asks for a pardon'], correct: 1 },
+    { q: 'What was the public attitude towards the revolutionaries in the novel?', opts: ['They were always peaceful', 'They became cruel and bloodthirsty like the aristocrats they hated', 'They were all noble and just', 'They were indifferent'], correct: 1 },
+    { q: 'What does the shadow motif represent in the novel?', opts: ['Nighttime', 'Secrecy, fear, and impending danger', 'The color black', 'Hiding from the sun'], correct: 1 }
+  ];
+
+  // ============================================================
+  // GAME STATE
+  // ============================================================
+  let g = {
+    questions: [],
+    currentIndex: 0,
+    score: 0,
+    lives: 3,
+    correct: 0,
+    wrong: 0,
+    answered: false,
+    timer: null,
+    timeLeft: 25,
+    maxTime: 25,
+    isGameOver: false,
+    bladePosition: -30 // top offset
+  };
+
+  // ============================================================
+  // DOM REFS
+  // ============================================================
+  const $ = id => document.getElementById(id);
+  const scoreDisplay = $('scoreDisplay');
+  const timerFill = $('timerFill');
+  const timerNumber = $('timerNumber');
+  const questionText = $('questionText');
+  const optTexts = [$('opt0'), $('opt1'), $('opt2'), $('opt3')];
+  const optionBtns = document.querySelectorAll('.option-btn');
+  const btnStart = $('btnStart');
+  const btnNext = $('btnNext');
+  const livesContainer = $('livesContainer');
+  const blade = $('guillotineBlade');
+  const bladeStatus = $('bladeStatus');
+  const feedbackOverlay = $('feedbackOverlay');
+  const feedbackEmoji = $('feedbackEmoji');
+  const gameContainer = $('gameContainer');
+
+  // ============================================================
+  // SOUND ENGINE (Horror Theme)
+  // ============================================================
+  const Sound = {
+    ctx: null,
+    init() { if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); },
+    playDrumRoll() {
+      this.init(); const ctx = this.ctx;
+      for (let i = 0; i < 8; i++) {
+        const osc = ctx.createOscillator(), gain = ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.value = 80;
+        const time = ctx.currentTime + i * 0.08;
+        gain.gain.setValueAtTime(0.03, time);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.06);
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.start(time); osc.stop(time + 0.06);
+      }
+    },
+    playBladeDrop() {
+      this.init(); const ctx = this.ctx;
+      const osc = ctx.createOscillator(), gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(150, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(30, ctx.currentTime + 0.4);
+      gain.gain.setValueAtTime(0.15, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.4);
+      // Impact noise
+      const bufferSize = ctx.sampleRate * 0.1;
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) data[i] = (Math.random() * 2 - 1) * 0.1;
+      const src = ctx.createBufferSource();
+      src.buffer = buffer;
+      src.connect(ctx.destination);
+      src.start(ctx.currentTime + 0.4);
+    },
+    playCorrect() {
+      this.init(); const ctx = this.ctx;
+      // Cheerful but dark melody
+      const notes = [392, 523, 659];
+      notes.forEach((f, i) => {
+        const osc = ctx.createOscillator(), gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = f;
+        gain.gain.setValueAtTime(0.08, ctx.currentTime + i * 0.15);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.15 + 0.2);
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + i * 0.15);
+        osc.stop(ctx.currentTime + i * 0.15 + 0.2);
+      });
+    },
+    playWrong() {
+      this.init(); const ctx = this.ctx;
+      const osc = ctx.createOscillator(), gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(180, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + 0.5);
+      gain.gain.setValueAtTime(0.1, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.5);
+    },
+    playGameOver() {
+      this.init(); const ctx = this.ctx;
+      // Heavy breathing + scream
+      const osc = ctx.createOscillator(), gain = ctx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(100, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.8);
+      gain.gain.setValueAtTime(0.1, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.8);
+      // Scream effect
+      setTimeout(() => {
+        const osc2 = ctx.createOscillator(), gain2 = ctx.createGain();
+        osc2.type = 'sawtooth';
+        osc2.frequency.setValueAtTime(600, ctx.currentTime);
+        osc2.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.4);
+        gain2.gain.setValueAtTime(0.15, ctx.currentTime);
+        gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+        osc2.connect(gain2); gain2.connect(ctx.destination);
+        osc2.start(ctx.currentTime); osc2.stop(ctx.currentTime + 0.4);
+      }, 100);
+    },
+    playStart() {
+      this.init(); const ctx = this.ctx;
+      const osc = ctx.createOscillator(), gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(200, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.3);
+      gain.gain.setValueAtTime(0.1, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.3);
+    }
+  };
+
+  // ============================================================
+  // HELPERS
+  // ============================================================
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function getQuestions(count = 12) {
+    const shuffled = shuffle([...questionBank]);
+    return shuffled.slice(0, Math.min(count, shuffled.length));
+  }
+
+  // ============================================================
+  // GAME FUNCTIONS
+  // ============================================================
+  function updateLives() {
+    const hearts = [
+      document.getElementById('heart1'),
+      document.getElementById('heart2'),
+      document.getElementById('heart3')
+    ];
+    hearts.forEach((el, i) => {
+      if (i < g.lives) el.classList.remove('lost');
+      else el.classList.add('lost');
+    });
+    // Update blade position based on lives (1 life = bottom, 3 lives = top)
+    // Map lives (1-3) to blade top position (-30 to 90)
+    if (g.lives === 3) g.bladePosition = -30;
+    else if (g.lives === 2) g.bladePosition = 30;
+    else if (g.lives === 1) g.bladePosition = 80;
+    else g.bladePosition = 140;
+    blade.style.top = g.bladePosition + 'px';
+    if (g.lives <= 1) blade.classList.add('danger');
+    else blade.classList.remove('danger');
+  }
+
+  function showFeedback(emoji, msg) {
+    feedbackEmoji.textContent = emoji;
+    feedbackOverlay.style.display = 'flex';
+    feedbackEmoji.style.animation = 'none';
+    void feedbackEmoji.offsetWidth;
+    feedbackEmoji.style.animation = 'feedbackPop 0.8s cubic-bezier(0.34,1.56,0.64,1)';
+
+    const el = document.createElement('div');
+    el.textContent = msg;
+    el.style.cssText = `
+      position: absolute; bottom: 15%; left: 50%; transform: translateX(-50%);
+      color: #ffddaa; font-size: 26px; font-weight: 700;
+      background: rgba(0,0,0,0.7); padding: 8px 28px; border-radius: 100px;
+      backdrop-filter: blur(10px); border: 1px solid rgba(200,50,50,0.3);
+      text-shadow: 0 0 20px rgba(0,0,0,0.5);
+    `;
+    el.id = 'fbMsg';
+    const old = document.getElementById('fbMsg');
+    if (old) old.remove();
+    feedbackOverlay.appendChild(el);
+    setTimeout(() => {
+      feedbackOverlay.style.display = 'none';
+      const m = document.getElementById('fbMsg');
+      if (m) m.remove();
+    }, 1300);
+  }
+
+  function updateScore() { scoreDisplay.textContent = g.score; }
+
+  function showQuestion() {
+    if (g.currentIndex >= g.questions.length || g.lives <= 0) {
+      endGame();
+      return;
+    }
+
+    const qData = g.questions[g.currentIndex];
+    g.answered = false;
+
+    // Set question
+    questionText.innerHTML = `<span class="q-number">⚔️</span> ${qData.q}`;
+
+    // Set options
+    const letters = ['A', 'B', 'C', 'D'];
+    optionBtns.forEach((btn, i) => {
+      btn.disabled = false;
+      btn.classList.remove('correct', 'wrong', 'show-correct');
+      optTexts[i].textContent = qData.opts[i] || '—';
+      btn.dataset.correct = (i === qData.correct) ? 'true' : 'false';
+    });
+
+    // Reset timer
+    g.timeLeft = g.maxTime;
+    timerFill.style.width = '100%';
+    timerFill.classList.remove('warning');
+    timerNumber.textContent = g.timeLeft + 's';
+    timerNumber.classList.remove('warning');
+
+    // Start timer
+    if (g.timer) clearInterval(g.timer);
+    g.timer = setInterval(() => {
+      g.timeLeft -= 0.1;
+      const pct = Math.max(0, (g.timeLeft / g.maxTime) * 100);
+      timerFill.style.width = pct + '%';
+      timerNumber.textContent = Math.ceil(g.timeLeft) + 's';
+
+      if (g.timeLeft <= 5) {
+        timerFill.classList.add('warning');
+        timerNumber.classList.add('warning');
+        Sound.playDrumRoll();
+      }
+
+      if (g.timeLeft <= 0) {
+        clearInterval(g.timer);
+        timerNumber.textContent = '0s';
+        if (!g.answered) {
+          // Time's up = lose a life
+          g.answered = true;
+          g.wrong++;
+          g.lives--;
+          updateLives();
+          Sound.playBladeDrop();
+          showFeedback('💀', 'Time\'s Up! The Blade Falls!');
+          gameContainer.classList.add('shake');
+          setTimeout(() => gameContainer.classList.remove('shake'), 500);
+          // Show correct answer
+          optionBtns.forEach(b => {
+            b.disabled = true;
+            if (b.dataset.correct === 'true') b.classList.add('show-correct');
+          });
+          if (g.lives <= 0) {
+            setTimeout(endGame, 1000);
+          } else {
+            setTimeout(() => btnNext.classList.add('show'), 800);
+          }
+          updateScore();
+        }
+      }
+    }, 100);
+
+    btnNext.classList.remove('show');
+  }
+
+  function handleOptionClick(e) {
+    const btn = e.currentTarget;
+    if (btn.disabled || g.answered) return;
+
+    const correct = btn.dataset.correct === 'true';
+    g.answered = true;
+
+    if (g.timer) { clearInterval(g.timer); g.timer = null; }
+
+    optionBtns.forEach(b => b.disabled = true);
+
+    if (correct) {
+      btn.classList.add('correct');
+      g.score += 10 + Math.floor(g.timeLeft);
+      g.correct++;
+      Sound.playCorrect();
+      showFeedback('🎉', 'Saved! +' + (10 + Math.floor(g.timeLeft)) + ' points');
+      // Blade goes up slightly (reset to -30 if full lives)
+      if (g.lives < 3) { g.lives++; updateLives(); }
+      else { g.bladePosition = -30; blade.style.top = '-30px'; }
+      blade.classList.remove('danger');
+    } else {
+      btn.classList.add('wrong');
+      g.wrong++;
+      g.lives--;
+      updateLives();
+      Sound.playBladeDrop();
+      showFeedback('💀', 'Guilty! The Blade Drops!');
+      gameContainer.classList.add('shake');
+      setTimeout(() => gameContainer.classList.remove('shake'), 500);
+      // Show correct
+      optionBtns.forEach(b => {
+        if (b.dataset.correct === 'true') b.classList.add('show-correct');
+      });
+      if (g.lives <= 0) {
+        setTimeout(endGame, 1000);
+      } else {
+        setTimeout(() => btnNext.classList.add('show'), 800);
+      }
+    }
+
+    updateScore();
+
+    if (g.lives > 0 && g.answered) {
+      setTimeout(() => {
+        if (!g.isGameOver) btnNext.classList.add('show');
+      }, 600);
+    }
+  }
+
+  function nextQuestion() {
+    if (g.isGameOver) return;
+    g.currentIndex++;
+    btnNext.classList.remove('show');
+    setTimeout(showQuestion, 300);
+  }
+
+  function startGame() {
+    // Reset state
+    g.questions = getQuestions(15); // 15 questions per round
+    g.currentIndex = 0;
+    g.score = 0;
+    g.lives = 3;
+    g.correct = 0;
+    g.wrong = 0;
+    g.isGameOver = false;
+    g.answered = false;
+    g.bladePosition = -30;
+    blade.style.top = '-30px';
+    blade.classList.remove('danger', 'fallen');
+
+    // Reset UI
+    document.getElementById('optionsGrid').style.display = 'grid';
+    document.querySelector('.timer-section').style.display = 'block';
+    document.getElementById('btnStart').style.display = 'flex';
+    document.getElementById('btnNext').style.display = 'none';
+
+    updateLives();
+    updateScore();
+    scoreDisplay.textContent = '0';
+
+    btnStart.disabled = true;
+    btnStart.innerHTML = '<span class="icon">⏳</span> Loading the Guillotine...';
+
+    setTimeout(() => {
+      btnStart.innerHTML = '<span class="icon">⚔️</span> Start Trial';
+      btnStart.disabled = false;
+      showQuestion();
+    }, 600);
+  }
+
+  function endGame() {
+    g.isGameOver = true;
+    if (g.timer) { clearInterval(g.timer); g.timer = null; }
+
+    Sound.playGameOver();
+    // Drop blade fully
+    g.bladePosition = 140;
+    blade.style.top = '140px';
+    blade.classList.add('fallen');
+    bladeStatus.textContent = '☠️ EXECUTED';
+
+    const total = g.correct + g.wrong;
+    const pct = total > 0 ? Math.round((g.correct / total) * 100) : 0;
+
+    let msg = 'The Revolution has claimed you...';
+    let emoji = '💀';
+    if (g.correct > 10) { msg = 'You survived the Terror!'; emoji = '👑'; }
+    else if (g.correct > 6) { msg = 'You showed great courage!'; emoji = '⚔️'; }
+
+    // Force lives to 0 for display
+    g.lives = 0;
+    updateLives();
+
+    const questionArea = document.getElementById('questionArea');
+    questionArea.innerHTML = `
+      <div class="game-over" style="width:100%;">
+        <div style="font-size:60px;">${emoji}</div>
+        <div class="final-message">${msg}</div>
+        <div class="final-score">${g.score}</div>
+        <div class="final-label">Total Score</div>
+        <div class="final-stats">
+          <div class="correct-stat">✅ Saved<br><span>${g.correct}</span></div>
+          <div>❌ Executed<br><span>${g.wrong}</span></div>
+          <div>🎯 Accuracy<br><span>${pct}%</span></div>
+        </div>
+        <button class="btn-restart" onclick="location.reload()">🔄 Face the Guillotine Again</button>
+      </div>
+    `;
+
+    document.getElementById('optionsGrid').style.display = 'none';
+    document.getElementById('btnStart').style.display = 'none';
+    document.getElementById('btnNext').style.display = 'none';
+    document.querySelector('.timer-section').style.display = 'none';
+  }
+
+  // ============================================================
+  // EVENTS
+  // ============================================================
+  optionBtns.forEach(b => b.addEventListener('click', handleOptionClick));
+
+  btnStart.addEventListener('click', () => {
+    Sound.playStart();
+    // Reset the question area if it was game over
+    const area = document.getElementById('questionArea');
+    if (area.querySelector('.game-over')) {
+      area.innerHTML = `
+        <div class="question-text" id="questionText">
+          <span class="q-number">⚔️</span> Press "Start Trial" to face the guillotine!
+        </div>
+      `;
+      // Reassign questionText
+      window.questionText = document.getElementById('questionText');
+      document.querySelector('.timer-section').style.display = 'block';
+    }
+    startGame();
+  });
+
+  btnNext.addEventListener('click', nextQuestion);
+
+  // Keyboard shortcuts (1-4 for options)
+  document.addEventListener('keydown', (e) => {
+    if (e.key >= '1' && e.key <= '4') {
+      const idx = parseInt(e.key) - 1;
+      if (optionBtns[idx] && !optionBtns[idx].disabled) optionBtns[idx].click();
+    }
+    if (e.key === 'Enter' || e.key === ' ') {
+      if (btnNext.classList.contains('show')) btnNext.click();
+      if (!btnStart.disabled && !g.isGameOver) btnStart.click();
+    }
+  });
+
+  console.log('🔪 The Guillotine loaded! — 25 seconds per question.');
+</script>
+
+</body>
+</html>
